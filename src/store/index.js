@@ -53,7 +53,7 @@ export default new Vuex.Store({
   },
   actions: {
     async loadEntriesByContentTypeIdAsync({ commit }, contentTypeId) {
-      const entries = await apiContentful.getContentbyTypeAsync(contentTypeId);
+      const entries = await apiContentful.getContentByTypeAsync(contentTypeId);
       commit('addEntriesForContentTypeId', { contentTypeId, entries });
     },
   },

@@ -2,6 +2,6 @@ module.exports = {
   configureWebpack: {
     devtool: 'source-map',
   },
-  // publicPath: '',
-  publicPath: '/WoDVue/',
+  // publicPath: '', // use this for AWS deployments
+  publicPath: '/WoDVue/', // use for local and github pages
 };

@@ -1,6 +1,6 @@
 <template>
   <b-button-group class="mx-1">
-    <b-nav-item v-on:click="showEntry()">{{ entry.title }}</b-nav-item>
+    <b-nav-item v-on:click="showEntry()">{{ getListItemText() }}</b-nav-item>
   </b-button-group>
 </template>
 
@@ -14,6 +14,15 @@ export default {
     showEntry: function showEntry() {
       this.$store.commit('updateCurEntryId', this.entry.id);
       this.$store.commit('updateCurEntryData', this.entry);
+    },
+    getListItemText() {
+      if (this.entry.title) return this.entry.title;
+      if (this.entry.merit) return this.entry.merit;
+      if (this.entry.flaw) return this.entry.flaw;
+      if (this.entry.technique) return this.entry.technique;
+      if (this.entry.attribute) return this.entry.attribute;
+
+      return 'GOT NOTHING';
     },
   },
 };

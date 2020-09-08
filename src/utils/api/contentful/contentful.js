@@ -53,7 +53,7 @@ class APIContentful {
     return idx > -1 ? this.contentTypeInfo[idx].contentTypeId : null;
   }
 
-  async getContentbyTypeAsync(contentType) {
+  async getContentByTypeAsync(contentType) {
     const contentTypeInfo = this.getContentTypeInfoByField(
       'contentTypeId',
       contentType,
@@ -101,11 +101,12 @@ class APIContentful {
       resourceEntries,
       queryGetParentEntries,
     );
-    return this.extractEntryDataFromResponse(
+    const entryData = this.extractEntryDataFromResponse(
       resParentEntries,
       hasChildren ? { expand: false, contentTypeId } : { contentTypeId },
       sortParent,
     );
+    return entryData;
   }
 
   async loadChildEntriesAsync(
@@ -159,10 +160,11 @@ class APIContentful {
 
   extractData(entryData) {
     const keys = Object.keys(entryData);
-    return keys.reduce((entry, k) => {
+    const data = keys.reduce((entry, k) => {
       entry[k] = this.getFieldValue(entryData[k]);
       return entry;
     }, {});
+    return data;
   }
 
   getFieldValue(field) {
