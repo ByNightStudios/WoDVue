@@ -63,14 +63,13 @@ a:hover {
     color: #FFFFFF;
     text-decoration: none;
     border-bottom: 1px solid transparent; }
-    .btn-werewolf{
-      display: none;
-    }
     .navbar a:hover {
       border-bottom: 1px solid #FFFFFF; }
     .navbar a.router-link-exact-active {
       color: #FFFFFF;
       border-bottom: 1px solid #FFFFFF; }
+  .navbar .btn-werewolf {
+    display: none; }
   .navbar .logo {
     background-image: url(../assets/logo.png);
     width: 256px;
@@ -89,6 +88,39 @@ a:hover {
       width: 160px;
       height: 56px;
       top: 16px; }
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+  margin-top: 0; }
+
+.dropdown-toggle::after {
+  display: none; }
+
+.dropdown-menu {
+  background-color: #141414;
+  border-radius: 0px;
+  margin-top: -2px !important;
+  padding: 0;
+  border: 1px solid #282828; }
+  .dropdown-menu li a.dropdown-item, .dropdown-menu li a.nav-link.dropdown-toggle {
+    color: #FFFFFF;
+    padding: 0 1rem;
+    line-height: 40px !important; }
+    .dropdown-menu li a.dropdown-item:hover, .dropdown-menu li a.nav-link.dropdown-toggle:hover {
+      /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000028+0,700000+90,700000+100 */
+      background: #000028;
+      /* Old browsers */
+      background: -moz-linear-gradient(top, #000028 0%, #700000 90%, #700000 100%);
+      /* FF3.6-15 */
+      background: -webkit-linear-gradient(top, #000028 0%, #700000 90%, #700000 100%);
+      /* Chrome10-25,Safari5.1-6 */
+      background: linear-gradient(to bottom, #000028 0%, #700000 90%, #700000 100%);
+      /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+      filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000028', endColorstr='#700000',GradientType=0 );
+      /* IE6-9 */ }
+  .dropdown-menu .dropdown-menu {
+    background-color: #282828;
+    margin-left: 0px; }
 
 .innerMonster {
   padding-bottom: 50px; }
@@ -177,7 +209,7 @@ a:hover {
     background-color: #141414;
     height: 100%;
     overflow: auto;
-    /*max-width: 1200px; */}
+    max-width: 1200px; }
   .mainContent .data {
     margin-bottom: 10px; }
     .mainContent .data .title {
@@ -208,57 +240,50 @@ a:hover {
   #menu-footer .container {
     justify-content: space-between; } }
 @media (max-width: 767px) {
-  #app{
-    height: auto;
-  }
-  #nav{
-  margin-top: 0px;
-  height: auto;
-  }
-  .navbar a{
-    margin: 20px 0px;
-  }
-  .navbar .logo{
+  #app {
+    height: auto; }
+
+  #nav {
+    margin-top: 0px;
+    height: auto; }
+
+  .navbar a {
+    margin: 20px 0px; }
+
+  .navbar .logo {
     position: relative;
     transform: none;
     left: auto;
     top: 0;
     flex: 100%;
     background-position: center;
-    margin-bottom: 0px;
-  }
-  .main-content{
-    min-height: 50vh;
-  }
-  .main-content .container{
-    text-align: center;
-  }
-  #menu-footer{
-    height: auto;
-  }
-  .navbar .logo.logoNS{
-    top: 0px;
-  }
-  #monsterContentTypesNav{
+    margin-bottom: 0px; }
+
+  .main-content {
+    min-height: 50vh; }
+
+  .main-content .container {
+    text-align: center; }
+
+  #menu-footer {
+    height: auto; }
+
+  .navbar .logo.logoNS {
+    top: 0px; }
+
+  #monsterContentTypesNav {
     flex-wrap: wrap;
     height: auto;
-    min-height: 50px;
-  }
+    min-height: 50px; }
+
   .leftNav {
     max-width: 25%;
-    min-height: 400px;
-  }
-  .innerMonster .mainContent{
-    flex: 0 0 75%;
-    max-width: 75%;
-    padding: 0px;
-  }
-  .footer-copyright{
-    font-size: 14px;
-  }
-  #monsterContentTypesNav .nav-link{
-    line-height: 30px;
-  }
-}
+    min-height: 400px; }
+
+  .footer-copyright {
+    font-size: 14px; }
+
+  #monsterContentTypesNav .nav-link {
+    line-height: 30px; } }
 
 /*# sourceMappingURL=globals.css.map */

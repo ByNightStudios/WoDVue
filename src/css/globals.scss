@@ -89,6 +89,10 @@ a:hover{
 		}
 	}
 
+	.btn-werewolf{
+      display: none;
+    }
+
 
 	.logo{
 		background-image: url(../assets/logo.png);
@@ -113,6 +117,40 @@ a:hover{
 			top: 16px;
 		}
 	}
+}
+.dropdown:hover > .dropdown-menu {
+    display: block;
+    margin-top: 0; 
+ }
+.dropdown-toggle::after{
+  display: none;
+}
+.dropdown-menu{
+  	background-color: #141414;
+  	border-radius: 0px;
+  	margin-top: -2px !important;
+  	padding:0;
+  	border: 1px solid #282828;
+
+  	li a.dropdown-item, li a.nav-link.dropdown-toggle{
+    	color: #FFFFFF;
+    	padding: 0 1rem;
+    	line-height: 40px !important;
+  		&:hover{
+    	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000028+0,700000+90,700000+100 */
+		background: rgb(0,0,40); /* Old browsers */
+		background: -moz-linear-gradient(top,  rgba(0,0,40,1) 0%, rgba(112,0,0,1) 90%, rgba(112,0,0,1) 100%); /* FF3.6-15 */
+		background: -webkit-linear-gradient(top,  rgba(0,0,40,1) 0%,rgba(112,0,0,1) 90%,rgba(112,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+		background: linear-gradient(to bottom,  rgba(0,0,40,1) 0%,rgba(112,0,0,1) 90%,rgba(112,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000028', endColorstr='#700000',GradientType=0 ); /* IE6-9 */
+    }
+
+
+  }
+  .dropdown-menu{
+  	background-color: #282828;
+  	margin-left: 0px;
+  }
 }
 .innerMonster{
 	padding-bottom: 50px;
@@ -202,7 +240,7 @@ a:hover{
 	width: 100%;
 
 	.container{
-		justify-content: space-around;
+		justify-content: space-between;
 	}
 
 	a{
@@ -225,7 +263,7 @@ a:hover{
 
 .mainContent{
 
-	padding: 50px 20px;
+	padding: 15px 0px 0;
 	max-height:100%;
 	overflow: auto;
 	.boxDescription{
@@ -300,4 +338,54 @@ a:hover{
 			justify-content: space-between;
 		}
 	}
+}
+
+@media (max-width: 767px) {
+  #app{
+    height: auto;
+  }
+  #nav{
+  margin-top: 0px;
+  height: auto;
+  }
+  .navbar a{
+    margin: 20px 0px;
+  }
+  .navbar .logo{
+    position: relative;
+    transform: none;
+    left: auto;
+    top: 0;
+    flex: 100%;
+    background-position: center;
+    margin-bottom: 0px;
+  }
+  .main-content{
+    min-height: 50vh;
+  }
+  .main-content .container{
+    text-align: center;
+  }
+  #menu-footer{
+    height: auto;
+  }
+  .navbar .logo.logoNS{
+    top: 0px;
+  }
+  #monsterContentTypesNav{
+    flex-wrap: wrap;
+    height: auto;
+    min-height: 50px;
+  }
+  .leftNav {
+    max-width: 25%;
+    min-height: 400px;
+  }
+
+  .footer-copyright{
+    font-size: 14px;
+  }
+  #monsterContentTypesNav .nav-link{
+    line-height: 30px;
+  }
 }
