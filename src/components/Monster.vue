@@ -1,43 +1,16 @@
 <template>
   <div class="inner-content">
     <b-nav align="center" id="monsterContentTypesNav">
-      <b-nav-item-dropdown text="Type">
-        <b-dropdown-item href="#">Sub-Item</b-dropdown-item>
-        <b-dropdown-item href="#">Sub-Item</b-dropdown-item>
-        <b-dropdown-item href="#">Sub-Item</b-dropdown-item>
-        <b-dropdown-item href="#">Sub-Item</b-dropdown-item>
-        <b-nav-item-dropdown text="Submenu" dropright>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-        </b-nav-item-dropdown>
-        <b-nav-item-dropdown text="Submenu" dropright>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-          <b-dropdown-item href="#">Second Level</b-dropdown-item>
-        </b-nav-item-dropdown>
-      </b-nav-item-dropdown>
-
-      <b-nav-item-dropdown
-      v-for="(contentTypeId, idx) in monsterContentTypeIds"
-        :key="`${contentTypeId}_${idx}`"
-        active
-        :text="contentTypeId.text">
-      </b-nav-item-dropdown>
-      <!--
       <b-nav-item
         v-for="(contentTypeId, idx) in monsterContentTypeIds"
         :key="`${contentTypeId}_${idx}`"
         active
         v-on:click="clickMonsterContentTypesNavItem(contentTypeId)"
-        >{{ contentTypeId.text }}</b-nav-item>
-        -->
+      >{{ contentTypeId.text }}</b-nav-item>
     </b-nav>
-    <div class="container innerMonster d-flex flex-column h-100 ">
+    <div class="container-fluid innerMonster d-flex flex-column h-100">
       <div class="row h-100">
-        <!--<cContentList></cContentList> -->
+        <cContentList></cContentList>
         <cContentView></cContentView>
       </div>
     </div>
@@ -45,7 +18,7 @@
 </template>
 
 <script>
-// import cContentList from './common/contentList.vue';
+import cContentList from './common/contentList.vue';
 import cContentView from './common/contentView.vue';
 
 export default {
@@ -94,7 +67,7 @@ export default {
     },
   },
   components: {
-    // cContentList,
+    cContentList,
     cContentView,
   },
 };

@@ -1,5 +1,5 @@
 <template>
-  <div class="mainContent col">
+  <div class="mainContent col-md-9">
     <div class="boxDescription">
       <simplebar class="darkBar" data-simplebar-auto-hide="false">
         <div class="data" v-for="(item, idx) in entryData" :key="`content_${idx}`">
