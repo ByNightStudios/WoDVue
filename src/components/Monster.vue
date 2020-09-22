@@ -31,6 +31,7 @@ export default {
   },
   computed: {
     curMonster() {
+      console.log(this.$route);
       const curMonster = this.$route.params.monster;
       this.$store.commit('updateMonster', curMonster);
       return curMonster;
@@ -46,12 +47,15 @@ export default {
     getContentTypeIdsString: function getContentTypeIdsString() {
       const envVarKey = `VUE_APP_CONTENT_TYPE_NAV_ITEMS_${this.curMonster.toUpperCase()}`;
       const envVar = process.env[envVarKey];
+      console.log(process.env);
       return envVar;
     },
     getContentTypeIds: function getContentTypeIds(monster) {
+      console.log(monster);
       return this.processContentTypeIds(this.getContentTypeIdsString(monster));
     },
     processContentTypeIds: function processContentTypeIds(contentTypesString) {
+      console.log(contentTypesString);
       return contentTypesString
         .split(',')
         .map((ni) => ni.split('|'))

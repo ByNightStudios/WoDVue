@@ -20,14 +20,16 @@ const routes = [
       {
         // Monster will be rendered inside Monster's <router-view>
         // when /monsters/:monster is matched
-        path: '/monsters/:monster',
+        path: '/:monster',
         name: 'Monster',
+        component: vMonster,
       },
       {
         // ContentType will be rendered inside Monsters's <router-view>
         // when /monsters/:monster/:contentType is matched
-        path: '/monsters/:monster/:contentType',
+        path: '/:monster/:contentType',
         name: 'Content',
+        component: vMonster,
       },
     ],
   },

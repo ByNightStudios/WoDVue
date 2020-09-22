@@ -48,6 +48,10 @@ export default {
   data() {
     return {
       dataError: {},
+      data: {
+        skip: 0,
+        limit: 10,
+      },
     };
   },
   mounted() {},
@@ -63,9 +67,12 @@ export default {
 
       if (!this.entryListData || this.entryListData.length === 0) {
         console.log('fetching data');
+        this.data.skip += 1;
         await this.$store.dispatch(
           'loadEntriesByContentTypeIdAsync',
           curContentTypeId,
+          this.data.skip,
+          this.data.limit,
         );
         console.log('entryListData');
         console.dir(this.entryListData);
