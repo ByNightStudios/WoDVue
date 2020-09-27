@@ -41,7 +41,7 @@ export default {
         const dcpAry = dcp.split('|');
         const [displayLabel, contentField] = dcpAry;
         const dcpObj = {
-          displayLabel,
+          displayLabel: displayLabel === 'Pins' ? `PINS:  Get your ${curMonster} Pin now!` : displayLabel,
           value: entryData[contentField],
         };
         return dcpObj;
