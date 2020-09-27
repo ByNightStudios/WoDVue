@@ -12,6 +12,15 @@ export default {
   },
   methods: {
     showEntry: function showEntry() {
+      if (this.entry) {
+        const { params } = this.$route;
+        const { contentType, id } = params;
+        if (!id) {
+          this.$router.push({ path: `${contentType}/${this.entry.id}` });
+        } else {
+          this.$router.push({ path: `${this.entry.id}` });
+        }
+      }
       this.$store.commit('updateCurEntryId', this.entry.id);
       this.$store.commit('updateCurEntryData', this.entry);
     },
