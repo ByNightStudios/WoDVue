@@ -53,7 +53,7 @@ class APIContentful {
     return idx > -1 ? this.contentTypeInfo[idx].contentTypeId : null;
   }
 
-  async getContentByTypeAsync(contentType) {
+  async getContentByTypeAsync(contentType, skip, limit) {
     const contentTypeInfo = this.getContentTypeInfoByField(
       'contentTypeId',
       contentType,
@@ -75,6 +75,8 @@ class APIContentful {
       contentTypeId,
       sortParent,
       parentKeyField !== '',
+      skip,
+      limit,
     );
     let allEntryData = parentEntries;
     if (parentKeyField !== '') {
@@ -88,7 +90,7 @@ class APIContentful {
     return allEntryData;
   }
 
-  async getParentEntriesAsync(contentTypeId, sortParent, hasChildren) {
+  async getParentEntriesAsync(contentTypeId, sortParent, hasChildren, skip, limit) {
     const queryGetParentEntries = {
       content_type: contentTypeId,
       select: 'fields,sys.id',
@@ -100,6 +102,7 @@ class APIContentful {
     const resParentEntries = await this.queryContentfulAsync(
       resourceEntries,
       queryGetParentEntries,
+      skip, limit,
     );
     const entryData = this.extractEntryDataFromResponse(
       resParentEntries,
@@ -222,8 +225,8 @@ class APIContentful {
     return unsortedEntries;
   }
 
-  async queryContentfulAsync(resource, query) {
-    return http.get(resource, { params: query });
+  async queryContentfulAsync(resource, query, skip, limit) {
+    return http.get(resource, { params: query, skip: skip, limit: limit });
   }
 
   getContentTypeIdFromResponse(resContentful) {

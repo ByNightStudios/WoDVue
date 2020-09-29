@@ -59,6 +59,7 @@ export default {
     },
   },
   mounted() {
+    this.$store.commit('updateCurContentTypeId', this.$route.params.contentType);
     this.monsterContentTypeIds = this.getContentTypeIds(this.curMonster);
   },
   watch: {

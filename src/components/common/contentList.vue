@@ -2,7 +2,7 @@
   <div class="leftNav col-md-3">
     <simplebar class="darkBar" data-simplebar-auto-hide="false">
       <b-nav vertical>
-        <div v-for="(parentEntry, idx) in entryListData" :key="`parent_${idx}`">
+        <div v-for="(parentEntry) in entryListData" :key="`${parentEntry.id}`">
           <b-button-toolbar key-nav>
             <b-button-group class="mx-1">
               <b-button
@@ -48,9 +48,12 @@ export default {
   data() {
     return {
       dataError: {},
+      data: {
+        skip: 0,
+        limit: 10,
+      },
     };
   },
-  mounted() {},
   methods: {
     clickExpand: function clickExpand(parentEntry) {
       parentEntry.expand = !parentEntry.expand;
@@ -61,11 +64,21 @@ export default {
       console.log('curContentTypeId');
       console.log(curContentTypeId);
 
+      const { params } = this.$route;
+      const { monster, id } = params;
+      if (curContentTypeId) {
+        this.$router.push({ path: `/monsters/${monster}/${curContentTypeId}` });
+      } else {
+        this.$router.push({ path: `/monsters/${monster}/${curContentTypeId}/${id}` });
+      }
       if (!this.entryListData || this.entryListData.length === 0) {
         console.log('fetching data');
+        this.data.skip += 1;
         await this.$store.dispatch(
           'loadEntriesByContentTypeIdAsync',
           curContentTypeId,
+          this.data.skip,
+          this.data.limit,
         );
         console.log('entryListData');
         console.dir(this.entryListData);

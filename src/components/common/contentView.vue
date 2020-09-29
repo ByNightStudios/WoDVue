@@ -3,12 +3,18 @@
     <div class="boxDescription">
       <simplebar class="darkBar" data-simplebar-auto-hide="false">
         <div class="data" v-for="(item, idx) in entryData" :key="`content_${idx}`">
-          <span class="title">{{ item.displayLabel }}:</span>
+
+          <div v-if="item.value">
+            <span class="title">{{ item.displayLabel }}:</span>
           <div v-if="helpers.typeOf(item.value) === 'string'">
             <span v-if="!item.value.includes('http')">{{item.value}}</span>
             <a v-if="item.value.includes('http')" :href="item.value" target="_blank">{{item.value}}</a>
           </div>
           <p v-else v-for="(subItem, idx) in item.value" :key="`subItem_${idx}`">{{ subItem }}</p>
+      </div>
+      <div v-else>
+      </div>
+
         </div>
       </simplebar>
     </div>
@@ -41,7 +47,7 @@ export default {
         const dcpAry = dcp.split('|');
         const [displayLabel, contentField] = dcpAry;
         const dcpObj = {
-          displayLabel,
+          displayLabel: displayLabel === 'Pins' ? `PINS:  Get your ${curMonster} Pin now!` : displayLabel,
           value: entryData[contentField],
         };
         return dcpObj;

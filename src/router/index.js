@@ -5,6 +5,7 @@ import vMonster from '../views/Monster.vue';
 import vAbout from '../views/About.vue';
 import vNotFound from '../views/NotFound.vue';
 
+
 const routes = [
   {
     path: '/',
@@ -12,14 +13,29 @@ const routes = [
     component: vHome,
   },
   {
-    path: '/monsters/:monster',
-    name: 'Monster',
+    path: '/monsters',
     component: vMonster,
     props: true,
-  },
-  {
-    path: '/monsters/:monster/:contentType',
-    name: 'Content',
+    children: [
+      {
+        // Monster will be rendered inside Monster's <router-view>
+        // when /monsters/:monster is matched
+        path: '/monsters/:monster',
+        name: 'Monster',
+      },
+      {
+        // ContentType will be rendered inside Monsters's <router-view>
+        // when /monsters/:monster/:contentType is matched
+        path: '/monsters/:monster/:contentType',
+        name: 'Content',
+      },
+      {
+        // ContentType will be rendered inside Monsters's <router-view>
+        // when /monsters/:monster/:contentType is matched
+        path: '/monsters/:monster/:contentType/:id',
+        name: 'MonsterId',
+      },
+    ],
   },
   {
     path: '/about',
