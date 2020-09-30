@@ -90,22 +90,20 @@ module.exports = require('./webpack.base.babel')({
       relativePaths: false,
       publicPath: '/',
       appShell: '/',
-
+      autoUpdate: true,
       // No need to cache .htaccess. See http://mxs.is/googmp,
       // this is applied before any match in `caches` section
-      excludes: ['.htaccess'],
-
-      caches: {
-        main: [':rest:'],
-
-        // All chunks marked as `additional`, loaded after main section
-        // and do not prevent SW to install. Change to `optional` if
-        // do not want them to be preloaded at all (cached only when first loaded)
-        additional: ['*.chunk.js'],
-      },
-
+      excludes: ['.htaccess', 'index.html'],
       // Removes warning for about `additional` section usage
       safeToUseOptionalCaches: true,
+      responseStrategy: 'network-first',
+      ServiceWorker: {
+        events: true,
+      },
+      AppCache: {
+        events: true,
+      },
+      version: new Date().getTime(),
     }),
 
     new CompressionPlugin({

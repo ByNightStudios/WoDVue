@@ -1,6 +1,6 @@
 /**
  *
- * Tests for HomePage
+ * Tests for Loadable
  *
  * @see https://github.com/react-boilerplate/react-boilerplate/tree/master/docs/testing
  *
@@ -8,21 +8,14 @@
 
 import React from 'react';
 import { render } from 'react-testing-library';
-import { IntlProvider } from 'react-intl';
 // import 'jest-dom/extend-expect'; // add some helpful assertions
 
-import { HomePage } from '../index';
-import { DEFAULT_LOCALE } from '../../../i18n';
+import Loadable from '../index';
 
-describe('<HomePage />', () => {
+describe('<Loadable />', () => {
   it('Expect to not log errors in console', () => {
     const spy = jest.spyOn(global.console, 'error');
-    const dispatch = jest.fn();
-    render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <HomePage dispatch={dispatch} />
-      </IntlProvider>,
-    );
+    render(<Loadable />);
     expect(spy).not.toHaveBeenCalled();
   });
 
@@ -38,11 +31,7 @@ describe('<HomePage />', () => {
   it.skip('Should render and match the snapshot', () => {
     const {
       container: { firstChild },
-    } = render(
-      <IntlProvider locale={DEFAULT_LOCALE}>
-        <HomePage />
-      </IntlProvider>,
-    );
+    } = render(<Loadable />);
     expect(firstChild).toMatchSnapshot();
   });
 });
