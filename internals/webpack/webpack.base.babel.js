@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const Dotenv = require('dotenv-webpack');
 
 module.exports = options => ({
   mode: options.mode,
@@ -113,6 +114,10 @@ module.exports = options => ({
     // drop any unreachable code.
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+    }),
+    new Dotenv({
+      path: './.env', // Path to .env file (this is the default)
+      systemvars: true,
     }),
   ]),
   resolve: {
