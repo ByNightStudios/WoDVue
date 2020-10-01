@@ -26,7 +26,7 @@ export const getDataSuccess = payload => ({
   payload,
 });
 
-export const dataError = error => ({
+export const DataError = error => ({
   type: DATA_ERROR,
   error,
 });

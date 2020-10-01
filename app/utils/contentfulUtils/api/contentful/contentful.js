@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+
 import axios from 'axios';
 import helpers from '../../helpers/helpers';
 
@@ -9,13 +10,17 @@ class APIContentful {
       baseURL: url,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN_CONTENT_DELIVERY}`,
+        Authorization: `Bearer ${
+          process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN_CONTENT_DELIVERY
+        }`,
       },
     });
 
     this.spaceId = process.env.VUE_APP_CONTENTFUL_SPACE_ID;
     this.environmentId = process.env.VUE_APP_CONTENTFUL_ENVIRONMENT_ID;
-    this.resourceBase = `/spaces/${this.spaceId}/environments/${this.environmentId}`;
+    this.resourceBase = `/spaces/${this.spaceId}/environments/${
+      this.environmentId
+    }`;
 
     // this is an array of objects, each object has some necessary
     // info about a contentType
@@ -28,7 +33,7 @@ class APIContentful {
 
   buildContentTypeInfo() {
     const contentTypeInfoStr = process.env.VUE_APP_CONTENTFUL_CONTENT_TYPE_INFO;
-    return contentTypeInfoStr.split(',').map((ciStr) => {
+    return contentTypeInfoStr.split(',').map(ciStr => {
       const [
         contentType,
         contentTypeId,
@@ -48,7 +53,7 @@ class APIContentful {
 
   getContentTypeId(contentType) {
     const idx = this.contentTypeInfo.findIndex(
-      (cti) => cti.contentType === contentType,
+      cti => cti.contentType === contentType,
     );
     return idx > -1 ? this.contentTypeInfo[idx].contentTypeId : null;
   }
@@ -90,7 +95,13 @@ class APIContentful {
     return allEntryData;
   }
 
-  async getParentEntriesAsync(contentTypeId, sortParent, hasChildren, skip, limit) {
+  async getParentEntriesAsync(
+    contentTypeId,
+    sortParent,
+    hasChildren,
+    skip,
+    limit,
+  ) {
     const queryGetParentEntries = {
       content_type: contentTypeId,
       select: 'fields,sys.id',
@@ -102,7 +113,8 @@ class APIContentful {
     const resParentEntries = await this.queryContentfulAsync(
       resourceEntries,
       queryGetParentEntries,
-      skip, limit,
+      skip,
+      limit,
     );
     const entryData = this.extractEntryDataFromResponse(
       resParentEntries,
@@ -118,7 +130,7 @@ class APIContentful {
     parentKeyField,
     sortChild,
   ) {
-    const promises = parentEntries.map((pe) =>
+    const promises = parentEntries.map(pe =>
       this.getChildEntriesForParentAsync(
         contentTypeId,
         parentKeyField,
@@ -128,9 +140,9 @@ class APIContentful {
       ),
     );
     const allChildEntries = await Promise.all(promises);
-    parentEntries.forEach((pe) => {
+    parentEntries.forEach(pe => {
       const childrenIdx = allChildEntries.findIndex(
-        (ce) => ce.length > 0 && ce[0][parentKeyField] === pe[parentKeyField],
+        ce => ce.length > 0 && ce[0][parentKeyField] === pe[parentKeyField],
       );
       pe.children = childrenIdx === -1 ? [] : allChildEntries[childrenIdx];
     });
@@ -187,9 +199,9 @@ class APIContentful {
 
   getObjectValue(field) {
     const contentAry = field.content
-      .map((c) => c.content)
+      .map(c => c.content)
       .flat()
-      .map((c) => c.value);
+      .map(c => c.value);
     return contentAry;
   }
 
@@ -198,7 +210,7 @@ class APIContentful {
   }
 
   addInitialVals(entries, initialVals) {
-    return entries.map((e) => ({
+    return entries.map(e => ({
       ...e,
       ...initialVals,
     }));
@@ -210,11 +222,11 @@ class APIContentful {
     sortField = null,
   ) {
     const { items } = resContentful.data;
-    const itemObjects = items.map((i) => ({
+    const itemObjects = items.map(i => ({
       ...i.fields,
       id: i.sys.id,
     }));
-    let unsortedEntries = itemObjects.map((i) => this.extractData(i));
+    let unsortedEntries = itemObjects.map(i => this.extractData(i));
     if (initialVals) {
       unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
     }
@@ -226,7 +238,7 @@ class APIContentful {
   }
 
   async queryContentfulAsync(resource, query, skip, limit) {
-    return http.get(resource, { params: query, skip: skip, limit: limit });
+    return http.get(resource, { params: query, skip, limit });
   }
 
   getContentTypeIdFromResponse(resContentful) {
@@ -235,7 +247,7 @@ class APIContentful {
 
   getContentTypeInfoByField(fieldName, fieldValue) {
     const idx = this.contentTypeInfo.findIndex(
-      (cti) => cti[fieldName] === fieldValue,
+      cti => cti[fieldName] === fieldValue,
     );
     return idx > -1 ? this.contentTypeInfo[idx] : null;
   }

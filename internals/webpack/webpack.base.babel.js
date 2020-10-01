@@ -4,7 +4,9 @@
 
 const path = require('path');
 const webpack = require('webpack');
-const Dotenv = require('dotenv-webpack');
+const dotenv = require('dotenv').config({
+  path: path.join(__dirname, '.env'),
+});
 
 module.exports = options => ({
   mode: options.mode,
@@ -112,12 +114,11 @@ module.exports = options => ({
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
     // inside your code for any environment checks; Terser will automatically
     // drop any unreachable code.
+    new webpack.DefinePlugin({
+      'process.env': dotenv.parsed,
+    }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
-    }),
-    new Dotenv({
-      path: './.env', // Path to .env file (this is the default)
-      systemvars: true,
     }),
   ]),
   resolve: {
