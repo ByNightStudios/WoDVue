@@ -10,14 +10,12 @@ class APIContentful {
       baseURL: url,
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${
-          process.env.VUE_APP_CONTENTFUL_ACCESS_TOKEN_CONTENT_DELIVERY
-        }`,
+        Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
       },
     });
 
-    this.spaceId = process.env.VUE_APP_CONTENTFUL_SPACE_ID;
-    this.environmentId = process.env.VUE_APP_CONTENTFUL_ENVIRONMENT_ID;
+    this.spaceId = 'yicuw1hpxsdg';
+    this.environmentId = `master`;
     this.resourceBase = `/spaces/${this.spaceId}/environments/${
       this.environmentId
     }`;
@@ -32,7 +30,8 @@ class APIContentful {
   }
 
   buildContentTypeInfo() {
-    const contentTypeInfoStr = process.env.VUE_APP_CONTENTFUL_CONTENT_TYPE_INFO;
+    const contentTypeInfoStr =
+      'Disciplines|discipline|power|title|level|,Clans & Bloodlines|clans||title|,Skills|skills||title|,Backgrounds|backgrounds||title|,Merits|merits||merit|,Flaws|flaws||flaw,Techniques|techniques||technique,Attributes|attributes||attribute';
     return contentTypeInfoStr.split(',').map(ciStr => {
       const [
         contentType,
@@ -295,5 +294,5 @@ class APIContentful {
 }
 
 export default new APIContentful({
-  url: process.env.VUE_APP_CONTENTFUL_BASE_URL,
+  url: 'https://cdn.contentful.com',
 });

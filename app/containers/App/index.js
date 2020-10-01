@@ -19,8 +19,6 @@ import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import bgImage from '../../images/bg.4daf1f93.jpg';
 
-import GlobalStyle from '../../global-styles';
-
 import makeSelectApp from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -54,7 +52,6 @@ export function App({ onRequestData }) {
         <Route exact path="/" component={HomePage} />
         <Route component={NotFoundPage} />
       </Switch>
-      <GlobalStyle />
     </div>
   );
 }

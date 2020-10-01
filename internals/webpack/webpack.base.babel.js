@@ -8,7 +8,6 @@ const webpack = require('webpack');
 const dotenv = require('dotenv').config({
   path: path.join(__dirname, '.env'),
 });
-
 module.exports = options => ({
   mode: options.mode,
   entry: options.entry,
@@ -116,7 +115,7 @@ module.exports = options => ({
     // inside your code for any environment checks; Terser will automatically
     // drop any unreachable code.
     new webpack.DefinePlugin({
-      'process.env': dotenv.parsed,
+      'process.env': JSON.stringify(dotenv),
     }),
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
