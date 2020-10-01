@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -24,10 +24,15 @@ import GlobalStyle from '../../global-styles';
 import makeSelectApp from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { getData } from './actions';
 
-export function App() {
+export function App({ onRequestData }) {
   useInjectReducer({ key: 'app', reducer });
   useInjectSaga({ key: 'app', saga });
+
+  useEffect(() => {
+    onRequestData();
+  }, []);
 
   return (
     <div
@@ -64,7 +69,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    onRequestData: () => dispatch(getData()),
   };
 }
 
