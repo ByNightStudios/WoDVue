@@ -5,11 +5,12 @@ import { getDataSuccess, DataError } from './actions';
 
 function* getData() {
   try {
-    console.log(apiContentful)
+    const response = yield Promise.resolve(apiContentful.getParentEntriesAsync);
+    console.log(response);
     // const response = yield call(apiContentful);
     // console.log(response);
   } catch (e) {
-    console.log(e)
+    console.log(e);
     yield put(DataError(e));
   }
 }
