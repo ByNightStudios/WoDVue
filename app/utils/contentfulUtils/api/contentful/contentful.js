@@ -59,6 +59,7 @@ class APIContentful {
   }
 
   getContentTypeId(contentType) {
+    console.log(contentType);
     const idx = this.contentTypeInfo.findIndex(
       cti => cti.contentType === contentType,
     );
@@ -102,7 +103,11 @@ class APIContentful {
     return allEntryData;
   }
 
-  async getParentEntriesAsync(contentTypeId, sortParent, hasChildren) {
+  async getParentEntriesAsync(
+    contentTypeId = 'clans',
+    sortParent,
+    hasChildren,
+  ) {
     const queryGetParentEntries = {
       content_type: contentTypeId,
       select: 'fields,sys.id',
@@ -166,7 +171,7 @@ class APIContentful {
     const resChildEntries = await this.queryContentfulAsync(resource, query);
     const childEntries = this.extractEntryDataFromResponse(
       resChildEntries,
-      { contentTypeId, parentId },
+      { contentTypeId: 'clans', parentId },
       sortChild,
     );
     return childEntries;

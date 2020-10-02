@@ -12,6 +12,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
+import { groupBy } from 'lodash';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -28,7 +29,7 @@ export function HomePage({ onRequestData, homePage }) {
   useInjectSaga({ key: 'homePage', saga });
 
   const {
-    contentful: { hasMore, loading },
+    contentful: { hasMore, loading, data },
   } = homePage;
 
   useEffect(() => {
@@ -40,6 +41,8 @@ export function HomePage({ onRequestData, homePage }) {
   if (loading && hasMore) {
     return <Loader />;
   }
+
+  console.log(groupBy(data, 'technique'));
   return (
     <div>
       <Helmet>
