@@ -1,323 +1,308 @@
-// /* eslint-disable indent */
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-self-assign */
+/* eslint-disable indent */
 
-// import axios from 'axios';
-// import helpers from '../../helpers/helpers';
+import axios from 'axios';
+import helpers from '../../helpers/helpers';
 
-// let http = null;
-// class APIContentful {
-//   constructor({ url }) {
-//     http = axios.create({
-//       baseURL: url,
-//       headers: {
-//         'Content-Type': 'application/json',
-//         Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
-//       },
-//     });
+let http = null;
+let skipData = null;
+let limitData = null;
 
-//     this.spaceId = 'yicuw1hpxsdg';
-//     this.environmentId = `master`;
-//     this.resourceBase = `/spaces/${this.spaceId}/environments/${
-//       this.environmentId
-//     }`;
+class APIContentful {
+  constructor({ url }) {
+    http = axios.create({
+      baseURL: url,
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
+      },
+    });
 
-//     // this is an array of objects, each object has some necessary
-//     // info about a contentType
-//     this.contentTypeInfo = this.buildContentTypeInfo();
-//     this.getContentByTypeAsync = this.getContentByTypeAsync();
-//     this.getParentEntriesAsync = this.getParentEntriesAsync();
-//   }
+    this.spaceId = 'yicuw1hpxsdg';
+    this.environmentId = `master`;
+    this.resourceBase = `/spaces/${this.spaceId}/environments/${
+      this.environmentId
+    }`;
 
-//   getResource(resource) {
-//     return `${this.resourceBase}\\${resource}`;
-//   }
+    // this is an array of objects, each object has some necessary
+    // info about a contentType
+    this.contentTypeInfo = this.buildContentTypeInfo();
+    this.getContentByTypeAsync = this.getContentByTypeAsync();
+    this.getParentEntriesAsync = this.getParentEntriesAsync();
+  }
 
-//   buildContentTypeInfo() {
-//     const contentTypeInfoStr =
-//       'Disciplines|discipline|power|title|level|,Clans & Bloodlines|clans||title|,Skills|skills||title|,Backgrounds|backgrounds||title|,Merits|merits||merit|,Flaws|flaws||flaw,Techniques|techniques||technique,Attributes|attributes||attribute';
-//     return contentTypeInfoStr.split(',').map(ciStr => {
-//       const [
-//         contentType,
-//         contentTypeId,
-//         parentKeyField,
-//         sortParent,
-//         sortChild,
-//       ] = ciStr.split('|');
-//       return {
-//         contentType,
-//         contentTypeId, // content type id we use when querying contentful
-//         parentKeyField, // the field we look for when getting child entries
-//         sortParent, // field we sort parent entries by
-//         sortChild, // field we sort child entries by
-//       };
-//     });
-//   }
+  getResource(resource) {
+    return `${this.resourceBase}\\${resource}`;
+  }
 
-//   getContentTypeId(contentType) {
-//     const idx = this.contentTypeInfo.findIndex(
-//       cti => cti.contentType === contentType,
-//     );
-//     return idx > -1 ? this.contentTypeInfo[idx].contentTypeId : null;
-//   }
+  buildContentTypeInfo() {
+    const contentTypeInfoStr =
+      'Disciplines|discipline|power|title|level|,Clans & Bloodlines|clans||title|,Skills|skills||title|,Backgrounds|backgrounds||title|,Merits|merits||merit|,Flaws|flaws||flaw,Techniques|techniques||technique,Attributes|attributes||attribute';
+    return contentTypeInfoStr.split(',').map(ciStr => {
+      const [
+        contentType,
+        contentTypeId,
+        parentKeyField,
+        sortParent,
+        sortChild,
+      ] = ciStr.split('|');
+      return {
+        contentType,
+        contentTypeId, // content type id we use when querying contentful
+        parentKeyField, // the field we look for when getting child entries
+        sortParent, // field we sort parent entries by
+        sortChild, // field we sort child entries by
+      };
+    });
+  }
 
-//   getContentByTypeAsync(contentType, skip, limit) {
-//     const contentTypeInfo = this.getContentTypeInfoByField(
-//       'contentTypeId',
-//       contentType,
-//     );
-//     if (!contentTypeInfo) {
-//       // throw new Error(
-//       //   `Error : getContentByType : getContentTypeInfo is null for contentType ${contentType}`,
-//       // );
-//       return null;
-//     }
-//     const {
-//       contentTypeId,
-//       parentKeyField,
-//       sortParent,
-//       sortChild,
-//     } = contentTypeInfo;
+  getContentTypeId(contentType) {
+    const idx = this.contentTypeInfo.findIndex(
+      cti => cti.contentType === contentType,
+    );
+    return idx > -1 ? this.contentTypeInfo[idx].contentTypeId : null;
+  }
 
-//     const parentEntries = this.getParentEntriesAsync(
-//       contentTypeId,
-//       sortParent,
-//       parentKeyField !== '',
-//       skip,
-//       limit,
-//     );
-//     let allEntryData = parentEntries;
-//     if (parentKeyField !== '') {
-//       allEntryData = this.loadChildEntriesAsync(
-//         parentEntries,
-//         contentTypeId,
-//         parentKeyField,
-//         sortChild,
-//       );
-//     }
-//     return allEntryData;
-//   }
+  getContentByTypeAsync(contentType, skip, limit) {
+    const contentTypeInfo = this.getContentTypeInfoByField(
+      'contentTypeId',
+      contentType,
+    );
+    if (!contentTypeInfo) {
+      // throw new Error(
+      //   `Error : getContentByType : getContentTypeInfo is null for contentType ${contentType}`,
+      // );
+      return null;
+    }
+    const {
+      contentTypeId,
+      parentKeyField,
+      sortParent,
+      sortChild,
+    } = contentTypeInfo;
 
-//   async getParentEntriesAsync(
-//     contentTypeId,
-//     sortParent,
-//     hasChildren,
-//     skip,
-//     limit,
-//   ) {
-//     const queryGetParentEntries = {
-//       content_type: contentTypeId,
-//       select: 'fields,sys.id',
-//     };
-//     if (hasChildren) {
-//       queryGetParentEntries['fields.parent'] = true;
-//     }
-//     const resourceEntries = this.getResource('entries');
-//     const resParentEntries = await this.queryContentfulAsync(
-//       resourceEntries,
-//       queryGetParentEntries,
-//       skip,
-//       limit,
-//     );
-//     const entryData = this.extractEntryDataFromResponse(
-//       resParentEntries,
-//       hasChildren ? { expand: false, contentTypeId } : { contentTypeId },
-//       sortParent,
-//     );
-//     return entryData;
-//   }
+    const parentEntries = this.getParentEntriesAsync(
+      contentTypeId,
+      sortParent,
+      parentKeyField !== '',
+      skip,
+      limit,
+    );
+    let allEntryData = parentEntries;
+    if (parentKeyField !== '') {
+      allEntryData = this.loadChildEntriesAsync(
+        parentEntries,
+        contentTypeId,
+        parentKeyField,
+        sortChild,
+      );
+    }
+    return allEntryData;
+  }
 
-//   async loadChildEntriesAsync(
-//     parentEntries,
-//     contentTypeId,
-//     parentKeyField,
-//     sortChild,
-//   ) {
-//     const promises = parentEntries.map(pe =>
-//       this.getChildEntriesForParentAsync(
-//         contentTypeId,
-//         parentKeyField,
-//         pe[parentKeyField],
-//         pe.id,
-//         sortChild,
-//       ),
-//     );
-//     const allChildEntries = await Promise.all(promises);
-//     parentEntries.forEach(pe => {
-//       const childrenIdx = allChildEntries.findIndex(
-//         ce => ce.length > 0 && ce[0][parentKeyField] === pe[parentKeyField],
-//       );
-//       pe.children = childrenIdx === -1 ? [] : allChildEntries[childrenIdx];
-//     });
+  async getParentEntriesAsync(contentTypeId, sortParent, hasChildren) {
+    const queryGetParentEntries = {
+      content_type: contentTypeId,
+      select: 'fields,sys.id',
+    };
+    if (hasChildren) {
+      queryGetParentEntries['fields.parent'] = true;
+    }
+    const resourceEntries = this.getResource('entries');
+    const resParentEntries = await this.queryContentfulAsync(
+      resourceEntries,
+      queryGetParentEntries,
+    );
+    const entryData = this.extractEntryDataFromResponse(
+      resParentEntries,
+      hasChildren ? { expand: false, contentTypeId } : { contentTypeId },
+      sortParent,
+    );
+    return entryData;
+  }
 
-//     return parentEntries;
-//   }
+  async loadChildEntriesAsync(
+    parentEntries,
+    contentTypeId,
+    parentKeyField,
+    sortChild,
+  ) {
+    const promises = parentEntries.map(pe =>
+      this.getChildEntriesForParentAsync(
+        contentTypeId,
+        parentKeyField,
+        pe[parentKeyField],
+        pe.id,
+        sortChild,
+      ),
+    );
+    const allChildEntries = await Promise.all(promises);
+    parentEntries.forEach(pe => {
+      const childrenIdx = allChildEntries.findIndex(
+        ce => ce.length > 0 && ce[0][parentKeyField] === pe[parentKeyField],
+      );
+      pe.children = childrenIdx === -1 ? [] : allChildEntries[childrenIdx];
+    });
 
-//   async getChildEntriesForParentAsync(
-//     contentTypeId,
-//     parentKeyField,
-//     parentFieldValue,
-//     parentId,
-//     sortChild,
-//   ) {
-//     const keyField = `fields.${parentKeyField}`;
-//     const query = {
-//       content_type: contentTypeId,
-//       'fields.parent': false,
-//     };
-//     query[keyField] = parentFieldValue;
-//     const resource = this.getResource('entries');
-//     const resChildEntries = await this.queryContentfulAsync(resource, query);
-//     const childEntries = this.extractEntryDataFromResponse(
-//       resChildEntries,
-//       { contentTypeId, parentId },
-//       sortChild,
-//     );
-//     return childEntries;
-//   }
+    return parentEntries;
+  }
 
-//   extractData(entryData) {
-//     const keys = Object.keys(entryData);
-//     const data = keys.reduce((entry, k) => {
-//       entry[k] = this.getFieldValue(entryData[k]);
-//       return entry;
-//     }, {});
-//     return data;
-//   }
+  async getChildEntriesForParentAsync(
+    contentTypeId,
+    parentKeyField,
+    parentFieldValue,
+    parentId,
+    sortChild,
+  ) {
+    const keyField = `fields.${parentKeyField}`;
+    const query = {
+      content_type: contentTypeId,
+      'fields.parent': false,
+    };
+    query[keyField] = parentFieldValue;
+    const resource = this.getResource('entries');
+    const resChildEntries = await this.queryContentfulAsync(resource, query);
+    const childEntries = this.extractEntryDataFromResponse(
+      resChildEntries,
+      { contentTypeId, parentId },
+      sortChild,
+    );
+    return childEntries;
+  }
 
-//   getFieldValue(field) {
-//     const type = helpers.typeOf(field);
-//     switch (type) {
-//       case 'number':
-//       case 'string':
-//         return this.getTrimmedValue(field);
-//       case 'array':
-//         return this.getArrayValue(field);
-//       case 'object':
-//         return this.getObjectValue(field);
-//       default:
-//         return null;
-//     }
-//   }
+  extractData(entryData) {
+    const keys = Object.keys(entryData);
+    const data = keys.reduce((entry, k) => {
+      entry[k] = this.getFieldValue(entryData[k]);
+      return entry;
+    }, {});
+    return data;
+  }
 
-//   getObjectValue(field) {
-//     const contentAry = field.content
-//       .map(c => c.content)
-//       .flat()
-//       .map(c => c.value);
-//     return contentAry;
-//   }
+  getFieldValue(field) {
+    const type = helpers.typeOf(field);
+    switch (type) {
+      case 'number':
+      case 'string':
+        return this.getTrimmedValue(field);
+      case 'array':
+        return this.getArrayValue(field);
+      case 'object':
+        return this.getObjectValue(field);
+      default:
+        return null;
+    }
+  }
 
-//   getArrayValue(field) {
-//     return field;
-//   }
+  getObjectValue(field) {
+    const contentAry = field.content
+      .map(c => c.content)
+      .flat()
+      .map(c => c.value);
+    return contentAry;
+  }
 
-//   addInitialVals(entries, initialVals) {
-//     return entries.map(e => ({
-//       ...e,
-//       ...initialVals,
-//     }));
-//   }
+  getArrayValue(field) {
+    return field;
+  }
 
-//   extractEntryDataFromResponse(
-//     resContentful,
-//     initialVals = null,
-//     sortField = null,
-//   ) {
-//     const { items } = resContentful.data;
-//     const itemObjects = items.map(i => ({
-//       ...i.fields,
-//       id: i.sys.id,
-//     }));
-//     let unsortedEntries = itemObjects.map(i => this.extractData(i));
-//     if (initialVals) {
-//       unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
-//     }
-//     if (sortField) {
-//       const sorted = this.getSortedEntries(unsortedEntries, sortField);
-//       return sorted;
-//     }
-//     return unsortedEntries;
-//   }
+  addInitialVals(entries, initialVals) {
+    return entries.map(e => ({
+      ...e,
+      ...initialVals,
+    }));
+  }
 
-//   async queryContentfulAsync(resource) {
-//     return http.get(resource, {
-//       params: { skip: 800, limit: 50 },
-//     });
-//   }
+  extractEntryDataFromResponse(
+    resContentful,
+    initialVals = null,
+    sortField = null,
+  ) {
+    const { items } = resContentful.data;
+    const itemObjects = items.map(i => ({
+      ...i.fields,
+      id: i.sys.id,
+    }));
+    let unsortedEntries = itemObjects.map(i => this.extractData(i));
+    if (initialVals) {
+      unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
+    }
+    if (sortField) {
+      const sorted = this.getSortedEntries(unsortedEntries, sortField);
+      return sorted;
+    }
+    return unsortedEntries;
+  }
 
-//   getContentTypeIdFromResponse(resContentful) {
-//     return resContentful.items[0].contentType.sys.id;
-//   }
+  async queryContentfulAsync(resource) {
+    return http.get(resource, {
+      params: {
+        skip: skipData,
+        limit: limitData,
+      },
+    });
+  }
 
-//   getContentTypeInfoByField(fieldName, fieldValue) {
-//     const idx = this.contentTypeInfo.findIndex(
-//       cti => cti[fieldName] === fieldValue,
-//     );
-//     return idx > -1 ? this.contentTypeInfo[idx] : null;
-//   }
+  getContentTypeIdFromResponse(resContentful) {
+    return resContentful.items[0].contentType.sys.id;
+  }
 
-//   getSortedEntries(unsortedData, sortField) {
-//     return unsortedData.sort((a, b) => {
-//       const fieldA =
-//         a[sortField] && isNaN(a[sortField])
-//           ? a[sortField].toUpperCase()
-//           : a[sortField];
-//       const fieldB =
-//         b[sortField] && isNaN(b[sortField])
-//           ? b[sortField].toUpperCase()
-//           : b[sortField];
-//       if (fieldA < fieldB) {
-//         return -1;
-//       }
-//       if (fieldA > fieldB) {
-//         return 1;
-//       }
-//       return 0;
-//     });
-//   }
+  getContentTypeInfoByField(fieldName, fieldValue) {
+    const idx = this.contentTypeInfo.findIndex(
+      cti => cti[fieldName] === fieldValue,
+    );
+    return idx > -1 ? this.contentTypeInfo[idx] : null;
+  }
 
-//   getTrimmedValue(field) {
-//     if (!isNaN(field)) {
-//       return field;
-//     }
-//     return field ? field.trim() : null;
-//   }
+  getSortedEntries(unsortedData, sortField) {
+    return unsortedData.sort((a, b) => {
+      const fieldA =
+        a[sortField] && isNaN(a[sortField])
+          ? a[sortField].toUpperCase()
+          : a[sortField];
+      const fieldB =
+        b[sortField] && isNaN(b[sortField])
+          ? b[sortField].toUpperCase()
+          : b[sortField];
+      if (fieldA < fieldB) {
+        return -1;
+      }
+      if (fieldA > fieldB) {
+        return 1;
+      }
+      return 0;
+    });
+  }
 
-//   extractFieldValue(fieldObj) {
-//     if (
-//       fieldObj &&
-//       fieldObj.content &&
-//       fieldObj.content[0] &&
-//       fieldObj.content[0].content &&
-//       fieldObj.content[0].content[0] &&
-//       fieldObj.content[0].content[0].value
-//     ) {
-//       return fieldObj.content[0].content[0].value.trim();
-//     }
-//     return null;
-//   }
-// }
+  getTrimmedValue(field) {
+    if (!isNaN(field)) {
+      return field;
+    }
+    return field ? field.trim() : null;
+  }
 
-// export default new APIContentful({
-//   url: 'https://cdn.contentful.com',
-// });
-
-function getResource(resource) {
-  const resourceUrl = `/spaces/${
-    process.env.VUE_APP_CONTENTFUL_SPACE_ID
-  }/environments/${process.env.VUE_APP_CONTENTFUL_ENVIRONMENT_ID}`;
-  return `${resourceUrl}\\${resource}`;
+  extractFieldValue(fieldObj) {
+    if (
+      fieldObj &&
+      fieldObj.content &&
+      fieldObj.content[0] &&
+      fieldObj.content[0].content &&
+      fieldObj.content[0].content[0] &&
+      fieldObj.content[0].content[0].value
+    ) {
+      return fieldObj.content[0].content[0].value.trim();
+    }
+    return null;
+  }
 }
 
-export function apiContentful(params) {
+export default function apiContentful(params) {
   const { skip, limit } = params;
-  const resourceEntries = getResource('entries');
-  console.log(resourceEntries);
-  // const resParentEntries = this.queryContentfulAsync(
-  //   resourceEntries,
-  //   skip,
-  //   limit,
-  // );
-  // console.log(skip, limit);
+  skipData = skip;
+  limitData = limit;
+  return new APIContentful({
+    url: 'https://cdn.contentful.com',
+  });
 }
-
-export default apiContentful;

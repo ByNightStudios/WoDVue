@@ -1,7 +1,7 @@
-import { take, call, put, select, takeLatest } from 'redux-saga/effects';
-
+import { call, put, select, takeLatest } from 'redux-saga/effects';
 import { GET_DATA } from 'containers/App/constants';
 import { getDataSuccess, DataError } from 'containers/App/actions';
+
 import makeSelectHomePage from './selectors';
 
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
@@ -12,16 +12,15 @@ function* getData() {
     contentful: { skip, limit },
   } = homePage;
   try {
-    const response = yield call(
-      apiContentful({
-        skip,
-        limit,
-      }),
+    const response = yield call(apiContentful, {
+      skip,
+      limit,
+    });
+    const contentfulData = yield Promise.resolve(
+      response.getParentEntriesAsync,
     );
-    console.log(response);
-    // yield put(getDataSuccess(response));
+    yield put(getDataSuccess(contentfulData));
   } catch (e) {
-    console.log(e);
     yield put(DataError(e));
   }
 }

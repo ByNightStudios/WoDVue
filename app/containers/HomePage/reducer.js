@@ -4,6 +4,7 @@
  *
  */
 import produce from 'immer';
+import { concat } from 'lodash';
 import { GET_DATA, DATA_SUCCESS, DATA_ERROR } from 'containers/App/constants';
 
 export const initialState = {
@@ -25,7 +26,12 @@ const homePageReducer = (state = initialState, action) =>
         draft.contentful.loading = true;
         break;
       case DATA_SUCCESS:
-        draft.contentful.data = action.payload;
+        if (action.payload.length < 100) {
+          draft.contentful.hasMore = false;
+          draft.contentful.loading = false;
+        }
+        draft.contentful.data = concat(state.contentful.data, action.payload);
+        draft.contentful.skip += draft.contentful.limit;
         break;
       case DATA_ERROR:
         draft.contentful.error = action.error;

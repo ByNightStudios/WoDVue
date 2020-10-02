@@ -31,14 +31,13 @@ export function HomePage({ onRequestData, homePage }) {
     contentful: { hasMore, loading },
   } = homePage;
 
-  console.log(hasMore);
   useEffect(() => {
     if (hasMore) {
       onRequestData();
     }
-  }, [hasMore]);
+  });
 
-  if (loading) {
+  if (loading && hasMore) {
     return <Loader />;
   }
   return (
