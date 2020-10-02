@@ -24,13 +24,9 @@ import reducer from './reducer';
 import saga from './saga';
 import { getData } from './actions';
 
-export function App({ onRequestData }) {
+export function App() {
   useInjectReducer({ key: 'app', reducer });
   useInjectSaga({ key: 'app', saga });
-
-  useEffect(() => {
-    onRequestData();
-  }, []);
 
   return (
     <div
