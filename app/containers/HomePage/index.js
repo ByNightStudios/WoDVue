@@ -42,7 +42,7 @@ export function HomePage({ onRequestData, homePage }) {
     return <Loader />;
   }
 
-  console.log(groupBy(data, 'technique'));
+  console.log(data);
   return (
     <div>
       <Helmet>
