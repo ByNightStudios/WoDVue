@@ -187,7 +187,8 @@ a:hover {
   .leftNav {
     max-width: 300px; }
     .leftNav .btn-toolbar .btn-group .nav-link {
-      padding: 8px; } }
+      padding: 8px; }
+    }
 @media (max-width: 1199px) {
   .leftNav .btn-toolbar .btn-group .nav-link {
     padding: 8px; }
@@ -257,6 +258,9 @@ a:hover {
   }
   #monsterContentTypesNav .nav-link{
     line-height: 30px;
+  }
+  .btn-primary {
+    min-width: 88vw;
   }
 }
 

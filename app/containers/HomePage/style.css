@@ -1,0 +1,13 @@
+.welcome {
+  font-family: Cinzel;
+  font-size: 2rem;
+  color: #fff;
+  text-transform: uppercase;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 991px) {
+  .welcome {
+    font-size: 64px;
+  }
+}

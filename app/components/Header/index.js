@@ -13,11 +13,6 @@ function Header() {
   return (
     <div id="nav" className="navbar" style={{ width: '100%' }}>
       <div className="container">
-        <a
-          href="/WoDVue/"
-          className="logo router-link-exact-active router-link-active"
-          active=""
-        />
         <a href="/WoDVue/monsters/vampire" className="btn-vampire">
           Vampire the Masquerade
         </a>

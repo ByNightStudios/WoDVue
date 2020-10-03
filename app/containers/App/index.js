@@ -16,6 +16,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
+import Monster from 'containers/Monster/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import bgImage from '../../images/bg.4daf1f93.jpg';
@@ -47,6 +48,7 @@ export function App() {
       </Helmet>
       <Switch>
         <Route exact path="/" component={HomePage} />
+        <Route path="/WoDVue/monsters/vampire" component={Monster} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>

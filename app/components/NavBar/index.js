@@ -5,17 +5,25 @@
  */
 
 import React from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
 
 function NavBar() {
   return (
-    <div>
-      <FormattedMessage {...messages.header} />
-    </div>
+    <nav className="navbar navbar-expand-lg" id="monsterContentTypesNav">
+      <a className="navbar-brand" href="/demo">
+        Navbar
+      </a>
+      <button
+        className="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span className="navbar-toggler-icon" />
+      </button>
+    </nav>
   );
 }
 
