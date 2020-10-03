@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Users\shobh\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js add dotenv-webpack --save
+  C:\Program Files\nodejs\node.exe C:\Program Files\nodejs\node_modules\yarn\bin\yarn.js install
 
 PATH: 
-  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\shobh\AppData\Local\Microsoft\WindowsApps;C:\Users\shobh\AppData\Roaming\npm;C:\Program Files\Git;C:\Users\shobh\AppData\Local\Programs\Microsoft VS Code\bin
+  C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Users\shobh_kvpptbv\AppData\Local\Microsoft\WindowsApps
 
 Yarn version: 
   1.22.10
@@ -14,8 +14,11 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: read ECONNRESET
-      at TLSWrap.onStreamRead (internal/stream_base_commons.js:205:27)
+  Error: self signed certificate in certificate chain
+      at TLSSocket.onConnectSecure (_tls_wrap.js:1501:34)
+      at TLSSocket.emit (events.js:315:20)
+      at TLSSocket._finishInit (_tls_wrap.js:936:8)
+      at TLSWrap.ssl.onhandshakedone (_tls_wrap.js:710:12)
 
 npm manifest: 
   {

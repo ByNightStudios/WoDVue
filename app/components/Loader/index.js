@@ -27,7 +27,6 @@ function Loader() {
         width: '100vw',
         height: '100vh',
         backgroundColor: '#000000',
-        paddingTop: '30vh',
       }}
     >
       <div className="d-flex flex-column align-items-center justify-content-center w-100 h-100">

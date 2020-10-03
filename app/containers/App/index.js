@@ -4,7 +4,7 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
@@ -17,6 +17,7 @@ import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+
 import bgImage from '../../images/bg.4daf1f93.jpg';
 
 import makeSelectApp from './selectors';
@@ -41,7 +42,7 @@ export function App() {
       className="demo"
     >
       <Helmet>
-        <title>App</title>
+        <title>World of darkness</title>
         <meta name="description" content="Description of App" />
       </Helmet>
       <Switch>

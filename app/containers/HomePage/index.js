@@ -12,12 +12,14 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
-import { groupBy } from 'lodash';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import Loader from 'components/Loader';
 import { getData } from 'containers/App/actions';
+
+import Header from 'components/Header/Loadable';
+import Footer from 'components/Footer/Loadable';
 
 import makeSelectHomePage from './selectors';
 import reducer from './reducer';
@@ -44,12 +46,14 @@ export function HomePage({ onRequestData, homePage }) {
 
   console.log(data);
   return (
-    <div>
+    <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
       <Helmet>
-        <title>HomePage</title>
+        <title>World of darkness</title>
         <meta name="description" content="Description of HomePage" />
       </Helmet>
+      <Header />
       <FormattedMessage {...messages.header} />
+      <Footer />
     </div>
   );
 }
