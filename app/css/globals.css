@@ -42,7 +42,7 @@ a:hover {
 
 #nav {
   min-height: 125px;
-  margin-top: 20px; }
+}
 
 .navbar {
   background-color: #141414;
@@ -53,7 +53,7 @@ a:hover {
   position: relative; }
   .navbar .container {
     display: flex;
-    justify-content: space-between; }
+    justify-content: center; }
   .navbar a {
     padding: 0px;
     font-family: 'Cinzel';
@@ -205,7 +205,7 @@ a:hover {
     padding: 20px; }
 
   #menu-footer .container {
-    justify-content: space-between; } }
+    justify-content: center; } }
 @media (max-width: 767px) {
   #app{
     height: auto;

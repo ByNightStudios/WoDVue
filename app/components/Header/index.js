@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 /**
  *
  * Header
@@ -8,13 +9,22 @@ import React from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
 
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
-
 function Header() {
   return (
-    <div>
-      <FormattedMessage {...messages.header} />
+    <div id="nav" className="navbar" style={{ width: '100%' }}>
+      <div className="container">
+        <a
+          href="/WoDVue/"
+          className="logo router-link-exact-active router-link-active"
+          active=""
+        />
+        <a href="/WoDVue/monsters/vampire" className="btn-vampire">
+          Vampire the Masquerade
+        </a>
+        <a href="/WoDVue/monsters/werewolf" className="btn-werewolf">
+          Werewolf the Apocalypse
+        </a>
+      </div>
     </div>
   );
 }
