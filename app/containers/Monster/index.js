@@ -23,10 +23,13 @@ import makeSelectMonster from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
+import { getDropDownItems } from './actions';
 
-export function Monster() {
+export function Monster({ OnRequestDropDownItems, monster }) {
   useInjectReducer({ key: 'monster', reducer });
   useInjectSaga({ key: 'monster', saga });
+
+  const { loading, data } = monster;
 
   return (
     <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
@@ -36,7 +39,11 @@ export function Monster() {
       </Helmet>
       <div style={{ width: '100% ' }}>
         <Header />
-        <NavBar />
+        <NavBar
+          OnRequestDropDownItems={OnRequestDropDownItems}
+          loading={loading}
+          data={data}
+        />
       </div>
       <FormattedMessage {...messages.header} />
       <Footer />
@@ -45,7 +52,9 @@ export function Monster() {
 }
 
 Monster.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  match: PropTypes.object,
+  OnRequestDropDownItems: PropTypes.func,
+  monster: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -54,7 +63,7 @@ const mapStateToProps = createStructuredSelector({
 
 function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

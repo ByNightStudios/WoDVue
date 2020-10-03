@@ -9,6 +9,7 @@ import helpers from '../../helpers/helpers';
 let http = null;
 let skipData = null;
 let limitData = null;
+let queryData = 'any';
 
 class APIContentful {
   constructor({ url }) {
@@ -244,6 +245,7 @@ class APIContentful {
   async queryContentfulAsync(resource) {
     return http.get(resource, {
       params: {
+        query: queryData,
         skip: skipData,
         limit: limitData,
       },
@@ -304,9 +306,10 @@ class APIContentful {
 }
 
 export default function apiContentful(params) {
-  const { skip, limit } = params;
+  const { skip, limit, query } = params;
   skipData = skip;
   limitData = limit;
+  queryData = query;
   return new APIContentful({
     url: 'https://cdn.contentful.com',
   });

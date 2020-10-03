@@ -5,88 +5,80 @@
  */
 
 import React from 'react';
-import { Menu, Dropdown, Button } from 'antd';
+import PropTypes from 'prop-types';
+import { Menu, Dropdown, Button, Skeleton } from 'antd';
+import { map } from 'lodash';
 import './style.css';
+
 const menu = (
   <Menu>
     <Menu.Item>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="http://www.alipay.com/"
-      >
-        1st menu item
-      </a>
+      <Skeleton />
     </Menu.Item>
     <Menu.Item>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="http://www.taobao.com/"
-      >
-        2nd menu item
-      </a>
+      <Skeleton />
     </Menu.Item>
     <Menu.Item>
-      <a target="_blank" rel="noopener noreferrer" href="http://www.tmall.com/">
-        3rd menu item
-      </a>
+      <Skeleton />
     </Menu.Item>
   </Menu>
 );
 
-// getContentTypeIdsString: function getContentTypeIdsString() {
-//   const envVarKey = `VUE_APP_CONTENT_TYPE_NAV_ITEMS_${this.curMonster.toUpperCase()}`;
-//   const envVar = process.env[envVarKey];
-//   return envVar;
-// },
-// getContentTypeIds: function getContentTypeIds(monster) {
-//   return this.processContentTypeIds(this.getContentTypeIdsString(monster));
-// },
-// processContentTypeIds: function processContentTypeIds(contentTypesString) {
-//   return contentTypesString
-//     .split(',')
-//     .map((ni) => ni.split('|'))
-//     .map((a) => ({ text: a[0], contentTypeId: a[1] }));
-// },
-// },
-// mounted() {
-// this.$store.commit('updateCurContentTypeId', this.$route.params.contentType);
-// this.monsterContentTypeIds = this.getContentTypeIds(this.curMonster);
-// },
-// watch: {
-// curMonster(newMonster) {
-//   this.monsterContentTypeIds = this.getContentTypeIds(newMonster);
-// },
-// }
+function NavBar({ OnRequestDropDownItems, loading, data }) {
+  const navItems = () => {
+    const navEnv =
+      'Clans & Bloodlines|clans,Disciplines|discipline,Techniques|techniques,Skills|skills,Merits|merits,Flaws|flaws,Attributes|attributes,Backgrounds|backgrounds';
+    return navEnv
+      .split(',')
+      .map(ni => ni.split('|'))
+      .map(a => ({ text: a[0], contentTypeId: a[1] }));
+  };
 
-function handleOnMouseUp() {
-  console.log('i am on hover');
-}
+  function handleOnMouseUp(navItem) {
+    OnRequestDropDownItems(navItem);
+  }
 
-function handleOnMouseLeave() {
-  console.log('on mouse leave');
-}
-function NavBar() {
+  function handleOnMouseLeave() {
+    console.log('on mouse leave');
+  }
+
+  console.log(data);
+  function handleOverlayMenu() {
+    if (loading) {
+      return menu;
+    }
+    return (
+      <Menu>
+        <Menu.Item>i am a data</Menu.Item>
+      </Menu>
+    );
+  }
   return (
     <nav className="navbar navbar-expand-lg" id="monsterContentTypesNav">
-      <Dropdown
-        overlay={menu}
-        placement="bottomCenter"
-        arrow
-        className="antd-drop-down"
-      >
-        <Button
-          onMouseEnter={handleOnMouseUp}
-          onMouseLeave={handleOnMouseLeave}
+      {map(navItems(), ({ text, contentTypeId }, index) => (
+        <Dropdown
+          overlay={handleOverlayMenu}
+          placement="bottomCenter"
+          arrow
+          className="antd-drop-down"
+          key={index}
         >
-          topCenter
-        </Button>
-      </Dropdown>
+          <Button
+            onMouseEnter={() => handleOnMouseUp(contentTypeId)}
+            onMouseLeave={() => handleOnMouseLeave()}
+          >
+            {text}
+          </Button>
+        </Dropdown>
+      ))}
     </nav>
   );
 }
 
-NavBar.propTypes = {};
+NavBar.propTypes = {
+  OnRequestDropDownItems: PropTypes.func,
+  loading: PropTypes.bool,
+  data: PropTypes.array,
+};
 
 export default NavBar;

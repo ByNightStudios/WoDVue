@@ -16,7 +16,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { Switch, Route } from 'react-router-dom';
 
 import HomePage from 'containers/HomePage/Loadable';
-import Monster from 'containers/Monster/Loadable';
+import Monster from 'containers/Monster/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 
 import bgImage from '../../images/bg.4daf1f93.jpg';
