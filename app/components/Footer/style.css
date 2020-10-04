@@ -1,0 +1,9 @@
+.footer-copyright {
+  height: 40px;
+  background-color: #0f0f0f;
+  line-height: 40px;
+  text-transform: uppercase;
+  font-family: Cinzel;
+  bottom: 0;
+  width: 100%;
+}
