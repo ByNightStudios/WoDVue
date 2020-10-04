@@ -5,15 +5,15 @@
         v-for="(contentTypeId, idx) in monsterContentTypeIds"
         :key="`${contentTypeId}_${idx}`"
         active
-        v-on:click="clickMonsterContentTypesNavItem(contentTypeId)"
-      >{{ contentTypeId.text }}</b-nav-item>
-    </b-nav>
-    <div class="container-fluid innerMonster d-flex flex-column h-100">
-      <div class="row h-100">
+         v-on:click="clickMonsterContentTypesNavItem(contentTypeId)"
+      >
+    <b-dropdown id="dropdown-1" :text="contentTypeId.text" class="m-md-2">
+    <b-dropdown-item>Semo</b-dropdown-item>
         <cContentList></cContentList>
         <cContentView></cContentView>
-      </div>
-    </div>
+  </b-dropdown>
+  </b-nav-item>
+    </b-nav>
   </div>
 </template>
 
