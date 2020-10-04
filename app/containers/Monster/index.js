@@ -1,3 +1,4 @@
+/* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-expressions */
 /**
@@ -10,9 +11,11 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+
 import { createStructuredSelector } from 'reselect';
+import { isEqual, get, isEmpty } from 'lodash';
 import { compose } from 'redux';
+import { Alert } from 'antd';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -24,7 +27,6 @@ import NavBar from 'components/NavBar';
 import makeSelectMonster from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 import { getDropDownItems } from './actions';
 import './style.css';
 
@@ -39,22 +41,66 @@ export function Monster({ OnRequestDropDownItems, monster }) {
     setSelectedItem(dataItem);
   }
 
-  console.log(selectedItem);
+  function handleRenderHeader(item, desc) {
+    if (
+      isEqual(item, 'id') ||
+      isEqual(item, 'contentTypeId') ||
+      get(desc, '[0].sys')
+    ) {
+      return false;
+    }
+
+    if (isEqual(item, 'pins')) {
+      return 'PINS: GET YOUR VAMPIRE PIN NOW!';
+    }
+    return `${item}:`;
+  }
+
+  function handleRenderDesc(desc, item) {
+    if (
+      get(desc, '[0].sys') ||
+      isEqual(item, 'id') ||
+      isEqual(item, 'contentTypeId')
+    ) {
+      return false;
+    }
+    return desc;
+  }
 
   function renderItems() {
     const array = [];
     if (selectedItem) {
       for (const p in selectedItem) {
         array.push(
-          <div style={{ color: '#fff' }} key={p}>
-            <h1 style={{ color: '#fff'}}>{p}</h1>
-            <br />
-            <span>{selectedItem[p]}</span>
+          <div style={{ color: '#fff' }} key={p} className="mainContent">
+            <div className="data">
+              <div style={{ color: '#fff' }} className="title">
+                {handleRenderHeader(p, selectedItem[p])}
+              </div>
+              <span>{handleRenderDesc(selectedItem[p], p)}</span>
+            </div>
           </div>,
         );
       }
     }
     return array;
+  }
+
+  function renderEmpty() {
+    if (!isEmpty(selectedItem)) {
+      return false;
+    }
+
+    return (
+      <div className="d-flex flex-column align-content-center justify-content-center w-100 h-100">
+        <Alert
+          message="Informational Notes"
+          description="Please select items from the above clan items  "
+          type="info"
+          showIcon
+        />
+      </div>
+    );
   }
   return (
     <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
@@ -73,6 +119,7 @@ export function Monster({ OnRequestDropDownItems, monster }) {
       </div>
       <div className="d-flex flex-column w-100 h-100 container clan-info">
         {renderItems()}
+        {renderEmpty()}
       </div>
       <Footer />
     </div>
@@ -80,7 +127,6 @@ export function Monster({ OnRequestDropDownItems, monster }) {
 }
 
 Monster.propTypes = {
-  match: PropTypes.object,
   OnRequestDropDownItems: PropTypes.func,
   monster: PropTypes.object,
 };

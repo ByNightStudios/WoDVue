@@ -16,7 +16,7 @@ import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 import './css/fonts.css';
-import './css/globals.css';
+import './globals.css';
 
 import 'antd/dist/antd.css';
 

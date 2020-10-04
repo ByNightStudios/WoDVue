@@ -10,6 +10,7 @@ let http = null;
 let skipData = null;
 let limitData = null;
 let queryData = 'any';
+let selectData = '';
 
 class APIContentful {
   constructor({ url }) {
@@ -245,7 +246,8 @@ class APIContentful {
   async queryContentfulAsync(resource) {
     return http.get(resource, {
       params: {
-        query: queryData,
+        content_type: queryData,
+        select: selectData,
         skip: skipData,
         limit: limitData,
       },
@@ -306,10 +308,11 @@ class APIContentful {
 }
 
 export default function apiContentful(params) {
-  const { skip, limit, query } = params;
+  const { skip, limit, query, select } = params;
   skipData = skip;
   limitData = limit;
   queryData = query;
+  selectData = select;
   return new APIContentful({
     url: 'https://cdn.contentful.com',
   });

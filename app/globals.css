@@ -237,7 +237,6 @@ a:hover {
 .mainContent {
   padding: 15px 0px 0;
   max-height: 100%;
-  overflow: auto;
 }
 
 .mainContent .boxDescription {
