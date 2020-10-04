@@ -6,6 +6,10 @@
 ### To build
 `npm run build`
 
+### To commit changes
+  - `git add <changed files>`
+  - `git cz`
+
 ### To deploy
   - build
   - `./deploy.sh`
