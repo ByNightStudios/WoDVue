@@ -2,6 +2,8 @@
   background-color: #000000 !important;
   color: #fff !important;
   border: none;
+  max-height: 1000px;
+  overflow: auto;
 }
 
 .antd-drop-down :hover {

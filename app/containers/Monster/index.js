@@ -1,10 +1,12 @@
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-unused-expressions */
 /**
  *
  * Monster
  *
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -24,13 +26,36 @@ import reducer from './reducer';
 import saga from './saga';
 import messages from './messages';
 import { getDropDownItems } from './actions';
+import './style.css';
 
 export function Monster({ OnRequestDropDownItems, monster }) {
   useInjectReducer({ key: 'monster', reducer });
   useInjectSaga({ key: 'monster', saga });
 
   const { loading, data } = monster;
+  const [selectedItem, setSelectedItem] = useState({});
 
+  function handleSelectedItems(dataItem) {
+    setSelectedItem(dataItem);
+  }
+
+  console.log(selectedItem);
+
+  function renderItems() {
+    const array = [];
+    if (selectedItem) {
+      for (const p in selectedItem) {
+        array.push(
+          <div style={{ color: '#fff' }} key={p}>
+            <h1 style={{ color: '#fff'}}>{p}</h1>
+            <br />
+            <span>{selectedItem[p]}</span>
+          </div>,
+        );
+      }
+    }
+    return array;
+  }
   return (
     <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
       <Helmet>
@@ -43,9 +68,12 @@ export function Monster({ OnRequestDropDownItems, monster }) {
           OnRequestDropDownItems={OnRequestDropDownItems}
           loading={loading}
           data={data}
+          handleSelectedItems={handleSelectedItems}
         />
       </div>
-      <FormattedMessage {...messages.header} />
+      <div className="d-flex flex-column w-100 h-100 container clan-info">
+        {renderItems()}
+      </div>
       <Footer />
     </div>
   );

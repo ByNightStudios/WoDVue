@@ -1,0 +1,7 @@
+.clan-info {
+  margin: 20px 0px;
+  background-color: black;
+  color: #fff;
+  min-height: 300px;
+  overflow: auto;
+}
