@@ -8,7 +8,7 @@
 
 ### To commit changes
   - `git add <changed files>`
-  - `git cz`
+  - `git commit`
 
 ### To deploy
   - build
