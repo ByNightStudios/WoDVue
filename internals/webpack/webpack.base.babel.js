@@ -5,6 +5,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const dotenv = require('dotenv').config({ path: `${__dirname}../../.env` });
 
 module.exports = options => ({
@@ -119,6 +120,7 @@ module.exports = options => ({
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
     }),
+    new CopyWebpackPlugin([{ from: 'app/public/*', to: '', flatten: true }]),
   ]),
   resolve: {
     modules: ['node_modules', 'app'],
