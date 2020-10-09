@@ -1,5 +1,5 @@
 body {
-  background: #0f0f0f;
+  background: #000000;
   background-repeat: no-repeat;
   background-size: auto 100vh;
   background-position: center top;
@@ -237,6 +237,7 @@ a:hover {
 .mainContent {
   padding: 15px 0px 0;
   max-height: 100%;
+  white-space: pre-wrap;
 }
 
 .mainContent .boxDescription {

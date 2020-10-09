@@ -6,31 +6,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Dropdown, Button, Skeleton } from 'antd';
+import { Menu, Dropdown, Button } from 'antd';
 import { map, find } from 'lodash';
 import history from 'utils/history';
 import './style.css';
 
-const menu = (
-  <Menu style={{ backgroundColor: '#000000', color: '#fff' }}>
-    <Menu.Item>
-      <Skeleton active />
-    </Menu.Item>
-    <Menu.Item>
-      <Skeleton active />
-    </Menu.Item>
-    <Menu.Item>
-      <Skeleton active />
-    </Menu.Item>
-  </Menu>
-);
-
-function NavBar({
-  OnRequestDropDownItems,
-  loading,
-  data,
-  handleSelectedItems,
-}) {
+function NavBar({ OnRequestDropDownItems, data, handleSelectedItems }) {
   const navItems = () => {
     const navEnv =
       'Clans & Bloodlines|clans,Disciplines|discipline,Techniques|techniques,Skills|skills,Merits|merits,Flaws|flaws,Attributes|attributes,Backgrounds|backgrounds';
@@ -82,10 +63,6 @@ function NavBar({
   }
 
   function handleOverlayMenu() {
-    if (loading) {
-      return menu;
-    }
-
     const dropDownContent = map(data, item => getItemContent(item));
     return (
       <Menu
