@@ -7,13 +7,13 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import { createStructuredSelector } from 'reselect';
-import { isEqual, get, isEmpty } from 'lodash';
+import { isEqual, get, isEmpty, find } from 'lodash';
 import { compose } from 'redux';
 import { Alert } from 'antd';
 
@@ -30,12 +30,37 @@ import saga from './saga';
 import { getDropDownItems } from './actions';
 import './style.css';
 
-export function Monster({ OnRequestDropDownItems, monster }) {
+export function Monster({ OnRequestDropDownItems, monster, match }) {
   useInjectReducer({ key: 'monster', reducer });
   useInjectSaga({ key: 'monster', saga });
 
   const { loading, data } = monster;
   const [selectedItem, setSelectedItem] = useState({});
+
+  useEffect(() => {
+    const pathData = window.location.pathname.split('/');
+    if (pathData.length === 6) {
+      const clanName = pathData[4];
+      if (clanName) {
+        OnRequestDropDownItems(clanName.toLocaleLowerCase());
+      }
+    }
+  }, [window.location.pathname]);
+
+  useEffect(() => {
+    const pathData = window.location.pathname.split('/');
+    if (pathData.length === 6) {
+      const clanName = pathData[4];
+      const itemName = pathData[5];
+      if (clanName) {
+        OnRequestDropDownItems(clanName.toLocaleLowerCase());
+      }
+      const filterData = find(monster.data, o => o.id === itemName);
+      if (filterData) {
+        setSelectedItem(filterData);
+      }
+    }
+  }, [monster.data]);
 
   function handleSelectedItems(dataItem) {
     setSelectedItem(dataItem);
@@ -115,6 +140,7 @@ export function Monster({ OnRequestDropDownItems, monster }) {
           loading={loading}
           data={data}
           handleSelectedItems={handleSelectedItems}
+          match={match}
         />
       </div>
       <div className="d-flex flex-column w-100 h-100 container clan-info">
@@ -129,6 +155,7 @@ export function Monster({ OnRequestDropDownItems, monster }) {
 Monster.propTypes = {
   OnRequestDropDownItems: PropTypes.func,
   monster: PropTypes.object,
+  match: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

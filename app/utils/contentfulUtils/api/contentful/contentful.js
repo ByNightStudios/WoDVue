@@ -22,6 +22,25 @@ class APIContentful {
       },
     });
 
+    axios.interceptors.request.use(
+      config => {
+        // spinning start to show
+        console.log('this is a loading');
+        return config;
+      },
+      error => Promise.reject(error),
+    );
+
+    axios.interceptors.response.use(
+      response => {
+        // spinning hide
+        console.log('this is my response');
+
+        return response;
+      },
+      error => Promise.reject(error),
+    );
+
     this.spaceId = 'yicuw1hpxsdg';
     this.environmentId = `master`;
     this.resourceBase = `/spaces/${this.spaceId}/environments/${

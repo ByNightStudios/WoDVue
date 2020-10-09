@@ -11,7 +11,7 @@ import { map, find } from 'lodash';
 import history from 'utils/history';
 import './style.css';
 
-function NavBar({ OnRequestDropDownItems, data, handleSelectedItems }) {
+function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
   const navItems = () => {
     const navEnv =
       'Clans & Bloodlines|clans,Disciplines|discipline,Techniques|techniques,Skills|skills,Merits|merits,Flaws|flaws,Attributes|attributes,Backgrounds|backgrounds';
@@ -59,6 +59,9 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems }) {
 
   function handleSelectedItem(id) {
     const selectedItemData = find(data, { id });
+    history.push(
+      `${match.path}/${window.location.pathname.split('/')[4]}/${id}`,
+    );
     handleSelectedItems(selectedItemData);
   }
 
@@ -113,7 +116,7 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems }) {
 
 NavBar.propTypes = {
   OnRequestDropDownItems: PropTypes.func,
-  loading: PropTypes.bool,
+  match: PropTypes.object,
   data: PropTypes.array,
   handleSelectedItems: PropTypes.func,
 };
