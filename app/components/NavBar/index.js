@@ -7,7 +7,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Dropdown, Button } from 'antd';
-import { map, find } from 'lodash';
+import { map, find, isEmpty } from 'lodash';
 import history from 'utils/history';
 import './style.css';
 
@@ -52,6 +52,7 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
     const dataItem = {
       id: item.id,
       text: getItemText(item),
+      isClickable: isEmpty(item.items),
     };
 
     return dataItem;
@@ -76,10 +77,10 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
           overflow: 'auto',
         }}
       >
-        {map(dropDownContent, ({ id, text }) => (
+        {map(dropDownContent, ({ id, text, isClickable }) => (
           <Menu.Item
             key={id}
-            onClick={() => handleSelectedItem(id)}
+            onClick={() => (isClickable ? handleSelectedItem(id) : false)}
             style={{ color: '#fff' }}
           >
             {text}

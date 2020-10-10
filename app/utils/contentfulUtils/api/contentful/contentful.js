@@ -1,9 +1,11 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-self-assign */
 /* eslint-disable indent */
 
 import axios from 'axios';
+import { find, groupBy, isEmpty, uniqBy } from 'lodash';
 import helpers from '../../helpers/helpers';
 
 let http = null;
@@ -11,6 +13,7 @@ let skipData = null;
 let limitData = null;
 let queryData = 'any';
 let selectData = '';
+let mySubArrayData = [];
 
 class APIContentful {
   constructor({ url }) {
@@ -80,7 +83,6 @@ class APIContentful {
   }
 
   getContentTypeId(contentType) {
-    console.log(contentType);
     const idx = this.contentTypeInfo.findIndex(
       cti => cti.contentType === contentType,
     );
@@ -112,6 +114,7 @@ class APIContentful {
       skip,
       limit,
     );
+
     let allEntryData = parentEntries;
     if (parentKeyField !== '') {
       allEntryData = this.loadChildEntriesAsync(
@@ -217,9 +220,15 @@ class APIContentful {
         return this.getArrayValue(field);
       case 'object':
         return this.getObjectValue(field);
+      case 'boolean':
+        return this.getBooleanValue(field);
       default:
         return null;
     }
+  }
+
+  getBooleanValue(field) {
+    return field;
   }
 
   getObjectValue(field) {
@@ -259,10 +268,25 @@ class APIContentful {
       const sorted = this.getSortedEntries(unsortedEntries, sortField);
       return sorted;
     }
+    const disciplines = groupBy(unsortedEntries, 'power');
+    Object.entries(disciplines).forEach(([key, value]) => {
+      if (key !== 'undefined') {
+        const data = {
+          items: value,
+          ...find(value, o => o.power === key),
+        };
+        mySubArrayData.push(data);
+      }
+    });
+
+    if (!isEmpty(mySubArrayData)) {
+      return uniqBy(mySubArrayData, 'id');
+    }
     return unsortedEntries;
   }
 
   async queryContentfulAsync(resource) {
+    mySubArrayData = [];
     return http.get(resource, {
       params: {
         content_type: queryData,
