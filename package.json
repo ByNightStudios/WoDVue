@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "antd": "4.6.6",
+    "babel-plugin-import":"1.13.0",
     "@babel/polyfill": "7.4.3",
     "chalk": "2.4.2",
     "compression": "1.7.4",
