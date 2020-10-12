@@ -66,6 +66,13 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
     handleSelectedItems(selectedItemData);
   }
 
+  function getText(text) {
+    if (text === 'Clans & Bloodlines') {
+      return 'clan';
+    }
+    return text;
+  }
+
   function handleOverlayMenu() {
     const dropDownContent = map(data, item => getItemContent(item));
     return (
@@ -102,7 +109,7 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
         >
           <Button
             onMouseEnter={() => {
-              history.push(`/WoDVue/monsters/vampire/${text}`);
+              history.push(`/WoDVue/monsters/vampire/${getText(text)}`);
               handleOnMouseUp(contentTypeId);
             }}
             onMouseLeave={handleOnMouseLeave}

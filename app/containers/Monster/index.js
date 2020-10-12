@@ -143,7 +143,7 @@ export function Monster({ OnRequestDropDownItems, monster, match }) {
           match={match}
         />
       </div>
-      <div className="d-flex flex-column w-100 h-100 container clan-info">
+      <div className="d-flex flex-column w-100 container clan-info">
         {renderItems()}
         {renderEmpty()}
       </div>
