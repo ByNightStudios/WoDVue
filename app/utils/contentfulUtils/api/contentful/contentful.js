@@ -13,6 +13,7 @@ let skipData = null;
 let limitData = null;
 let queryData = 'any';
 let selectData = '';
+let parentData = '';
 let mySubArrayData = [];
 
 class APIContentful {
@@ -132,6 +133,7 @@ class APIContentful {
     sortParent,
     hasChildren,
   ) {
+    console.log(parentData);
     const queryGetParentEntries = {
       content_type: contentTypeId,
       select: 'fields,sys.id',
@@ -268,19 +270,6 @@ class APIContentful {
       const sorted = this.getSortedEntries(unsortedEntries, sortField);
       return sorted;
     }
-    const disciplines = groupBy(unsortedEntries, 'power');
-    Object.entries(disciplines).forEach(([key, value]) => {
-      if (key !== 'undefined') {
-        const data = {
-          items: value,
-          ...find(value, o => o.power === key),
-        };
-        mySubArrayData.push(data);
-      }
-    });
-    if (!isEmpty(mySubArrayData)) {
-      return uniqBy(mySubArrayData, 'id');
-    }
     return unsortedEntries;
   }
 
@@ -292,6 +281,7 @@ class APIContentful {
         select: selectData,
         skip: skipData,
         limit: limitData,
+        'fields.parent': parentData,
       },
     });
   }
@@ -350,11 +340,17 @@ class APIContentful {
 }
 
 export default function apiContentful(params) {
-  const { skip, limit, query, select } = params;
+  const { skip, limit, query, select, parents } = params;
   skipData = skip;
   limitData = limit;
   queryData = query;
   selectData = select;
+  if (parents) {
+    parentData = parents;
+  } else {
+    parentData = '';
+  }
+
   return new APIContentful({
     url: 'https://cdn.contentful.com',
   });

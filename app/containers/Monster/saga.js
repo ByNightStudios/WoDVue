@@ -28,6 +28,7 @@ function* getItemsData({ params }) {
     const response = yield call(apiContentful, {
       query: queryParams,
       select: 'fields,sys.id',
+      parents: queryParams === 'discipline' ? true : '',
     });
     const contentfulData = yield Promise.resolve(
       response.getParentEntriesAsync,
