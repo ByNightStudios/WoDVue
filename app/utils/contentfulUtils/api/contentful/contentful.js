@@ -278,7 +278,6 @@ class APIContentful {
         mySubArrayData.push(data);
       }
     });
-
     if (!isEmpty(mySubArrayData)) {
       return uniqBy(mySubArrayData, 'id');
     }

@@ -63,6 +63,7 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
     history.push(
       `${match.path}/${window.location.pathname.split('/')[4]}/${id}`,
     );
+    delete selectedItemData.items;
     handleSelectedItems(selectedItemData);
   }
 
@@ -84,10 +85,10 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
           overflow: 'auto',
         }}
       >
-        {map(dropDownContent, ({ id, text, isClickable }) => (
+        {map(dropDownContent, ({ id, text }) => (
           <Menu.Item
             key={id}
-            onClick={() => (isClickable ? handleSelectedItem(id) : false)}
+            onClick={() => handleSelectedItem(id)}
             style={{ color: '#fff' }}
           >
             {text}
