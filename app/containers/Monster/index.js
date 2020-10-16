@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-expressions */
@@ -15,7 +16,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { isEqual, get, isEmpty, find } from 'lodash';
 import { compose } from 'redux';
-import { Alert } from 'antd';
+import { Alert, Collapse } from 'antd';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -27,15 +28,21 @@ import NavBar from 'components/NavBar';
 import makeSelectMonster from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getDropDownItems } from './actions';
+import { getDropDownItems, getDisciplines } from './actions';
 import './style.css';
-
-export function Monster({ OnRequestDropDownItems, monster, match }) {
+const { Panel } = Collapse;
+export function Monster({
+  OnRequestDropDownItems,
+  monster,
+  match,
+  OnRequestDisciplines,
+}) {
   useInjectReducer({ key: 'monster', reducer });
   useInjectSaga({ key: 'monster', saga });
 
-  const { loading, data } = monster;
+  const { loading, data, tech } = monster;
   const [selectedItem, setSelectedItem] = useState({});
+  const [techData1, setTechData1] = useState([]);
 
   useEffect(() => {
     const pathData = window.location.pathname.split('/');
@@ -111,8 +118,42 @@ export function Monster({ OnRequestDropDownItems, monster, match }) {
     return array;
   }
 
+  function setTechData(techData) {
+    if (techData && techData.length > 0) {
+      setTechData1(techData);
+    }
+  }
+
+  function renderTechItem(item) {
+    const array = [];
+    if (item) {
+      for (const p in item) {
+        array.push(
+          <div style={{ color: '#fff' }} key={p} className="mainContent">
+            <div className="data">
+              <div style={{ color: '#fff' }} className="title">
+                {handleRenderHeader(p, item[p])}
+              </div>
+              <span>{handleRenderDesc(item[p], p)}</span>
+            </div>
+          </div>,
+        );
+      }
+    }
+    return array;
+  }
+
+  function renderTechData() {
+    return techData1.map((item, index) => (
+      <Collapse id="collapse">
+        <Panel header={item.technique} key={index} id="collapse">
+          <div id="collapse1">{renderTechItem(item)}</div>
+        </Panel>
+      </Collapse>
+    ));
+  }
   function renderEmpty() {
-    if (!isEmpty(selectedItem)) {
+    if (!isEmpty(selectedItem) || !isEmpty(techData1)) {
       return false;
     }
 
@@ -141,11 +182,15 @@ export function Monster({ OnRequestDropDownItems, monster, match }) {
           data={data}
           handleSelectedItems={handleSelectedItems}
           match={match}
+          OnRequestDisciplines={OnRequestDisciplines}
+          tech={tech}
+          setTechData={setTechData}
         />
       </div>
       <div className="d-flex flex-column w-100 container clan-info">
         {renderItems()}
         {renderEmpty()}
+        <div style={{ marginTop: '5vh' }}>{renderTechData()}</div>
       </div>
       <Footer />
     </div>
@@ -156,6 +201,7 @@ Monster.propTypes = {
   OnRequestDropDownItems: PropTypes.func,
   monster: PropTypes.object,
   match: PropTypes.object,
+  OnRequestDisciplines: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -165,6 +211,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    OnRequestDisciplines: () => dispatch(getDisciplines()),
   };
 }
 

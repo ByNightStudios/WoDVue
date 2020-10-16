@@ -8,12 +8,14 @@ import {
   GET_DROP_DOWN_ITEMS,
   DROP_DOWN_ITEMS_ERROR,
   DROP_DOWN_ITEMS_SUCCESS,
+  DISCIPLINES_DATA_SUCCESS,
 } from './constants';
 
 export const initialState = {
   loading: false,
   data: [],
   error: false,
+  tech: {},
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -30,6 +32,9 @@ const monsterReducer = (state = initialState, action) =>
       case DROP_DOWN_ITEMS_ERROR:
         draft.loading = false;
         draft.error = action.error;
+        break;
+      case DISCIPLINES_DATA_SUCCESS:
+        draft.tech = action.payload;
         break;
     }
   });

@@ -5,14 +5,44 @@
  *
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Dropdown, Button } from 'antd';
-import { map, find, isEmpty } from 'lodash';
+import { Menu, Dropdown, Button, Checkbox } from 'antd';
+import { map, find, isEmpty, includes } from 'lodash';
 import history from 'utils/history';
 import './style.css';
 
-function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
+function NavBar({
+  OnRequestDropDownItems,
+  data,
+  handleSelectedItems,
+  match,
+  OnRequestDisciplines,
+  tech,
+  setTechData,
+}) {
+  const [filterData, setFilterData] = useState([]);
+  const { orderByData1, orderByData2 } = tech;
+
+  function getfilteredItem(item, data1) {
+    const itemPrere = item.prerequisites.map(item1 => item1.split(' ')[0]);
+    for (let i = 0; i <= data1.length; i += 1) {
+      if (includes(itemPrere, data1[i])) {
+        return item;
+      }
+    }
+    return null;
+  }
+  useEffect(() => {
+    if (orderByData2) {
+      const filterOrderByData = orderByData2.map(item =>
+        getfilteredItem(item, filterData),
+      );
+      const nullValue = filterOrderByData.filter(val => val !== null);
+      setTechData(nullValue);
+    }
+  }, [filterData]);
+
   const navItems = () => {
     const navEnv =
       'Clans & Bloodlines|clans,Disciplines|discipline,Techniques|techniques,Skills|skills,Merits|merits,Flaws|flaws,Attributes|attributes,Backgrounds|backgrounds';
@@ -23,7 +53,12 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
   };
 
   function handleOnMouseUp(navItem) {
-    OnRequestDropDownItems(navItem);
+    if (navItem === 'techniques') {
+      OnRequestDisciplines();
+    } else {
+      OnRequestDropDownItems(navItem);
+    }
+    setFilterData([]);
   }
 
   function handleOnMouseLeave() {}
@@ -75,6 +110,35 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
     return text;
   }
 
+  function onChange(event) {
+    const {
+      target: { value },
+    } = event;
+    if (!filterData.includes(value)) {
+      setFilterData([...filterData, value]);
+    } else {
+      setFilterData(filterData.pop(value));
+    }
+  }
+
+  function renderDisciplineFilter() {
+    const path = window.location.pathname.includes('Techniques');
+    if (orderByData1 && path) {
+      return map(orderByData1, (item, index) => (
+        <div key={index}>
+          <Checkbox
+            onChange={onChange}
+            style={{ color: '#fff' }}
+            value={item.title}
+          >
+            {item.title}
+          </Checkbox>
+        </div>
+      ));
+    }
+    return null;
+  }
+
   function handleOverlayMenu() {
     const dropDownContent = map(data, item => getItemContent(item));
     return (
@@ -99,28 +163,42 @@ function NavBar({ OnRequestDropDownItems, data, handleSelectedItems, match }) {
     );
   }
   return (
-    <nav className="navbar navbar-expand-lg" id="monsterContentTypesNav">
-      {map(navItems(), ({ text, contentTypeId }, index) => (
-        <Dropdown
-          overlay={handleOverlayMenu}
-          placement="bottomCenter"
-          arrow
-          className="antd-drop-down"
-          key={index}
-          opened
-        >
-          <Button
-            onMouseEnter={() => {
-              history.push(`/WoDVue/monsters/vampire/${getText(text)}`);
-              handleOnMouseUp(contentTypeId);
-            }}
-            onMouseLeave={handleOnMouseLeave}
+    <div style={{ display: 'flex', flexDirection: 'column' }}>
+      <nav className="navbar navbar-expand-lg" id="monsterContentTypesNav">
+        {map(navItems(), ({ text, contentTypeId }, index) => (
+          <Dropdown
+            overlay={handleOverlayMenu}
+            placement="bottomCenter"
+            arrow
+            className="antd-drop-down"
+            key={index}
+            opened
           >
-            {text}
-          </Button>
-        </Dropdown>
-      ))}
-    </nav>
+            <Button
+              onMouseEnter={() => {
+                history.push(`/WoDVue/monsters/vampire/${getText(text)}`);
+                handleOnMouseUp(contentTypeId);
+              }}
+              onMouseLeave={handleOnMouseLeave}
+            >
+              {text}
+            </Button>
+          </Dropdown>
+        ))}
+      </nav>
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          backgroundColor: '#000000',
+          paddingRight: '10vw',
+          paddingLeft: '10vw',
+        }}
+      >
+        {renderDisciplineFilter()}
+      </div>
+    </div>
   );
 }
 
@@ -129,6 +207,7 @@ NavBar.propTypes = {
   match: PropTypes.object,
   data: PropTypes.array,
   handleSelectedItems: PropTypes.func,
+  ...NavBar,
 };
 
 export default NavBar;

@@ -1,8 +1,12 @@
 /* eslint-disable func-names */
-import { call, put, debounce } from 'redux-saga/effects';
+import { call, put, debounce, takeLatest } from 'redux-saga/effects';
 import { orderBy } from 'lodash';
-import { GET_DROP_DOWN_ITEMS } from './constants';
-import { dropDownItemsError, dropDownItemsSuccess } from './actions';
+import { GET_DROP_DOWN_ITEMS, GET_DISCIPLINES } from './constants';
+import {
+  dropDownItemsError,
+  dropDownItemsSuccess,
+  disciplinesSuccess,
+} from './actions';
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 
 function getItems(item) {
@@ -44,8 +48,43 @@ function* getItemsData({ params }) {
   }
 }
 
+function* getDisciplinesData() {
+  try {
+    const response = yield call(apiContentful, {
+      query: 'discipline',
+      select: 'fields,sys.id',
+      parents: true,
+    });
+    const response1 = yield call(apiContentful, {
+      query: 'techniques',
+      select: 'fields,sys.id',
+      parents: '',
+    });
+    const contentfulData1 = yield Promise.resolve(
+      response.getParentEntriesAsync,
+    );
+    const contentfulData2 = yield Promise.resolve(
+      response1.getParentEntriesAsync,
+    );
+    const orderByData1 = orderBy(
+      contentfulData1,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    const orderByData2 = orderBy(
+      contentfulData2,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(disciplinesSuccess({ orderByData1, orderByData2 }));
+  } catch (e) {
+    yield put(dropDownItemsError());
+  }
+}
+
 // Individual exports for testing
 export default function* monsterSaga() {
   // See example in containers/HomePage/saga.js
   yield debounce(2000, GET_DROP_DOWN_ITEMS, getItemsData);
+  yield takeLatest(GET_DISCIPLINES, getDisciplinesData);
 }
