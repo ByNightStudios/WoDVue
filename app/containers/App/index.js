@@ -34,11 +34,8 @@ export function App() {
     <div
       style={{
         backgroundImage: `url(${bgImage})`,
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'auto 100vh',
+        backgroundRepeat: 'repeat',
         backgroundPosition: 'top',
-        height: '100vh',
-        width: '100vw',
         fontFamily: 'David Libre',
       }}
       className="demo"

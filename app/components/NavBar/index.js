@@ -8,7 +8,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Menu, Dropdown, Button, Checkbox } from 'antd';
-import { map, find, isEmpty, includes } from 'lodash';
+import { map, find, isEmpty, includes, compact } from 'lodash';
 import history from 'utils/history';
 import './style.css';
 
@@ -124,7 +124,12 @@ function NavBar({
   function renderDisciplineFilter() {
     const path = window.location.pathname.includes('Techniques');
     if (orderByData1 && path) {
-      return map(orderByData1, (item, index) => (
+      const filterOrderByData1 = compact(
+        map(orderByData1, item =>
+          item.necromancy || item.thaumaturgy ? null : item,
+        ),
+      );
+      return map(filterOrderByData1, (item, index) => (
         <div key={index}>
           <Checkbox
             onChange={onChange}

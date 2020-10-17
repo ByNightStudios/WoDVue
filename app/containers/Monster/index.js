@@ -146,6 +146,9 @@ export function Monster({
   }
 
   function renderTechData() {
+    if (!isEmpty(selectedItem)) {
+      return false;
+    }
     return techData1.map((item, index) => (
       <Collapse id="collapse">
         <Panel header={item.technique} key={index} id="collapse">
@@ -171,7 +174,10 @@ export function Monster({
     );
   }
   return (
-    <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
+    <div
+      className="d-flex flex-column align-items-center justify-content-between w-100"
+      style={{ height: '100vh' }}
+    >
       <Helmet>
         <title>Monster</title>
         <meta name="description" content="Description of Monster" />
