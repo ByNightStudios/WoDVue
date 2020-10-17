@@ -60,11 +60,18 @@ function* getDisciplinesData() {
       select: 'fields,sys.id',
       parents: '',
     });
+    const response2 = yield call(apiContentful, {
+      query: 'discipline',
+      select: 'fields,sys.id',
+    });
     const contentfulData1 = yield Promise.resolve(
       response.getParentEntriesAsync,
     );
     const contentfulData2 = yield Promise.resolve(
       response1.getParentEntriesAsync,
+    );
+    const contentfulData3 = yield Promise.resolve(
+      response2.getParentEntriesAsync,
     );
     const orderByData1 = orderBy(
       contentfulData1,
@@ -76,7 +83,12 @@ function* getDisciplinesData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    yield put(disciplinesSuccess({ orderByData1, orderByData2 }));
+    const orderByData3 = orderBy(
+      contentfulData3,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(disciplinesSuccess({ orderByData1, orderByData2, orderByData3 }));
   } catch (e) {
     yield put(dropDownItemsError());
   }

@@ -7,8 +7,8 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Menu, Dropdown, Button, Checkbox } from 'antd';
-import { map, find, isEmpty, includes, compact } from 'lodash';
+import { Menu, Dropdown, Button, Checkbox, Tooltip } from 'antd';
+import { map, find, isEmpty, includes, compact, filter } from 'lodash';
 import history from 'utils/history';
 import './style.css';
 
@@ -22,7 +22,34 @@ function NavBar({
   setTechData,
 }) {
   const [filterData, setFilterData] = useState([]);
-  const { orderByData1, orderByData2 } = tech;
+  const { orderByData1, orderByData2, orderByData3 } = tech;
+
+  function renderText(item) {
+    const filterItem1 = filter(orderByData3, { power: item });
+    const filterItem2 = filter(
+      filterItem1,
+      itemData => itemData.title !== item,
+    );
+    return map(filterItem2, (item1, index) => (
+      <div
+        key={index}
+        style={{
+          margin: 10,
+          padding: 10,
+          border: '1px solid #fff',
+          borderRadius: '12px',
+        }}
+      >
+        <Checkbox
+          onChange={onChange}
+          style={{ color: '#fff' }}
+          value={item1.title}
+        >
+          {item1.title}
+        </Checkbox>
+      </div>
+    ));
+  }
 
   function getfilteredItem(item, data1) {
     const itemPrere = item.prerequisites.map(item1 => item1.split(' ')[0]);
@@ -117,7 +144,7 @@ function NavBar({
     if (!filterData.includes(value)) {
       setFilterData([...filterData, value]);
     } else {
-      setFilterData(filterData.pop(value));
+      setFilterData(filterData.filter(item => item !== value));
     }
   }
 
@@ -130,23 +157,25 @@ function NavBar({
         ),
       );
       return map(filterOrderByData1, (item, index) => (
-        <div
-          key={index}
-          style={{
-            margin: 10,
-            padding: 10,
-            border: '1px solid #fff',
-            borderRadius: '12px',
-          }}
-        >
-          <Checkbox
-            onChange={onChange}
-            style={{ color: '#fff' }}
-            value={item.title}
+        <Tooltip title={renderText(item.title)} style={{ zIndex: 12 }}>
+          <div
+            key={index}
+            style={{
+              margin: 10,
+              padding: 10,
+              border: '1px solid #fff',
+              borderRadius: '12px',
+            }}
           >
-            {item.title}
-          </Checkbox>
-        </div>
+            <Checkbox
+              onChange={onChange}
+              style={{ color: '#fff' }}
+              value={item.title}
+            >
+              {item.title}
+            </Checkbox>
+          </div>
+        </Tooltip>
       ));
     }
     return null;
@@ -169,7 +198,7 @@ function NavBar({
             onClick={() => handleSelectedItem(id)}
             style={{ color: '#fff' }}
           >
-            {text}
+            <Tooltip title={renderText(text)}>{text}</Tooltip>
           </Menu.Item>
         ))}
       </Menu>
