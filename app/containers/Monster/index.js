@@ -30,7 +30,7 @@ import reducer from './reducer';
 import saga from './saga';
 import { getDropDownItems, getDisciplines } from './actions';
 import './style.css';
-import { set } from 'shelljs';
+
 const { Panel } = Collapse;
 export function Monster({
   OnRequestDropDownItems,
