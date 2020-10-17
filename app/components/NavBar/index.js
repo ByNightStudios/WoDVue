@@ -130,7 +130,15 @@ function NavBar({
         ),
       );
       return map(filterOrderByData1, (item, index) => (
-        <div key={index}>
+        <div
+          key={index}
+          style={{
+            margin: 10,
+            padding: 10,
+            border: '1px solid #fff',
+            borderRadius: '12px',
+          }}
+        >
           <Checkbox
             onChange={onChange}
             style={{ color: '#fff' }}
