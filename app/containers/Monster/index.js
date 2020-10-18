@@ -60,7 +60,7 @@ export function Monster({
     if (pathData.length === 6) {
       const clanName = pathData[4];
       const itemName = pathData[5];
-      if (clanName) {
+      if (clanName && isEmpty(selectedItem)) {
         OnRequestDropDownItems(clanName.toLocaleLowerCase());
       }
       const filterData = find(monster.data, o => o.id === itemName);
