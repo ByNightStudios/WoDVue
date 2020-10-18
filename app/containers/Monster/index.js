@@ -49,7 +49,7 @@ export function Monster({
     const pathData = window.location.pathname.split('/');
     if (pathData.length === 6) {
       const clanName = pathData[4];
-      if (clanName) {
+      if (clanName && isEmpty(selectedItem)) {
         OnRequestDropDownItems(clanName.toLocaleLowerCase());
       }
     }
