@@ -97,6 +97,6 @@ function* getDisciplinesData() {
 // Individual exports for testing
 export default function* monsterSaga() {
   // See example in containers/HomePage/saga.js
-  yield debounce(2000, GET_DROP_DOWN_ITEMS, getItemsData);
+  yield debounce(300, GET_DROP_DOWN_ITEMS, getItemsData);
   yield takeLatest(GET_DISCIPLINES, getDisciplinesData);
 }
