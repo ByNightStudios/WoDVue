@@ -5,7 +5,7 @@
 /* eslint-disable indent */
 
 import axios from 'axios';
-import { find, groupBy, isEmpty, uniqBy } from 'lodash';
+import { find, groupBy, isEmpty, uniqBy, get } from 'lodash';
 import helpers from '../../helpers/helpers';
 
 let http = null;
@@ -133,7 +133,6 @@ class APIContentful {
     sortParent,
     hasChildren,
   ) {
-    console.log(parentData);
     const queryGetParentEntries = {
       content_type: contentTypeId,
       select: 'fields,sys.id',
@@ -252,12 +251,26 @@ class APIContentful {
     }));
   }
 
+  getClanArt(item, data) {
+    if (item.clanArt) {
+      const mediaData = {
+        ...item,
+        clanArt:
+          item.clanArt[0].sys.id === data[0].sys.id
+            ? data[0].fields.file.url
+            : '',
+      };
+      return mediaData;
+    }
+    return item;
+  }
+
   extractEntryDataFromResponse(
     resContentful,
     initialVals = null,
     sortField = null,
   ) {
-    const { items } = resContentful.data;
+    const { items, includes } = resContentful.data;
     const itemObjects = items.map(i => ({
       ...i.fields,
       id: i.sys.id,
@@ -270,7 +283,12 @@ class APIContentful {
       const sorted = this.getSortedEntries(unsortedEntries, sortField);
       return sorted;
     }
-    return unsortedEntries;
+
+    const getUnsortedEntriesWithMedia = unsortedEntries.map(itemData =>
+      this.getClanArt(itemData, get(includes, 'Asset', [])),
+    );
+
+    return getUnsortedEntriesWithMedia;
   }
 
   async queryContentfulAsync(resource) {

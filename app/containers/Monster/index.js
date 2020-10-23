@@ -115,6 +115,7 @@ export function Monster({
     if (isEqual(item, 'pins')) {
       return 'PINS: GET YOUR VAMPIRE PIN NOW!';
     }
+
     return `${item}:`;
   }
 
@@ -125,6 +126,21 @@ export function Monster({
       isEqual(item, 'contentTypeId')
     ) {
       return false;
+    }
+
+    if (isEqual(item, 'clanArt')) {
+      return (
+        <img
+          src={desc}
+          alt={item}
+          style={{
+            width: 200,
+            height: 200,
+            objectFit: 'contain',
+            marginTop: 10,
+          }}
+        />
+      );
     }
     return desc;
   }
