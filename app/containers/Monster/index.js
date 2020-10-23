@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable guard-for-in */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-unused-expressions */
@@ -7,15 +8,15 @@
  *
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
 import { createStructuredSelector } from 'reselect';
-import { isEqual, get, isEmpty } from 'lodash';
+import { isEqual, get, isEmpty, find } from 'lodash';
 import { compose } from 'redux';
-import { Alert } from 'antd';
+import { Alert, Collapse } from 'antd';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -27,15 +28,76 @@ import NavBar from 'components/NavBar';
 import makeSelectMonster from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getDropDownItems } from './actions';
+import { getDropDownItems, getDisciplines } from './actions';
 import './style.css';
 
-export function Monster({ OnRequestDropDownItems, monster }) {
+const { Panel } = Collapse;
+export function Monster({
+  OnRequestDropDownItems,
+  monster,
+  match,
+  OnRequestDisciplines,
+}) {
   useInjectReducer({ key: 'monster', reducer });
   useInjectSaga({ key: 'monster', saga });
 
-  const { loading, data } = monster;
+  const { loading, data, tech } = monster;
   const [selectedItem, setSelectedItem] = useState({});
+  const [techData1, setTechData1] = useState([]);
+
+  function getQueryParams(params) {
+    if (params === 'disciplines') {
+      return 'discipline';
+    }
+    if (params === 'clan') {
+      return 'clans';
+    }
+    return params;
+  }
+
+  useEffect(() => {
+    const pathData = window.location.pathname.split('/');
+    if (pathData.length === 6) {
+      const clanName = pathData[4];
+      if (clanName && isEmpty(selectedItem)) {
+        OnRequestDropDownItems(getQueryParams(clanName.toLocaleLowerCase()));
+      }
+    }
+  }, [window.location.pathname]);
+
+  function getItems(item) {
+    if (item.title) {
+      return item.title;
+    }
+    if (item.merit) {
+      return item.merit;
+    }
+    if (item.flaw) {
+      return item.flaw;
+    }
+
+    if (item.technique) {
+      return item.technique;
+    }
+    return item.attribute;
+  }
+
+  useEffect(() => {
+    const pathData = window.location.pathname.split('/');
+    if (pathData.length === 6) {
+      const clanName = pathData[4];
+      const itemName = pathData[5];
+      if (clanName && isEmpty(selectedItem)) {
+        OnRequestDropDownItems(getQueryParams(clanName.toLocaleLowerCase()));
+      }
+      const filterData = find(monster.data, o =>
+        isEqual(getItems(o).toString(), itemName.toString().replace('_', ' ')),
+      );
+      if (filterData) {
+        setSelectedItem(filterData);
+      }
+    }
+  }, [monster.data]);
 
   function handleSelectedItems(dataItem) {
     setSelectedItem(dataItem);
@@ -53,6 +115,7 @@ export function Monster({ OnRequestDropDownItems, monster }) {
     if (isEqual(item, 'pins')) {
       return 'PINS: GET YOUR VAMPIRE PIN NOW!';
     }
+
     return `${item}:`;
   }
 
@@ -63,6 +126,21 @@ export function Monster({ OnRequestDropDownItems, monster }) {
       isEqual(item, 'contentTypeId')
     ) {
       return false;
+    }
+
+    if (isEqual(item, 'clanArt')) {
+      return (
+        <img
+          src={desc}
+          alt={item}
+          style={{
+            width: 200,
+            height: 200,
+            objectFit: 'contain',
+            marginTop: 10,
+          }}
+        />
+      );
     }
     return desc;
   }
@@ -86,8 +164,46 @@ export function Monster({ OnRequestDropDownItems, monster }) {
     return array;
   }
 
-  function renderEmpty() {
+  function setTechData(techData) {
+    if (techData && techData.length > 0) {
+      setTechData1(techData);
+      setSelectedItem('');
+    }
+  }
+
+  function renderTechItem(item) {
+    const array = [];
+    if (item) {
+      for (const p in item) {
+        array.push(
+          <div style={{ color: '#fff' }} key={p} className="mainContent">
+            <div className="data">
+              <div style={{ color: '#fff' }} className="title">
+                {handleRenderHeader(p, item[p])}
+              </div>
+              <span>{handleRenderDesc(item[p], p)}</span>
+            </div>
+          </div>,
+        );
+      }
+    }
+    return array;
+  }
+
+  function renderTechData() {
     if (!isEmpty(selectedItem)) {
+      return false;
+    }
+    return techData1.map((item, index) => (
+      <Collapse id="collapse">
+        <Panel header={item.technique} key={index} id="collapse">
+          <div id="collapse1">{renderTechItem(item)}</div>
+        </Panel>
+      </Collapse>
+    ));
+  }
+  function renderEmpty() {
+    if (!isEmpty(selectedItem) || !isEmpty(techData1)) {
       return false;
     }
 
@@ -103,7 +219,10 @@ export function Monster({ OnRequestDropDownItems, monster }) {
     );
   }
   return (
-    <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
+    <div
+      className="d-flex flex-column align-items-center justify-content-between w-100"
+      style={{ height: '100vh' }}
+    >
       <Helmet>
         <title>Monster</title>
         <meta name="description" content="Description of Monster" />
@@ -115,11 +234,16 @@ export function Monster({ OnRequestDropDownItems, monster }) {
           loading={loading}
           data={data}
           handleSelectedItems={handleSelectedItems}
+          match={match}
+          OnRequestDisciplines={OnRequestDisciplines}
+          tech={tech}
+          setTechData={setTechData}
         />
       </div>
-      <div className="d-flex flex-column w-100 h-100 container clan-info">
+      <div className="d-flex flex-column w-100 container clan-info">
         {renderItems()}
         {renderEmpty()}
+        <div style={{ marginTop: '5vh' }}>{renderTechData()}</div>
       </div>
       <Footer />
     </div>
@@ -129,6 +253,8 @@ export function Monster({ OnRequestDropDownItems, monster }) {
 Monster.propTypes = {
   OnRequestDropDownItems: PropTypes.func,
   monster: PropTypes.object,
+  match: PropTypes.object,
+  OnRequestDisciplines: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -138,6 +264,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    OnRequestDisciplines: () => dispatch(getDisciplines()),
   };
 }
 

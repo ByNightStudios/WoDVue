@@ -46,7 +46,10 @@ export function HomePage({ onRequestData, homePage }) {
   }
 
   return (
-    <div className="d-flex flex-column align-items-center justify-content-between w-100 h-100">
+    <div
+      className="d-flex flex-column align-items-center justify-content-between w-100"
+      style={{ height: '100vh' }}
+    >
       <Helmet>
         <title>World of darkness</title>
         <meta name="description" content="Description of HomePage" />

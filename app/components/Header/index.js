@@ -12,13 +12,18 @@ import React from 'react';
 function Header() {
   return (
     <div id="nav" className="navbar" style={{ width: '100%' }}>
-      <div className="container">
+      <div
+        className="container"
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+        }}
+      >
         <a href="/WoDVue/monsters/vampire" className="btn-vampire">
           Vampire the Masquerade
         </a>
-        <a href="/WoDVue/monsters/werewolf" className="btn-werewolf">
-          Werewolf the Apocalypse
-        </a>
+        <a href="/" className="logo" active="" />
       </div>
     </div>
   );

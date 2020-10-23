@@ -16,9 +16,7 @@ function Footer() {
       <div id="wrapper-footer" style={{ width: '100%' }}>
         <div id="menu-footer" className="navbar">
           <div className="container w-100">
-            <a href="/" className="logo logoNS router-link-active" active="">
-              {/* <img src={FooterLogo} alt="logo" /> */}
-            </a>
+            <a href="/" className="logo logoNS router-link-active" active="" />
             <a href="/" className="router-link-active btn-vampire">
               Vampire the Masquerade
             </a>

@@ -1,9 +1,11 @@
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable no-self-assign */
 /* eslint-disable indent */
 
 import axios from 'axios';
+import { find, groupBy, isEmpty, uniqBy, get } from 'lodash';
 import helpers from '../../helpers/helpers';
 
 let http = null;
@@ -11,6 +13,8 @@ let skipData = null;
 let limitData = null;
 let queryData = 'any';
 let selectData = '';
+let parentData = '';
+let mySubArrayData = [];
 
 class APIContentful {
   constructor({ url }) {
@@ -21,6 +25,25 @@ class APIContentful {
         Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
       },
     });
+
+    axios.interceptors.request.use(
+      config => {
+        // spinning start to show
+        console.log('this is a loading');
+        return config;
+      },
+      error => Promise.reject(error),
+    );
+
+    axios.interceptors.response.use(
+      response => {
+        // spinning hide
+        console.log('this is my response');
+
+        return response;
+      },
+      error => Promise.reject(error),
+    );
 
     this.spaceId = 'yicuw1hpxsdg';
     this.environmentId = `master`;
@@ -61,7 +84,6 @@ class APIContentful {
   }
 
   getContentTypeId(contentType) {
-    console.log(contentType);
     const idx = this.contentTypeInfo.findIndex(
       cti => cti.contentType === contentType,
     );
@@ -93,6 +115,7 @@ class APIContentful {
       skip,
       limit,
     );
+
     let allEntryData = parentEntries;
     if (parentKeyField !== '') {
       allEntryData = this.loadChildEntriesAsync(
@@ -198,9 +221,15 @@ class APIContentful {
         return this.getArrayValue(field);
       case 'object':
         return this.getObjectValue(field);
+      case 'boolean':
+        return this.getBooleanValue(field);
       default:
         return null;
     }
+  }
+
+  getBooleanValue(field) {
+    return field;
   }
 
   getObjectValue(field) {
@@ -222,12 +251,26 @@ class APIContentful {
     }));
   }
 
+  getClanArt(item, data) {
+    if (item.clanArt) {
+      const mediaData = {
+        ...item,
+        clanArt:
+          item.clanArt[0].sys.id === data[0].sys.id
+            ? data[0].fields.file.url
+            : '',
+      };
+      return mediaData;
+    }
+    return item;
+  }
+
   extractEntryDataFromResponse(
     resContentful,
     initialVals = null,
     sortField = null,
   ) {
-    const { items } = resContentful.data;
+    const { items, includes } = resContentful.data;
     const itemObjects = items.map(i => ({
       ...i.fields,
       id: i.sys.id,
@@ -240,16 +283,23 @@ class APIContentful {
       const sorted = this.getSortedEntries(unsortedEntries, sortField);
       return sorted;
     }
-    return unsortedEntries;
+
+    const getUnsortedEntriesWithMedia = unsortedEntries.map(itemData =>
+      this.getClanArt(itemData, get(includes, 'Asset', [])),
+    );
+
+    return getUnsortedEntriesWithMedia;
   }
 
   async queryContentfulAsync(resource) {
+    mySubArrayData = [];
     return http.get(resource, {
       params: {
         content_type: queryData,
         select: selectData,
         skip: skipData,
         limit: limitData,
+        'fields.parent': parentData,
       },
     });
   }
@@ -308,11 +358,17 @@ class APIContentful {
 }
 
 export default function apiContentful(params) {
-  const { skip, limit, query, select } = params;
+  const { skip, limit, query, select, parents } = params;
   skipData = skip;
   limitData = limit;
   queryData = query;
   selectData = select;
+  if (parents) {
+    parentData = parents;
+  } else {
+    parentData = '';
+  }
+
   return new APIContentful({
     url: 'https://cdn.contentful.com',
   });

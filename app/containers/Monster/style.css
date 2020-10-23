@@ -1,7 +1,20 @@
 .clan-info {
-  margin: 20px 0px;
   background-color: black;
   color: #fff;
-  min-height: 300px;
-  overflow: auto;
+}
+
+#collapse, .ant-collapse-header {
+  background-color: black;
+  color: #fff !important;
+}
+
+#collapse1 {
+  background-color: black;
+  color: #fff;
+  padding: 20px;
+}
+
+.ant-collapse-content-box {
+  margin: 0px !important;
+  padding: 0px !important;
 }
