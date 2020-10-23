@@ -121,11 +121,12 @@ function NavBar({
     return dataItem;
   }
 
-  function handleSelectedItem(id) {
+  function handleSelectedItem(id, text) {
     const selectedItemData = find(data, { id });
-    history.push(
-      `${match.path}/${window.location.pathname.split('/')[4]}/${id}`,
-    );
+    const link = `${match.path}/${
+      window.location.pathname.split('/')[4]
+    }/${text.replace(new RegExp(' ', 'g'), '_')}`;
+    window.open(link, '_blank');
     delete selectedItemData.items;
     handleSelectedItems(selectedItemData);
   }
@@ -195,7 +196,7 @@ function NavBar({
         {map(dropDownContent, ({ id, text }) => (
           <Menu.Item
             key={id}
-            onClick={() => handleSelectedItem(id)}
+            onClick={() => handleSelectedItem(id, text)}
             style={{ color: '#fff' }}
           >
             <Tooltip title={renderText(text)}>{text}</Tooltip>

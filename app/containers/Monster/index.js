@@ -45,15 +45,42 @@ export function Monster({
   const [selectedItem, setSelectedItem] = useState({});
   const [techData1, setTechData1] = useState([]);
 
+  function getQueryParams(params) {
+    if (params === 'disciplines') {
+      return 'discipline';
+    }
+    if (params === 'clan') {
+      return 'clans';
+    }
+    return params;
+  }
+
   useEffect(() => {
     const pathData = window.location.pathname.split('/');
     if (pathData.length === 6) {
       const clanName = pathData[4];
       if (clanName && isEmpty(selectedItem)) {
-        OnRequestDropDownItems(clanName.toLocaleLowerCase());
+        OnRequestDropDownItems(getQueryParams(clanName.toLocaleLowerCase()));
       }
     }
   }, [window.location.pathname]);
+
+  function getItems(item) {
+    if (item.title) {
+      return item.title;
+    }
+    if (item.merit) {
+      return item.merit;
+    }
+    if (item.flaw) {
+      return item.flaw;
+    }
+
+    if (item.technique) {
+      return item.technique;
+    }
+    return item.attribute;
+  }
 
   useEffect(() => {
     const pathData = window.location.pathname.split('/');
@@ -61,9 +88,11 @@ export function Monster({
       const clanName = pathData[4];
       const itemName = pathData[5];
       if (clanName && isEmpty(selectedItem)) {
-        OnRequestDropDownItems(clanName.toLocaleLowerCase());
+        OnRequestDropDownItems(getQueryParams(clanName.toLocaleLowerCase()));
       }
-      const filterData = find(monster.data, o => o.id === itemName);
+      const filterData = find(monster.data, o =>
+        isEqual(getItems(o).toString(), itemName.toString().replace('_', ' ')),
+      );
       if (filterData) {
         setSelectedItem(filterData);
       }
