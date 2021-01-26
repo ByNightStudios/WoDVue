@@ -7,15 +7,106 @@
 import React, { memo } from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
-
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import LogoWOD from 'images/LogoWOD.svg';
+import VampireLogo from 'images/VampireLogo.svg';
+import ByNightStudios from 'images/ByNightStudios.svg';
 
 function Footer_1() {
   return (
-    <div>
-      <FormattedMessage {...messages.header} />
-    </div>
+    <>
+      <footer className="bg-dark footer-page">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4 col-md-12 widgetLogos text-center">
+              <a className="navbar-brand" href="#">
+                <img src={LogoWOD} />
+              </a>
+              <a className="navbar-brand brand-section" href="#">
+                <img src={VampireLogo} />
+              </a>
+            </div>
+            <div className="col-lg-4 col-md-6">
+              <h3>Quick Links</h3>
+              <ul className="navbar-nav menuFooter">
+                <li className="nav-item active">
+                  <a className="nav-link" href="#">
+                    Clans & Bloodlines
+                    <span className="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Disciplines
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Techniques
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Skills
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Merits
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Flaws
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Attributes
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Backgrounds
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <div className="col-lg-4 col-md-6 widgetSocial">
+              <h3>Follow Us</h3>
+              <ul className="navbar-nav ml-auto navbarSocial">
+                <li className="nav-item">
+                  <a
+                    className="nav-link fa fa-facebook-square"
+                    href="#"
+                    title="Facebook"
+                  />
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link fa fa-twitter-square"
+                    href="#"
+                    title="Twitter"
+                  />
+                </li>
+                <li className="nav-item">
+                  <a
+                    className="nav-link fa fa-camera-retro"
+                    href="#"
+                    title="Instagram"
+                  />
+                </li>
+              </ul>
+              <a className="navbar-brand brand-company" href="#">
+                <img src={ByNightStudios} />
+              </a>
+            </div>
+          </div>
+        </div>
+      </footer>
+      <div className="bottom-footer">
+        <p>BY NIGHT STUDIOS | WORLDOFDARKNESS - 2020</p>
+      </div>
+    </>
   );
 }
 
