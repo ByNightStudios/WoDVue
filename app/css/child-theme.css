@@ -50,14 +50,14 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
 body {
-  margin: 0;
-  font-family: "Articulat CF";
-  font-size: 1rem;
-  font-weight: 400;
-  line-height: 1.5;
-  color: #191919;
-  text-align: left;
-  background-color: #fff; }
+  margin: 0 !important;
+  font-family: "Articulat CF" !important;
+  font-size: 1rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #191919 !important;
+  text-align: left !important;
+  background-color: #fff !important; }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
