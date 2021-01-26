@@ -4,7 +4,7 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -16,6 +16,12 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
+import homePageReducer from 'containers/HomePage/reducer';
+import homePageSaga from 'containers/HomePage/saga';
+import makeSelectHomePage from 'containers/HomePage/selectors';
+
+import Loader from 'components/Loader';
+import { getData } from 'containers/App/actions';
 
 import ToDoReader from 'images/toreador.png';
 
@@ -25,10 +31,29 @@ import saga from './saga';
 import messages from './messages';
 import './style.css';
 
-export function ClanPage() {
+export function ClanPage({ onRequestData, homePage }) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
 
+  useInjectReducer({ key: 'homePage', reducer: homePageReducer });
+  useInjectSaga({ key: 'homePage', saga: homePageSaga });
+
+  const {
+    contentful: { hasMore, loading },
+  } = homePage;
+
+  useEffect(() => {
+    if (hasMore) {
+      onRequestData();
+    }
+  });
+
+  if (loading && hasMore) {
+    return <Loader />;
+  }
+
+  console.log(homePage);
+  
   return (
     <div className="clan-page">
       <Helmet>
@@ -272,15 +297,19 @@ export function ClanPage() {
 
 ClanPage.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  onRequestData: PropTypes.func,
+  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   clanPage: makeSelectClanPage(),
+  homePage: makeSelectHomePage(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
+    onRequestData: () => dispatch(getData()),
   };
 }
 
