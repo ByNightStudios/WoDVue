@@ -18,6 +18,7 @@ import { Switch, Route } from 'react-router-dom';
 import HomePage from 'containers/HomePage/Loadable';
 import Monster from 'containers/Monster/index';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import ClanPage from 'containers/ClanPage/Loadable';
 
 import bgImage from '../../images/bg.4daf1f93.jpg';
 
@@ -31,15 +32,7 @@ export function App() {
   useInjectSaga({ key: 'app', saga });
 
   return (
-    <div
-      style={{
-        backgroundImage: `url(${bgImage})`,
-        backgroundRepeat: 'repeat',
-        backgroundPosition: 'top',
-        fontFamily: 'David Libre',
-      }}
-      className="demo"
-    >
+    <div>
       <Helmet>
         <title>World of darkness</title>
         <meta name="description" content="Description of App" />
@@ -47,6 +40,7 @@ export function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/WoDVue/monsters/vampire" component={Monster} />
+        <Route path="/clanPage" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
