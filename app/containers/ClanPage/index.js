@@ -11,6 +11,7 @@ import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+import { Card, Row, Col, Typography } from 'antd';
 import { map, find, get } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
@@ -33,26 +34,23 @@ import messages from './messages';
 import { getDropDownItems } from './actions';
 import './style.css';
 
-export function ClanPage({
-  onRequestData,
-  homePage,
-  OnRequestDropDownItems,
-  clanPage,
-}) {
+export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
-
+  const { onRequestData, homePage, OnRequestDropDownItems, clanPage } = props;
   const {
     contentful: { hasMore, loading },
   } = homePage;
 
+  const { data: clanItems } = clanPage;
+
   useEffect(() => {
     if (hasMore) {
-      onRequestData();
+      // onRequestData();
     }
   });
 
@@ -64,14 +62,22 @@ export function ClanPage({
     return <Loader />;
   }
 
-  const { data: clanItems } = clanPage;
-
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
       const findClanData = find(clanItems, { title: value });
       setSelectedClan(findClanData);
     }
+  }
+
+  function getClassName(item) {
+    if (item === 'Followers of Set') {
+      return 'icon-FollowersofSet';
+    }
+    if (item === 'Daughters of Cacophony') {
+      return 'icon-DaughtersofCacophony';
+    }
+    return `icon-${item}`;
   }
 
   console.log(selectedClan);
@@ -88,8 +94,8 @@ export function ClanPage({
         <div className="row">
           <div className="col-md-8 order-md-12">
             <div className="header-single icon-Toreador">
-              <h1>TOREADOR</h1>
-              <h4>Degenerates</h4>
+              <h1>{get(selectedClan, 'title', '')}</h1>
+              <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
               <div className="row">
@@ -115,11 +121,22 @@ export function ClanPage({
                   <p>{item}</p>
                 ))}
               </p>
-
-              <h2>Disciplines</h2>
-              <p>
-                {map(get(selectedClan, 'disciplines', []), item => `${item},`)}
-              </p>
+              <h2>In Clan Discipline</h2>
+              <Row gutter={[8, 8]}>
+                {map(get(selectedClan, 'inClanDiscipline', []), item => (
+                  <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                    <Card
+                      title={
+                        <Typography.Title level={5}>
+                          {item.fields.title}
+                        </Typography.Title>
+                      }
+                    >
+                      <Card.Meta description={item.fields.testPool} />
+                    </Card>
+                  </Col>
+                ))}
+              </Row>
 
               <h2>WEAKNESS</h2>
               <p>
@@ -160,6 +177,54 @@ export function ClanPage({
               </ol>
             </nav>
 
+            <div
+              className="collapse navbar-collapse navbarBottom"
+              id="navbarResponsive"
+            >
+              <ul className="navbar-nav ml-auto">
+                <li className="nav-item active">
+                  <a className="nav-link" href="#">
+                    Clans & Bloodlines
+                    <span className="sr-only">(current)</span>
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Disciplines
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Techniques
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Skills
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Merits
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Flaws
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Attributes
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#">
+                    Backgrounds
+                  </a>
+                </li>
+              </ul>
+            </div>
             <div className="boxWhite">
               <h3>CLANS & BLOODLINES</h3>
               <ul className="nav flex-column nav-clans">
@@ -169,7 +234,12 @@ export function ClanPage({
                     onClick={handleNavItemsClick}
                     value={items.title}
                   >
-                    {items.title}
+                    <div
+                      className={`nav-link ${getClassName(items.title)}`}
+                      value={items.title}
+                    >
+                      {items.title}
+                    </div>
                   </li>
                 ))}
               </ul>

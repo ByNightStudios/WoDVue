@@ -44,6 +44,7 @@ function* getItemsData({ params }) {
     );
     yield put(dropDownItemsSuccess(orderByData));
   } catch (e) {
+    console.log(e);
     yield put(dropDownItemsError(e));
   }
 }

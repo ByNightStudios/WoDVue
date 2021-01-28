@@ -17,7 +17,7 @@ import history from 'utils/history';
 import 'sanitize.css/sanitize.css';
 import './css/fonts.css';
 import './css/child-theme.css';
-
+import './css/icons.css';
 import 'antd/dist/antd.css';
 
 // Import root app
