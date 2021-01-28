@@ -6,6 +6,7 @@
 
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { FormattedMessage } from 'react-intl';
@@ -234,12 +235,13 @@ export function ClanPage(props) {
                     onClick={handleNavItemsClick}
                     value={items.title}
                   >
-                    <div
+                    <Link
+                      to={items.title}
                       className={`nav-link ${getClassName(items.title)}`}
                       value={items.title}
                     >
                       {items.title}
-                    </div>
+                    </Link>
                   </li>
                 ))}
               </ul>

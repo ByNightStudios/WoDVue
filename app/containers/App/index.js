@@ -39,8 +39,8 @@ export function App() {
       </Helmet>
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route path="/WoDVue/monsters/vampire" component={Monster} />
-        <Route path="/clanPage" component={ClanPage} />
+        <Route path="/WoDVue/monsters/vampire1" component={Monster} />
+        <Route path="/WoDVue/monsters/vampire/" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
