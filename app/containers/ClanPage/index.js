@@ -100,12 +100,15 @@ export function ClanPage({
                   <p>{get(selectedClan, 'description[0]', [])}</p>
                 </div>
               </div>
+              <br />
+              {/* <p>{get(selectedClan, 'description[1]', [])}</p> */}
               <blockquote className="blockquote">
-                <p className="mb-0">
-                  {get(selectedClan, 'description[1]', [])}
-                </p>
+                <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
               </blockquote>
-              <p>{get(selectedClan, 'description[2]', [])}</p>
+              <p>
+                {get(selectedClan, 'description[1]', [])}
+                {get(selectedClan, 'description[2]', [])}
+              </p>
               <h2>ORGANIZATION</h2>
               <p>
                 {map(get(selectedClan, 'organization', []), item => (
@@ -115,9 +118,7 @@ export function ClanPage({
 
               <h2>Disciplines</h2>
               <p>
-                {map(get(selectedClan, 'disciplines', []), item => (
-                  <p>{item}</p>
-                ))}
+                {map(get(selectedClan, 'disciplines', []), item => `${item},`)}
               </p>
 
               <h2>WEAKNESS</h2>
@@ -127,9 +128,12 @@ export function ClanPage({
                 ))}
               </p>
               <h2>MERITS</h2>
-              {map(get(selectedClan, 'merits', []), item => (
-                <p>{item}</p>
-              ))}
+              <p>
+                {map(
+                  get(selectedClan, 'merits', []),
+                  item => `${item.split(':')[0]} , `,
+                )}
+              </p>
             </div>
           </div>
           <div className="col-md-4 order-md-1">
