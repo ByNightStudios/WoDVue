@@ -26,7 +26,7 @@ function Footer_1() {
               </a>
             </div>
             <div className="col-lg-4 col-md-6">
-              <h3>Quick Links</h3>
+              <h3 style={{ color: '#fff' }}>Quick Links</h3>
               <ul className="navbar-nav menuFooter">
                 <li className="nav-item active">
                   <a className="nav-link" href="#">
@@ -72,7 +72,7 @@ function Footer_1() {
               </ul>
             </div>
             <div className="col-lg-4 col-md-6 widgetSocial">
-              <h3>Follow Us</h3>
+              <h3 style={{ color: '#fff' }}>Follow Us</h3>
               <ul className="navbar-nav ml-auto navbarSocial">
                 <li className="nav-item">
                   <a
@@ -104,7 +104,7 @@ function Footer_1() {
         </div>
       </footer>
       <div className="bottom-footer">
-        <p>BY NIGHT STUDIOS | WORLDOFDARKNESS - 2020</p>
+        <p>BY NIGHT STUDIOS | WORLDOFDARKNESS - {new Date().getFullYear()}</p>
       </div>
     </>
   );

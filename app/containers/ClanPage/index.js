@@ -92,6 +92,8 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -111,7 +113,6 @@ export function ClanPage(props) {
                 </div>
               </div>
               <br />
-              {/* <p>{get(selectedClan, 'description[1]', [])}</p> */}
               <blockquote className="blockquote">
                 <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
               </blockquote>
@@ -125,6 +126,21 @@ export function ClanPage(props) {
                   <p>{item}</p>
                 ))}
               </p>
+              {!isEmpty(selectedClan.disciplines) ? (
+                <div>
+                  <h2>Discipline</h2>
+                  <Row gutter={[8, 8]} style={{ color: '#821919 !important' }}>
+                    {map(get(selectedClan, 'disciplines', []), item => (
+                      <Link to="/Disciplines">
+                        {item}
+                        {', '}
+                      </Link>
+                    ))}
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
               {!isEmpty(selectedClan.inClanDisciplines) ? (
                 <div>
                   <h2>In Clan Discipline</h2>
@@ -151,6 +167,23 @@ export function ClanPage(props) {
               ) : (
                 <div />
               )}
+
+              {!isEmpty(selectedClan.flaws) ? (
+                <div>
+                  <h2>Flaws</h2>
+                  <Row gutter={[8, 8]}>
+                    {map(get(selectedClan, 'flaws', []), item => (
+                      <Link to="/#">
+                        {item}
+                        {', '}
+                      </Link>
+                    ))}
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
+
               <h2>WEAKNESS</h2>
               <p>
                 {map(get(selectedClan, 'weakness', []), item => (
