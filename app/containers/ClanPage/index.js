@@ -97,7 +97,7 @@ export function ClanPage(props) {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
-            <div className="header-single icon-Toreador">
+            <div className={`header-single icon-${selectedClan.title}`}>
               <h1>{get(selectedClan, 'title', '')}</h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
