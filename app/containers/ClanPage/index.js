@@ -1,3 +1,6 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /**
  *
  * ClanPage
@@ -8,8 +11,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Card, Row, Col, Typography } from 'antd';
@@ -17,8 +19,7 @@ import { map, find, get, isEmpty } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import Header from 'components/Header_1';
-import Footer from 'components/Footer_1';
+
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
@@ -31,7 +32,7 @@ import ToDoReader from 'images/toreador.png';
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
 import { getDropDownItems } from './actions';
 import './style.css';
 
@@ -93,7 +94,6 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
-      <Header />
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -104,7 +104,7 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <div className="row">
                 <div className="col-lg-6 col-md-12 order-lg-12 boxThumb">
-                  <img className="thumbClan" src={ToDoReader} />
+                  <img className="thumbClan" src={ToDoReader} alt="$" />
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
                   <p>{get(selectedClan, 'description[0]', [])}</p>
@@ -131,15 +131,19 @@ export function ClanPage(props) {
                   <Row gutter={[8, 8]}>
                     {map(get(selectedClan, 'inClanDisciplines', []), item => (
                       <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                        <Card
-                          title={
-                            <Typography.Title level={5}>
-                              {item.fields.title}
-                            </Typography.Title>
-                          }
-                        >
-                          <Card.Meta description={item.fields.testPool} />
-                        </Card>
+                        <Link to="/Disciplines">
+                          <Card
+                            title={
+                              <Typography.Title level={5}>
+                                {item.fields.title}
+                              </Typography.Title>
+                            }
+                            bordered
+                            hoverable
+                          >
+                            <Card.Meta description={item.fields.testPool} />
+                          </Card>
+                        </Link>
                       </Col>
                     ))}
                   </Row>
@@ -181,7 +185,7 @@ export function ClanPage(props) {
                   <a href="#">Clans & Bloodlines</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  Toreador
+                  {get(selectedClan, 'title', '')}
                 </li>
               </ol>
             </nav>
@@ -257,13 +261,12 @@ export function ClanPage(props) {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }
 
 ClanPage.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  ...ClanPage,
   onRequestData: PropTypes.func,
   homePage: PropTypes.object,
 };

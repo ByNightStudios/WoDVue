@@ -14,13 +14,12 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import { Switch, Route } from 'react-router-dom';
-
-import HomePage from 'containers/HomePage/Loadable';
-import Monster from 'containers/Monster/index';
+import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
+import Disciplines from 'containers/Disciplines/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
-
-import bgImage from '../../images/bg.4daf1f93.jpg';
+import Header from 'components/Header_1';
+import Footer from 'components/Footer_1';
 
 import makeSelectApp from './selectors';
 import reducer from './reducer';
@@ -37,12 +36,14 @@ export function App() {
         <title>World of darkness</title>
         <meta name="description" content="Description of App" />
       </Helmet>
+      <Header />
       <Switch>
-        <Route exact path="/" component={HomePage} />
-        <Route path="/WoDVue/monsters/vampire1" component={Monster} />
+        <Route exact path="/" component={WoVueHomePage} />
+        <Route exact path="/Disciplines" component={Disciplines} />
         <Route path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
+      <Footer />
     </div>
   );
 }

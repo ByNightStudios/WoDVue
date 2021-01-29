@@ -1,3 +1,7 @@
+/* eslint-disable camelcase */
+/* eslint-disable jsx-a11y/anchor-has-content */
+/* eslint-disable jsx-a11y/alt-text */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /**
  *
  * Header_1
@@ -7,16 +11,22 @@
 import React, { memo } from 'react';
 // import PropTypes from 'prop-types';
 // import styled from 'styled-components';
+import { includes } from 'lodash';
+import history from 'utils/history';
 import LogoWOD from 'images/LogoWOD.svg';
 import VampireLogo from 'images/VampireLogo.svg';
 
 function Header_1() {
+  const {
+    location: { pathname },
+  } = history;
+  console.log(pathname);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top navbarHeader">
       <div className="container">
         <div className="row">
           <div className="col-md-3 boxLogos">
-            <a className="navbar-brand" href="#">
+            <a className="navbar-brand" href="/">
               <img src={LogoWOD} />
             </a>
             <a className="navbar-brand brand-section" href="#">
@@ -80,14 +90,26 @@ function Header_1() {
               id="navbarResponsive"
             >
               <ul className="navbar-nav ml-auto">
-                <li className="nav-item active">
-                  <a className="nav-link" href="#">
+                <li className="nav-item">
+                  <a
+                    className={`nav-link ${
+                      includes([pathname], '/WoDVue/monsters/vampire/clan')
+                        ? 'active'
+                        : null
+                    }`}
+                    href="/WoDVue/monsters/vampire/clan/Baali"
+                  >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Disciplines' ? 'active' : null
+                    }`}
+                    href="/Disciplines"
+                  >
                     Disciplines
                   </a>
                 </li>
