@@ -10,7 +10,9 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map } from 'lodash';
+import { get, map } from 'lodash';
+
+import Loader from 'components/Loader';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectDisciplines from './selectors';
@@ -22,11 +24,23 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
   useInjectReducer({ key: 'disciplines', reducer });
   useInjectSaga({ key: 'disciplines', saga });
 
+  const { data, loading, hasMore } = disciplines;
+
   useEffect(() => {
     OnRequestDropDownItems();
   }, []);
 
-  const { data } = disciplines;
+  useEffect(() => {
+    if (hasMore) {
+      OnRequestDropDownItems();
+    }
+  });
+
+  if (loading && hasMore) {
+    return <Loader />;
+  }
+
+  console.log(data);
   return (
     <div>
       <Helmet>
@@ -70,13 +84,13 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
                         <span>{item.title}</span>
                       </div>
                       <div className="disc-foci">
-                        <span>Perception & Wits</span>
+                        <span>{get(item, 'foci', '-')}</span>
                       </div>
                       <div className="disc-level">
-                        <span>0</span>
+                        <span>{get(item, 'level', '-')}</span>
                       </div>
                       <div className="disc-cost">
-                        <span>Varies</span>
+                        <span>{get(item, 'cost', '-')}</span>
                       </div>
                       <div className="disc-indicator">
                         <a
@@ -104,13 +118,16 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
                               {item.title}
                             </li>
                             <li>
-                              <span>Foci</span>Perception & Wits
+                              <span>Foci</span>
+                              {get(item, 'foci', '-')}
                             </li>
                             <li>
-                              <span>Level</span>0
+                              <span>Level</span>
+                              {get(item, 'level', '-')}
                             </li>
                             <li>
-                              <span>Cost</span>Varies
+                              <span>Cost</span>
+                              {get(item, 'cost', '-')}
                             </li>
                           </ul>
                         </div>

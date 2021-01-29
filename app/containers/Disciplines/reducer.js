@@ -4,6 +4,7 @@
  *
  */
 import produce from 'immer';
+import { concat } from 'lodash';
 import {
   DEFAULT_ACTION,
   GET_DISCIPLINES,
@@ -15,6 +16,9 @@ export const initialState = {
   loading: false,
   data: [],
   error: false,
+  skip: 0,
+  limit: 100,
+  hasMore: true,
 };
 
 /* eslint-disable default-case, no-param-reassign */
@@ -27,8 +31,12 @@ const disciplinesReducer = (state = initialState, action) =>
         draft.loading = true;
         break;
       case DISCIPLINES_DATA_SUCCESS:
-        draft.loading = false;
-        draft.data = action.payload;
+        if (action.payload.length < 100) {
+          draft.hasMore = false;
+          draft.loading = false;
+        }
+        draft.data = concat(state.data, action.payload);
+        draft.skip += draft.limit;
         break;
       case DISCIPLINES_DATA_FAIL:
         draft.loading = false;

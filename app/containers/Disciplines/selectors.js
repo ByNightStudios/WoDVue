@@ -22,4 +22,4 @@ const makeSelectDisciplines = () =>
   );
 
 export default makeSelectDisciplines;
-export { selectDisciplinesDomain };
+export { selectDisciplinesDomain, makeSelectDisciplines };
