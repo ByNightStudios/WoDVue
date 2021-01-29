@@ -1,16 +1,18 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /**
  *
  * Disciplines
  *
  */
 
-import React, { memo, useEffect } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, map } from 'lodash';
+import { get, map, orderBy } from 'lodash';
 
 import Loader from 'components/Loader';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -23,7 +25,8 @@ import { getDisciplines } from './actions';
 export function Disciplines({ OnRequestDropDownItems, disciplines }) {
   useInjectReducer({ key: 'disciplines', reducer });
   useInjectSaga({ key: 'disciplines', saga });
-
+  const [disciplineData, setDisciplineData] = useState([]);
+  const [direction, setDirection] = useState('asc');
   const { data, loading, hasMore } = disciplines;
 
   useEffect(() => {
@@ -33,11 +36,22 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
   useEffect(() => {
     if (hasMore) {
       OnRequestDropDownItems();
+      setDisciplineData(data);
     }
   });
 
   if (loading && hasMore) {
     return <Loader />;
+  }
+
+  function handleSortingByLevel(type) {
+    const sortedByLevel = orderBy(disciplineData, [type], [direction]);
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
   }
 
   return (
@@ -53,19 +67,34 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
           </div>
           <div className="col-md-12">
             <div className="header-disciplines">
-              <div className="power sort-up">
+              <div
+                className="power"
+                onClick={() => handleSortingByLevel('power')}
+              >
                 <span>POWER</span>
               </div>
-              <div className="discipline sort-down">
+              <div
+                className="discipline"
+                onClick={() => handleSortingByLevel('title')}
+              >
                 <span>Discipline</span>
               </div>
-              <div className="foci">
+              <div
+                className="foci"
+                onClick={() => handleSortingByLevel('foci')}
+              >
                 <span>Foci</span>
               </div>
-              <div className="level">
+              <div
+                className="level"
+                onClick={() => handleSortingByLevel('level')}
+              >
                 <span>Level</span>
               </div>
-              <div className="cost">
+              <div
+                className="cost"
+                onClick={() => handleSortingByLevel('cost')}
+              >
                 <span>Cost</span>
               </div>
               <div className="indicator" />
@@ -73,7 +102,7 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(data, (item, index) => (
+                {map(disciplineData, (item, index) => (
                   <>
                     <div className={`item discipline-${index + 1}`}>
                       <div className="disc-power">
