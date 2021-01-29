@@ -6,7 +6,6 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -32,10 +31,6 @@ export function App() {
 
   return (
     <div>
-      <Helmet>
-        <title>World of darkness</title>
-        <meta name="description" content="Description of App" />
-      </Helmet>
       <Header />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />

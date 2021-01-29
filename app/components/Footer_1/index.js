@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable camelcase */
 /**
  *
  * Footer_1
@@ -18,24 +20,27 @@ function Footer_1() {
         <div className="container">
           <div className="row">
             <div className="col-lg-4 col-md-12 widgetLogos text-center">
-              <a className="navbar-brand" href="#">
-                <img src={LogoWOD} />
+              <a className="navbar-brand" href="/">
+                <img src={LogoWOD} alt="" />
               </a>
-              <a className="navbar-brand brand-section" href="#">
-                <img src={VampireLogo} />
+              <a className="navbar-brand brand-section" href="/">
+                <img src={VampireLogo} alt="" />
               </a>
             </div>
             <div className="col-lg-4 col-md-6">
               <h3 style={{ color: '#fff' }}>Quick Links</h3>
               <ul className="navbar-nav menuFooter">
                 <li className="nav-item active">
-                  <a className="nav-link" href="#">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/clan/Baali"
+                  >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Disciplines">
                     Disciplines
                   </a>
                 </li>

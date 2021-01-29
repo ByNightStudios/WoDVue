@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /**
@@ -9,7 +10,6 @@
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get, map, orderBy } from 'lodash';
@@ -56,10 +56,6 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
 
   return (
     <div>
-      <Helmet>
-        <title>Disciplines</title>
-        <meta name="description" content="Description of Disciplines" />
-      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">

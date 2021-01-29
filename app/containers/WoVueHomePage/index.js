@@ -7,8 +7,6 @@
 import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -17,7 +15,6 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectWoVueHomePage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
 
 export function WoVueHomePage() {
   useInjectReducer({ key: 'woVueHomePage', reducer });
@@ -25,16 +22,15 @@ export function WoVueHomePage() {
 
   return (
     <div>
-      <Helmet>
-        <title>WoVueHomePage</title>
-        <meta name="description" content="Description of WoVueHomePage" />
-      </Helmet>
       <div className="container main-content">
         <div className="row rowBox">
           <div className="col-lg-4 col-md-6 col-sm-6">
             <div className="box clans">
               <h4>Clans & Blodlines</h4>
-              <a href="/WoDVue/monsters/vampire/clan/Baali" className="btn btn-primary">
+              <a
+                href="/WoDVue/monsters/vampire/clan/Baali"
+                className="btn btn-primary"
+              >
                 Explore
               </a>
             </div>
