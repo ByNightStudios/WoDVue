@@ -13,7 +13,7 @@ import { FormattedMessage } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Card, Row, Col, Typography } from 'antd';
-import { map, find, get } from 'lodash';
+import { map, find, get, isEmpty } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -51,13 +51,23 @@ export function ClanPage(props) {
 
   useEffect(() => {
     if (hasMore) {
-      // onRequestData();
+      onRequestData();
     }
   });
 
   useEffect(() => {
     OnRequestDropDownItems('clans');
   }, []);
+
+  useEffect(() => {
+    const {
+      match: {
+        params: { id },
+      },
+    } = props;
+    const findClanData = find(clanItems, { title: id });
+    setSelectedClan(findClanData);
+  }, [props]);
 
   if (loading && hasMore) {
     return <Loader />;
@@ -81,16 +91,9 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
-
   return (
     <div className="clan-page">
-      <Helmet>
-        <title>ClanPage</title>
-        <meta name="description" content="Description of ClanPage" />
-      </Helmet>
       <Header />
-      <FormattedMessage {...messages.header} />
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -122,23 +125,28 @@ export function ClanPage(props) {
                   <p>{item}</p>
                 ))}
               </p>
-              <h2>In Clan Discipline</h2>
-              <Row gutter={[8, 8]}>
-                {map(get(selectedClan, 'inClanDiscipline', []), item => (
-                  <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                    <Card
-                      title={
-                        <Typography.Title level={5}>
-                          {item.fields.title}
-                        </Typography.Title>
-                      }
-                    >
-                      <Card.Meta description={item.fields.testPool} />
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-
+              {!isEmpty(selectedClan.inClanDisciplines) ? (
+                <div>
+                  <h2>In Clan Discipline</h2>
+                  <Row gutter={[8, 8]}>
+                    {map(get(selectedClan, 'inClanDisciplines', []), item => (
+                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
+                        <Card
+                          title={
+                            <Typography.Title level={5}>
+                              {item.fields.title}
+                            </Typography.Title>
+                          }
+                        >
+                          <Card.Meta description={item.fields.testPool} />
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
               <h2>WEAKNESS</h2>
               <p>
                 {map(get(selectedClan, 'weakness', []), item => (

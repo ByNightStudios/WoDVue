@@ -38,21 +38,17 @@ class APIContentful {
     });
 
     axios.interceptors.request.use(
-      config => {
+      config =>
         // spinning start to show
-        console.log('this is a loading');
-        return config;
-      },
+        config,
       error => Promise.reject(error),
     );
 
     axios.interceptors.response.use(
-      response => {
+      response =>
         // spinning hide
-        console.log('this is my response');
 
-        return response;
-      },
+        response,
       error => Promise.reject(error),
     );
 
@@ -260,7 +256,7 @@ class APIContentful {
 
   getArrayValue(field, fieldName, assestData) {
     let inClanDiscipline = [];
-    if(fieldName === "inClanDiscipline"){
+    if (fieldName === 'inClanDisciplines') {
       map(field, item => {
         if (item.sys) {
           const commonData = intersectionWith(
@@ -318,13 +314,13 @@ class APIContentful {
     sortField = null,
   ) {
     const { items, includes } = resContentful.data;
-    console.log(includes);
+
     const itemObjects = items.map(i => ({
       ...i.fields,
       id: i.sys.id,
     }));
     let unsortedEntries = itemObjects.map(i => this.extractData(i, includes));
-    console.log(unsortedEntries);
+
     if (initialVals) {
       unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
     }

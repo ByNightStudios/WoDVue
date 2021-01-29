@@ -40,7 +40,7 @@ export function App() {
       <Switch>
         <Route exact path="/" component={HomePage} />
         <Route path="/WoDVue/monsters/vampire1" component={Monster} />
-        <Route path="/WoDVue/monsters/vampire/" component={ClanPage} />
+        <Route path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
     </div>
