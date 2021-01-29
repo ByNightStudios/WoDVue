@@ -40,7 +40,6 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
     return <Loader />;
   }
 
-  console.log(data);
   return (
     <div>
       <Helmet>

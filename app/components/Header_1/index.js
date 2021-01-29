@@ -20,7 +20,7 @@ function Header_1() {
   const {
     location: { pathname },
   } = history;
-  console.log(pathname);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top navbarHeader">
       <div className="container">
