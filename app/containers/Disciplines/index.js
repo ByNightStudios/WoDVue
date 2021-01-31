@@ -57,7 +57,7 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
   function handleSortingByDisc() {
     const sortedByLevel = orderBy(
       disciplineData,
-      ['title', 'level'],
+      [user => user.title.toLowerCase(), 'level'],
       [direction, 'desc'],
     );
     setDisciplineData(sortedByLevel);

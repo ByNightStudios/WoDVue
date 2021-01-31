@@ -121,45 +121,32 @@ export function ClanPage(props) {
               <h2>ORGANIZATION</h2>
               <p>
                 {map(get(selectedClan, 'organization', []), item => (
-                  <p>{item}</p>
+                  <p key={item} key={item}>
+                    {item}
+                  </p>
                 ))}
               </p>
-              {!isEmpty(selectedClan.disciplines) ? (
-                <div>
-                  <h2>Discipline</h2>
-                  <Row gutter={[8, 8]} style={{ color: '#821919 !important' }}>
-                    {map(get(selectedClan, 'disciplines', []), item => (
-                      <Link to="/Disciplines">
-                        {item}
-                        {', '}
-                      </Link>
-                    ))}
-                  </Row>
-                </div>
-              ) : (
-                <div />
-              )}
+
               {!isEmpty(selectedClan.inClanDisciplines) ? (
                 <div>
                   <h2>In Clan Discipline</h2>
-                  <Row gutter={[8, 8]}>
-                    {map(get(selectedClan, 'inClanDisciplines', []), item => (
-                      <Col xs={24} sm={24} md={8} lg={8} xl={8}>
-                        <Link to="/Disciplines">
+                  <Row>
+                    {map(
+                      get(selectedClan, 'inClanDisciplines', []),
+                      (item, index) => (
+                        <Link to="/Disciplines" key={index}>
                           <Card
-                            title={
-                              <Typography.Title level={5}>
-                                {item.fields.title}
-                              </Typography.Title>
-                            }
-                            bordered
+                            bordered={false}
+                            bodyStyle={{ padding: 10 }}
                             hoverable
                           >
-                            <Card.Meta description={item.fields.testPool} />
+                            <Typography.Text>
+                              {item.fields.title}
+                            </Typography.Text>
                           </Card>
                         </Link>
-                      </Col>
-                    ))}
+                      ),
+                    )}
                   </Row>
                 </div>
               ) : (
@@ -171,7 +158,7 @@ export function ClanPage(props) {
                   <h2>Flaws</h2>
                   <Row gutter={[8, 8]}>
                     {map(get(selectedClan, 'flaws', []), item => (
-                      <Link to="/#">
+                      <Link to="/#" key={item}>
                         {item}
                         {', '}
                       </Link>
@@ -185,16 +172,24 @@ export function ClanPage(props) {
               <h2>WEAKNESS</h2>
               <p>
                 {map(get(selectedClan, 'weakness', []), item => (
-                  <p>{item}</p>
+                  <p key={item}>{item}</p>
                 ))}
               </p>
-              <h2>MERITS</h2>
-              <p>
-                {map(
-                  get(selectedClan, 'merits', []),
-                  item => `${item.split(':')[0]} , `,
-                )}
-              </p>
+              <h2>IN CLAN MERITS</h2>
+              <Row>
+                {map(get(selectedClan, 'inClanMerits', []), (item, index) => (
+                  <Link to="/#">
+                    <Card
+                      bordered={false}
+                      bodyStyle={{ padding: 10 }}
+                      hoverable
+                      key={index}
+                    >
+                      <Typography.Text>{item.fields.merit}</Typography.Text>
+                    </Card>
+                  </Link>
+                ))}
+              </Row>
             </div>
           </div>
           <div className="col-md-4 order-md-1">
@@ -272,11 +267,12 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>CLANS & BLOODLINES</h3>
               <ul className="nav flex-column nav-clans">
-                {map(clanItems, items => (
+                {map(clanItems, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
                     value={items.title}
+                    key={index}
                   >
                     <Link
                       to={items.title}

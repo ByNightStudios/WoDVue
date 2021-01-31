@@ -256,7 +256,7 @@ class APIContentful {
 
   getArrayValue(field, fieldName, assestData) {
     let inClanDiscipline = [];
-    if (fieldName === 'inClanDisciplines') {
+    if (fieldName === 'inClanDisciplines' || fieldName === 'inClanMerits') {
       map(field, item => {
         if (item.sys) {
           const commonData = intersectionWith(
