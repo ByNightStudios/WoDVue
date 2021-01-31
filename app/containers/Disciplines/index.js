@@ -54,6 +54,20 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
     }
   }
 
+  function handleSortingByDisc() {
+    const sortedByLevel = orderBy(
+      disciplineData,
+      ['title', 'level'],
+      [direction, 'desc'],
+    );
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
+  }
+
   return (
     <div>
       <div className="container main-content">
@@ -63,17 +77,14 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
           </div>
           <div className="col-md-12">
             <div className="header-disciplines">
+              <div className="discipline" onClick={() => handleSortingByDisc()}>
+                <span>Discipline</span>
+              </div>
               <div
                 className="power"
                 onClick={() => handleSortingByLevel('power')}
               >
                 <span>POWER</span>
-              </div>
-              <div
-                className="discipline"
-                onClick={() => handleSortingByLevel('title')}
-              >
-                <span>Discipline</span>
               </div>
               <div
                 className="foci"
