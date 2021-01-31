@@ -121,9 +121,7 @@ export function ClanPage(props) {
               <h2>ORGANIZATION</h2>
               <p>
                 {map(get(selectedClan, 'organization', []), item => (
-                  <p key={item} key={item}>
-                    {item}
-                  </p>
+                  <p key={item}>{item}</p>
                 ))}
               </p>
 
@@ -175,21 +173,33 @@ export function ClanPage(props) {
                   <p key={item}>{item}</p>
                 ))}
               </p>
-              <h2>IN CLAN MERITS</h2>
-              <Row>
-                {map(get(selectedClan, 'inClanMerits', []), (item, index) => (
-                  <Link to="/#">
-                    <Card
-                      bordered={false}
-                      bodyStyle={{ padding: 10 }}
-                      hoverable
-                      key={index}
-                    >
-                      <Typography.Text>{item.fields.merit}</Typography.Text>
-                    </Card>
-                  </Link>
-                ))}
-              </Row>
+
+              {!isEmpty(selectedClan.inClanMerits) ? (
+                <div>
+                  <h2>IN CLAN MERITS</h2>
+                  <Row>
+                    {map(
+                      get(selectedClan, 'inClanMerits', []),
+                      (item, index) => (
+                        <Link to="/#">
+                          <Card
+                            bordered={false}
+                            bodyStyle={{ padding: 10 }}
+                            hoverable
+                            key={index}
+                          >
+                            <Typography.Text>
+                              {item.fields.merit}
+                            </Typography.Text>
+                          </Card>
+                        </Link>
+                      ),
+                    )}
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
             </div>
           </div>
           <div className="col-md-4 order-md-1">

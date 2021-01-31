@@ -28,7 +28,7 @@ function Footer_1() {
               </a>
             </div>
             <div className="col-lg-4 col-md-6">
-              <h3 style={{ color: '#fff' }}>Quick Links</h3>
+              <h3>Quick Links</h3>
               <ul className="navbar-nav menuFooter">
                 <li className="nav-item active">
                   <a
