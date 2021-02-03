@@ -63,6 +63,9 @@
 .icon-right:before {
   content: "\e902";
 }
+.icon-Assamite:before {
+  content: "\e91c";
+}
 .icon-Baali:before {
   content: "\e903";
 }
