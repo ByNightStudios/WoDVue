@@ -92,19 +92,37 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  function getClassHeaderName(item) {
+    if (item === 'Followers of Set') {
+      return 'icon-FollowersofSet';
+    }
+    if (item === 'Daughters of Cacophony') {
+      return 'icon-DaughtersofCacophony';
+    }
+    return `icon-${item}`;
+  }
+
   return (
     <div className="clan-page">
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
-            <div className={`header-single icon-${selectedClan.title}`}>
+            <div
+              className={`header-single ${getClassHeaderName(
+                selectedClan.title,
+              )}`}
+            >
               <h1>{get(selectedClan, 'title', '')}</h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
               <div className="row">
                 <div className="col-lg-6 col-md-12 order-lg-12 boxThumb">
-                  <img className="thumbClan" src={ToDoReader} alt="$" />
+                  <img
+                    className="thumbClan"
+                    src={get(selectedClan, 'featuredLead[0].fields.file.url')}
+                    alt="$"
+                  />
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
                   <p>{get(selectedClan, 'description[0]', [])}</p>

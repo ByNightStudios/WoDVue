@@ -241,7 +241,7 @@ class APIContentful {
 
   getObjectValue(field, fieldName, assestData) {
     if (field.sys) {
-      return intersectionWith([field], get(assestData, 'Asset', []), (a, b) =>
+      return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
         isEqual(a.sys.id, b.sys.id),
       );
     }
