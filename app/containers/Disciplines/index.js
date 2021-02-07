@@ -9,6 +9,7 @@
 
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -168,9 +169,11 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{map(item.summary, dataItem => dataItem)}</p>
-                        <a href="" className="btn btn-primary">
-                          Details
-                        </a>
+                        <Link to={`/Disciplines/${item.title}`}>
+                          <a href="" className="btn btn-primary">
+                            Details
+                          </a>
+                        </Link>
                       </div>
                     </div>
                   </>

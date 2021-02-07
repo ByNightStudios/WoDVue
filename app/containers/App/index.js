@@ -13,10 +13,13 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import { Switch, Route } from 'react-router-dom';
+
 import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
 import Disciplines from 'containers/Disciplines/Loadable';
+import DisciplinesDetails from 'containers/DisciplinesDetails/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
+
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
 
@@ -35,6 +38,7 @@ export function App() {
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
         <Route exact path="/Disciplines" component={Disciplines} />
+        <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
