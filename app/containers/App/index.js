@@ -18,6 +18,7 @@ import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
 import Disciplines from 'containers/Disciplines/Loadable';
 import DisciplinesDetails from 'containers/DisciplinesDetails/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
+import Flaw from 'containers/Flaw/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
 
 import Header from 'components/Header_1';
@@ -39,6 +40,7 @@ export function App() {
         <Route exact path="/" component={WoVueHomePage} />
         <Route exact path="/Disciplines" component={Disciplines} />
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
+        <Route exact path="/Flaws" component={Flaw} />
         <Route path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
