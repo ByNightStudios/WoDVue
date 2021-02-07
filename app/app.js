@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 /**
  * app.js
  *
@@ -14,10 +15,11 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
 import history from 'utils/history';
+import { message } from 'antd';
 import 'sanitize.css/sanitize.css';
 import './css/fonts.css';
-import './globals.css';
-
+import './css/child-theme.css';
+import './css/icons.css';
 import 'antd/dist/antd.css';
 
 // Import root app
@@ -37,10 +39,23 @@ import configureStore from './configureStore';
 // Import i18n messages
 import { translationMessages } from './i18n';
 
+message.config({
+  top: 80,
+  maxCount: 1,
+});
+
 // Create redux store with history
 const initialState = {};
 const store = configureStore(initialState, history);
 const MOUNT_NODE = document.getElementById('app');
+
+const openMessage = () => {
+  message.loading({ content: 'A New Version Found, Please wait...', key });
+  setTimeout(() => {
+    message.success({ content: 'Changes are live!', key, duration: 2 });
+    window.location.reload();
+  }, 2000);
+};
 
 const render = messages => {
   ReactDOM.render(
@@ -83,5 +98,23 @@ if (!window.Intl) {
 // it's not most important operation and if main code fails,
 // we do not want it installed
 if (process.env.NODE_ENV === 'production') {
-  require('offline-plugin/runtime').install(); // eslint-disable-line global-require
+  require('offline-plugin/runtime').install({
+    onUpdating: () => {
+      console.log('SW Event:', 'onUpdating');
+    },
+    onUpdateReady: () => {
+      console.log('SW Event:', 'onUpdateReady');
+      // Tells to new SW to take control immediately
+      require('offline-plugin/runtime').applyUpdate();
+    },
+    onUpdated: () => {
+      console.log('SW Event:', 'onUpdated');
+      // Reload the webpage to reload into new version
+      openMessage();
+    },
+
+    onUpdateFailed: () => {
+      console.log('SW Event:', 'onUpdateFailed');
+    },
+  }); // eslint-disable-line global-require
 }

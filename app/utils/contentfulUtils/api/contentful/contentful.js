@@ -5,7 +5,18 @@
 /* eslint-disable indent */
 
 import axios from 'axios';
-import { find, groupBy, isEmpty, uniqBy, get } from 'lodash';
+import {
+  find,
+  groupBy,
+  isEmpty,
+  isEqual,
+  uniqBy,
+  get,
+  intersection,
+  intersectionBy,
+  intersectionWith,
+  map,
+} from 'lodash';
 import helpers from '../../helpers/helpers';
 
 let http = null;
@@ -27,21 +38,17 @@ class APIContentful {
     });
 
     axios.interceptors.request.use(
-      config => {
+      config =>
         // spinning start to show
-        console.log('this is a loading');
-        return config;
-      },
+        config,
       error => Promise.reject(error),
     );
 
     axios.interceptors.response.use(
-      response => {
+      response =>
         // spinning hide
-        console.log('this is my response');
 
-        return response;
-      },
+        response,
       error => Promise.reject(error),
     );
 
@@ -202,25 +209,25 @@ class APIContentful {
     return childEntries;
   }
 
-  extractData(entryData) {
+  extractData(entryData, assestData) {
     const keys = Object.keys(entryData);
     const data = keys.reduce((entry, k) => {
-      entry[k] = this.getFieldValue(entryData[k]);
+      entry[k] = this.getFieldValue(entryData[k], k, assestData);
       return entry;
     }, {});
     return data;
   }
 
-  getFieldValue(field) {
+  getFieldValue(field, fieldName, assestData) {
     const type = helpers.typeOf(field);
     switch (type) {
       case 'number':
       case 'string':
         return this.getTrimmedValue(field);
       case 'array':
-        return this.getArrayValue(field);
+        return this.getArrayValue(field, fieldName, assestData);
       case 'object':
-        return this.getObjectValue(field);
+        return this.getObjectValue(field, fieldName, assestData);
       case 'boolean':
         return this.getBooleanValue(field);
       default:
@@ -232,15 +239,41 @@ class APIContentful {
     return field;
   }
 
-  getObjectValue(field) {
-    const contentAry = field.content
-      .map(c => c.content)
-      .flat()
-      .map(c => c.value);
-    return contentAry;
+  getObjectValue(field, fieldName, assestData) {
+    if (field.sys) {
+      return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
+        isEqual(a.sys.id, b.sys.id),
+      );
+    }
+    if (!isEmpty(field.content)) {
+      const contentAry = field.content
+        .map(c => c.content)
+        .flat()
+        .map(c => c.value);
+      return contentAry;
+    }
   }
 
-  getArrayValue(field) {
+  getArrayValue(field, fieldName, assestData) {
+    let inClanDiscipline = [];
+    if (fieldName === 'inClanDisciplines' || fieldName === 'inClanMerits') {
+      map(field, item => {
+        if (item.sys) {
+          const commonData = intersectionWith(
+            get(assestData, 'Entry', []),
+            field,
+            (a, b) => {
+              if (isEqual(a.sys.id, b.sys.id)) {
+                return a.fields;
+              }
+            },
+          );
+          inClanDiscipline = commonData;
+        }
+      });
+      return inClanDiscipline;
+    }
+
     return field;
   }
 
@@ -262,6 +295,16 @@ class APIContentful {
       };
       return mediaData;
     }
+    if (item.clanSymbol) {
+      const mediaData = {
+        ...item,
+        clanSymbol:
+          item.clanSymbol[0].sys.id === data[0].sys.id
+            ? data[0].fields.file.url
+            : '',
+      };
+      return mediaData;
+    }
     return item;
   }
 
@@ -271,11 +314,13 @@ class APIContentful {
     sortField = null,
   ) {
     const { items, includes } = resContentful.data;
+
     const itemObjects = items.map(i => ({
       ...i.fields,
       id: i.sys.id,
     }));
-    let unsortedEntries = itemObjects.map(i => this.extractData(i));
+    let unsortedEntries = itemObjects.map(i => this.extractData(i, includes));
+
     if (initialVals) {
       unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
     }
