@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Card, Row, Col, Typography } from 'antd';
-import { map, filter, get, isEmpty } from 'lodash';
+import { Row } from 'antd';
+import { map, filter, get, isEmpty, find } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -41,12 +41,13 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
-  const { onRequestData, homePage, OnRequestDropDownItems} = props;
+  const { onRequestData, homePage, OnRequestDropDownItems } = props;
+
   const {
     contentful: { hasMore, loading, data: clanItems },
   } = homePage;
 
-  filter(clanItems, o => console.log(o));
+  const filterClans = filter(clanItems, o => o.parent);
 
   useEffect(() => {
     if (hasMore) {
@@ -64,8 +65,8 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    // const findClanData = find(clanItems, { title: id });
-    // setSelectedClan(findClanData);
+    const findClanData = find(filterClans, { power: id });
+    setSelectedClan(findClanData);
   }, [props]);
 
   if (loading && hasMore) {
@@ -75,8 +76,8 @@ export function ClanPage(props) {
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
-      // const findClanData = find(clanItems, { title: value });
-      // setSelectedClan(findClanData);
+      const findClanData = find(filterClans, { power: value });
+      setSelectedClan(findClanData);
     }
   }
 
@@ -100,6 +101,8 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -107,75 +110,34 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                selectedClan.title,
+                get(selectedClan, 'title'),
               )}`}
             >
               <h1>{get(selectedClan, 'title', '')}</h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
-              <div className="row">
-                <div className="col-lg-6 col-md-12 order-lg-12 boxThumb">
-                  <img
-                    className="thumbClan"
-                    src={get(selectedClan, 'featuredLead[0].fields.file.url')}
-                    alt="$"
-                  />
-                </div>
-                <div className="col-lg-6 col-md-12 order-lg-1">
-                  <p>{get(selectedClan, 'description[0]', [])}</p>
-                </div>
-              </div>
-              <br />
-              <blockquote className="blockquote">
-                <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
-              </blockquote>
+              <p>{get(selectedClan, 'summary[0]', [])}</p>
+              {!isEmpty(get(selectedClan, 'quote')) ? (
+                <blockquote className="blockquote">
+                  <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
+                </blockquote>
+              ) : null}
               <p>
-                {get(selectedClan, 'description[1]', [])}
-                {get(selectedClan, 'description[2]', [])}
-              </p>
-              <h2>ORGANIZATION</h2>
-              <p>
-                {map(get(selectedClan, 'organization', []), item => (
-                  <p key={item}>{item}</p>
-                ))}
+                {get(selectedClan, 'summary[1]', [])}
+                {get(selectedClan, 'summary[2]', [])}
+                {get(selectedClan, 'summary[3]', [])}
+                {get(selectedClan, 'summary[4]', [])}
+                {get(selectedClan, 'summary[5]', [])}
+                {get(selectedClan, 'summary[6]', [])}
               </p>
 
-              {!isEmpty(selectedClan.inClanDisciplines) ? (
-                <div>
-                  <h2>In Clan Discipline</h2>
-                  <Row>
-                    {map(
-                      get(selectedClan, 'inClanDisciplines', []),
-                      (item, index) => (
-                        <Link to="/Disciplines" key={index}>
-                          <Card
-                            bordered={false}
-                            bodyStyle={{ padding: 10 }}
-                            hoverable
-                          >
-                            <Typography.Text>
-                              {item.fields.title}
-                            </Typography.Text>
-                          </Card>
-                        </Link>
-                      ),
-                    )}
-                  </Row>
-                </div>
-              ) : (
-                <div />
-              )}
-
-              {!isEmpty(selectedClan.flaws) ? (
+              {!isEmpty(get(selectedClan, 'foci')) ? (
                 <div>
                   <h2>Flaws</h2>
                   <Row gutter={[8, 8]}>
-                    {map(get(selectedClan, 'flaws', []), item => (
-                      <Link to="/#" key={item}>
-                        {item}
-                        {', '}
-                      </Link>
+                    {map(get(selectedClan, 'foci', []), item => (
+                      <p>{item}</p>
                     ))}
                   </Row>
                 </div>
@@ -183,35 +145,21 @@ export function ClanPage(props) {
                 <div />
               )}
 
-              <h2>WEAKNESS</h2>
-              <p>
-                {map(get(selectedClan, 'weakness', []), item => (
-                  <p key={item}>{item}</p>
-                ))}
-              </p>
-
-              {!isEmpty(selectedClan.inClanMerits) ? (
+              {!isEmpty(get(selectedClan, 'interactions')) ? (
                 <div>
-                  <h2>IN CLAN MERITS</h2>
-                  <Row>
-                    {map(
-                      get(selectedClan, 'inClanMerits', []),
-                      (item, index) => (
-                        <Link to="/#">
-                          <Card
-                            bordered={false}
-                            bodyStyle={{ padding: 10 }}
-                            hoverable
-                            key={index}
-                          >
-                            <Typography.Text>
-                              {item.fields.merit}
-                            </Typography.Text>
-                          </Card>
-                        </Link>
-                      ),
-                    )}
-                  </Row>
+                  <h2>INTERACTIONS</h2>
+                  {map(get(selectedClan, 'interactions'), item => (
+                    <p>{item}</p>
+                  ))}
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'testPool')) ? (
+                <div>
+                  <h2>TEST POOL</h2>
+                  {get(selectedClan, 'testPool')}
                 </div>
               ) : (
                 <div />
@@ -293,7 +241,7 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>DISCIPLINES</h3>
               <ul className="nav flex-column nav-clans">
-                {map(clanItems, (items, index) => (
+                {map(filterClans, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
@@ -301,11 +249,11 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to={items.title}
-                      className={`nav-link ${getClassName(items.title)}`}
-                      value={items.title}
+                      to={items.power}
+                      className={`nav-link ${getClassName(items.power)}`}
+                      value={items.power}
                     >
-                      {items.title}
+                      {items.power}
                     </Link>
                   </li>
                 ))}
