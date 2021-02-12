@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row } from 'antd';
-import { map, filter, get, isEmpty, find } from 'lodash';
+import { map, filter, get, isEmpty, find, sortBy } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -47,7 +47,7 @@ export function ClanPage(props) {
     contentful: { hasMore, loading, data: clanItems },
   } = homePage;
 
-  const filterClans = filter(clanItems, o => o.parent);
+  const filterClans = sortBy(filter(clanItems, o => o.parent), 'title');
 
   useEffect(() => {
     if (hasMore) {
@@ -101,7 +101,8 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
+  const powerOfClans = filter(clanItems, { power: get(selectedClan, 'title') });
+  console.log(powerOfClans);
 
   return (
     <div className="clan-page">
@@ -156,14 +157,95 @@ export function ClanPage(props) {
                 <div />
               )}
 
-              {!isEmpty(get(selectedClan, 'testPool')) ? (
-                <div>
-                  <h2>TEST POOL</h2>
-                  {get(selectedClan, 'testPool')}
+              <p>
+                {!isEmpty(get(selectedClan, 'testPool')) ? (
+                  <div>
+                    <h2>TEST POOL</h2>
+                    {get(selectedClan, 'testPool')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+
+              <div>
+                <h2>POWERS</h2>
+                <div className="header-disciplines">
+                  <div
+                    className="disc-cols3 sort-up"
+                    style={{ color: 'black' }}
+                  >
+                    <span>NAME</span>
+                  </div>
+                  <div
+                    className="disc-cols3 hideMobile"
+                    style={{ color: 'black' }}
+                  >
+                    <span>Level</span>
+                  </div>
+                  <div
+                    className="disc-cols3 hideMobile"
+                    style={{ color: 'black' }}
+                  >
+                    <span>Cost</span>
+                  </div>
+                  <div className="indicator" />
                 </div>
-              ) : (
-                <div />
-              )}
+
+                <div className="listing-body">
+                  <div className="listing">
+                    {map(powerOfClans, (item, index) => (
+                      <p>
+                        <div className={`item discipline-${index}`}>
+                          <div className="disc-cols3">
+                            <span>{item.title}</span>
+                          </div>
+                          <div className="disc-cols3 hideMobile">
+                            <span>{item.level}</span>
+                          </div>
+                          <div className="disc-cols3 hideMobile">
+                            <span>Varies</span>
+                          </div>
+                          <div className="disc-indicator">
+                            <a
+                              className="btn btn-primary collapsed"
+                              data-toggle="collapse"
+                              href={`#discipline-${index}`}
+                              role="button"
+                              aria-expanded="false"
+                              aria-controls={`discipline-${index}`}
+                            >
+                              <i className="fa" />
+                            </a>
+                          </div>
+                        </div>
+                        <div className="collapse" id={`discipline-${index}`}>
+                          <div className="box-summary">
+                            <div className="details">
+                              <ul>
+                                <li>
+                                  <span>Level</span>
+                                  {item.level}
+                                </li>
+                                <li>
+                                  <span>Cost</span>Varies
+                                </li>
+                              </ul>
+                            </div>
+                            <h3>SUMMARY</h3>
+                            {map(item.summary, d => (
+                              <p>{d}</p>
+                            ))}
+                            <a href="" className="btn btn-primary">
+                              Details
+                            </a>
+                          </div>
+                        </div>
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
           <div className="col-md-4 order-md-1">

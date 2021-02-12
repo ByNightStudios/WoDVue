@@ -1,0 +1,11 @@
+.ant-notification {
+    top: 6em !important;
+
+    &-notice {
+        padding: 16px;
+        border-radius: 0px;
+        background-color: $white;
+        border: 1px solid $emoLightGrey;
+        box-shadow: 0px 2px 8px 0px rgba(120,0,1,0.1);
+    }
+}

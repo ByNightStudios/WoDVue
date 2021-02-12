@@ -1,0 +1,15 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.elder-requests {
+  .select-service-type {
+    margin: 0px;
+    margin-right: 16px;
+  }
+
+  .switch-backdated-list {
+    display: flex;
+    margin-right: 16px;
+    align-items: center;
+  }
+}

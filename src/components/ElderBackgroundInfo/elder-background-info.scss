@@ -1,0 +1,28 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.elder-background {
+  .field-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    .form-control {
+      margin-right: 16px;
+
+      &:last-child {
+        margin-right: 0px;
+      }
+    }
+  }
+
+  .form-select {
+    .ant-select {
+      width: 100%;
+
+      &-selection {
+        border-radius: 0px;
+      }
+    }
+  }
+}

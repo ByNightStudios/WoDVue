@@ -1,0 +1,13 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.records-tab {
+  .elder-records {
+    padding-bottom: 16px;
+
+    h4 {
+      margin-bottom: 24px;
+      @include font(16px, 20px, 600, $emoGrey);
+    }
+  }
+}

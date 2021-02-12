@@ -1,6 +1,6 @@
 /* eslint-disable func-names */
 import { call, put, debounce, takeLatest, select } from 'redux-saga/effects';
-import { orderBy } from 'lodash';
+import { orderBy, groupBy } from 'lodash';
 import { GET_DROP_DOWN_ITEMS, GET_DISCIPLINES } from './constants';
 import {
   dropDownItemsError,

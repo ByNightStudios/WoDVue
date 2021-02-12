@@ -1,0 +1,16 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.page-loader {
+  z-index: 9999;
+  background-color: rgba(255, 255, 255, 0.85);
+  @include position(fixed, 0px, 0px, 0px, 0px);
+
+  &-asset {
+    margin-bottom: 8px;
+  }
+
+  &-text {
+    @include font(20px, 24px, 600, $emoMaroon);
+  }
+}

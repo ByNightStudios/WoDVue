@@ -1,0 +1,162 @@
+html,
+body {
+  height: 100vh;
+}
+
+body {
+  padding-top: 60px;
+  letter-spacing: 0.6px;
+  background-color: $emoLightGrey;
+  @include font(14px, 18px, 400, '');
+  font-family: 'Product Sans', sans-serif !important;
+}
+
+.form {
+  &-group {
+    margin-bottom: 24px;
+  }
+
+  &-label {
+    margin-bottom: 4px;
+    @include font(14px, 18px, 400, $emoDarkGrey);
+  }
+
+  &-control {
+    border-radius: 0px;
+    border: 1px solid rgba(0, 0, 0, 0.085);
+    @include font(14px, 18px, 400, $black);
+
+    &:hover,
+    &:focus,
+    &:active {
+      outline: none;
+      box-shadow: none;
+    }
+
+    &:focus {
+      border-color: $emoMidGrey !important;
+    }
+  }
+}
+
+.ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > thead > tr > th, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-header > table > thead > tr > th, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > thead > tr > th, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > tbody > tr > td, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-header > table > tbody > tr > td, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > tbody > tr > td, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > tfoot > tr > th, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-header > table > tfoot > tr > th, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > tfoot > tr > th, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-content > table > tfoot > tr > td, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-header > table > tfoot > tr > td, .ant-table.ant-table-bordered > .ant-table-container > .ant-table-body > table > tfoot > tr > td {
+  min-width: 130px !important;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 0px;
+  transition: none !important;
+  @include font(14px, 18px, 600, '');
+
+  &:hover,
+  &:focus,
+  &:not(:disabled):not(.disabled):active {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  &-primary {
+    border: 1px solid $emoMaroon;
+    background-color: $emoMaroon;
+
+    &:hover,
+    &:focus,
+    &:not(:disabled):not(.disabled):active {
+      border-color: lighten($emoMaroon, 5%);
+      background-color: lighten($emoMaroon, 5%);
+    }
+
+    &.disabled,
+    &:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+      background-color: transparent;
+      @include font('', '', '', $emoMaroon);
+      border-color: lighten($emoMaroon, 5%);
+    } 
+  }
+
+  &-trigger {
+    border: 0px;
+    height: 100%;
+    padding: 0 25px 0 0;
+    transform: translateY(-50%);
+    background-color: transparent;
+    @include font(14px, 1, '', $black);
+    @include position(absolute, 50%, 0px, '', '');
+
+    &:hover,
+    &:focus,
+    &:not(:disabled):not(.disabled):active {
+      border-color: transparent;
+      background-color: transparent;
+      @include font('', '', '', $black);
+      border-left: 0;
+    }
+  }
+
+  &-secondary {
+    border: 1px solid transparent;
+    background-color: transparent;
+    @include font('', '', '', $emoMaroon);
+
+    &:hover,
+    &:focus,
+    &:not(:disabled):not(.disabled):active {
+      background-color: transparent;
+      border-color: lighten($emoMaroon, 5%);
+      @include font('', '', '', $emoMaroon);
+    }
+  }
+
+  &-link {
+    border: 1px solid transparent;
+    background-color: transparent;
+
+    &:hover,
+    &:focus,
+    &:not(:disabled):not(.disabled):active {
+      border-color: transparent;
+      background-color: transparent;
+      @include font('', '', '', $emoMaroon);
+    }
+  }
+}
+
+.ant-table-pagination.ant-pagination {
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100% !important;
+    padding: 16px 0;
+}
+
+svg { vertical-align: baseline; }
+
+.ant-modal {
+  &-mask {
+    background-color: rgba(0, 0, 0, 0.85);
+  }
+
+  &-content {
+    border-radius: 0px;
+    background-color: $white;
+  }
+
+  &-confirm-btns {
+    button {
+      border-radius: 0px;
+    }
+
+    .ant-btn {
+      &:hover,
+      &:focus {
+        background-color: $white;
+        border-color: $emoMaroon;
+        @include font('', '', '', $emoMaroon);
+      }
+    }
+  }
+}

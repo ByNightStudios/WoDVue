@@ -1,0 +1,184 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.shc_elder_list{
+  margin-bottom: 55px;
+  margin-top: 35px;
+  .p-datatable .p-paginator-bottom {
+    top: -104px;
+    position: absolute;
+    margin-left: 30%;
+  }
+
+  .p-datatable-scrollable-wrapper{
+    overflow-x: hidden;
+  }
+  .p-column-custom-date{
+    .p-datepicker{
+      min-width: 300px;
+      table td{
+        padding: 0;
+        > span{
+          font-size: 14px;
+          margin-left: -1px;
+        }
+      }
+    }
+  }
+  
+  .shc_elder_title{
+    .p-inputtext{
+      font-size: 0.875rem;
+      min-width: 250px;
+    }
+    margin-bottom: 16px;
+  }
+  h5 {
+    @include font(16px, 20px, 600, $emoGrey);
+  }
+  .link-full-screen{
+    color: $emoDarkMaroon;
+    display: inline-flex;
+    padding-right: 20px;
+    margin-right: 20px;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+    .pi{
+      margin-right: 5px;
+    }
+  }
+  .section_datatable_shclist{
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.085);
+    .list_alert{
+      background: rgba(255, 0, 0, 0.1);
+      td{
+        border-color: rgba(0, 0, 0, 0.1);
+      }
+    }
+    .p-multiselect{
+      width: 100%;
+      font-size: 14px;
+      .p-multiselect-label{
+        padding-right: 0;
+      }
+    }
+    .p-highlight{
+      color: $emoDarkMaroon;
+      &:hover{
+        color: $black;
+        .p-sortable-column-icon{
+          color: $black;
+        }
+      }
+      .p-sortable-column-icon{
+        color: $emoDarkMaroon;
+      }
+    }
+    .datatable_shclist{
+      font-size: 0.875rem;
+      .p-datatable-scrollable-body {
+        min-height: 330px;
+      }
+      .p-datatable-scrollable-header{
+        overflow: initial;
+      }
+      .p-datatable-thead > tr > th{
+        background-color: #ebebeb;
+        border-color:rgba(0, 0, 0, 0.1);
+      }
+      .p-datatable-thead{
+        .p-inputtext.p-component{
+          width: 100%;
+          text-overflow: ellipsis;
+          font-size: 0.875rem;
+        }
+      }
+      .p-datatable-wrapper{
+        overflow-x: auto;
+        min-height: 500px;
+        .customer-badge{
+          font-size: 0.875rem;
+        }
+        table[role="grid"]{
+          font-size: 0.875rem;
+          .p-inputtext.p-component{
+            width: 100%;
+            text-overflow: ellipsis;
+            font-size: 0.875rem;
+          }
+        }
+      }
+    }
+    .p-paginator{
+      background: #ebebeb;
+       .p-highlight{
+         background: $emoDarkMaroon;
+         color: $white;
+       }
+    }
+    .p-datatable{
+      background: $white;
+    }
+    .link_eldername{
+        color: $emoDarkMaroon;
+        font-weight: bold;
+        &:hover{
+          color: $black;
+        }
+        //text-decoration: underline!important;
+    }
+  }
+}
+
+.shc_elder_list_table .ant-table-fixed-left {
+  .children_table {
+    visibility: hidden;
+    max-width: 50px;
+  }
+}
+
+.children_table {
+  padding-left: 100px;
+}
+
+.virtual-table .ant-table-container:before,
+  .virtual-table .ant-table-container:after {
+    display: none;
+  }
+  .virtual-table-cell {
+    box-sizing: border-box;
+    padding: 16px;
+    border-bottom: 1px solid #e8e8e8;
+    background: #FFF;
+    overflow: auto;
+  }
+ [data-theme="dark"]  .virtual-table-cell {
+    box-sizing: border-box;
+    padding: 16px;
+    border-bottom: 1px solid #303030;
+    background: #141414;
+  }
+
+  .link_eldername{
+    color: $emoDarkMaroon;
+    font-weight: bold;
+    &:hover{
+      color: $black;
+    }
+    position: 'stick';
+    z-index: 3;
+    left: 0;
+
+    //text-decoration: underline!important;
+}
+
+
+.GridItemEven,
+.GridItemOdd {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.GridItemEven {
+  background-color: #f8f8f0;
+}

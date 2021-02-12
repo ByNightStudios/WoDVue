@@ -1,0 +1,7 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.site-custom-tab-bar {
+  z-index: 1;
+  background: $white;
+}

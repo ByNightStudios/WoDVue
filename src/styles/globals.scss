@@ -1,0 +1,168 @@
+// Define the Product Font
+@font-face {
+  font-weight: 200;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-Thin.ttf') format('truetype');
+}
+@font-face {
+  font-weight: 200;
+  font-style: italic;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-ThinItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 300;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-Light.ttf') format('truetype');
+}
+@font-face {
+  font-weight: 300;
+  font-style: italic;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-LightItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 400;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-Regular.ttf') format('truetype');
+}
+@font-face {
+  font-weight: 400;
+  font-style: italic;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-RegularItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 600;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-Medium.ttf') format('truetype');
+}
+@font-face {
+  font-weight: 600;
+  font-style: italic;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-MediumItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 800;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-weight: 800;
+  font-style: italic;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-BoldItalic.ttf') format('truetype');
+}
+
+@font-face {
+  font-weight: 900;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-Black.ttf') format('truetype');
+}
+@font-face {
+  font-weight: 900;
+  font-style: italic;
+  font-family: 'Product Sans';
+  src: url('../assets/fonts/ProductSans-BlackItalic.ttf') format('truetype');
+}
+
+// Start Global Styles
+.application {
+  height: calc(100vh - 60px);
+
+  &-wrapper {
+    height: calc(100vh - 60px);
+  }
+}
+
+.centered-screen {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+input,
+textarea,
+button,
+ul,
+ol,
+a {
+  margin: 0px;
+  outline: none !important;
+  text-decoration: none !important;
+}
+
+::placeholder {
+  @include font('', '', '', rgba(0, 0, 0, 0.35) !important);
+}
+
+.sidebar-page {
+  &--closed {
+    .btn-trigger {
+      z-index: 1012;
+      height: initial;
+      padding: 0px 8px;
+      transform: initial;
+      background-color: $white;
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.085);
+      @include position(fixed, 60px, initial !important, 0px, 0px);
+
+      &:hover,
+      &:focus,
+      &:not(:disabled):not(.disabled):active {
+        border-left: 0px;
+        background-color: $white;
+        box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.085) !important;
+      }
+    }
+
+    .sidebar-page-wrapper {
+      padding-left: 54px;
+    }
+  }
+
+  &-wrapper {
+    padding: 32px;
+    padding-left: 282px;
+    transition: all 0.5s ease;
+  }
+}
+
+.internal-header {
+  &-right {
+    .global-search {
+      .form-group {
+        margin-right: 0px;
+      }
+
+      &--margined {
+        margin-right: 24px;
+      }
+    }
+  }
+}
+
+.no-arrow {
+  -moz-appearance: textfield;
+}
+.no-arrow::-webkit-inner-spin-button {
+  display: none;
+}
+.no-arrow::-webkit-outer-spin-button,
+.no-arrow::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

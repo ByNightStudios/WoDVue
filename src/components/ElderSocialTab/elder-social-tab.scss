@@ -1,0 +1,22 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.social-tab {
+  .elder-personal,
+  .elder-family,
+  .elder-kye {
+    margin-bottom: 56px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.085);
+
+    h4 {
+      margin-bottom: 24px;
+      @include font(16px, 20px, 600, $emoGrey);
+    }
+  }
+
+  .elder-kye {
+    margin-bottom: 0px;
+    border-bottom: none;
+  }
+}

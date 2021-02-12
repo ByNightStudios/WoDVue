@@ -1,0 +1,59 @@
+// Define Mixin for Element Font Properties
+@mixin font($size, $lineHeight, $weight, $color) {
+  @if $size != '' {
+    font-size: $size;
+  }
+  @if $lineHeight != '' {
+    line-height: $lineHeight;
+  }
+  @if $weight != '' {
+    font-weight: $weight;
+  }
+  @if $color != '' {
+    color: $color;
+  }
+}
+
+// Define Mixin for Element Positioning
+@mixin position($type, $top, $right, $bottom, $left) {
+  @if $type != '' {
+    position: $type;
+  }
+  @if $top != '' {
+    top: $top;
+  }
+  @if $right != '' {
+    right: $right;
+  }
+  @if $bottom != '' {
+    bottom: $bottom;
+  }
+  @if $left != '' {
+    left: $left;
+  }
+}
+
+// Define Mixin for Mobile Viewport Media Query
+@mixin mobileViewport {
+  @media only screen and (max-width: 767px) {
+    @content;
+  }
+}
+
+@mixin mediumRetinaViewport {
+  @media only screen and (min-width: 1280px) and (max-width: 1649px) {
+    @content;
+  }
+}
+
+@mixin mediumViewport {
+  @media only screen and (min-width: 1650px) and (max-width: 1919px) {
+    @content;
+  }
+}
+
+@mixin largeViewport {
+  @media only screen and (min-width: 1920px) and (max-width: 2560px) {
+    @content;
+  }
+}

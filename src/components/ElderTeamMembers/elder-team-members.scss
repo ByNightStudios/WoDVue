@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.team-members {
+  padding-bottom: 24px;
+  margin-bottom: 56px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.085);
+
+  h4 {
+    margin-bottom: 24px;
+    @include font(16px, 20px, 600, $emoGrey);
+  }
+
+  .form-select {
+    .ant-select {
+      width: 100%;
+
+      &-selection {
+        border-radius: 0px;
+      }
+    }
+  }
+
+  .assigned-members {
+    margin-bottom: 16px;
+
+    &-item {
+      display: inline-block;
+      padding: 4px 8px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(0, 0, 0, 0.085);
+
+      h4 {
+        margin-right: 8px;
+        margin-bottom: 0px !important;
+        @include font(14px, 16px, 400, $emoGrey);
+      }
+
+      .btn-link {
+        margin-bottom: 0px !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,129 @@
+@import "../../styles/variables";
+@import "../../styles/mixins";
+
+.elders-page {
+  height: calc(100vh - 60px);
+
+  .sidebar-page-wrapper {
+    height: 100%;
+
+    .btn-secondary {
+      margin-left: 8px;
+      border: 1px solid;
+    }
+
+    .sync-with-zoho {
+      margin: 0 8px 0 8px;
+    }
+  }
+
+  .internal-content {
+    overflow-y: auto;
+    padding: 32px 16px;
+    background-color: $white;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.085);
+
+    .add-plan-category {
+      padding: 8px 0px;
+    margin-bottom: 8px;
+      @include font(18px, 22px, 600, $emoGrey);
+    }
+  }
+
+  .btn-link {
+    padding: 8px 0px;
+    margin-bottom: 20px;
+    @include font("", "", "", $emoGrey);
+    cursor: pointer;
+  }
+}
+
+.elders-page.sidebar-page--closed {
+  .internal-content {
+    transition: left 0.5s ease;
+    @include position(absolute, 84px, 32px, 32px, 54px);
+  }
+}
+
+.elders-page.sidebar-page--open {
+  .internal-content {
+    transition: left 0.5s ease;
+    @include position(absolute, 84px, 32px, 32px, 282px);
+  }
+}
+.chat-link-row {
+  // padding: 24px 0px;
+  // padding-top: 16px;
+  // margin-bottom: 32px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.085);
+
+  .chat-link-name {
+    display: block;
+    margin-bottom: 8px;
+    @include font(14px, 18px, 600, $emoGrey);
+  }
+
+  .chat-link-btn {
+    display: block;
+    margin-bottom: 8px;
+    width: fit-content;
+
+    svg {
+      margin-right: 6px;
+    }
+  }
+}
+
+.status-details {
+  &-light {
+    width: 8px;
+    height: 8px;
+    margin-right: 4px;
+    border-radius: 50%;
+    background-color: $emoBurgundy;
+  }
+
+  &-description {
+    @include font('', '', 400, '');
+  }
+
+  &-param--red {
+    .status-details-light {
+      background-color: $emoMaroon;
+    }
+
+    .status-details-description {
+      @include font('', '', '', $emoMaroon);
+    }
+  }
+
+  &-param--green {
+    .status-details-light {
+      background-color: $emoGreen;
+    }
+
+    .status-details-description {
+      @include font('', '', '', $emoGreen);
+    }
+  }
+
+  &-param--orange {
+    .status-details-light {
+      background-color: $emoOrange;
+    }
+
+    .status-details-description {
+      @include font('', '', '', $emoOrange);
+    }
+  }
+
+  &-param--black {
+    .status-details-light {
+      background-color: $black;
+    }
+
+    .status-details-description {
+      @include font('', '', '', $black);
+    }
+  }
+}

@@ -1,0 +1,65 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.elder-medical {
+  .form-multicheck {
+    .ant-checkbox-group-item {
+      margin-bottom: 16px;
+      margin-right: 16px;
+    }
+
+    .ant-radio-wrapper {
+      margin-right: 16px;
+    }
+
+    .ant-checkbox + span,
+    span.ant-radio + * {
+      @include font(14px, 18px, 400, $emoGrey);
+    }
+
+    &-spaced {
+      .ant-radio-group {
+        margin-bottom: 16px;
+      }
+
+      &--margined {
+        .form-group {
+          margin-bottom: 16px;
+
+          &:last-child {
+            margin-bottom: 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .replication-pod {
+    padding: 16px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(0, 0, 0, 0.085);
+
+    &-item {
+      flex-grow: 1;
+      margin-right: 16px;
+
+      &:first-child {
+        max-width: 15%;
+      }
+
+      .form-group {
+        margin-bottom: 0px;
+      }
+
+      .btn-link {
+        padding: 8px 12px !important;
+        margin-bottom: 0px;
+      }
+    }
+
+    .btn-link {
+      padding: 8px 0px;
+      margin-bottom: 0px;
+    }
+  }
+}

@@ -1,0 +1,109 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.dashboard-page {
+  height: calc(100vh - 60px);
+  background-color: $emoLightGrey;
+
+  .charts-wrapper {
+    margin-bottom: 56px;
+
+    &-item {
+      margin-bottom: 32px;
+    }
+  }
+
+  .statistics-wrapper {
+    margin-bottom: 16px;
+
+    h5 {
+      margin-bottom: 16px;
+      @include font(16px, 20px, 600, $emoGrey);
+    }
+
+    .dashboard-card {
+      padding: 16px;
+      min-height: 100px;
+      margin-bottom: 32px;
+      background-color: $white;
+      border: 1px solid transparent;
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.085);
+
+      &-paramter {
+        margin-bottom: 8px;
+        @include font(16px, 20px, 600, $emoGrey);
+      }
+
+      a {
+        @include font(36px, 44px, 800, $black);
+      }
+
+      &-count {
+        margin-bottom: 8px;
+        @include font(36px, 44px, 800, $black);
+      }
+
+      &-description {
+        @include font(16px, 20px, 600, $emoGrey);
+      }
+    }
+  }
+
+  .location-mapper {
+    h5 {
+      margin-bottom: 16px;
+      @include font(16px, 20px, 600, $emoGrey);
+    }
+
+    .btn-secondary {
+      border: 1px solid $emoMaroon;
+    }
+
+    .dashboard-heatmap {
+      width: 100%;
+      height: 400px;
+    }
+
+    .dashboard-legend {
+      padding: 16px;
+      border: 1px solid rgba(0, 0, 0, 0.25);
+
+      &-item {
+        margin-bottom: 12px;
+
+        &:last-child {
+          margin-bottom: 0px;
+        }
+      }
+
+      &-image {
+        width: 20px;
+        height: 20px;
+        margin-right: 8px;
+      }
+
+      &-text {
+        @include font(14px, 18px, 400, $emoGrey);
+      }
+    }
+  }
+  .dashboard-birthday {
+    margin-bottom: 55px;
+    .ant-table-header {
+      background: none !important;
+    }
+    h4 {
+      font-size: 16px;
+      line-height: 28px;
+      font-weight: 600;
+      margin-bottom: 16px;
+      color: $emoGrey;
+    }
+    .ant-spin-container {
+      box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.085);
+    }
+  }
+  .view-elder {
+    color: $emoGrey;
+  }
+}

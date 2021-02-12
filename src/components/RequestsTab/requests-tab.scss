@@ -1,0 +1,25 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.requests-tab {
+  &-requests {
+    padding-bottom: 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.085);
+
+    h4 {
+      @include font(16px, 20px, 600, $emoGrey);
+    }
+
+    .btn {
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-content: center;
+      justify-content: center;
+    }
+  }
+
+  &-header {
+    margin-bottom: 24px;
+  }
+}

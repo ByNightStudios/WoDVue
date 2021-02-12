@@ -1,0 +1,45 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.elder-record-preview {
+  padding: 16px;
+  margin-top: 32px;
+  background-color: $white;
+  border-top: 1px solid rgba(0, 0, 0, 0.045);
+}
+
+.preview {
+  &-title {
+    margin-bottom: 8px;
+
+    h5 {
+      @include font(14px, 18px, 600, $emoGrey);
+    }
+  }
+
+  &-document {
+    margin-right: 16px;
+
+    img {
+      width: 100px;
+      object-fit: contain;
+    }
+  }
+
+  &-information {
+    flex: 1 1;
+
+    &-actions {
+      margin-top: 16px;
+    }
+  }
+
+  &-pod {
+    margin-bottom: 8px;
+    @include font(14px, 18px, 400, $emoGrey);
+  }
+
+  &-param {
+    margin-right: 8px;
+  }
+}

@@ -1,0 +1,34 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.elder-requests {
+  &-header {
+    margin-bottom: 16px;
+
+    h4 {
+      margin-right: 16px;
+      margin-bottom: 0px !important;
+    }
+
+    .btn-primary {
+      padding: 8px 12px;
+      @include font(14px !important, 1 !important, '', '');
+    }
+  }
+
+  &--emergency {
+    margin-bottom: 56px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.085) !important;
+  }
+
+  .select-service-type {
+    margin: 0px;
+    margin-right: 16px;
+  }
+
+  .switch-backdated-list {
+    display: flex;
+    margin-right: 16px;
+    align-items: center;
+  }
+}

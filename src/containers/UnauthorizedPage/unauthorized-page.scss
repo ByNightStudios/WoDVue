@@ -1,0 +1,30 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.unauthorized-page {
+  .internal-header-left {
+    width: 100% !important;
+    justify-content: center !important;
+
+    h1 {
+      text-align: center;
+      font-size: 32px;
+      line-height: 38px;
+      color: $emoGrey;
+
+      svg {
+        font-size: 8rem;
+        display: block;
+        margin: 0px auto;
+        margin-bottom: 16px;
+        color: $emoMaroon;
+      }
+    }
+  }
+
+  .internal-content-header {
+    a {
+      color: $emoMaroon;
+    }
+  }
+}

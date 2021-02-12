@@ -1,0 +1,43 @@
+.table-col-header {
+    color: #780001;
+    text-align: left;
+    background: #eed8d8;
+    padding: 16px;
+    border: 1px solid #780001;
+    max-width: 250px;
+    font-weight: bold;
+    white-space: nowrap;
+    max-height: 52px;
+    text-align: center;
+    z-index: 0 !important;
+}
+
+.table-col-data {
+    color: rgba(0,0,0,.85);
+    text-align: center;
+    background: #fff;
+    padding: 16px;
+    border: 1px solid #780001;
+    min-width: 150px;
+    max-height: 51.25px;
+}
+
+.table-row-data {
+    max-width: 80%;
+    overflow-x: scroll;
+}
+
+.table-col-header-date { z-index: 2 !important; }
+.table-col-data-date {
+    color: #780001;
+    text-align: center;
+    background: #eed8d8;
+    padding: 16px;
+    border: 1px solid #780001;
+    min-width: 150px;
+    max-height: 52px;
+}
+
+.date-col-header {
+    z-index: 2 !important
+}

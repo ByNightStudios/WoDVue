@@ -169,7 +169,7 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{map(item.summary, dataItem => dataItem)}</p>
-                        <Link to={`/Disciplines/${item.title}`}>
+                        <Link to={`/Disciplines/${item.power}`}>
                           <a href="" className="btn btn-primary">
                             Details
                           </a>
