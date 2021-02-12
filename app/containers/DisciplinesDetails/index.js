@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -15,7 +16,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row } from 'antd';
-import { map, filter, get, isEmpty, find, sortBy } from 'lodash';
+import { map, filter, get, isEmpty, find, sortBy, orderBy } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -41,6 +42,9 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
+  const [powerOfClans, setPowerOfClans] = useState('');
+  const [direction, setDirection] = useState('asc');
+
   const { onRequestData, homePage, OnRequestDropDownItems } = props;
 
   const {
@@ -78,6 +82,10 @@ export function ClanPage(props) {
       const value = e.target.getAttribute('value');
       const findClanData = find(filterClans, { power: value });
       setSelectedClan(findClanData);
+      const powerOfClansData = filter(clanItems, {
+        power: get(findClanData, 'title'),
+      });
+      setPowerOfClans(powerOfClansData);
     }
   }
 
@@ -101,8 +109,15 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  const powerOfClans = filter(clanItems, { power: get(selectedClan, 'title') });
-  console.log(powerOfClans);
+  function handleClanPower(sortByData) {
+    const sortedByLevel = orderBy(powerOfClans, [sortByData], [direction]);
+    setPowerOfClans(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
+  }
 
   return (
     <div className="clan-page">
@@ -175,19 +190,19 @@ export function ClanPage(props) {
                     className="disc-cols3 sort-up"
                     style={{ color: 'black' }}
                   >
-                    <span>NAME</span>
+                    <span onClick={() => handleClanPower('title')}>NAME</span>
                   </div>
                   <div
                     className="disc-cols3 hideMobile"
                     style={{ color: 'black' }}
                   >
-                    <span>Level</span>
+                    <span onClick={() => handleClanPower('level')}>Level</span>
                   </div>
                   <div
                     className="disc-cols3 hideMobile"
                     style={{ color: 'black' }}
                   >
-                    <span>Cost</span>
+                    <span onClick={() => handleClanPower('cost')}>Cost</span>
                   </div>
                   <div className="indicator" />
                 </div>
