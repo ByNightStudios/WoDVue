@@ -49,15 +49,15 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
-body {
-  margin: 0 !important;
-  font-family: "Articulat CF" !important;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  line-height: 1.5 !important;
-  color: #191919 !important;
-  text-align: left !important;
-  background-color: #fff !important; }
+  body {
+    margin: 0 !important;
+    font-family: "Articulat CF" !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #191919 !important;
+    text-align: left !important;
+    background-color: #fff !important; }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -301,8 +301,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
   font-weight: 500;
-  line-height: 1.2;
-  color: #fff !important; }
+  line-height: 1.2; }
 
 h1, .h1 {
   font-size: 2.5rem; }
@@ -10038,8 +10037,7 @@ hr {
   font-size: 24px;
   text-transform: uppercase;
   margin-bottom: 20px;
-  font-weight: 500;
-  color: #fff !important;}
+  font-weight: 500; }
 
 .footer-page .navbar-nav .nav-link {
   color: #fff; }
@@ -10251,9 +10249,7 @@ hr {
   justify-content: space-between;
   width: 100%;
   margin: 30px 0 10px;
-  margin: 31px 0 20px;
-  text-align: start;
- color: #fff}
+  text-align: center; }
 
 .header-disciplines > div span {
   font-size: 18px;
@@ -10437,6 +10433,35 @@ width: 250px;
   width: 100%;
   margin-top: 50px; }
 
+/*Pagination*/
+.page {
+  margin-top: 50px; }
+
+.page-item {
+  width: 40px;
+  text-align: center;
+  margin: 0 15px; }
+
+.page-link {
+  color: white;
+  background-color: black;
+  border: 0;
+  border-radius: 0 !important; }
+
+.page .btn {
+  width: 130px;
+  padding: 12px;
+  font-size: 18px;
+  height: 40px;
+  line-height: 1; }
+
+.page-link:hover {
+  z-index: 2;
+  color: white;
+  text-decoration: none;
+  background-color: #821919;
+  border-color: #821919; }
+
 @media screen and (max-width: 1199px) {
   .box h4 {
     font-size: 28px; } }
@@ -10540,7 +10565,15 @@ width: 250px;
     margin-bottom: 20px; }
 
   .form-inline .btn {
-    margin-top: 20px; } }
+    margin-top: 20px; }
+
+  .page-item {
+    width: 30px;
+    text-align: center;
+    margin: 0 10px; }
+
+  .pagination {
+    justify-content: left !important; } }
 @media screen and (max-width: 575px) {
   .col {
     min-width: 100%; }

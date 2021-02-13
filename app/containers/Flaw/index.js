@@ -9,7 +9,7 @@ import React, { memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -18,14 +18,14 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectFlaw from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+import './style.css';
 
 export function Flaw() {
   useInjectReducer({ key: 'flaw', reducer });
   useInjectSaga({ key: 'flaw', saga });
 
   return (
-    <div>
+    <div className="page-white">
       <Helmet>
         <title>Flaw</title>
         <meta name="description" content="Description of Flaw" />
@@ -33,12 +33,21 @@ export function Flaw() {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="text-center">FLAWS</h1>
+            <h1 className="text-center" style={{ color: '#fff' }}>
+              FLAWS
+            </h1>
             <hr />
           </div>
-          <div className="list-icons">
+          <div className="list-icons justify-content-center">
             <a className="box-icon" href="#">
-              <span className=" list icon-Salubri" />
+              <span className="list icon-skull">
+                <span className="path1" />
+                <span className="path2" />
+                <span className="path3" />
+                <span className="path4" />
+                <span className="path5" />
+                <span className="path6" />
+              </span>
               All Flaws
             </a>
             <a className="box-icon" href="#">
@@ -115,19 +124,15 @@ export function Flaw() {
             </a>
           </div>
           <form className="form-inline ">
-            <div className="col-md-3">
+            <div className="col-md-4">
               <label>FLAWS NAME</label>
               <input type="text" className="form-control" />
             </div>
-            <div className="col-md-3">
-              <label>FLAWS POWER</label>
-              <input type="password" className="form-control" />
-            </div>
-            <div className="col-md-3">
+            <div className="col-md-4">
               <label>FLAWS LEVEL</label>
               <input type="password" className="form-control" />
             </div>
-            <div className="col-md-3">
+            <div className="col-md-4">
               <label />
               <button type="submit" className="btn btn-primary">
                 filter
@@ -138,16 +143,13 @@ export function Flaw() {
 
           <div className="col-md-12">
             <div className="header-disciplines">
-              <div className="discipline sort-down">
+              <div className="disc-cols3 sort-down">
                 <span>NAME</span>
               </div>
-              <div className="foci">
-                <span>Foci</span>
+              <div className="disc-cols3 hideMobile">
+                <span>Category</span>
               </div>
-              <div className="level">
-                <span>Level</span>
-              </div>
-              <div className="cost">
+              <div className="disc-cols3 hideMobile">
                 <span>Cost</span>
               </div>
               <div className="indicator" />
@@ -156,16 +158,13 @@ export function Flaw() {
             <div className="listing-body">
               <div className="listing">
                 <div className="item discipline-1">
-                  <div className="disc-name">
+                  <div className="disc-cols3">
                     <span>Auspex</span>
                   </div>
-                  <div className="disc-foci">
+                  <div className="disc-cols3 hideMobile">
                     <span>Perception & Wits</span>
                   </div>
-                  <div className="disc-level">
-                    <span>0</span>
-                  </div>
-                  <div className="disc-cost">
+                  <div className="disc-cols3 hideMobile">
                     <span>Varies</span>
                   </div>
                   <div className="disc-indicator">
@@ -186,13 +185,10 @@ export function Flaw() {
                     <div className="details">
                       <ul>
                         <li>
-                          <span>Discipline</span>Auspex
+                          <span>Name</span>Auspex
                         </li>
                         <li>
-                          <span>Foci</span>Perception & Wits
-                        </li>
-                        <li>
-                          <span>Level</span>0
+                          <span>Category</span>Perception & Wits
                         </li>
                         <li>
                           <span>Cost</span>Varies
@@ -220,16 +216,13 @@ export function Flaw() {
                   </div>
                 </div>
                 <div className="item discipline-2">
-                  <div className="disc-name">
+                  <div className="disc-cols3">
                     <span>Celerity</span>
                   </div>
-                  <div className="disc-foci">
+                  <div className="disc-cols3 hideMobile">
                     <span>Perception & Wits</span>
                   </div>
-                  <div className="disc-level">
-                    <span>0</span>
-                  </div>
-                  <div className="disc-cost">
+                  <div className="disc-cols3 hideMobile">
                     <span>Varies</span>
                   </div>
                   <div className="disc-indicator">
@@ -250,13 +243,10 @@ export function Flaw() {
                     <div className="details">
                       <ul>
                         <li>
-                          <span>Discipline</span>Auspex
+                          <span>Name</span>Auspex
                         </li>
                         <li>
-                          <span>Foci</span>Perception & Wits
-                        </li>
-                        <li>
-                          <span>Level</span>0
+                          <span>Category</span>Perception & Wits
                         </li>
                         <li>
                           <span>Cost</span>Varies
@@ -284,16 +274,13 @@ export function Flaw() {
                   </div>
                 </div>
                 <div className="item discipline-3">
-                  <div className="disc-name">
+                  <div className="disc-cols3">
                     <span>Presence</span>
                   </div>
-                  <div className="disc-foci">
+                  <div className="disc-cols3 hideMobile">
                     <span>Perception & Wits</span>
                   </div>
-                  <div className="disc-level">
-                    <span>0</span>
-                  </div>
-                  <div className="disc-cost">
+                  <div className="disc-cols3 hideMobile">
                     <span>Varies</span>
                   </div>
                   <div className="disc-indicator">
@@ -314,13 +301,10 @@ export function Flaw() {
                     <div className="details">
                       <ul>
                         <li>
-                          <span>Discipline</span>Auspex
+                          <span>Name</span>Auspex
                         </li>
                         <li>
-                          <span>Foci</span>Perception & Wits
-                        </li>
-                        <li>
-                          <span>Level</span>0
+                          <span>Category</span>Perception & Wits
                         </li>
                         <li>
                           <span>Cost</span>Varies
@@ -351,13 +335,37 @@ export function Flaw() {
             </div>
           </div>
         </div>
+        <div className="page">
+          <ul className="pagination justify-content-center">
+            <li className="page-item">
+              <a className="page-link" href="#">
+                1
+              </a>
+            </li>
+            <li className="page-item active">
+              <span className="page-link">
+                2<span className="sr-only">(current)</span>
+              </span>
+            </li>
+            <li className="page-item">
+              <a className="page-link" href="#">
+                3
+              </a>
+            </li>
+            <li className="page-item">
+              <a className="page-link btn" href="#">
+                Next
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   );
 }
 
 Flaw.propTypes = {
-  dispatch: PropTypes.func.isRequired,
+  dispatch: PropTypes.func,
 };
 
 const mapStateToProps = createStructuredSelector({
