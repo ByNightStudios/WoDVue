@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /**
  *
@@ -18,6 +19,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectMerits from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import './style.css';
 
 export function Merits() {
   useInjectReducer({ key: 'merits', reducer });
@@ -32,7 +34,9 @@ export function Merits() {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="text-center">MERITS</h1>
+            <h1 className="text-center" style={{ color: '#fff' }}>
+              MERITS
+            </h1>
             <hr />
           </div>
           <div className="list-icons justify-content-center">
