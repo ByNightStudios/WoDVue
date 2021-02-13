@@ -19,6 +19,7 @@ import Disciplines from 'containers/Disciplines/Loadable';
 import DisciplinesDetails from 'containers/DisciplinesDetails/Loadable';
 import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Flaw from 'containers/Flaw/Loadable';
+import Merits from 'containers/Merits/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
 
 import Header from 'components/Header_1';
@@ -41,6 +42,7 @@ export function App() {
         <Route exact path="/Disciplines" component={Disciplines} />
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
+        <Route exact path="/Merits" component={Merits} />
         <Route path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>
