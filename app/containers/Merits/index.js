@@ -10,7 +10,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice } from 'lodash';
+import { map, slice, filter } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -27,6 +27,8 @@ export function Merits({ app }) {
   useInjectSaga({ key: 'merits', saga });
   const [meritsData, setMeritsData] = useState([]);
   const [page, setPage] = useState(0);
+  const [merit, setMerit] = useState('');
+  const [level, setMeritLevel] = useState('');
 
   const {
     merits: { data },
@@ -35,6 +37,25 @@ export function Merits({ app }) {
   useEffect(() => {
     setMeritsData(data);
   }, [data]);
+
+  function handleOnChange(e) {
+    const {
+      target: { value },
+    } = e;
+    setMerit(value);
+  }
+
+  function handleOnChangeLevel(e) {
+    const {
+      target: { value },
+    } = e;
+    setMeritLevel(value);
+  }
+
+  function handleFilter() {
+    const meritFilterData = filter(meritsData, { merit });
+    setMeritsData(meritFilterData);
+  }
 
   return (
     <div>
@@ -153,16 +174,29 @@ export function Merits({ app }) {
           <form className="form-inline ">
             <div className="col-md-4">
               <label>MERITS NAME</label>
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                onChange={handleOnChange}
+              />
             </div>
             <div className="col-md-4">
-              <label>MERITS LEVEL</label>
-              <input type="password" className="form-control" />
+              <label>MERIT COST</label>
+              <input className="form-control" onChange={handleOnChangeLevel} />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-2">
               <label />
-              <button type="submit" className="btn btn-primary">
+              <button className="btn btn-primary" onClick={handleFilter}>
                 filter
+              </button>
+            </div>
+            <div className="col-md-2">
+              <label />
+              <button
+                className="btn btn-primary"
+                onClick={() => setMeritsData(data)}
+              >
+                Clear
               </button>
             </div>
           </form>
