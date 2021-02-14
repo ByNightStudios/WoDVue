@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import { get, map, orderBy } from 'lodash';
 
 import Loader from 'components/Loader';
+import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectDisciplines from './selectors';
@@ -23,27 +24,22 @@ import reducer from './reducer';
 import saga from './saga';
 import { getDisciplines } from './actions';
 
-export function Disciplines({ OnRequestDropDownItems, disciplines }) {
+export function Disciplines({ app }) {
   useInjectReducer({ key: 'disciplines', reducer });
   useInjectSaga({ key: 'disciplines', saga });
   const [disciplineData, setDisciplineData] = useState([]);
   const [direction, setDirection] = useState('asc');
-  const { data, loading, hasMore } = disciplines;
+  const {
+    disciplines: { data },
+  } = app;
 
   useEffect(() => {
-    OnRequestDropDownItems();
-  }, []);
+    setDisciplineData(data);
+  }, [data]);
 
-  useEffect(() => {
-    if (hasMore) {
-      OnRequestDropDownItems();
-      setDisciplineData(data);
-    }
-  });
-
-  if (loading && hasMore) {
-    return <Loader />;
-  }
+  // if (loading && hasMore) {
+  //   return <Loader />;
+  // }
 
   function handleSortingByLevel(type) {
     const sortedByLevel = orderBy(disciplineData, [type], [direction]);
@@ -194,6 +190,7 @@ Disciplines.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   disciplines: makeSelectDisciplines(),
+  app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {

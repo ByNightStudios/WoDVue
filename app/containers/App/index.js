@@ -4,7 +4,7 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -30,19 +30,29 @@ import reducer from './reducer';
 import saga from './saga';
 import { getData } from './actions';
 
-export function App() {
+export function App({ app, onRequestData }) {
   useInjectReducer({ key: 'app', reducer });
   useInjectSaga({ key: 'app', saga });
+
+  const {
+    disciplines: { hasMore: disciplineHasMore },
+  } = app;
+
+  useEffect(() => {
+    if (disciplineHasMore) {
+      onRequestData();
+    }
+  }, []);
 
   return (
     <div>
       <Header />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
-        <Route exact path="/Disciplines" component={Disciplines} />
-        <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
-        <Route exact path="/Flaws" component={Flaw} />
-        <Route exact path="/Merits" component={Merits} />
+        <Route path="/Disciplines" component={Disciplines} />
+        <Route path="/Disciplines/:id" component={DisciplinesDetails} />
+        <Route path="/Flaws" component={Flaw} />
+        <Route path="/Merits" component={Merits} />
         <Route path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
         <Route component={NotFoundPage} />
       </Switch>

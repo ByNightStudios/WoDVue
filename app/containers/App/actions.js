@@ -9,6 +9,10 @@ import {
   GET_DATA,
   DATA_SUCCESS,
   DATA_ERROR,
+  DISCIPLINES_DATA_SUCCESS,
+  CLANS_DATA_SUCCESS,
+  FLAWS_DATA_SUCCESS,
+  MERITS_DATA_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -29,4 +33,24 @@ export const getDataSuccess = payload => ({
 export const DataError = error => ({
   type: DATA_ERROR,
   error,
+});
+
+export const disciplineDataSuccess = payload => ({
+  type: DISCIPLINES_DATA_SUCCESS,
+  payload,
+});
+
+export const clanDataSuccess = payload => ({
+  type: CLANS_DATA_SUCCESS,
+  payload,
+});
+
+export const flawsDataSuccess = payload => ({
+  type: FLAWS_DATA_SUCCESS,
+  payload,
+});
+
+export const meritsDataSuccess = payload => ({
+  type: MERITS_DATA_SUCCESS,
+  payload,
 });
