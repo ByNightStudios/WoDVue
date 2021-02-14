@@ -208,9 +208,6 @@ export function Merits({ app }) {
                 <span>NAME</span>
               </div>
               <div className="disc-cols3 hideMobile">
-                <span>Category</span>
-              </div>
-              <div className="disc-cols3 hideMobile">
                 <span>Cost</span>
               </div>
               <div className="indicator" />
@@ -223,9 +220,6 @@ export function Merits({ app }) {
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">
                         <span>{item.merit}</span>
-                      </div>
-                      <div className="disc-cols3 hideMobile">
-                        <span>Perception & Wits</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.meritCost}</span>

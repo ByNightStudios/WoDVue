@@ -1,3 +1,5 @@
+/* eslint-disable react/no-unused-prop-types */
+/* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /**
  *
@@ -5,13 +7,15 @@
  *
  */
 
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-
+import { map, slice, filter } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
+
+import { makeSelectApp } from 'containers/App/selectors';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -20,10 +24,41 @@ import reducer from './reducer';
 import saga from './saga';
 import './style.css';
 
-export function Flaw() {
+export function Flaw({ app }) {
   useInjectReducer({ key: 'flaw', reducer });
   useInjectSaga({ key: 'flaw', saga });
 
+  const [meritsData, setMeritsData] = useState([]);
+  const [page, setPage] = useState(0);
+  const [merit, setMerit] = useState('');
+  const [level, setMeritLevel] = useState('');
+
+  const {
+    flaws: { data },
+  } = app;
+
+  useEffect(() => {
+    setMeritsData(data);
+  }, [data]);
+
+  function handleOnChange(e) {
+    const {
+      target: { value },
+    } = e;
+    setMerit(value);
+  }
+
+  function handleOnChangeLevel(e) {
+    const {
+      target: { value },
+    } = e;
+    setMeritLevel(value);
+  }
+
+  function handleFilter() {
+    const meritFilterData = filter(meritsData, { flaw: merit });
+    setMeritsData(meritFilterData);
+  }
   return (
     <div className="page-white">
       <Helmet>
@@ -126,16 +161,29 @@ export function Flaw() {
           <form className="form-inline ">
             <div className="col-md-4">
               <label>FLAWS NAME</label>
-              <input type="text" className="form-control" />
+              <input
+                type="text"
+                className="form-control"
+                onChange={handleOnChange}
+              />
             </div>
             <div className="col-md-4">
               <label>FLAWS LEVEL</label>
-              <input type="password" className="form-control" />
+              <input className="form-control" onChange={handleOnChangeLevel} />
             </div>
-            <div className="col-md-4">
+            <div className="col-md-2">
               <label />
-              <button type="submit" className="btn btn-primary">
+              <button className="btn btn-primary" onClick={handleFilter}>
                 filter
+              </button>
+            </div>
+            <div className="col-md-2">
+              <label />
+              <button
+                className="btn btn-primary"
+                onClick={() => setMeritsData(data)}
+              >
+                Clear
               </button>
             </div>
           </form>
@@ -147,9 +195,6 @@ export function Flaw() {
                 <span>NAME</span>
               </div>
               <div className="disc-cols3 hideMobile">
-                <span>Category</span>
-              </div>
-              <div className="disc-cols3 hideMobile">
                 <span>Cost</span>
               </div>
               <div className="indicator" />
@@ -157,180 +202,51 @@ export function Flaw() {
 
             <div className="listing-body">
               <div className="listing">
-                <div className="item discipline-1">
-                  <div className="disc-cols3">
-                    <span>Auspex</span>
-                  </div>
-                  <div className="disc-cols3 hideMobile">
-                    <span>Perception & Wits</span>
-                  </div>
-                  <div className="disc-cols3 hideMobile">
-                    <span>Varies</span>
-                  </div>
-                  <div className="disc-indicator">
-                    <a
-                      className="btn btn-primary collapsed"
-                      data-toggle="collapse"
-                      href="#discipline-1"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="discipline-1"
-                    >
-                      <i className="fa" />
-                    </a>
-                  </div>
-                </div>
-                <div className="collapse" id="discipline-1">
-                  <div className="box-summary">
-                    <div className="details">
-                      <ul>
-                        <li>
-                          <span>Name</span>Auspex
-                        </li>
-                        <li>
-                          <span>Category</span>Perception & Wits
-                        </li>
-                        <li>
-                          <span>Cost</span>Varies
-                        </li>
-                      </ul>
+                {map(slice(meritsData, page, page + 3), (item, index) => (
+                  <>
+                    <div className={`item discipline-${index}`}>
+                      <div className="disc-cols3">
+                        <span>{item.flaw}</span>
+                      </div>
+                      <div className="disc-cols3 hideMobile">
+                        <span>{item.flawCost}</span>
+                      </div>
+                      <div className="disc-indicator">
+                        <a
+                          className="btn btn-primary collapsed"
+                          data-toggle="collapse"
+                          href={`#discipline-${index}`}
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls={`discipline-${index}`}
+                        >
+                          <i className="fa" />
+                        </a>
+                      </div>
                     </div>
-                    <h3>SUMMARY</h3>
-                    <p>
-                      A predator’s senses must be tremendously acute to track
-                      prey in the night. The five senses of smell, touch, taste,
-                      sight, and hearing can all be sharpened with the use of
-                      Auspex. This improved awareness can even go beyond the
-                      physical senses, expanding a vampire’s powers of
-                      concentration, perception, and consciousness itself beyond
-                      the ability of mortals. Such heightened awareness can
-                      grasp subtle textures of movement as well as emotional
-                      states, transcending ordinary mental acuity. Auspex can
-                      also pierce mental distractions and illusions, such as
-                      those created by the disciplines of Obfuscate or
-                      Chimeristry.
-                    </p>
-                    <a href="" className="btn btn-primary">
-                      Details
-                    </a>
-                  </div>
-                </div>
-                <div className="item discipline-2">
-                  <div className="disc-cols3">
-                    <span>Celerity</span>
-                  </div>
-                  <div className="disc-cols3 hideMobile">
-                    <span>Perception & Wits</span>
-                  </div>
-                  <div className="disc-cols3 hideMobile">
-                    <span>Varies</span>
-                  </div>
-                  <div className="disc-indicator">
-                    <a
-                      className="btn btn-primary collapsed"
-                      data-toggle="collapse"
-                      href="#discipline-2"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="discipline-2"
-                    >
-                      <i className="fa" />
-                    </a>
-                  </div>
-                </div>
-                <div className="collapse" id="discipline-2">
-                  <div className="box-summary">
-                    <div className="details">
-                      <ul>
-                        <li>
-                          <span>Name</span>Auspex
-                        </li>
-                        <li>
-                          <span>Category</span>Perception & Wits
-                        </li>
-                        <li>
-                          <span>Cost</span>Varies
-                        </li>
-                      </ul>
+                    <div className="collapse" id={`discipline-${index}`}>
+                      <div className="box-summary">
+                        <div className="details">
+                          <ul>
+                            <li>
+                              <span>Name</span>
+                              {item.flaw}
+                            </li>
+                            <li>
+                              <span>Cost</span>
+                              {item.flawCost}
+                            </li>
+                          </ul>
+                        </div>
+                        <h3>SUMMARY</h3>
+                        <p>{item.flawDescription[0]}</p>
+                        <a href="" className="btn btn-primary">
+                          Details
+                        </a>
+                      </div>
                     </div>
-                    <h3>SUMMARY</h3>
-                    <p>
-                      A predator’s senses must be tremendously acute to track
-                      prey in the night. The five senses of smell, touch, taste,
-                      sight, and hearing can all be sharpened with the use of
-                      Auspex. This improved awareness can even go beyond the
-                      physical senses, expanding a vampire’s powers of
-                      concentration, perception, and consciousness itself beyond
-                      the ability of mortals. Such heightened awareness can
-                      grasp subtle textures of movement as well as emotional
-                      states, transcending ordinary mental acuity. Auspex can
-                      also pierce mental distractions and illusions, such as
-                      those created by the disciplines of Obfuscate or
-                      Chimeristry.
-                    </p>
-                    <a href="" className="btn btn-primary">
-                      Details
-                    </a>
-                  </div>
-                </div>
-                <div className="item discipline-3">
-                  <div className="disc-cols3">
-                    <span>Presence</span>
-                  </div>
-                  <div className="disc-cols3 hideMobile">
-                    <span>Perception & Wits</span>
-                  </div>
-                  <div className="disc-cols3 hideMobile">
-                    <span>Varies</span>
-                  </div>
-                  <div className="disc-indicator">
-                    <a
-                      className="btn btn-primary collapsed"
-                      data-toggle="collapse"
-                      href="#discipline-3"
-                      role="button"
-                      aria-expanded="false"
-                      aria-controls="discipline-3"
-                    >
-                      <i className="fa" />
-                    </a>
-                  </div>
-                </div>
-                <div className="collapse" id="discipline-3">
-                  <div className="box-summary">
-                    <div className="details">
-                      <ul>
-                        <li>
-                          <span>Name</span>Auspex
-                        </li>
-                        <li>
-                          <span>Category</span>Perception & Wits
-                        </li>
-                        <li>
-                          <span>Cost</span>Varies
-                        </li>
-                      </ul>
-                    </div>
-                    <h3>SUMMARY</h3>
-                    <p>
-                      A predator’s senses must be tremendously acute to track
-                      prey in the night. The five senses of smell, touch, taste,
-                      sight, and hearing can all be sharpened with the use of
-                      Auspex. This improved awareness can even go beyond the
-                      physical senses, expanding a vampire’s powers of
-                      concentration, perception, and consciousness itself beyond
-                      the ability of mortals. Such heightened awareness can
-                      grasp subtle textures of movement as well as emotional
-                      states, transcending ordinary mental acuity. Auspex can
-                      also pierce mental distractions and illusions, such as
-                      those created by the disciplines of Obfuscate or
-                      Chimeristry.
-                    </p>
-                    <a href="" className="btn btn-primary">
-                      Details
-                    </a>
-                  </div>
-                </div>
+                  </>
+                ))}
               </div>
             </div>
           </div>
@@ -338,24 +254,36 @@ export function Flaw() {
         <div className="page">
           <ul className="pagination justify-content-center">
             <li className="page-item">
+              <button
+                className="page-link btn"
+                onClick={() => setPage(page - 1)}
+                style={{ marginLeft: 10 }}
+                disabled={page === 0}
+              >
+                Previous
+              </button>
+            </li>
+            <li className="page-item">
               <a className="page-link" href="#">
-                1
+                {1 + page}
               </a>
             </li>
             <li className="page-item active">
-              <span className="page-link">
-                2<span className="sr-only">(current)</span>
-              </span>
+              <span className="page-link">{2 + page}</span>
             </li>
             <li className="page-item">
               <a className="page-link" href="#">
-                3
+                {3 + page}
               </a>
             </li>
             <li className="page-item">
-              <a className="page-link btn" href="#">
+              <button
+                className="page-link btn"
+                onClick={() => setPage(page + 1)}
+                disabled={page === meritsData.length - 1}
+              >
                 Next
-              </a>
+              </button>
             </li>
           </ul>
         </div>
@@ -370,6 +298,7 @@ Flaw.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   flaw: makeSelectFlaw(),
+  app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {
