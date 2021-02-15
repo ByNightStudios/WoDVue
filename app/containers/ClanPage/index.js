@@ -25,7 +25,7 @@ import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 
 import Loader from 'components/Loader';
-import { getData } from 'containers/App/actions';
+import { makeSelectApp } from 'containers/App/selectors';
 
 import ToDoReader from 'images/toreador.png';
 
@@ -43,22 +43,11 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
-  const { onRequestData, homePage, OnRequestDropDownItems, clanPage } = props;
+  const { app } = props;
+
   const {
-    contentful: { hasMore, loading },
-  } = homePage;
-
-  const { data: clanItems } = clanPage;
-
-  useEffect(() => {
-    if (hasMore) {
-      onRequestData();
-    }
-  });
-
-  useEffect(() => {
-    OnRequestDropDownItems('clans');
-  }, []);
+    clans: { data: clanItems },
+  } = app;
 
   useEffect(() => {
     const {
@@ -69,10 +58,6 @@ export function ClanPage(props) {
     const findClanData = find(clanItems, { title: id });
     setSelectedClan(findClanData);
   }, [props]);
-
-  if (loading && hasMore) {
-    return <Loader />;
-  }
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -109,7 +94,7 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                selectedClan.title,
+                get(selectedClan, 'title'),
               )}`}
             >
               <h1>{get(selectedClan, 'title', '')}</h1>
@@ -143,7 +128,7 @@ export function ClanPage(props) {
                 ))}
               </p>
 
-              {!isEmpty(selectedClan.inClanDisciplines) ? (
+              {!isEmpty(get(selectedClan, 'inClanDisciplines')) ? (
                 <div>
                   <h2>In Clan Discipline</h2>
                   <Row>
@@ -169,7 +154,7 @@ export function ClanPage(props) {
                 <div />
               )}
 
-              {!isEmpty(selectedClan.flaws) ? (
+              {!isEmpty(get(selectedClan, 'flaws')) ? (
                 <div>
                   <h2>Flaws</h2>
                   <Row gutter={[8, 8]}>
@@ -192,7 +177,7 @@ export function ClanPage(props) {
                 ))}
               </p>
 
-              {!isEmpty(selectedClan.inClanMerits) ? (
+              {!isEmpty(get(selectedClan, 'inClanMerits')) ? (
                 <div>
                   <h2>IN CLAN MERITS</h2>
                   <Row>
@@ -322,20 +307,18 @@ export function ClanPage(props) {
 
 ClanPage.propTypes = {
   ...ClanPage,
-  onRequestData: PropTypes.func,
-  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
   clanPage: makeSelectClanPage(),
   homePage: makeSelectHomePage(),
+  app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onRequestData: () => dispatch(getData()),
-    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

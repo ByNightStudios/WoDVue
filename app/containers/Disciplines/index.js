@@ -9,12 +9,14 @@
 
 import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get, map, orderBy } from 'lodash';
 
 import Loader from 'components/Loader';
+import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectDisciplines from './selectors';
@@ -22,27 +24,22 @@ import reducer from './reducer';
 import saga from './saga';
 import { getDisciplines } from './actions';
 
-export function Disciplines({ OnRequestDropDownItems, disciplines }) {
+export function Disciplines({ app }) {
   useInjectReducer({ key: 'disciplines', reducer });
   useInjectSaga({ key: 'disciplines', saga });
   const [disciplineData, setDisciplineData] = useState([]);
   const [direction, setDirection] = useState('asc');
-  const { data, loading, hasMore } = disciplines;
+  const {
+    disciplines: { data },
+  } = app;
 
   useEffect(() => {
-    OnRequestDropDownItems();
-  }, []);
+    setDisciplineData(data);
+  }, [data]);
 
-  useEffect(() => {
-    if (hasMore) {
-      OnRequestDropDownItems();
-      setDisciplineData(data);
-    }
-  });
-
-  if (loading && hasMore) {
-    return <Loader />;
-  }
+  // if (loading && hasMore) {
+  //   return <Loader />;
+  // }
 
   function handleSortingByLevel(type) {
     const sortedByLevel = orderBy(disciplineData, [type], [direction]);
@@ -73,36 +70,36 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="text-center">DISCIPLINES</h1>
+            <h1 className="text-center" style={{ color:'#ffffff'}}>DISCIPLINES</h1>
           </div>
           <div className="col-md-12">
             <div className="header-disciplines">
               <div className="discipline" onClick={() => handleSortingByDisc()}>
-                <span>Discipline</span>
+                <span style={{ color:'#ffffff'}}>Discipline</span>
               </div>
               <div
                 className="power"
                 onClick={() => handleSortingByLevel('power')}
               >
-                <span>POWER</span>
+                <span style={{ color:'#ffffff'}}>POWER</span>
               </div>
               <div
                 className="foci"
                 onClick={() => handleSortingByLevel('foci')}
               >
-                <span>Foci</span>
+                <span style={{ color:'#ffffff'}}>Foci</span>
               </div>
               <div
                 className="level"
                 onClick={() => handleSortingByLevel('level')}
               >
-                <span>Level</span>
+                <span style={{ color:'#ffffff'}}>Level</span>
               </div>
               <div
                 className="cost"
                 onClick={() => handleSortingByLevel('cost')}
               >
-                <span>Cost</span>
+                <span style={{ color:'#ffffff'}}>Cost</span>
               </div>
               <div className="indicator" />
             </div>
@@ -168,9 +165,11 @@ export function Disciplines({ OnRequestDropDownItems, disciplines }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{map(item.summary, dataItem => dataItem)}</p>
-                        <a href="" className="btn btn-primary">
-                          Details
-                        </a>
+                        <Link to={`/Disciplines/${item.power}`}>
+                          <a href="" className="btn btn-primary">
+                            Details
+                          </a>
+                        </Link>
                       </div>
                     </div>
                   </>
@@ -191,6 +190,7 @@ Disciplines.propTypes = {
 
 const mapStateToProps = createStructuredSelector({
   disciplines: makeSelectDisciplines(),
+  app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {

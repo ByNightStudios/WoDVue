@@ -22,4 +22,4 @@ const makeSelectApp = () =>
   );
 
 export default makeSelectApp;
-export { selectAppDomain };
+export { selectAppDomain, makeSelectApp };

@@ -49,15 +49,15 @@ html {
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block; }
 
-body {
-  margin: 0 !important;
-  font-family: "Articulat CF" !important;
-  font-size: 1rem !important;
-  font-weight: 400 !important;
-  line-height: 1.5 !important;
-  color: #191919 !important;
-  text-align: left !important;
-  background-color: #fff !important; }
+  body {
+    margin: 0 !important;
+    font-family: "Articulat CF" !important;
+    font-size: 1rem !important;
+    font-weight: 400 !important;
+    line-height: 1.5 !important;
+    color: #191919 !important;
+    text-align: left !important;
+    background-color: #fff !important; }
 
 [tabindex="-1"]:focus {
   outline: 0 !important; }
@@ -301,8 +301,7 @@ h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
   margin-bottom: 0.5rem;
   font-weight: 500;
-  line-height: 1.2;
-  color: #fff !important; }
+  line-height: 1.2; }
 
 h1, .h1 {
   font-size: 2.5rem; }
@@ -9935,6 +9934,12 @@ h4 {
 p {
   margin-bottom: 2em; }
 
+hr {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+  border-top: 1px solid #821919;
+  width: 100%; }
+
 .btn {
   line-height: 60px;
   padding: 0 30px;
@@ -10032,8 +10037,7 @@ p {
   font-size: 24px;
   text-transform: uppercase;
   margin-bottom: 20px;
-  font-weight: 500;
-color: #fff !important;}
+  font-weight: 500; }
 
 .footer-page .navbar-nav .nav-link {
   color: #fff; }
@@ -10209,6 +10213,18 @@ color: #fff !important;}
   margin-bottom: 0px;
   line-height: 1; }
 
+.header-single .info .info-des {
+  width: 40%;
+  text-align: right;
+  float: right;
+  padding-left: 20px;
+  font-weight: 800; }
+
+.header-single .info .info-des span {
+  font-weight: 400;
+  float: right;
+  margin-left: 10px; }
+
 .boxThumb {
   text-align: center; }
 
@@ -10232,9 +10248,8 @@ color: #fff !important;}
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 31px 0 20px;
-  text-align: start;
- color: #fff}
+  margin: 30px 0 10px;
+  text-align: center; }
 
 .header-disciplines > div span {
   font-size: 18px;
@@ -10290,6 +10305,7 @@ width: 250px;
 
 
   }
+
 .disc-indicator .btn {
   line-height: 76px;
   box-shadow: none;
@@ -10311,6 +10327,10 @@ width: 250px;
   background-color: #e1e1e1;
   padding: 30px;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3); }
+
+.disc-cols3 {
+  width: 29%;
+  text-align: start; }
 
 .power, .disc-power {
   min-width: 300px; }
@@ -10358,6 +10378,89 @@ width: 250px;
 .details ul li span {
   font-weight: 800;
   text-transform: uppercase; }
+
+.list-icons {
+  color: #191919;
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap; }
+
+.list-icons .box-icon {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  width: 115px;
+  margin: 0 16px 40px 15px; }
+
+.list-icons .box-icon {
+  text-decoration: none;
+  color: #191919; }
+
+.list-icons .list {
+  width: 115px;
+  height: 100px;
+  background: url(../images/iconBG.svg) no-repeat 50% 50%;
+  background-size: cover;
+  display: block;
+  padding: 10px;
+  color: white;
+  font-size: 80px;
+  line-height: 1;
+  margin-bottom: 10px; }
+
+.box-icon:hover .list {
+  filter: invert(13%) sepia(46%) saturate(4931%) hue-rotate(351deg) brightness(90%) contrast(89%); }
+
+.form-inline {
+  width: 100%; }
+
+.form-inline label {
+  font-size: 18px;
+  font-weight: 800;
+  text-transform: uppercase;
+  position: relative;
+  justify-content: left; }
+
+.form-inline .form-control {
+  width: 100%;
+  border: 0;
+  height: 60px;
+  box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.5);
+  border-radius: 0;
+  margin-top: 20px; }
+
+.form-inline .btn {
+  width: 100%;
+  margin-top: 50px; }
+
+/*Pagination*/
+.page {
+  margin-top: 50px; }
+
+.page-item {
+  width: 150px;
+  text-align: center;
+  margin: 0 15px; }
+
+.page-link {
+  color: white;
+  background-color: black;
+  border: 0;
+  border-radius: 0 !important; }
+
+.page .btn {
+  width: 130px;
+  padding: 12px;
+  font-size: 18px;
+  height: 40px;
+  line-height: 1; }
+
+.page-link:hover {
+  z-index: 2;
+  color: white;
+  text-decoration: none;
+  background-color: #821919;
+  border-color: #821919; }
 
 @media screen and (max-width: 1199px) {
   .box h4 {
@@ -10446,11 +10549,31 @@ width: 250px;
     background-color: #464646; }
 
   .disc-level, .level,
-  .disc-cost, .cost {
+  .disc-cost, .cost, .hideMobile {
     display: none !important; }
 
   .details ul li {
-    width: 50%; } }
+    width: 50%; }
+
+  .disc-cols3 {
+    width: 100%; }
+
+  .form-inline {
+    padding: 0 30px; }
+
+  .form-inline .form-control {
+    margin-bottom: 20px; }
+
+  .form-inline .btn {
+    margin-top: 20px; }
+
+  .page-item {
+    width: 30px;
+    text-align: center;
+    margin: 0 10px; }
+
+  .pagination {
+    justify-content: left !important; } }
 @media screen and (max-width: 575px) {
   .col {
     min-width: 100%; }
