@@ -5,12 +5,14 @@
  */
 import produce from 'immer';
 import { concat } from 'lodash';
+import { act } from 'react-testing-library';
 import {
   DEFAULT_ACTION,
   DISCIPLINES_DATA_SUCCESS,
   CLANS_DATA_SUCCESS,
   FLAWS_DATA_SUCCESS,
   MERITS_DATA_SUCCESS,
+  ATTRIBUTE_DATA_SUCCESS,
 } from './constants';
 
 export const initialState = {
@@ -34,6 +36,9 @@ export const initialState = {
     data: [],
   },
   merits: {
+    data: [],
+  },
+  attributes: {
     data: [],
   },
 };
@@ -65,6 +70,9 @@ const appReducer = (state = initialState, action) =>
         break;
       case MERITS_DATA_SUCCESS:
         draft.merits.data = action.payload;
+        break;
+      case ATTRIBUTE_DATA_SUCCESS:
+        draft.attributes.data = action.payload;
         break;
     }
   });

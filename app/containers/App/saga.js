@@ -7,6 +7,7 @@ import {
   clanDataSuccess,
   flawsDataSuccess,
   meritsDataSuccess,
+  attributeDataSuccess,
 } from './actions';
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 // Individual exports for testing
@@ -107,6 +108,25 @@ function* handleGetAppData() {
       ['asc'],
     );
     yield put(meritsDataSuccess(orderByData));
+  } catch (e) {
+    // yield put(dropDownItemsError(e));
+  }
+
+  try {
+    const response = yield call(apiContentful, {
+      query: 'attributes',
+      select: 'fields,sys.id',
+      parents: '',
+    });
+    const contentfulData = yield Promise.resolve(
+      response.getParentEntriesAsync,
+    );
+    const orderByData = orderBy(
+      contentfulData,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(attributeDataSuccess(orderByData));
   } catch (e) {
     // yield put(dropDownItemsError(e));
   }
