@@ -119,7 +119,12 @@ function Header_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Skills' ? 'active' : null
+                    }`}
+                    href="/Skills"
+                  >
                     Skills
                   </a>
                 </li>

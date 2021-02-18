@@ -15,6 +15,7 @@ import {
   MERITS_DATA_SUCCESS,
   ATTRIBUTE_DATA_SUCCESS,
   BACKGROUND_DATA_SUCCESS,
+  SKILLS_DATA_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -64,5 +65,10 @@ export const attributeDataSuccess = payload => ({
 
 export const backgroundDataSuccess = payload => ({
   type: BACKGROUND_DATA_SUCCESS,
+  payload,
+});
+
+export const skillDataSuccess = payload => ({
+  type: SKILLS_DATA_SUCCESS,
   payload,
 });

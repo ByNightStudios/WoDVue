@@ -23,6 +23,7 @@ import Merits from 'containers/Merits/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
 import Attribute from 'containers/Attributes/Loadable';
 import Backgrounds from 'containers/Backgrounds/Loadable';
+import Skills from 'containers/Skills/Loadable';
 
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
@@ -57,6 +58,7 @@ export function App({ app, onRequestData }) {
         <Route exact path="/Merits" component={Merits} />
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
+        <Route exact path="/Skills" component={Skills} />
         <Route
           exact
           path="/WoDVue/monsters/vampire/clan/:id"

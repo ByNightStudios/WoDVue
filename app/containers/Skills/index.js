@@ -44,7 +44,7 @@ export function ClanPage(props) {
 
   const {
     app: {
-      backgrounds: { data: clanItems },
+      skills: { data: clanItems },
     },
   } = props;
 
@@ -141,7 +141,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Backgrounds</a>
+                  <a href="#">Skills</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'title', '')}
@@ -198,7 +198,7 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-              <h3>BACKGROUNDS</h3>
+              <h3>SKILLS</h3>
               <ul className="nav flex-column nav-clans">
                 {map(filterClans, (items, index) => (
                   <li
@@ -208,7 +208,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to="/Backgrounds"
+                      to="/Skills"
                       className={`nav-link ${getClassName(items.title)}`}
                       value={items.title}
                     >
