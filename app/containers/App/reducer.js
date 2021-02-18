@@ -13,6 +13,7 @@ import {
   FLAWS_DATA_SUCCESS,
   MERITS_DATA_SUCCESS,
   ATTRIBUTE_DATA_SUCCESS,
+  BACKGROUND_DATA_SUCCESS,
 } from './constants';
 
 export const initialState = {
@@ -39,6 +40,9 @@ export const initialState = {
     data: [],
   },
   attributes: {
+    data: [],
+  },
+  backgrounds: {
     data: [],
   },
 };
@@ -73,6 +77,9 @@ const appReducer = (state = initialState, action) =>
         break;
       case ATTRIBUTE_DATA_SUCCESS:
         draft.attributes.data = action.payload;
+        break;
+      case BACKGROUND_DATA_SUCCESS:
+        draft.backgrounds.data = action.payload;
         break;
     }
   });

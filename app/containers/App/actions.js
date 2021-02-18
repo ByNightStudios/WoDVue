@@ -14,6 +14,7 @@ import {
   FLAWS_DATA_SUCCESS,
   MERITS_DATA_SUCCESS,
   ATTRIBUTE_DATA_SUCCESS,
+  BACKGROUND_DATA_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -58,5 +59,10 @@ export const meritsDataSuccess = payload => ({
 
 export const attributeDataSuccess = payload => ({
   type: ATTRIBUTE_DATA_SUCCESS,
+  payload,
+});
+
+export const backgroundDataSuccess = payload => ({
+  type: BACKGROUND_DATA_SUCCESS,
   payload,
 });
