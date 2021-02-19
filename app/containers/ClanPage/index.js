@@ -135,7 +135,10 @@ export function ClanPage(props) {
                     {map(
                       get(selectedClan, 'inClanDisciplines', []),
                       (item, index) => (
-                        <Link to="/Disciplines" key={index}>
+                        <Link
+                          to={`/Disciplines/${item.fields.title}`}
+                          key={index}
+                        >
                           <Card
                             bordered={false}
                             bodyStyle={{ padding: 10 }}
@@ -203,6 +206,18 @@ export function ClanPage(props) {
               ) : (
                 <div />
               )}
+              <p>
+                <h2>SOURCE BOOK</h2>
+                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                  <div>
+                    {map(get(selectedClan, 'sourceBook'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div> MET: VTM Source Book</div>
+                )}
+              </p>
             </div>
           </div>
           <div className="col-md-4 order-md-1">
@@ -235,7 +250,10 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/Baali">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/clan/Baali"
+                  >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

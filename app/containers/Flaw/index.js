@@ -202,7 +202,7 @@ export function Flaw({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(meritsData, page, page + 3), (item, index) => (
+                {map(slice(meritsData, page, page + 15), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">

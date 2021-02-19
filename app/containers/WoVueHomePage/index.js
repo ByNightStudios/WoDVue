@@ -60,13 +60,13 @@ export function WoVueHomePage() {
             </div>
           </div>
         </div>
-        <div className="fullWidth">
+        {/* <div className="fullWidth">
           <div className="boxBanner">
             <a href="" className="btn btn-primary">
               Register Now
             </a>
           </div>
-        </div>
+        </div> */}
 
         <div className="row rowMiniBox">
           <div className="col-md-6">

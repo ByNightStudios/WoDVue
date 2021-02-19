@@ -119,6 +119,7 @@ export function ClanPage(props) {
     }
   }
 
+  console.log(selectedClan);
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -129,7 +130,10 @@ export function ClanPage(props) {
                 get(selectedClan, 'title'),
               )}`}
             >
-              <h1>{get(selectedClan, 'title', '')}</h1>
+              <h1>
+                {get(selectedClan, 'power', '')} -{' '}
+                {get(selectedClan, 'title', '')}
+              </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
@@ -180,6 +184,19 @@ export function ClanPage(props) {
                   </div>
                 ) : (
                   <div />
+                )}
+              </p>
+
+              <p>
+                <h2>SOURCE BOOK</h2>
+                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                  <div>
+                    {map(get(selectedClan, 'sourceBook'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div> MET: VTM Source Book</div>
                 )}
               </p>
 
@@ -251,8 +268,14 @@ export function ClanPage(props) {
                             {map(item.summary, d => (
                               <p>{d}</p>
                             ))}
-                            <a href="" className="btn btn-primary">
-                              Details
+                            <a
+                              className="btn btn-primary"
+                              onClick={() => {
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                setSelectedClan(item);
+                              }}
+                            >
+                              <span style={{ color: '#fff' }}>Details</span>
                             </a>
                           </div>
                         </div>
@@ -293,7 +316,10 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/Baali">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/clan/Baali"
+                  >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

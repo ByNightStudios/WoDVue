@@ -10338,7 +10338,7 @@ width: 250px;
 .disc-name, .discipline {
   width: calc(100% - 200px);
   min-width: 200px;
-  max-width: 300px; }
+  max-width: 100px; }
 
 .disc-foci, .foci {
   margin-right: auto;

@@ -124,6 +124,20 @@ export function ClanPage(props) {
                   <div />
                 )}
               </p>
+
+              <p>
+                <h2>SOURCE BOOK</h2>
+                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                  <div>
+                    {map(get(selectedClan, 'sourceBook'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div> MET: VTM Source Book</div>
+                )}
+              </p>
+
             </div>
           </div>
           <div className="col-md-4 order-md-1">

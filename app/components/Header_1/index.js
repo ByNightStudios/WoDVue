@@ -59,7 +59,7 @@ function Header_1() {
                 </li>
               </ul>
 
-              <ul className="navbar-nav ml-0 navbarAccount">
+              {/* <ul className="navbar-nav ml-0 navbarAccount">
                 <li className="nav-item active">
                   <a className="nav-link" href="#">
                     Sign In
@@ -70,7 +70,7 @@ function Header_1() {
                     Register
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
           <div className="col-md-12">
