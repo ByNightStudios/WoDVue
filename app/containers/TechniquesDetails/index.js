@@ -8,7 +8,7 @@
  *
  */
 
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -41,19 +41,29 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
-
   const {
     app: {
-      backgrounds: { data: clanItems },
+      techniques: { data: clanItems },
     },
   } = props;
+
+  useEffect(() => {
+    const {
+      match: {
+        params: { id },
+      },
+    } = props;
+    const findClanData = find(filterClans, { technique: id });
+    setSelectedClan(findClanData);
+  }, [props]);
 
   const filterClans = clanItems;
 
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
-      const findClanData = find(filterClans, { title: value });
+      const findClanData = find(filterClans, { technique: value });
+      console.log(findClanData);
       setSelectedClan(findClanData);
     }
   }
@@ -85,10 +95,10 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
+                get(selectedClan, 'technique'),
               )}`}
             >
-              <h1>{get(selectedClan, 'title', '')}</h1>
+              <h1>{get(selectedClan, 'technique', '')}</h1>
             </div>
             <div className="boxWhite">
               {!isEmpty(get(selectedClan, 'description')) ? (
@@ -102,6 +112,16 @@ export function ClanPage(props) {
                 <div />
               )}
 
+              <div>
+                {!isEmpty(get(selectedClan, 'system')) ? (
+                  <blockquote className="blockquote">
+                    {map(get(selectedClan, 'system'), item => (
+                      <p className="mb-0">{item}</p>
+                    ))}
+                  </blockquote>
+                ) : null}
+              </div>
+{/*
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
@@ -111,48 +131,31 @@ export function ClanPage(props) {
                 </div>
               ) : (
                 <div />
-              )}
+              )} */}
 
-              <p>
-                {!isEmpty(get(selectedClan, 'focus')) ? (
+              {/* <p>
+                {!isEmpty(get(selectedClan, 'prerequisites')) ? (
                   <div>
-                    <h2>FOCUS</h2>
-                    {get(selectedClan, 'focus')}
+                    <h2>PREREQUISITES</h2>
+                    {get(selectedClan, 'prerequisites')}
                   </div>
                 ) : (
                   <div />
                 )}
-              </p>
-              {!isEmpty(selectedClan) ? (
-                <p>
-                  <h2>SOURCE BOOK</h2>
-                  {!isEmpty(get(selectedClan, 'sourceBook')) ? (
-                    <div>
-                      {map(get(selectedClan, 'sourceBook'), item => (
-                        <p>{item}</p>
-                      ))}
-                    </div>
-                  ) : (
-                    <div> MET: VTM Source Book</div>
-                  )}
-                </p>
-              ) : (
-                <div />
-              )}
+              </p> */}
 
-              {isEmpty(selectedClan) ? (
-                <div>
-                  The following backgrounds are available to your character. In
-                  general, having multiple dots in a background allows for more
-                  effective or more frequent use of that background’s benefit.
-                  Some backgrounds change your character during character
-                  creation, while others affect the character only after she
-                  enters the game. Read each background carefully to determine
-                  which are appropriate for your character’s story.
-                </div>
-              ) : (
-                <div />
-              )}
+              <p>
+                <h2>SOURCE BOOK</h2>
+                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                  <div>
+                    {map(get(selectedClan, 'sourceBook'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div> MET: VTM Source Book</div>
+                )}
+              </p>
             </div>
           </div>
           <div className="col-md-4 order-md-1">
@@ -171,10 +174,10 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Backgrounds</a>
+                  <a href="#">Techniques</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
-                  {get(selectedClan, 'title', '')}
+                  {get(selectedClan, 'technique', '')}
                 </li>
               </ol>
             </nav>
@@ -231,21 +234,21 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-              <h3>BACKGROUNDS</h3>
+              <h3>TECHNIQUES</h3>
               <ul className="nav flex-column nav-clans">
                 {map(filterClans, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
-                    value={items.title}
+                    value={items.technique}
                     key={index}
                   >
                     <Link
-                      to="/Backgrounds"
-                      className={`nav-link ${getClassName(items.title)}`}
-                      value={items.title}
+                      to={`/Techniques/${items.technique}`}
+                      className={`nav-link ${getClassName(items.technique)}`}
+                      value={items.technique}
                     >
-                      {items.title}
+                      {items.technique}
                     </Link>
                   </li>
                 ))}

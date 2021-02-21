@@ -1,239 +1,148 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /**
  *
- * ClanPage
+ * Disciplines
  *
  */
 
-import React, { memo, useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find } from 'lodash';
+import { get, map, orderBy, toString } from 'lodash';
 
+import Loader from 'components/Loader';
+import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-
-import homePageReducer from 'containers/HomePage/reducer';
-import homePageSaga from 'containers/HomePage/saga';
-import makeSelectHomePage from 'containers/HomePage/selectors';
-import { makeSelectApp } from 'containers/App/selectors';
-
-import { getData } from 'containers/App/actions';
-
-import makeSelectClanPage from './selectors';
+import makeSelectDisciplines from './selectors';
 import reducer from './reducer';
 import saga from './saga';
+import { getDisciplines } from './actions';
 
-import { getDropDownItems } from './actions';
-import './style.css';
-
-export function ClanPage(props) {
-  useInjectReducer({ key: 'clanPage', reducer });
-  useInjectSaga({ key: 'clanPage', saga });
-
-  useInjectReducer({ key: 'homePage', reducer: homePageReducer });
-  useInjectSaga({ key: 'homePage', saga: homePageSaga });
-  const [selectedClan, setSelectedClan] = useState('');
+export function Disciplines({ app }) {
+  useInjectReducer({ key: 'disciplines', reducer });
+  useInjectSaga({ key: 'disciplines', saga });
+  const [disciplineData, setDisciplineData] = useState([]);
+  const [direction, setDirection] = useState('asc');
   const {
-    app: {
-      techniques: { data: clanItems },
-    },
-  } = props;
+    techniques: { data },
+  } = app;
 
-  const filterClans = clanItems;
+  useEffect(() => {
+    setDisciplineData(data);
+  }, [data]);
 
-  function handleNavItemsClick(e) {
-    if (e.target) {
-      const value = e.target.getAttribute('value');
-      const findClanData = find(filterClans, { technique: value });
-      console.log(findClanData);
-      setSelectedClan(findClanData);
+  function handleSortingByLevel(type) {
+    const sortedByLevel = orderBy(disciplineData, [type], [direction]);
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
     }
   }
 
-  function getClassName(item) {
-    if (item === 'Followers of Set') {
-      return 'icon-FollowersofSet';
+  function handleSortingByDisc() {
+    const sortedByLevel = orderBy(
+      disciplineData,
+      [user => user.technique.toLowerCase()],
+      [direction, 'desc'],
+    );
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
     }
-    if (item === 'Daughters of Cacophony') {
-      return 'icon-DaughtersofCacophony';
-    }
-    return `icon-${item}`;
-  }
-
-  function getClassHeaderName(item) {
-    if (item === 'Followers of Set') {
-      return 'icon-FollowersofSet';
-    }
-    if (item === 'Daughters of Cacophony') {
-      return 'icon-DaughtersofCacophony';
-    }
-    return `icon-${item}`;
   }
 
   return (
-    <div className="clan-page">
+    <div>
       <div className="container main-content">
         <div className="row">
-          <div className="col-md-8 order-md-12">
-            <div
-              className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
-              )}`}
-            >
-              <h1>{get(selectedClan, 'title', '')}</h1>
-            </div>
-            <div className="boxWhite">
-              {!isEmpty(get(selectedClan, 'description')) ? (
-                <div>
-                  <h2>DESCRIPTION</h2>
-                  {map(get(selectedClan, 'description'), item => (
-                    <p>{item}</p>
-                  ))}
-                </div>
-              ) : (
-                <div />
-              )}
-
-              {!isEmpty(get(selectedClan, 'system')) ? (
-                <div>
-                  <h2>SYSTEM</h2>
-                  {map(get(selectedClan, 'system'), item => (
-                    <p>{item}</p>
-                  ))}
-                </div>
-              ) : (
-                <div />
-              )}
-
-              <p>
-                {!isEmpty(get(selectedClan, 'prerequisites')) ? (
-                  <div>
-                    <h2>PREREQUISITES</h2>
-                    {get(selectedClan, 'prerequisites')}
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </p>
-
-              <p>
-                <h2>SOURCE BOOK</h2>
-                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
-                  <div>
-                    {map(get(selectedClan, 'sourceBook'), item => (
-                      <p>{item}</p>
-                    ))}
-                  </div>
-                ) : (
-                  <div> MET: VTM Source Book</div>
-                )}
-              </p>
-
-            </div>
+          <div className="col-md-12">
+            <h1 className="text-center" style={{ color:'#ffffff'}}>TECHNIQUES</h1>
           </div>
-          <div className="col-md-4 order-md-1">
-            <nav aria-label="breadcrumb">
-              <ol className="breadcrumb">
-                <li className="breadcrumb-item">
-                  <a href="#">
-                    <span className="icon-skull">
-                      <span className="path1" />
-                      <span className="path2" />
-                      <span className="path3" />
-                      <span className="path4" />
-                      <span className="path5" />
-                      <span className="path6" />
-                    </span>
-                  </a>
-                </li>
-                <li className="breadcrumb-item">
-                  <a href="#">Techniques</a>
-                </li>
-                <li className="breadcrumb-item active" aria-current="page">
-                  {get(selectedClan, 'technique', '')}
-                </li>
-              </ol>
-            </nav>
-
-            <div
-              className="collapse navbar-collapse navbarBottom"
-              id="navbarResponsive"
-            >
-              <ul className="navbar-nav ml-auto">
-                <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Baali"
-                  >
-                    Clans & Bloodlines
-                    <span className="sr-only">(current)</span>
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Disciplines">
-                    Disciplines
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Techniques">
-                    Techniques
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Skills">
-                    Skills
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Merits">
-                    Merits
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Flaws">
-                    Flaws
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Attributes">
-                    Attributes
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="/Backgrounds">
-                    Backgrounds
-                  </a>
-                </li>
-              </ul>
+          <div className="col-md-12">
+            <div className="header-disciplines">
+              <div className="discipline" onClick={() => handleSortingByDisc()}>
+                <span style={{ color:'#ffffff'}}>Techniques</span>
+              </div>
+              <div className="indicator" />
             </div>
-            <div className="boxWhite">
-              <h3>BACKGROUNDS</h3>
-              <ul className="nav flex-column nav-clans">
-                {map(filterClans, (items, index) => (
-                  <li
-                    className="nav-item"
-                    onClick={handleNavItemsClick}
-                    value={items.technique}
-                    key={index}
-                  >
-                    <Link
-                      to="/Techniques"
-                      className={`nav-link ${getClassName(items.technique)}`}
-                      value={items.technique}
-                    >
-                      {items.technique}
-                    </Link>
-                  </li>
+
+            <div className="listing-body">
+              <div className="listing">
+                {map(disciplineData, (item, index) => (
+                  <>
+                    <div className={`item discipline-${index + 1}`}>
+                      <div className="disc-power">
+                        <span>{item.technique}</span>
+                      </div>
+                      <div className="disc-name">
+                        <span>{item.title}</span>
+                      </div>
+                      <div className="disc-foci">
+                        <span>{get(item, 'foci', '-')}</span>
+                      </div>
+                      <div className="disc-level">
+                        <span>{get(item, 'level', '-')}</span>
+                      </div>
+                      <div className="disc-cost">
+                        <span>{get(item, 'cost', '-')}</span>
+                      </div>
+                      <div className="disc-indicator">
+                        <a
+                          className="btn btn-primary collapsed"
+                          data-toggle="collapse"
+                          href={`#discipline-${index + 1}`}
+                          role="button"
+                          aria-expanded="false"
+                          aria-controls={`discipline-${index + 1}`}
+                        >
+                          <i className="fa" />
+                        </a>
+                      </div>
+                    </div>
+                    <div className="collapse" id={`discipline-${index + 1}`}>
+                      <div className="box-summary">
+                        <div className="details">
+                          <ul>
+                            <li>
+                              <span>Techniques</span>
+                              {item.technique}
+                            </li>
+                            <li>
+                              <span>disciplines</span>
+                              {/* {toString(get(item, 'disciplines', '-'))} */}
+                            </li>
+                            <li>
+                              <span>prerequisites</span>
+                              {get(item, 'prerequisites', '-')}
+                            </li>
+                            <li>
+                              <span>SYSTEM</span>
+                              {get(item, 'system', '-')}
+                            </li>
+                          </ul>
+                        </div>
+                        <h3>SUMMARY</h3>
+                        <p>{map(item.description, dataItem => dataItem)}</p>
+                        <Link to={`/Techniques/${item.technique}`}>
+                          <a href="" className="btn btn-primary">
+                            Details
+                          </a>
+                        </Link>
+                      </div>
+                    </div>
+                  </>
                 ))}
-              </ul>
+              </div>
             </div>
           </div>
         </div>
@@ -242,23 +151,20 @@ export function ClanPage(props) {
   );
 }
 
-ClanPage.propTypes = {
-  ...ClanPage,
-  onRequestData: PropTypes.func,
-  homePage: PropTypes.object,
+Disciplines.propTypes = {
+  OnRequestDropDownItems: PropTypes.func,
+  disciplines: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
-  clanPage: makeSelectClanPage(),
-  homePage: makeSelectHomePage(),
+  disciplines: makeSelectDisciplines(),
   app: makeSelectApp(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onRequestData: () => dispatch(getData()),
-    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    OnRequestDropDownItems: params => dispatch(getDisciplines(params)),
   };
 }
 
@@ -270,4 +176,4 @@ const withConnect = connect(
 export default compose(
   withConnect,
   memo,
-)(ClanPage);
+)(Disciplines);
