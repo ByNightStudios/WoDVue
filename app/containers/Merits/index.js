@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /**
@@ -10,7 +12,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice, filter } from 'lodash';
+import { map, slice, filter, orderBy } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -29,6 +31,7 @@ export function Merits({ app }) {
   const [page, setPage] = useState(0);
   const [merit, setMerit] = useState('');
   const [level, setMeritLevel] = useState('');
+  const [direction, setDirection] = useState('asc');
 
   const {
     merits: { data },
@@ -57,6 +60,16 @@ export function Merits({ app }) {
     setMeritsData(meritFilterData);
   }
 
+  function handleSortingByLevel(type) {
+    const sortedByLevel = orderBy(meritsData, [type], [direction]);
+    setMeritsData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
+  }
+
   return (
     <div>
       <Helmet>
@@ -82,6 +95,10 @@ export function Merits({ app }) {
                 <span className="path6" />
               </span>
               All Merits
+            </a>
+            <a className="box-icon" href="#">
+              <span className=" list icon-Assamites" />
+              Assamite
             </a>
             <a className="box-icon" href="#">
               <span className=" list icon-BanuqHaqim" />
@@ -202,12 +219,61 @@ export function Merits({ app }) {
           </form>
           <hr />
 
+          <div className="page w-100">
+            <ul className="pagination justify-content-center">
+              <li className="page-item">
+                <button
+                  className="page-link btn"
+                  onClick={() => setPage(page - 10)}
+                  style={{ marginLeft: 10 }}
+                  disabled={page === 0}
+                >
+                  Previous
+                </button>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  {1 + page}
+                </a>
+              </li>
+              <li className="page-item active">
+                <span className="page-link">{2 + page}</span>
+              </li>
+              <li className="page-item">
+                <a className="page-link" href="#">
+                  {3 + page}
+                </a>
+              </li>
+              <li className="page-item">
+                <button
+                  className="page-link btn"
+                  onClick={() => setPage(page + 10)}
+                  disabled={page === meritsData.length - 10}
+                >
+                  Next
+                </button>
+              </li>
+            </ul>
+          </div>
+
           <div className="col-md-12">
             <div className="header-disciplines">
-              <div className="disc-cols3 sort-down">
+              <div
+                className="disc-cols3 "
+                onClick={() => handleSortingByLevel('merit')}
+              >
                 <span>NAME</span>
               </div>
-              <div className="disc-cols3 hideMobile">
+              <div
+                className="disc-cols3 hideMobile"
+                onClick={() => handleSortingByLevel('meritType')}
+              >
+                <span>Type</span>
+              </div>
+              <div
+                className="disc-cols3 hideMobile"
+                onClick={() => handleSortingByLevel('meritCost')}
+              >
                 <span>Cost</span>
               </div>
               <div className="indicator" />
@@ -215,11 +281,14 @@ export function Merits({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(meritsData, page, page + 15), (item, index) => (
+                {map(slice(meritsData, page, page + 10), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">
                         <span>{item.merit}</span>
+                      </div>
+                      <div className="disc-cols3 hideMobile">
+                        <span>{item.meritType[0]}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.meritCost}</span>
@@ -267,42 +336,6 @@ export function Merits({ app }) {
               </div>
             </div>
           </div>
-        </div>
-        <div className="page">
-          <ul className="pagination justify-content-center">
-            <li className="page-item">
-              <button
-                className="page-link btn"
-                onClick={() => setPage(page - 1)}
-                style={{ marginLeft: 10 }}
-                disabled={page === 0}
-              >
-                Previous
-              </button>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                {1 + page}
-              </a>
-            </li>
-            <li className="page-item active">
-              <span className="page-link">{2 + page}</span>
-            </li>
-            <li className="page-item">
-              <a className="page-link" href="#">
-                {3 + page}
-              </a>
-            </li>
-            <li className="page-item">
-              <button
-                className="page-link btn"
-                onClick={() => setPage(page + 1)}
-                disabled={page === meritsData.length - 1}
-              >
-                Next
-              </button>
-            </li>
-          </ul>
         </div>
       </div>
     </div>

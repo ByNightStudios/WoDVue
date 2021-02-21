@@ -156,7 +156,7 @@ export function ClanPage(props) {
               ) : (
                 <div />
               )}
-
+          {/*
               {!isEmpty(get(selectedClan, 'flaws')) ? (
                 <div>
                   <h2>Flaws</h2>
@@ -171,7 +171,7 @@ export function ClanPage(props) {
                 </div>
               ) : (
                 <div />
-              )}
+              )} */}
 
               <h2>WEAKNESS</h2>
               <p>
@@ -187,7 +187,7 @@ export function ClanPage(props) {
                     {map(
                       get(selectedClan, 'inClanMerits', []),
                       (item, index) => (
-                        <Link to="/#">
+                        <Link to={`/Merits/${item.fields.merit}`}>
                           <Card
                             bordered={false}
                             bodyStyle={{ padding: 10 }}
@@ -305,6 +305,7 @@ export function ClanPage(props) {
                     value={items.title}
                     key={index}
                   >
+
                     <Link
                       to={items.title}
                       className={`nav-link ${getClassName(items.title)}`}

@@ -124,20 +124,50 @@ export function ClanPage(props) {
                   <div />
                 )}
               </p>
-
-              <p>
-                <h2>SOURCE BOOK</h2>
-                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
-                  <div>
-                    {map(get(selectedClan, 'sourceBook'), item => (
-                      <p>{item}</p>
-                    ))}
-                  </div>
-                ) : (
-                  <div> MET: VTM Source Book</div>
-                )}
-              </p>
-
+              {!isEmpty(selectedClan) ? (
+                <p>
+                  <h2>SOURCE BOOK</h2>
+                  {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                    <div>
+                      {map(get(selectedClan, 'sourceBook'), item => (
+                        <p>{item}</p>
+                      ))}
+                    </div>
+                  ) : (
+                    <div> MET: VTM Source Book</div>
+                  )}
+                </p>
+              ) : (
+                <p />
+              )}
+              {isEmpty(selectedClan) ? (
+                <p>
+                  Attributes quantify a character’s innate strengths and
+                  weaknesses. Depending upon how a player allocates her starting
+                  dots, the character might be strong and perceptive, quick and
+                  intelligent, or witty and beautiful, based on whether the
+                  character has high Physical, Social, or Mental attributes. A
+                  character should also be weak in some attributes. Creating a
+                  character who is an imperfect individual makes her more
+                  realistic, and gives the character weaknesses that she can
+                  overcome during the course of the chronicle. Moments of growth
+                  are good for a protagonist, and raising an attribute can be a
+                  wonderful reward after a tense moment in the story. It could
+                  indicate that the character learned from her experiences,
+                  growing wiser, stronger, or more capable of surviving in a
+                  dangerous social setting. Most characters have attribute
+                  ratings between 3 (poor) and 5 (average), though exceptionally
+                  gifted individuals may have ratings of 7 (excellent) or even
+                  10 (peak human capacity). As vampires are supernatural
+                  creatures, their players receive bonus points that they can
+                  add to their potential attribute maximums. The number of
+                  points a vampire character receives in this manner varies
+                  according to her Generation, reflecting the potency of the
+                  vampire’s blood.
+                </p>
+              ) : (
+                <p />
+              )}
             </div>
           </div>
           <div className="col-md-4 order-md-1">
@@ -170,7 +200,10 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/Baali">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/clan/Baali"
+                  >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

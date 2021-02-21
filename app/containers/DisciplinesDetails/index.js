@@ -16,7 +16,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row } from 'antd';
-import { map, filter, get, isEmpty, find, sortBy, orderBy } from 'lodash';
+import {
+  map,
+  filter,
+  get,
+  isEmpty,
+  find,
+  sortBy,
+  orderBy,
+  isEqual,
+} from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -71,6 +80,10 @@ export function ClanPage(props) {
     } = props;
     const findClanData = find(filterClans, { power: id });
     setSelectedClan(findClanData);
+    const powerOfClansData = filter(clanItems, {
+      power: get(findClanData, 'title'),
+    });
+    setPowerOfClans(powerOfClansData);
   }, [props]);
 
   if (loading && hasMore) {
@@ -131,8 +144,15 @@ export function ClanPage(props) {
               )}`}
             >
               <h1>
-                {get(selectedClan, 'power', '')} -{' '}
-                {get(selectedClan, 'title', '')}
+                {get(selectedClan, 'power', '')}{' '}
+                {!isEqual(
+                  get(selectedClan, 'power', 'demo'),
+                  get(selectedClan, 'title', 'nano'),
+                ) ? (
+                  <> -{get(selectedClan, 'title', '')} </>
+                  ) : (
+                    <div />
+                  )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
@@ -154,9 +174,22 @@ export function ClanPage(props) {
 
               {!isEmpty(get(selectedClan, 'foci')) ? (
                 <div>
-                  <h2>Flaws</h2>
+                  <h2>FOCUS</h2>
                   <Row gutter={[8, 8]}>
                     {map(get(selectedClan, 'foci', []), item => (
+                      <p>{item}</p>
+                    ))}
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'focusDescriptor')) ? (
+                <div>
+                  <h2>Focus Descriptor</h2>
+                  <Row gutter={[8, 8]}>
+                    {map(get(selectedClan, 'focusDescriptor', []), item => (
                       <p>{item}</p>
                     ))}
                   </Row>

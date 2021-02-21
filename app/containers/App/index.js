@@ -58,6 +58,7 @@ export function App({ app, onRequestData }) {
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
         <Route exact path="/Merits" component={Merits} />
+        <Route exact path="/Merits/:id" component={Merits} />
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
         <Route exact path="/Skills" component={Skills} />

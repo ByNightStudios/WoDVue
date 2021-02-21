@@ -54,7 +54,7 @@ export function Disciplines({ app }) {
   function handleSortingByDisc() {
     const sortedByLevel = orderBy(
       disciplineData,
-      [user => user.title.toLowerCase(), 'level'],
+      [user => user.power.toLowerCase(), 'level'],
       [direction, 'desc'],
     );
     setDisciplineData(sortedByLevel);
@@ -70,36 +70,38 @@ export function Disciplines({ app }) {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="text-center" style={{ color:'#ffffff'}}>DISCIPLINES</h1>
+            <h1 className="text-center" style={{ color: '#ffffff' }}>
+              DISCIPLINES
+            </h1>
           </div>
           <div className="col-md-12">
             <div className="header-disciplines">
               <div className="discipline" onClick={() => handleSortingByDisc()}>
-                <span style={{ color:'#ffffff'}}>Discipline</span>
+                <span style={{ color: '#ffffff' }}>Discipline</span>
               </div>
               <div
                 className="power"
-                onClick={() => handleSortingByLevel('power')}
+                onClick={() => handleSortingByLevel('title')}
               >
-                <span style={{ color:'#ffffff'}}>POWER</span>
+                <span style={{ color: '#ffffff' }}>POWER</span>
               </div>
               <div
                 className="foci"
                 onClick={() => handleSortingByLevel('foci')}
               >
-                <span style={{ color:'#ffffff'}}>Foci</span>
+                <span style={{ color: '#ffffff' }}>Foci</span>
               </div>
               <div
                 className="level"
                 onClick={() => handleSortingByLevel('level')}
               >
-                <span style={{ color:'#ffffff'}}>Level</span>
+                <span style={{ color: '#ffffff' }}>Level</span>
               </div>
               <div
                 className="cost"
                 onClick={() => handleSortingByLevel('cost')}
               >
-                <span style={{ color:'#ffffff'}}>Cost</span>
+                <span style={{ color: '#ffffff' }}>Cost</span>
               </div>
               <div className="indicator" />
             </div>
