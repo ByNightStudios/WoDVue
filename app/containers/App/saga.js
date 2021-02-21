@@ -1,5 +1,6 @@
 import { call, put, debounce, takeLatest, select } from 'redux-saga/effects';
 import { orderBy, isEmpty } from 'lodash';
+import localforage from 'localforage';
 import { GET_DATA } from './constants';
 import { makeSelectApp } from './selectors';
 import {
@@ -14,6 +15,28 @@ import {
 } from './actions';
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 // Individual exports for testing
+
+localforage.setDriver(localforage.LOCALSTORAGE);
+
+const loadState = (stateData, cb) => {
+  try {
+    localforage.getItem(`${stateData}`, (err, state) => {
+      if (err) return cb(err);
+      return cb(JSON.parse(state));
+    });
+  } catch (err) {
+    return cb(null, {});
+  }
+};
+
+const saveState = (name, state) => {
+  try {
+    const serializedState = JSON.stringify(state);
+    localforage.setItem(`${name}`, serializedState);
+  } catch (err) {
+    // err while saving state
+  }
+};
 
 function getItems(item) {
   if (item.title) {
@@ -48,6 +71,7 @@ function* handleGetAppData() {
   const {
     disciplines: { skip, limit },
   } = appState;
+
   if (isEmpty(DisciplinesData)) {
     try {
       const response = yield call(apiContentful, {
@@ -65,6 +89,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('discipline', orderByData);
       yield put(disciplineDataSuccess(orderByData));
     } catch (e) {
       console.log(e);
@@ -86,6 +111,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('clans', orderByData);
       yield put(clanDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
@@ -107,6 +133,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('flaws', orderByData);
       yield put(flawsDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
@@ -128,6 +155,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('merits', orderByData);
       yield put(meritsDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
@@ -149,6 +177,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('attributes', orderByData);
       yield put(attributeDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
@@ -169,6 +198,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('backgrounds', orderByData);
       yield put(backgroundDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
@@ -190,6 +220,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('skills', orderByData);
       yield put(skillDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
@@ -211,6 +242,7 @@ function* handleGetAppData() {
         [item => getItems(item).toLowerCase()],
         ['asc'],
       );
+      saveState('techniques', orderByData);
       yield put(techniquesDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));

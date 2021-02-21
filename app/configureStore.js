@@ -4,6 +4,9 @@
 
 import { createStore, applyMiddleware, compose } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
+import { persistStore, autoRehydrate } from 'redux-persist-immutable';
+import localForage from 'localforage';
+
 import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
