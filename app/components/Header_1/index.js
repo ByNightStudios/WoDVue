@@ -106,9 +106,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Disciplines' ? 'active' : null
+                      pathname === '/Disciplines/Quietus' ? 'active' : null
                     }`}
-                    href="/Disciplines"
+                    href="/Disciplines/Quietus"
                   >
                     Disciplines
                   </a>
@@ -116,9 +116,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Techniques' ? 'active' : null
+                      pathname === '/Techniques/Bliss' ? 'active' : null
                     }`}
-                    href="/Techniques"
+                    href="/Techniques/Bliss"
                   >
                     Techniques
                   </a>
@@ -171,6 +171,16 @@ function Header_1() {
                     href="/Backgrounds"
                   >
                     Backgrounds
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Rituals' ? 'active' : null
+                    }`}
+                    href="/Rituals"
+                  >
+                    Rituals
                   </a>
                 </li>
               </ul>

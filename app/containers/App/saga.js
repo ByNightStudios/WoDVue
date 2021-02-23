@@ -12,6 +12,7 @@ import {
   backgroundDataSuccess,
   skillDataSuccess,
   techniquesDataSuccess,
+  ritualDataSuccess,
 } from './actions';
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 // Individual exports for testing
@@ -183,6 +184,7 @@ function* handleGetAppData() {
       // yield put(dropDownItemsError(e));
     }
   }
+
   if (isEmpty(backgroundsData)) {
     try {
       const response = yield call(apiContentful, {
@@ -244,6 +246,28 @@ function* handleGetAppData() {
       );
       saveState('techniques', orderByData);
       yield put(techniquesDataSuccess(orderByData));
+    } catch (e) {
+      // yield put(dropDownItemsError(e));
+    }
+  }
+
+  if (isEmpty(techniquesData)) {
+    try {
+      const response = yield call(apiContentful, {
+        query: 'rituals',
+        select: 'fields,sys.id',
+        parents: '',
+      });
+      const contentfulData = yield Promise.resolve(
+        response.getParentEntriesAsync,
+      );
+      const orderByData = orderBy(
+        contentfulData,
+        [item => getItems(item).toLowerCase()],
+        ['asc'],
+      );
+      saveState('rituals', orderByData);
+      yield put(ritualDataSuccess(orderByData));
     } catch (e) {
       // yield put(dropDownItemsError(e));
     }

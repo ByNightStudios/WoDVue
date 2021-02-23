@@ -94,7 +94,7 @@ export function Merits({ app }) {
                 <span className="path5" />
                 <span className="path6" />
               </span>
-              All Merits
+              All Rituals
             </a>
             <a className="box-icon" href="#">
               <span className=" list icon-Assamites" />
@@ -185,7 +185,7 @@ export function Merits({ app }) {
                 <span className="path5" />
                 <span className="path6" />
               </span>
-              Common Merits
+              Common Rituals
             </a>
           </div>
           <form className="form-inline ">

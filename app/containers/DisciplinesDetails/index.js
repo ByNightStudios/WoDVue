@@ -164,12 +164,12 @@ export function ClanPage(props) {
                 </blockquote>
               ) : null}
               <p>
-                {get(selectedClan, 'summary[1]', [])}
-                {get(selectedClan, 'summary[2]', [])}
-                {get(selectedClan, 'summary[3]', [])}
-                {get(selectedClan, 'summary[4]', [])}
-                {get(selectedClan, 'summary[5]', [])}
-                {get(selectedClan, 'summary[6]', [])}
+                <p>{get(selectedClan, 'summary[1]', [])}</p>
+                <p>{get(selectedClan, 'summary[2]', [])}</p>
+                <p>{get(selectedClan, 'summary[3]', [])}</p>
+                <p>{get(selectedClan, 'summary[4]', [])}</p>
+                <p>{get(selectedClan, 'summary[5]', [])}</p>
+                <p>{get(selectedClan, 'summary[6]', [])}</p>
               </p>
 
               {!isEmpty(get(selectedClan, 'foci')) ? (
@@ -180,6 +180,17 @@ export function ClanPage(props) {
                       <p>{item}</p>
                     ))}
                   </Row>
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'system')) ? (
+                <div>
+                  <h2>SYSTEM</h2>
+                  {map(get(selectedClan, 'system'), item => (
+                    <p>{item}</p>
+                  ))}
                 </div>
               ) : (
                 <div />

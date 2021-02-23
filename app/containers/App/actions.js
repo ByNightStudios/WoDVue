@@ -17,6 +17,7 @@ import {
   BACKGROUND_DATA_SUCCESS,
   SKILLS_DATA_SUCCESS,
   TECHNIQUES_DATA_SUCCESS,
+  RITUALS_DATA_SUCCESS,
 } from './constants';
 
 export function defaultAction() {
@@ -76,5 +77,10 @@ export const skillDataSuccess = payload => ({
 
 export const techniquesDataSuccess = payload => ({
   type: TECHNIQUES_DATA_SUCCESS,
+  payload,
+});
+
+export const ritualDataSuccess = payload => ({
+  type: RITUALS_DATA_SUCCESS,
   payload,
 });

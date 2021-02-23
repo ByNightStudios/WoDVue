@@ -16,6 +16,7 @@ import {
   BACKGROUND_DATA_SUCCESS,
   SKILLS_DATA_SUCCESS,
   TECHNIQUES_DATA_SUCCESS,
+  RITUALS_DATA_SUCCESS,
 } from './constants';
 
 export const initialState = {
@@ -51,6 +52,9 @@ export const initialState = {
     data: [],
   },
   techniques: {
+    data: [],
+  },
+  rituals: {
     data: [],
   },
 };
@@ -94,6 +98,9 @@ const appReducer = (state = initialState, action) =>
         break;
       case TECHNIQUES_DATA_SUCCESS:
         draft.techniques.data = action.payload;
+        break;
+      case RITUALS_DATA_SUCCESS:
+        draft.rituals.data = action.payload;
         break;
     }
   });

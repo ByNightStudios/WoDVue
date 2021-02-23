@@ -66,12 +66,14 @@ export function Disciplines({ app }) {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">
-            <h1 className="text-center" style={{ color:'#ffffff'}}>TECHNIQUES</h1>
+            <h1 className="text-center" style={{ color: '#ffffff' }}>
+              TECHNIQUES
+            </h1>
           </div>
           <div className="col-md-12">
             <div className="header-disciplines">
               <div className="discipline" onClick={() => handleSortingByDisc()}>
-                <span style={{ color:'#ffffff'}}>Techniques</span>
+                <span style={{ color: '#ffffff' }}>Techniques</span>
               </div>
               <div className="indicator" />
             </div>

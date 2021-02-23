@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -7,15 +8,14 @@
  *
  */
 
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Card, Row, Col, Typography } from 'antd';
-import { map, find, get, isEmpty } from 'lodash';
+import { map, get, isEmpty, find } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -23,11 +23,9 @@ import { useInjectReducer } from 'utils/injectReducer';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
-
-import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 
-import ToDoReader from 'images/toreador.png';
+import { getData } from 'containers/App/actions';
 
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
@@ -43,26 +41,21 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
-  const { app } = props;
+
+  console.log(props);
 
   const {
-    clans: { data: clanItems },
-  } = app;
+    app: {
+      rituals: { data: clanItems },
+    },
+  } = props;
 
-  useEffect(() => {
-    const {
-      match: {
-        params: { id },
-      },
-    } = props;
-    const findClanData = find(clanItems, { title: id });
-    setSelectedClan(findClanData);
-  }, [props]);
+  const filterClans = clanItems;
 
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
-      const findClanData = find(clanItems, { title: value });
+      const findClanData = find(filterClans, { title: value });
       setSelectedClan(findClanData);
     }
   }
@@ -98,126 +91,94 @@ export function ClanPage(props) {
               )}`}
             >
               <h1>{get(selectedClan, 'title', '')}</h1>
-              <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
-              <div className="row">
-                <div className="col-lg-6 col-md-12 order-lg-12 boxThumb">
-                  <img
-                    className="thumbClan"
-                    src={get(selectedClan, 'featuredLead[0].fields.file.url')}
-                    alt="$"
-                  />
-                </div>
-                <div className="col-lg-6 col-md-12 order-lg-1">
-                  <p>{get(selectedClan, 'description[0]', [])}</p>
-                </div>
-              </div>
-              <br />
-              <blockquote className="blockquote">
-                <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
-              </blockquote>
-              <p>
-                <p>{get(selectedClan, 'summary[1]', [])}</p>
-                <p>{get(selectedClan, 'summary[2]', [])}</p>
-              </p>
-              <h2>ORGANIZATION</h2>
-              <p>
-                {map(get(selectedClan, 'organization', []), item => (
-                  <p key={item}>{item}</p>
-                ))}
-              </p>
-
-              {!isEmpty(get(selectedClan, 'inClanDisciplines')) ? (
+              {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
-                  <h2>In Clan Discipline</h2>
-                  <Row>
-                    {map(
-                      get(selectedClan, 'inClanDisciplines', []),
-                      (item, index) => (
-                        <Link
-                          to={`/Disciplines/${item.fields.title}`}
-                          key={index}
-                        >
-                          <Card
-                            bordered={false}
-                            bodyStyle={{ padding: 10 }}
-                            hoverable
-                          >
-                            <Typography.Text>
-                              {item.fields.title}
-                            </Typography.Text>
-                          </Card>
-                        </Link>
-                      ),
-                    )}
-                  </Row>
+                  <h2>DESCRIPTION</h2>
+                  {map(get(selectedClan, 'description'), item => (
+                    <p>{item}</p>
+                  ))}
                 </div>
               ) : (
                 <div />
               )}
-          {/*
-              {!isEmpty(get(selectedClan, 'flaws')) ? (
-                <div>
-                  <h2>Flaws</h2>
-                  <Row gutter={[8, 8]}>
-                    {map(get(selectedClan, 'flaws', []), item => (
-                      <Link to="/#" key={item}>
-                        {item}
-                        {', '}
-                      </Link>
-                    ))}
-                  </Row>
-                </div>
-              ) : (
-                <div />
-              )} */}
 
-              <h2>WEAKNESS</h2>
-              <p>
-                {map(get(selectedClan, 'weakness', []), item => (
-                  <p key={item}>{item}</p>
-                ))}
-              </p>
-
-              {!isEmpty(get(selectedClan, 'inClanMerits')) ? (
+              {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
-                  <h2>IN CLAN MERITS</h2>
-                  <Row>
-                    {map(
-                      get(selectedClan, 'inClanMerits', []),
-                      (item, index) => (
-                        <Link to={`/Merits/${item.fields.merit}`}>
-                          <Card
-                            bordered={false}
-                            bodyStyle={{ padding: 10 }}
-                            hoverable
-                            key={index}
-                          >
-                            <Typography.Text>
-                              {item.fields.merit}
-                            </Typography.Text>
-                          </Card>
-                        </Link>
-                      ),
-                    )}
-                  </Row>
+                  <h2>SYSTEM</h2>
+                  {map(get(selectedClan, 'system'), item => (
+                    <p>{item}</p>
+                  ))}
                 </div>
               ) : (
                 <div />
               )}
+
               <p>
-                <h2>SOURCE BOOK</h2>
-                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                {!isEmpty(get(selectedClan, 'focus')) ? (
                   <div>
-                    {map(get(selectedClan, 'sourceBook'), item => (
-                      <p>{item}</p>
-                    ))}
+                    <h2>FOCUS</h2>
+                    {get(selectedClan, 'focus')}
                   </div>
                 ) : (
-                  <div> MET: VTM Source Book</div>
+                  <div />
                 )}
               </p>
+              <p>
+                {!isEmpty(get(selectedClan, 'focus')) ? (
+                  <p>
+                    <h2>SOURCE BOOK</h2>
+                    {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                      <div>
+                        {map(get(selectedClan, 'sourceBook'), item => (
+                          <p>{item}</p>
+                        ))}
+                      </div>
+                    ) : (
+                      <div> MET: VTM Source Book</div>
+                    )}
+                  </p>
+                ) : (
+                  <p />
+                )}
+              </p>
+
+              {isEmpty(selectedClan) ? (
+                <p>
+                  Attributes represent your character’s raw potential, but
+                  skills represent the experience and training she’s received
+                  throughout her life — both mortal and immortal. A character
+                  with high skills is well-educated or has a great deal of
+                  knowledge about the world. A character with low skills might
+                  be naive, sheltered, or uneducated. You can purchase up to 5
+                  dots of each skill. It’s not normally possible to buy more
+                  than 5 dots in a skill. Skills provide two kinds of bonuses to
+                  your character. First, they allow a character to perform
+                  certain actions that an untrained character simply cannot
+                  attempt. Second, they augment a character’s attributes, making
+                  certain actions easier because the character has experience or
+                  education with a related skill. For example, a character with
+                  a high Physical attribute rating who does not have the
+                  Athletics skill might find it difficult to scale a wall or to
+                  leap a series of hurdles. A character with a high Social
+                  attribute who does not have the Intimidate skill might find it
+                  difficult to bully her way past a security guard. You should
+                  select your character’s skills based on that character’s
+                  background, and then place (or purchase) more dots in the
+                  skills with which the character should be most profi cient.
+                  Skill levels range from novice to master, as follows: •
+                  Novice: You have learned the fundamentals of this field of
+                  knowledge. •• Practiced: You have mastered the basics of this
+                  area of study. ••• Competent: You are good enough to earn a
+                  professional living in this field. •••• Expert: You have
+                  surpassed the majority of your peers and are considered an
+                  expert. ••••• Master: You are world-class at this activity and
+                  considered to be amongst the best in the field.
+                </p>
+              ) : (
+                <div />
+              )}
             </div>
           </div>
           <div className="col-md-4 order-md-1">
@@ -236,7 +197,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Clans & Bloodlines</a>
+                  <a href="#">Skills</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'title', '')}
@@ -296,18 +257,17 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-              <h3>CLANS & BLOODLINES</h3>
+              <h3>SKILLS</h3>
               <ul className="nav flex-column nav-clans">
-                {map(clanItems, (items, index) => (
+                {map(filterClans, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
                     value={items.title}
                     key={index}
                   >
-
                     <Link
-                      to={items.title}
+                      to="/Skills"
                       className={`nav-link ${getClassName(items.title)}`}
                       value={items.title}
                     >
@@ -326,6 +286,8 @@ export function ClanPage(props) {
 
 ClanPage.propTypes = {
   ...ClanPage,
+  onRequestData: PropTypes.func,
+  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -337,7 +299,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    onRequestData: () => dispatch(getData()),
+    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

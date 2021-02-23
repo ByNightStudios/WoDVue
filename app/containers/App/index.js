@@ -26,6 +26,7 @@ import Backgrounds from 'containers/Backgrounds/Loadable';
 import Skills from 'containers/Skills/Loadable';
 import Techniques from 'containers/Techniques/Loadable';
 import TechniquesDetails from 'containers/TechniquesDetails/Loadable';
+import Rituals from 'containers/Rituals/Loadable';
 
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
@@ -58,6 +59,7 @@ export function App({ app, onRequestData }) {
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
         <Route exact path="/Merits" component={Merits} />
+        <Route exact path="/Rituals" component={Rituals} />
         <Route exact path="/Merits/:id" component={Merits} />
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
