@@ -97,7 +97,7 @@ function Header_1() {
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/clan/Baali"
+                    href="/WoDVue/monsters/vampire/clan/Assamites"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>

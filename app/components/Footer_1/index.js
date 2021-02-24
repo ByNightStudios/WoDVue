@@ -35,7 +35,7 @@ function Footer_1() {
                 <li className="nav-item active">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Baali"
+                    href="/WoDVue/monsters/vampire/clan/Assamites"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>

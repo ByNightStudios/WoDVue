@@ -190,7 +190,7 @@ export function ClanPage(props) {
                 <li className="nav-item active">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Baali"
+                    href="/WoDVue/monsters/vampire/clan/Assamites"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
@@ -247,6 +247,9 @@ export function ClanPage(props) {
                       to={`/Techniques/${items.technique}`}
                       className={`nav-link ${getClassName(items.technique)}`}
                       value={items.technique}
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
                     >
                       {items.technique}
                     </Link>
