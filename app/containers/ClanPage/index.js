@@ -129,34 +129,28 @@ export function ClanPage(props) {
               </p>
 
               {!isEmpty(get(selectedClan, 'inClanDisciplines')) ? (
-                <div>
+                <p>
                   <h2>In Clan Discipline</h2>
                   <Row>
                     {map(
                       get(selectedClan, 'inClanDisciplines', []),
                       (item, index) => (
-                        <Link
+                        <a
                           to={`/Disciplines/${item.fields.title}`}
                           key={index}
+                          className="anchorTag"
+                          style={{ marginRight: 10 }}
                         >
-                          <Card
-                            bordered={false}
-                            bodyStyle={{ padding: 10 }}
-                            hoverable
-                          >
-                            <Typography.Text>
-                              {item.fields.title}
-                            </Typography.Text>
-                          </Card>
-                        </Link>
+                          {item.fields.title}
+                        </a>
                       ),
                     )}
                   </Row>
-                </div>
+                </p>
               ) : (
                 <div />
               )}
-          {/*
+              {/*
               {!isEmpty(get(selectedClan, 'flaws')) ? (
                 <div>
                   <h2>Flaws</h2>
@@ -181,28 +175,23 @@ export function ClanPage(props) {
               </p>
 
               {!isEmpty(get(selectedClan, 'inClanMerits')) ? (
-                <div>
+                <p>
                   <h2>IN CLAN MERITS</h2>
                   <Row>
                     {map(
                       get(selectedClan, 'inClanMerits', []),
                       (item, index) => (
-                        <Link to={`/Merits/${item.fields.merit}`}>
-                          <Card
-                            bordered={false}
-                            bodyStyle={{ padding: 10 }}
-                            hoverable
-                            key={index}
-                          >
-                            <Typography.Text>
-                              {item.fields.merit}
-                            </Typography.Text>
-                          </Card>
-                        </Link>
+                        <a
+                          href={`/Merits/${item.fields.merit}`}
+                          className="anchorTag"
+                          style={{ marginRight: 10 }}
+                        >
+                          {item.fields.merit}
+                        </a>
                       ),
                     )}
                   </Row>
-                </div>
+                </p>
               ) : (
                 <div />
               )}
