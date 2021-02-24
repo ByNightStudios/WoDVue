@@ -59,7 +59,7 @@ function Header_1() {
                 </li>
               </ul>
 
-              <ul className="navbar-nav ml-0 navbarAccount">
+              {/* <ul className="navbar-nav ml-0 navbarAccount">
                 <li className="nav-item active">
                   <a className="nav-link" href="#">
                     Sign In
@@ -70,7 +70,7 @@ function Header_1() {
                     Register
                   </a>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           </div>
           <div className="col-md-12">
@@ -93,11 +93,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      includes([pathname], '/WoDVue/monsters/vampire/clan')
+                      includes([pathname], '/WoDVue/monsters/vampire/clan/')
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/clan/Baali"
+                    href="/WoDVue/monsters/vampire/clan/"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
@@ -106,20 +106,30 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Disciplines' ? 'active' : null
+                      pathname === '/Disciplines/' ? 'active' : null
                     }`}
-                    href="/Disciplines"
+                    href="/Disciplines/"
                   >
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Techniques/Bliss' ? 'active' : null
+                    }`}
+                    href="/Techniques/Bliss"
+                  >
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Skills' ? 'active' : null
+                    }`}
+                    href="/Skills"
+                  >
                     Skills
                   </a>
                 </li>
@@ -144,13 +154,33 @@ function Header_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Attributes' ? 'active' : null
+                    }`}
+                    href="/Attributes"
+                  >
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Backgrounds' ? 'active' : null
+                    }`}
+                    href="/Backgrounds"
+                  >
                     Backgrounds
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Rituals' ? 'active' : null
+                    }`}
+                    href="/Rituals"
+                  >
+                    Rituals
                   </a>
                 </li>
               </ul>

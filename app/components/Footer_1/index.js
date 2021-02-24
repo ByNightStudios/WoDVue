@@ -28,13 +28,12 @@ function Footer_1() {
               </a>
             </div>
             <div className="col-lg-4 col-md-6">
-              <h3>Quick Links</h3>
+              <h3>
+                <span style={{ color: '#fff' }}>Quick Links</span>
+              </h3>
               <ul className="navbar-nav menuFooter">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Baali"
-                  >
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
@@ -45,12 +44,12 @@ function Footer_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Techniques">
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Skills">
                     Skills
                   </a>
                 </li>
@@ -65,19 +64,21 @@ function Footer_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Backgrounds">
                     Backgrounds
                   </a>
                 </li>
               </ul>
             </div>
             <div className="col-lg-4 col-md-6 widgetSocial">
-              <h3 style={{ color: '#fff' }}>Follow Us</h3>
+              <h3>
+                <span style={{ color: '#fff' }}>Follow Us</span>
+              </h3>
               <ul className="navbar-nav ml-auto navbarSocial">
                 <li className="nav-item">
                   <a

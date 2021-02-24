@@ -16,7 +16,16 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row } from 'antd';
-import { map, filter, get, isEmpty, find, sortBy, orderBy } from 'lodash';
+import {
+  map,
+  filter,
+  get,
+  isEmpty,
+  find,
+  sortBy,
+  orderBy,
+  isEqual,
+} from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -71,6 +80,12 @@ export function ClanPage(props) {
     } = props;
     const findClanData = find(filterClans, { power: id });
     setSelectedClan(findClanData);
+    const powerOfClansData = filter(clanItems, {
+      power: get(findClanData, 'title'),
+    });
+
+    const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
+    setPowerOfClans(sortedByLevel);
   }, [props]);
 
   if (loading && hasMore) {
@@ -119,6 +134,7 @@ export function ClanPage(props) {
     }
   }
 
+  console.log(selectedClan);
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -129,7 +145,17 @@ export function ClanPage(props) {
                 get(selectedClan, 'title'),
               )}`}
             >
-              <h1>{get(selectedClan, 'title', '')}</h1>
+              <h1>
+                {get(selectedClan, 'power', '')}{' '}
+                {!isEqual(
+                  get(selectedClan, 'power', 'demo'),
+                  get(selectedClan, 'title', 'nano'),
+                ) ? (
+                  <> -{get(selectedClan, 'title', '')} </>
+                  ) : (
+                    <div />
+                  )}
+              </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
@@ -140,19 +166,43 @@ export function ClanPage(props) {
                 </blockquote>
               ) : null}
               <p>
-                {get(selectedClan, 'summary[1]', [])}
-                {get(selectedClan, 'summary[2]', [])}
-                {get(selectedClan, 'summary[3]', [])}
-                {get(selectedClan, 'summary[4]', [])}
-                {get(selectedClan, 'summary[5]', [])}
-                {get(selectedClan, 'summary[6]', [])}
+                <p>{get(selectedClan, 'summary[1]', [])}</p>
+                <p>{get(selectedClan, 'summary[2]', [])}</p>
+                <p>{get(selectedClan, 'summary[3]', [])}</p>
+                <p>{get(selectedClan, 'summary[4]', [])}</p>
+                <p>{get(selectedClan, 'summary[5]', [])}</p>
+                <p>{get(selectedClan, 'summary[6]', [])}</p>
               </p>
 
               {!isEmpty(get(selectedClan, 'foci')) ? (
                 <div>
-                  <h2>Flaws</h2>
+                  <h2>FOCUS</h2>
                   <Row gutter={[8, 8]}>
                     {map(get(selectedClan, 'foci', []), item => (
+                      <p>{item}</p>
+                    ))}
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'system')) ? (
+                <div>
+                  <h2>SYSTEM</h2>
+                  {map(get(selectedClan, 'system'), item => (
+                    <p>{item}</p>
+                  ))}
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'focusDescriptor')) ? (
+                <div>
+                  <h2>Focus Descriptor</h2>
+                  <Row gutter={[8, 8]}>
+                    {map(get(selectedClan, 'focusDescriptor', []), item => (
                       <p>{item}</p>
                     ))}
                   </Row>
@@ -180,6 +230,19 @@ export function ClanPage(props) {
                   </div>
                 ) : (
                   <div />
+                )}
+              </p>
+
+              <p>
+                <h2>SOURCE BOOK</h2>
+                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                  <div>
+                    {map(get(selectedClan, 'sourceBook'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div> MET: VTM Source Book</div>
                 )}
               </p>
 
@@ -251,8 +314,14 @@ export function ClanPage(props) {
                             {map(item.summary, d => (
                               <p>{d}</p>
                             ))}
-                            <a href="" className="btn btn-primary">
-                              Details
+                            <a
+                              className="btn btn-primary"
+                              onClick={() => {
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                                setSelectedClan(item);
+                              }}
+                            >
+                              <span style={{ color: '#fff' }}>Details</span>
                             </a>
                           </div>
                         </div>
@@ -293,43 +362,46 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a className="nav-link" href="#">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/clan/"
+                  >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Disciplines">
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Techniques">
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Merits">
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#">
+                  <a className="nav-link" href="/Backgrounds">
                     Backgrounds
                   </a>
                 </li>
@@ -349,6 +421,9 @@ export function ClanPage(props) {
                       to={items.power}
                       className={`nav-link ${getClassName(items.power)}`}
                       value={items.power}
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
                     >
                       {items.power}
                     </Link>

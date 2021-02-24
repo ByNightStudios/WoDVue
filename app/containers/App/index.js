@@ -21,6 +21,12 @@ import NotFoundPage from 'containers/NotFoundPage/Loadable';
 import Flaw from 'containers/Flaw/Loadable';
 import Merits from 'containers/Merits/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
+import Attribute from 'containers/Attributes/Loadable';
+import Backgrounds from 'containers/Backgrounds/Loadable';
+import Skills from 'containers/Skills/Loadable';
+import Techniques from 'containers/Techniques/Loadable';
+import TechniquesDetails from 'containers/TechniquesDetails/Loadable';
+import Rituals from 'containers/Rituals/Loadable';
 
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
@@ -49,11 +55,28 @@ export function App({ app, onRequestData }) {
       <Header />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
-        <Route exact path="/Disciplines" component={Disciplines} />
+        <Route exact path="/Disciplines/" component={Disciplines} />
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
+        <Route exact path="/Flaws/:id" component={Flaw} />
         <Route exact path="/Merits" component={Merits} />
-        <Route exact path="/WoDVue/monsters/vampire/clan/:id" component={ClanPage} />
+        <Route exact path="/Rituals" component={Rituals} />
+        <Route exact path="/Merits/:id" component={Merits} />
+        <Route exact path="/Attributes" component={Attribute} />
+        <Route exact path="/Backgrounds" component={Backgrounds} />
+        <Route exact path="/Skills" component={Skills} />
+        <Route exact path="/Techniques" component={Techniques} />
+        <Route exact path="/Techniques/:id" component={TechniquesDetails} />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/clan/:id"
+          component={ClanPage}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/clan/"
+          component={ClanPage}
+        />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

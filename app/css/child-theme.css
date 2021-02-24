@@ -138,6 +138,15 @@ a {
     color: #420d0d;
     text-decoration: underline; }
 
+    .anchorTag {
+      color: #821919 !important;
+      text-decoration: none !important;
+      background-color: transparent !important; }
+      .anchorTag:hover {
+        color: #420d0d !important;
+        text-decoration: underline !important; }
+
+
 a:not([href]):not([tabindex]) {
   color: inherit;
   text-decoration: none; }
@@ -10338,7 +10347,7 @@ width: 250px;
 .disc-name, .discipline {
   width: calc(100% - 200px);
   min-width: 200px;
-  max-width: 300px; }
+  max-width: 100px; }
 
 .disc-foci, .foci {
   margin-right: auto;
