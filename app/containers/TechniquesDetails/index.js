@@ -88,6 +88,8 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -101,6 +103,20 @@ export function ClanPage(props) {
               <h1>{get(selectedClan, 'technique', '')}</h1>
             </div>
             <div className="boxWhite">
+
+             <p>
+                {!isEmpty(get(selectedClan, 'prerequisites')) ? (
+                  <div>
+                    <h2>PREREQUISITES</h2>
+                    {map(get(selectedClan, 'prerequisites'), item =>(
+                      <a href={`/Disciplines/${item}`} className="anchorTag" style={{ marginRight: 10 }}>{item}</a>
+                    ))}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+
               {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>
@@ -113,15 +129,15 @@ export function ClanPage(props) {
               )}
 
               <div>
-                {!isEmpty(get(selectedClan, 'system')) ? (
+                {!isEmpty(get(selectedClan, 'quote')) ? (
                   <blockquote className="blockquote">
-                    {map(get(selectedClan, 'system'), item => (
+                    {map(get(selectedClan, 'quote'), item => (
                       <p className="mb-0">{item}</p>
                     ))}
                   </blockquote>
                 ) : null}
               </div>
-{/*
+
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
@@ -131,18 +147,7 @@ export function ClanPage(props) {
                 </div>
               ) : (
                 <div />
-              )} */}
-
-              {/* <p>
-                {!isEmpty(get(selectedClan, 'prerequisites')) ? (
-                  <div>
-                    <h2>PREREQUISITES</h2>
-                    {get(selectedClan, 'prerequisites')}
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </p> */}
+              )}
 
               <p>
                 <h2>SOURCE BOOK</h2>
@@ -188,10 +193,7 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Assamites"
-                  >
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

@@ -210,7 +210,7 @@ export function ClanPage(props) {
                 <li className="nav-item active">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Assamites"
+                    href="/WoDVue/monsters/vampire/clan/"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>

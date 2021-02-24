@@ -55,9 +55,10 @@ export function App({ app, onRequestData }) {
       <Header />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
-        <Route exact path="/Disciplines" component={Disciplines} />
+        <Route exact path="/Disciplines/" component={Disciplines} />
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
+        <Route exact path="/Flaws/:id" component={Flaw} />
         <Route exact path="/Merits" component={Merits} />
         <Route exact path="/Rituals" component={Rituals} />
         <Route exact path="/Merits/:id" component={Merits} />
@@ -69,6 +70,11 @@ export function App({ app, onRequestData }) {
         <Route
           exact
           path="/WoDVue/monsters/vampire/clan/:id"
+          component={ClanPage}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/clan/"
           component={ClanPage}
         />
         <Route component={NotFoundPage} />

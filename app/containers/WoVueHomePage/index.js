@@ -28,7 +28,7 @@ export function WoVueHomePage() {
             <div className="box clans">
               <h4>Clans & Blodlines</h4>
               <a
-                href="/WoDVue/monsters/vampire/clan/Assamites"
+                href="/WoDVue/monsters/vampire/clan/"
                 className="btn btn-primary"
               >
                 Explore

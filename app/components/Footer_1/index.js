@@ -33,10 +33,7 @@ function Footer_1() {
               </h3>
               <ul className="navbar-nav menuFooter">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/Assamites"
-                  >
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

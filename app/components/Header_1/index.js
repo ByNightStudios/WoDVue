@@ -93,11 +93,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      includes([pathname], '/WoDVue/monsters/vampire/clan')
+                      includes([pathname], '/WoDVue/monsters/vampire/clan/')
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/clan/Assamites"
+                    href="/WoDVue/monsters/vampire/clan/"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
@@ -106,9 +106,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Disciplines/Quietus' ? 'active' : null
+                      pathname === '/Disciplines/' ? 'active' : null
                     }`}
-                    href="/Disciplines/Quietus"
+                    href="/Disciplines/"
                   >
                     Disciplines
                   </a>
