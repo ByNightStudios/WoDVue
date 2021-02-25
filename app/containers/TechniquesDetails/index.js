@@ -88,8 +88,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
-
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -179,7 +177,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Techniques</a>
+                  <a href="/Techniques/">Techniques</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'technique', '')}

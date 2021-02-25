@@ -103,6 +103,10 @@ export function Disciplines({ app }) {
     }
   }
 
+  function getArray(array){
+    return array;
+  }
+
   return (
     <div>
       <div className="container main-content">
@@ -131,7 +135,7 @@ export function Disciplines({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(disciplineData, (item, index) => (
+                {map(getArray(disciplineData), (item, index) => (
                   <>
                     <div className={`item discipline-${index + 1}`}>
                       <div className="disc-power">
