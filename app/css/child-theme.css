@@ -10257,7 +10257,7 @@ hr {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin: 30px 0 10px;
+  margin: 30px 0  20px 10px;
   text-align: center; }
 
 .header-disciplines > div span {
@@ -10308,7 +10308,7 @@ hr {
 
   .listing .item > div > span {
 
-    text-align: start;
+    text-align: center;
 
 width: 250px;
 

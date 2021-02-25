@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, map, orderBy, toString } from 'lodash';
+import { get, map, orderBy, toLower } from 'lodash';
 
 import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
@@ -61,6 +61,48 @@ export function Disciplines({ app }) {
     }
   }
 
+  function handleSortingBy1() {
+    const sortedByLevel = orderBy(
+      disciplineData,
+      [user => user.prerequisites[0].toLowerCase()],
+      [direction, 'desc'],
+    );
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
+  }
+
+  function handleSortingBy2() {
+    const sortedByLevel = orderBy(
+      disciplineData,
+      [user => user.prerequisites[1].toLowerCase()],
+      [direction, 'desc'],
+    );
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
+  }
+
+  function handleSortingBy3() {
+    const sortedByLevel = orderBy(
+      disciplineData,
+      [user => toLower(get(user, 'prerequisites[2]', '-'))],
+      [direction, 'desc'],
+    );
+    setDisciplineData(sortedByLevel);
+    if (direction === 'asc') {
+      setDirection('desc');
+    } else {
+      setDirection('asc');
+    }
+  }
+
   return (
     <div>
       <div className="container main-content">
@@ -75,6 +117,15 @@ export function Disciplines({ app }) {
               <div className="discipline" onClick={() => handleSortingByDisc()}>
                 <span style={{ color: '#ffffff' }}>Techniques</span>
               </div>
+              <div className="discipline" onClick={() => handleSortingBy1()}>
+                <span style={{ color: '#ffffff' }}>Discipline 1</span>
+              </div>
+              <div className="discipline" onClick={() => handleSortingBy2()}>
+                <span style={{ color: '#ffffff' }}>Discipline 2</span>
+              </div>
+              <div className="discipline" onClick={() => handleSortingBy3()}>
+                <span style={{ color: '#ffffff' }}>Discipline 3</span>
+              </div>
               <div className="indicator" />
             </div>
 
@@ -87,17 +138,16 @@ export function Disciplines({ app }) {
                         <span>{item.technique}</span>
                       </div>
                       <div className="disc-name">
-                        <span>{item.title}</span>
+                        <span>{get(item, 'prerequisites[0]', '-')}</span>
                       </div>
                       <div className="disc-foci">
-                        <span>{get(item, 'foci', '-')}</span>
+                        <span>{get(item, 'prerequisites[1]', '-')}</span>
                       </div>
-                      <div className="disc-level">
-                        <span>{get(item, 'level', '-')}</span>
+
+                      <div className="disc-foci">
+                        <span>{get(item, 'prerequisites[2]', '-')}</span>
                       </div>
-                      <div className="disc-cost">
-                        <span>{get(item, 'cost', '-')}</span>
-                      </div>
+
                       <div className="disc-indicator">
                         <a
                           className="btn btn-primary collapsed"
