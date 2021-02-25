@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find } from 'lodash';
+import { map, get, isEmpty, find, split } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -109,7 +109,7 @@ export function ClanPage(props) {
                   <div>
                     <h2>PREREQUISITES</h2>
                     {map(get(selectedClan, 'prerequisites'), item =>(
-                      <a href={`/Disciplines/${item}`} className="anchorTag" style={{ marginRight: 10 }}>{item}</a>
+                      <a href={`/Disciplines/${split(item,' ')[0]}`} className="anchorTag" style={{ marginRight: 10 }}>{item}</a>
                     ))}
                   </div>
                 ) : (

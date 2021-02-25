@@ -28,75 +28,75 @@ function getItems(item) {
 }
 
 function* getItemsData() {
-  const disciplineState = yield select(makeSelectClanPage());
-  const { skip, limit } = disciplineState;
-  try {
-    const response = yield call(apiContentful, {
-      query: 'discipline',
-      select: 'fields,sys.id',
-      parents: false,
-      skip,
-      limit,
-    });
-    const contentfulData = yield Promise.resolve(
-      response.getParentEntriesAsync,
-    );
-    const orderByData = orderBy(
-      contentfulData,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
+  // const disciplineState = yield select(makeSelectClanPage());
+  // const { skip, limit } = disciplineState;
+  // try {
+  //   const response = yield call(apiContentful, {
+  //     query: 'discipline',
+  //     select: 'fields,sys.id',
+  //     parents: false,
+  //     skip,
+  //     limit,
+  //   });
+  //   const contentfulData = yield Promise.resolve(
+  //     response.getParentEntriesAsync,
+  //   );
+  //   const orderByData = orderBy(
+  //     contentfulData,
+  //     [item => getItems(item).toLowerCase()],
+  //     ['asc'],
+  //   );
 
-    yield put(dropDownItemsSuccess(orderByData));
-  } catch (e) {
-    yield put(dropDownItemsError(e));
-  }
+  //   yield put(dropDownItemsSuccess(orderByData));
+  // } catch (e) {
+  //   yield put(dropDownItemsError(e));
+  // }
 }
 
 function* getDisciplinesData() {
-  try {
-    const response = yield call(apiContentful, {
-      query: 'discipline',
-      select: 'fields,sys.id',
-      parents: true,
-    });
-    const response1 = yield call(apiContentful, {
-      query: 'techniques',
-      select: 'fields,sys.id',
-      parents: '',
-    });
-    const response2 = yield call(apiContentful, {
-      query: 'discipline',
-      select: 'fields,sys.id',
-    });
-    const contentfulData1 = yield Promise.resolve(
-      response.getParentEntriesAsync,
-    );
-    const contentfulData2 = yield Promise.resolve(
-      response1.getParentEntriesAsync,
-    );
-    const contentfulData3 = yield Promise.resolve(
-      response2.getParentEntriesAsync,
-    );
-    const orderByData1 = orderBy(
-      contentfulData1,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
-    const orderByData2 = orderBy(
-      contentfulData2,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
-    const orderByData3 = orderBy(
-      contentfulData3,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
-    yield put(disciplinesSuccess({ orderByData1, orderByData2, orderByData3 }));
-  } catch (e) {
-    yield put(dropDownItemsError());
-  }
+  // try {
+  //   const response = yield call(apiContentful, {
+  //     query: 'discipline',
+  //     select: 'fields,sys.id',
+  //     parents: true,
+  //   });
+  //   const response1 = yield call(apiContentful, {
+  //     query: 'techniques',
+  //     select: 'fields,sys.id',
+  //     parents: '',
+  //   });
+  //   const response2 = yield call(apiContentful, {
+  //     query: 'discipline',
+  //     select: 'fields,sys.id',
+  //   });
+  //   const contentfulData1 = yield Promise.resolve(
+  //     response.getParentEntriesAsync,
+  //   );
+  //   const contentfulData2 = yield Promise.resolve(
+  //     response1.getParentEntriesAsync,
+  //   );
+  //   const contentfulData3 = yield Promise.resolve(
+  //     response2.getParentEntriesAsync,
+  //   );
+  //   const orderByData1 = orderBy(
+  //     contentfulData1,
+  //     [item => getItems(item).toLowerCase()],
+  //     ['asc'],
+  //   );
+  //   const orderByData2 = orderBy(
+  //     contentfulData2,
+  //     [item => getItems(item).toLowerCase()],
+  //     ['asc'],
+  //   );
+  //   const orderByData3 = orderBy(
+  //     contentfulData3,
+  //     [item => getItems(item).toLowerCase()],
+  //     ['asc'],
+  //   );
+  //   yield put(disciplinesSuccess({ orderByData1, orderByData2, orderByData3 }));
+  // } catch (e) {
+  //   yield put(dropDownItemsError());
+  // }
 }
 
 // Individual exports for testing

@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -84,7 +85,7 @@ export function Merits({ app }) {
             </h1>
             <hr />
           </div>
-          <div className="list-icons justify-content-center">
+          <div className="list-icons justify-content-center w-100">
             <a className="box-icon" href="#">
               <span className="list icon-skull">
                 <span className="path1" />
@@ -94,90 +95,10 @@ export function Merits({ app }) {
                 <span className="path5" />
                 <span className="path6" />
               </span>
-              All Rituals
+              All Merits
             </a>
             <a className="box-icon" href="#">
-              <span className=" list icon-Assamites" />
-              Assamite
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-BanuqHaqim" />
-              Banu Haqim
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Baali" />
-              Baali
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Brujah" />
-              Brujah
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Caitiff" />
-              Caitiff
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Cappadocians" />
-              Cappadocians
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-DaughtersofCacophony" />
-              Daughters of Cacophony
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-FollowersofSet" />
-              Followers of Set
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Gangrel" />
-              Gangrel
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Gargoyle" />
-              Gargoyle
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Giovanni" />
-              Giovanni
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Lasombra" />
-              Lasombra
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Malkavian" />
-              Malkavian
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Nosferatu" />
-              Nosferatu
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Ravnos" />
-              Ravnos
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Salubri" />
-              Salubri
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Toreador" />
-              Toreador
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Tremere" />
-              Tremere
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Tzimisce" />
-              Tzimisce
-            </a>
-            <a className="box-icon" href="#">
-              <span className=" list icon-Ventrue" />
-              Ventrue
-            </a>
-            <a className="box-icon" href="#">
-              <span className="list icon-skull">
+            <span className="list icon-skull">
                 <span className="path1" />
                 <span className="path2" />
                 <span className="path3" />
@@ -185,7 +106,29 @@ export function Merits({ app }) {
                 <span className="path5" />
                 <span className="path6" />
               </span>
-              Common Rituals
+              Camarilla
+            </a>
+            <a className="box-icon" href="#">
+            <span className="list icon-skull">
+                <span className="path1" />
+                <span className="path2" />
+                <span className="path3" />
+                <span className="path4" />
+                <span className="path5" />
+                <span className="path6" />
+              </span>
+              Anarch
+            </a>
+            <a className="box-icon" href="#">
+            <span className="list icon-skull">
+                <span className="path1" />
+                <span className="path2" />
+                <span className="path3" />
+                <span className="path4" />
+                <span className="path5" />
+                <span className="path6" />
+              </span>
+              Sabbat
             </a>
           </div>
           <form className="form-inline ">
@@ -231,19 +174,10 @@ export function Merits({ app }) {
                   Previous
                 </button>
               </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  {1 + page}
-                </a>
-              </li>
               <li className="page-item active">
                 <span className="page-link">{2 + page}</span>
               </li>
-              <li className="page-item">
-                <a className="page-link" href="#">
-                  {3 + page}
-                </a>
-              </li>
+
               <li className="page-item">
                 <button
                   className="page-link btn"
@@ -266,7 +200,7 @@ export function Merits({ app }) {
               </div>
               <div
                 className="disc-cols3 hideMobile"
-                onClick={() => handleSortingByLevel('meritType')}
+                onClick={() => handleSortingByLevel('clanSpecific')}
               >
                 <span>Type</span>
               </div>
@@ -284,11 +218,12 @@ export function Merits({ app }) {
                 {map(slice(meritsData, page, page + 10), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
+                      {console.log(item)}
                       <div className="disc-cols3">
                         <span>{item.merit}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
-                        <span>{item.meritType[0]}</span>
+                        <span>{item.meritType[0]} - {item.clanSpecific[0]}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.meritCost}</span>
@@ -326,7 +261,7 @@ export function Merits({ app }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{item.meritDescription[0]}</p>
-                        <a href="" className="btn btn-primary">
+                        <a href={`/Merits/${item.merit}`} className="btn btn-primary">
                           Details
                         </a>
                       </div>
