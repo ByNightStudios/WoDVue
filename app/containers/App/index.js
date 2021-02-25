@@ -27,6 +27,8 @@ import Skills from 'containers/Skills/Loadable';
 import Techniques from 'containers/Techniques/Loadable';
 import TechniquesDetails from 'containers/TechniquesDetails/Loadable';
 import Rituals from 'containers/Rituals/Loadable';
+import FlawsDetails from 'containers/FlawsDetails/Loadable';
+import MeritsDetails from 'containers/MeritsDetails/Loadable';
 
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
@@ -55,13 +57,13 @@ export function App({ app, onRequestData }) {
       <Header />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
-        <Route exact path="/Disciplines/" component={Disciplines} />
+        <Route exact path="/Disciplines/" component={DisciplinesDetails} />
         <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
-        <Route exact path="/Flaws/:id" component={Flaw} />
+        <Route exact path="/Flaws/:id" component={FlawsDetails} />
         <Route exact path="/Merits" component={Merits} />
         <Route exact path="/Rituals" component={Rituals} />
-        <Route exact path="/Merits/:id" component={Merits} />
+        <Route exact path="/Merits/:id" component={MeritsDetails} />
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
         <Route exact path="/Skills" component={Skills} />

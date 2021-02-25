@@ -143,14 +143,14 @@ export function ClanPage(props) {
                     {map(
                       get(selectedClan, 'inClanDisciplines', []),
                       (item, index) => (
-                        <a
+                        <Link
                           to={`/Disciplines/${item.fields.title}`}
                           key={index}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
                         >
                           {item.fields.title}
-                        </a>
+                        </Link>
                       ),
                     )}
                   </Row>
@@ -195,13 +195,13 @@ export function ClanPage(props) {
                     {map(
                       get(selectedClan, 'inClanMerits', []),
                       (item, index) => (
-                        <a
-                          href={`/Merits/${item.fields.merit}`}
+                        <Link
+                          to={`/Merits/${item.fields.merit}`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
                         >
                           {item.fields.merit}
-                        </a>
+                        </Link>
                       ),
                     )}
                   </Row>
@@ -215,13 +215,13 @@ export function ClanPage(props) {
                   <h2>IN CLAN FLAWS</h2>
                   <Row>
                     {map(get(selectedClan, 'flaws', []), (item, index) => (
-                      <a
-                        href={`/Flaws/${item.fields.flaw}`}
+                      <Link
+                        to={`/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
                       >
                         {item.fields.flaw}
-                      </a>
+                      </Link>
                     ))}
                   </Row>
                 </p>
