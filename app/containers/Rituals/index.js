@@ -197,7 +197,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Skills</a>
+                  <a href="/Rituals">Rituals</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'title', '')}
@@ -257,7 +257,7 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-              <h3>SKILLS</h3>
+              <h3>RITUALS</h3>
               <ul className="nav flex-column nav-clans">
                 {map(filterClans, (items, index) => (
                   <li
