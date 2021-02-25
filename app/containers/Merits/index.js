@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -199,7 +200,7 @@ export function Merits({ app }) {
               </div>
               <div
                 className="disc-cols3 hideMobile"
-                onClick={() => handleSortingByLevel('meritType')}
+                onClick={() => handleSortingByLevel('clanSpecific')}
               >
                 <span>Type</span>
               </div>
@@ -217,11 +218,12 @@ export function Merits({ app }) {
                 {map(slice(meritsData, page, page + 10), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
+                      {console.log(item)}
                       <div className="disc-cols3">
                         <span>{item.merit}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
-                        <span>{item.meritType[0]}</span>
+                        <span>{item.meritType[0]} - {item.clanSpecific[0]}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.meritCost}</span>
