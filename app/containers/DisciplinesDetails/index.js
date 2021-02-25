@@ -150,15 +150,15 @@ export function ClanPage(props) {
                   get(selectedClan, 'power', 'demo'),
                   get(selectedClan, 'title', 'nano'),
                 ) ? (
-                  <> -{get(selectedClan, 'title', '')} </>
+                  <i> -{get(selectedClan, 'title', '')} </i>
                   ) : (
                     <div />
-                  )}
+                 )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
-            <p>
+              <p>
                 {isEmpty(selectedClan) ? (
                   <p>
                     <p>
@@ -214,19 +214,6 @@ export function ClanPage(props) {
                 <p>{get(selectedClan, 'summary[6]', [])}</p>
               </p>
 
-              {!isEmpty(get(selectedClan, 'foci')) ? (
-                <div>
-                  <h2>FOCUS</h2>
-                  <Row gutter={[8, 8]}>
-                    {map(get(selectedClan, 'foci', []), item => (
-                      <p>{item}</p>
-                    ))}
-                  </Row>
-                </div>
-              ) : (
-                <div />
-              )}
-
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
@@ -240,7 +227,12 @@ export function ClanPage(props) {
 
               {!isEmpty(get(selectedClan, 'focusDescriptor')) ? (
                 <div>
-                  <h2>Focus Descriptor</h2>
+                  <h2>Focus</h2>
+                  <Row gutter={[8, 8]}>
+                    {map(get(selectedClan, 'foci', []), item => (
+                      <p>{item}</p>
+                    ))}
+                  </Row>
                   <Row gutter={[8, 8]}>
                     {map(get(selectedClan, 'focusDescriptor', []), item => (
                       <p>{item}</p>
@@ -394,7 +386,6 @@ export function ClanPage(props) {
                       </div>
                     </div>
                   </div>
-
                 ) : (
                   <div />
                 )}
