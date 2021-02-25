@@ -50,21 +50,26 @@ export function ClanPage(props) {
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
-
   const [selectedClan, setSelectedClan] = useState('');
   const [powerOfClans, setPowerOfClans] = useState('');
   const [direction, setDirection] = useState('asc');
 
-  const { app } = props;
+  const { onRequestData, homePage, OnRequestDropDownItems } = props;
 
   const {
-    disciplines: { data: clanItems },
-  } = app;
+    contentful: { hasMore, loading, data: clanItems },
+  } = homePage;
 
-  const filterClans = clanItems;
+  const filterClans = sortBy(filter(clanItems, o => o.parent), 'title');
 
   useEffect(() => {
-    // OnRequestDropDownItems('disciplines');
+    if (hasMore) {
+      onRequestData();
+    }
+  });
+
+  useEffect(() => {
+    OnRequestDropDownItems('disciplines');
   }, []);
 
   useEffect(() => {
@@ -82,6 +87,10 @@ export function ClanPage(props) {
     const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
   }, [props]);
+
+  if (loading && hasMore) {
+    return <Loader />;
+  }
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -125,7 +134,6 @@ export function ClanPage(props) {
     }
   }
 
-  console.log(selectedClan);
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -150,6 +158,47 @@ export function ClanPage(props) {
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
             <div className="boxWhite">
+            <p>
+                {isEmpty(selectedClan) ? (
+                  <p>
+                    <p>
+                      Disciplines are supernatural powers granted by the
+                      Embrace. Vampires cultivate these powers and bring them to
+                      bear against foes and prey. Fueled by blood and will,
+                      disciplines provide an incomparable, mystical edge and are
+                      the hallmarks of a vampire’s clan or bloodline.
+                    </p>
+                    <p>
+                      By using her disciplines, a vampire can exert the strength
+                      of a dozen humans; trick an enemy into submission; force
+                      her way into someone else’s mind; take the shape of a
+                      wolf, bat, or hideous monstrosity — or numerous other
+                      things. A recently Embraced vampire might have only a few
+                      such powers at her command, while an ancient may have
+                      mastered a fearsome breadth of potent feats. Elders can
+                      learn awesome powers, fueled by the potency of their
+                      blood. Neonates and Ancillae use the flexibility of their
+                      thinner blood to combine two or more disciplines and
+                      create new techniques that are a mélange of powers.
+                    </p>
+                    <p>
+                      Each vampiric clan possesses innate powers of the blood:
+                      disciplines that are native to that clan. A vampire can
+                      learn those powers easily through experimentation and
+                      personal study; this process requires you to spend 1
+                      downtime action between game sessions. Learning other
+                      clans’ disciplines is more difficult; it requires having a
+                      knowledgeable teacher and drinking blood from a vampire
+                      who innately possesses those disciplines. As drinking
+                      blood causes a vampire to become partially bound to the
+                      donor, learning disciplines from another vampire requires
+                      a great deal of trust.
+                    </p>
+                  </p>
+                ) : (
+                  <div />
+                )}
+              </p>
               <p>{get(selectedClan, 'summary[0]', [])}</p>
               {!isEmpty(get(selectedClan, 'quote')) ? (
                 <blockquote className="blockquote">
@@ -165,17 +214,6 @@ export function ClanPage(props) {
                 <p>{get(selectedClan, 'summary[6]', [])}</p>
               </p>
 
-              {!isEmpty(get(selectedClan, 'system')) ? (
-                <div>
-                  <h2>SYSTEM</h2>
-                  {map(get(selectedClan, 'system'), item => (
-                    <p>{item}</p>
-                  ))}
-                </div>
-              ) : (
-                <div />
-              )}
-
               {!isEmpty(get(selectedClan, 'foci')) ? (
                 <div>
                   <h2>FOCUS</h2>
@@ -189,7 +227,16 @@ export function ClanPage(props) {
                 <div />
               )}
 
-
+              {!isEmpty(get(selectedClan, 'system')) ? (
+                <div>
+                  <h2>SYSTEM</h2>
+                  {map(get(selectedClan, 'system'), item => (
+                    <p>{item}</p>
+                  ))}
+                </div>
+              ) : (
+                <div />
+              )}
 
               {!isEmpty(get(selectedClan, 'focusDescriptor')) ? (
                 <div>
@@ -228,24 +275,26 @@ export function ClanPage(props) {
 
               <p>
                 {!isEmpty(get(selectedClan, 'sourceBook')) ? (
-                  <>
+                  <p>
                     <h2>SOURCE BOOK</h2>
-                    <div>
-                      {map(get(selectedClan, 'sourceBook'), item => (
-                        <p>{item}</p>
-                      ))}
-                    </div>
-                  </>
-                ) : !isEmpty(get(selectedClan, 'sourceBook')) ? (
-                  <div> MET: VTM Source Book</div>
+                    {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                      <div>
+                        {map(get(selectedClan, 'sourceBook'), item => (
+                          <p>{item}</p>
+                        ))}
+                      </div>
+                    ) : (
+                      <div> MET: VTM Source Book</div>
+                    )}
+                  </p>
                 ) : (
                   <div />
                 )}
               </p>
 
               <p>
-                {!isEmpty(get(selectedClan, 'powerOfClans')) ? (
-                  <>
+                {!isEmpty(selectedClan) ? (
+                  <div>
                     <div>
                       <h2>POWERS</h2>
                       <div className="header-disciplines">
@@ -273,118 +322,79 @@ export function ClanPage(props) {
                             Cost
                           </span>
                         </div>
+                        <div className="indicator" />
                       </div>
-                      <div className="indicator" />
-                    </div>
 
-                    <div className="listing-body">
-                      <div className="listing">
-                        {map(powerOfClans, (item, index) => (
-                          <p>
-                            <div className={`item discipline-${index}`}>
-                              <div className="disc-cols3">
-                                <span>{item.title}</span>
-                              </div>
-                              <div className="disc-cols3 hideMobile">
-                                <span>{item.level}</span>
-                              </div>
-                              <div className="disc-cols3 hideMobile">
-                                <span>Varies</span>
-                              </div>
-                              <div className="disc-indicator">
-                                <a
-                                  className="btn btn-primary collapsed"
-                                  data-toggle="collapse"
-                                  href={`#discipline-${index}`}
-                                  role="button"
-                                  aria-expanded="false"
-                                  aria-controls={`discipline-${index}`}
-                                >
-                                  <i className="fa" />
-                                </a>
-                              </div>
-                            </div>
-                            <div
-                              className="collapse"
-                              id={`discipline-${index}`}
-                            >
-                              >
-                              <div className="box-summary">
-                                <div className="details">
-                                  <ul>
-                                    <li>
-                                      <span>Level</span>
-                                      {item.level}
-                                    </li>
-                                    <li>
-                                      <span>Cost</span>Varies
-                                    </li>
-                                  </ul>
+                      <div className="listing-body">
+                        <div className="listing">
+                          {map(powerOfClans, (item, index) => (
+                            <p>
+                              <div className={`item discipline-${index}`}>
+                                <div className="disc-cols3">
+                                  <span>{item.title}</span>
                                 </div>
-                                <h3>SUMMARY</h3>
-                                {map(item.summary, d => (
-                                  <p>{d}</p>
-                                ))}
-                                <a
-                                  className="btn btn-primary"
-                                  onClick={() => {
-                                    window.scrollTo({
-                                      top: 0,
-                                      behavior: 'smooth',
-                                    });
-                                    setSelectedClan(item);
-                                  }}
-                                >
-                                  <span style={{ color: '#fff' }}>Details</span>
-                                </a>
+                                <div className="disc-cols3 hideMobile">
+                                  <span>{item.level}</span>
+                                </div>
+                                <div className="disc-cols3 hideMobile">
+                                  <span>Varies</span>
+                                </div>
+                                <div className="disc-indicator">
+                                  <a
+                                    className="btn btn-primary collapsed"
+                                    data-toggle="collapse"
+                                    href={`#discipline-${index}`}
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls={`discipline-${index}`}
+                                  >
+                                    <i className="fa" />
+                                  </a>
+                                </div>
                               </div>
-                            </div>
-                          </p>
-                        ))}
+                              <div
+                                className="collapse"
+                                id={`discipline-${index}`}
+                              >
+                                <div className="box-summary">
+                                  <div className="details">
+                                    <ul>
+                                      <li>
+                                        <span>Level</span>
+                                        {item.level}
+                                      </li>
+                                      <li>
+                                        <span>Cost</span>Varies
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <h3>SUMMARY</h3>
+                                  {map(item.summary, d => (
+                                    <p>{d}</p>
+                                  ))}
+                                  <a
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                      window.scrollTo({
+                                        top: 0,
+                                        behavior: 'smooth',
+                                      });
+                                      setSelectedClan(item);
+                                    }}
+                                  >
+                                    <span style={{ color: '#fff' }}>
+                                      Details
+                                    </span>
+                                  </a>
+                                </div>
+                              </div>
+                            </p>
+                          ))}
+                        </div>
                       </div>
                     </div>
-                  </>
-                ) : (
-                  <div />
-                )}
-              </p>
-              <p>
-                {isEmpty(selectedClan) ? (
-                  <p>
-                    <p>
-                      Disciplines are supernatural powers granted by the
-                      Embrace. Vampires cultivate these powers and bring them to
-                      bear against foes and prey. Fueled by blood and will,
-                      disciplines provide an incomparable, mystical edge and are
-                      the hallmarks of a vampire’s clan or bloodline.
-                    </p>
-                    <p>
-                      By using her disciplines, a vampire can exert the strength
-                      of a dozen humans; trick an enemy into submission; force
-                      her way into someone else’s mind; take the shape of a
-                      wolf, bat, or hideous monstrosity — or numerous other
-                      things. A recently Embraced vampire might have only a few
-                      such powers at her command, while an ancient may have
-                      mastered a fearsome breadth of potent feats. Elders can
-                      learn awesome powers, fueled by the potency of their
-                      blood. Neonates and Ancillae use the flexibility of their
-                      thinner blood to combine two or more disciplines and
-                      create new techniques that are a mélange of powers.
-                    </p>
-                    <p>
-                      Each vampiric clan possesses innate powers of the blood:
-                      disciplines that are native to that clan. A vampire can
-                      learn those powers easily through experimentation and
-                      personal study; this process requires you to spend 1
-                      downtime action between game sessions. Learning other
-                      clans’ disciplines is more difficult; it requires having a
-                      knowledgeable teacher and drinking blood from a vampire
-                      who innately possesses those disciplines. As drinking
-                      blood causes a vampire to become partially bound to the
-                      donor, learning disciplines from another vampire requires
-                      a great deal of trust.
-                    </p>
-                  </p>
+                  </div>
+
                 ) : (
                   <div />
                 )}
@@ -466,7 +476,7 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>DISCIPLINES</h3>
               <ul className="nav flex-column nav-clans">
-                {map(clanItems, (items, index) => (
+                {map(filterClans, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
