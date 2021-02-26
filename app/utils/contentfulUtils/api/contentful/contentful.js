@@ -219,6 +219,10 @@ class APIContentful {
   }
 
   getFieldValue(field, fieldName, assestData) {
+    if(field === "sourceBook"){
+      console.log(field);
+      console.log(assestData);
+    }
     const type = helpers.typeOf(field);
     switch (type) {
       case 'number':

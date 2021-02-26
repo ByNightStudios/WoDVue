@@ -29,7 +29,7 @@ import TechniquesDetails from 'containers/TechniquesDetails/Loadable';
 import Rituals from 'containers/Rituals/Loadable';
 import FlawsDetails from 'containers/FlawsDetails/Loadable';
 import MeritsDetails from 'containers/MeritsDetails/Loadable';
-
+import RitualsListing from 'containers/RitualsListing/Loadable';
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
 
@@ -45,8 +45,6 @@ export function App({ app, onRequestData }) {
   const {
     appData: { hasMore: disciplineHasMore },
   } = app;
-
-  console.log(app);
 
   useEffect(() => {
     if (disciplineHasMore) {
@@ -64,7 +62,8 @@ export function App({ app, onRequestData }) {
         <Route exact path="/Flaws" component={Flaw} />
         <Route exact path="/Flaws/:id" component={FlawsDetails} />
         <Route exact path="/Merits" component={Merits} />
-        <Route exact path="/Rituals" component={Rituals} />
+        <Route exact path="/Rituals" component={RitualsListing} />
+        <Route exact path="/Rituals/:id" component={Rituals} />
         <Route exact path="/Merits/:id" component={MeritsDetails} />
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />

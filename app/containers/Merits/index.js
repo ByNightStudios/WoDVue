@@ -13,7 +13,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice, filter, orderBy, get } from 'lodash';
+import { map, slice, filter, orderBy, get, without, uniq } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -46,7 +46,8 @@ export function Merits({ app }) {
     const {
       target: { value },
     } = e;
-    setMerit(value);
+
+    setMerit(value)
   }
 
   function handleOnChangeLevel(e) {
@@ -57,7 +58,9 @@ export function Merits({ app }) {
   }
 
   function handleFilter() {
-    const meritFilterData = filter(meritsData, { merit });
+    const meritFilterData = data.filter(function(str) {
+      return str.indexOf(merit) === -1;
+    });
     setMeritsData(meritFilterData);
   }
 
@@ -71,6 +74,16 @@ export function Merits({ app }) {
     }
   }
 
+  function handleFilterType(type) {
+    const filterClans = filter(data, o => get(o, 'clanSpecific[0]') === type);
+    setMeritsData(filterClans);
+    window.scrollTo({ top: 8500, behavior: 'smooth' });
+  }
+
+  const clanNames = without(
+    map(data, o => get(o, 'clanSpecific[0]')),
+    undefined,
+  );
   return (
     <div>
       <Helmet>
@@ -97,19 +110,30 @@ export function Merits({ app }) {
               </span>
               All Merits
             </a>
-            <a className="box-icon" href="#">
-            <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
+            {map(clanNames, item => (
+              <span
+                className="box-icon"
+                href="#"
+                onClick={() => handleFilterType(item)}
+              >
+                <span className="list icon-skull">
+                  <span className="path1" />
+                  <span className="path2" />
+                  <span className="path3" />
+                  <span className="path4" />
+                  <span className="path5" />
+                  <span className="path6" />
+                </span>
+                {item}
               </span>
-              Camarilla
-            </a>
-            <a className="box-icon" href="#">
-            <span className="list icon-skull">
+            ))}
+
+            <span
+              className="box-icon"
+              href="#"
+              onClick={() => handleFilterType('Anarch')}
+            >
+              <span className="list icon-skull">
                 <span className="path1" />
                 <span className="path2" />
                 <span className="path3" />
@@ -118,9 +142,13 @@ export function Merits({ app }) {
                 <span className="path6" />
               </span>
               Anarch
-            </a>
-            <a className="box-icon" href="#">
-            <span className="list icon-skull">
+            </span>
+            <span
+              className="box-icon"
+              href="#"
+              onClick={() => handleFilterType('Sabbat')}
+            >
+              <span className="list icon-skull">
                 <span className="path1" />
                 <span className="path2" />
                 <span className="path3" />
@@ -129,7 +157,7 @@ export function Merits({ app }) {
                 <span className="path6" />
               </span>
               Sabbat
-            </a>
+            </span>
           </div>
           <form className="form-inline ">
             <div className="col-md-4">
@@ -218,12 +246,14 @@ export function Merits({ app }) {
                 {map(slice(meritsData, page, page + 10), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
-                      {console.log(item)}
                       <div className="disc-cols3">
                         <span>{item.merit}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
-                        <span>{get(item ,'meritType[0]')} - {get(item, 'clanSpecific[0]')}</span>
+                        <span>
+                          {get(item, 'meritType[0]')} -{' '}
+                          {get(item, 'clanSpecific[0]')}
+                        </span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.meritCost}</span>
@@ -261,7 +291,10 @@ export function Merits({ app }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{item.meritDescription[0]}</p>
-                        <a href={`/Merits/${item.merit}`} className="btn btn-primary">
+                        <a
+                          href={`/Merits/${item.merit}`}
+                          className="btn btn-primary"
+                        >
                           Details
                         </a>
                       </div>

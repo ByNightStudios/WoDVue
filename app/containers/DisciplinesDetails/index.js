@@ -88,9 +88,9 @@ export function ClanPage(props) {
     setPowerOfClans(sortedByLevel);
   }, [props]);
 
-  if (loading && hasMore) {
-    return <Loader />;
-  }
+  // if (loading && hasMore) {
+  //   return <Loader />;
+  // }
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -133,6 +133,8 @@ export function ClanPage(props) {
       setDirection('asc');
     }
   }
+
+  console.log(selectedClan);
 
   return (
     <div className="clan-page">
@@ -511,7 +513,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     // onRequestData: () => dispatch(getData()),
-    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

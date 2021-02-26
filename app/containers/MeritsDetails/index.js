@@ -90,7 +90,7 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
+  console.log(clanItems);
 
   return (
     <div className="clan-page">

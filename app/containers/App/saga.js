@@ -84,7 +84,7 @@ function* handleGetAppData() {
   } catch (e) {
     console.log(e);
   }
-  console.log(skip);
+
   if (skip === 1200) {
     const disciplineAppData = sortBy(
       filter(data, o => o.title),
@@ -227,26 +227,24 @@ function* handleGetAppData() {
       }
     }
 
-    if (isEmpty(techniquesData) && !hasMore) {
-      try {
-        const response111 = yield call(apiContentful, {
-          query: 'rituals',
-          select: 'fields,sys.id',
-          parents: '',
-        });
-        const contentfulData111 = yield Promise.resolve(
-          response111.getParentEntriesAsync,
-        );
-        const orderByData111 = orderBy(
-          contentfulData111,
-          [item => getItems(item).toLowerCase()],
-          ['asc'],
-        );
-        saveState('rituals', orderByData111);
-        yield put(ritualDataSuccess(orderByData111));
-      } catch (e) {
-        // yield put(dropDownItemsError(e));
-      }
+    try {
+      const response111 = yield call(apiContentful, {
+        query: 'rituals',
+        select: 'fields,sys.id',
+        parents: '',
+      });
+      const contentfulData111 = yield Promise.resolve(
+        response111.getParentEntriesAsync,
+      );
+      const orderByData111 = orderBy(
+        contentfulData111,
+        [item => getItems(item).toLowerCase()],
+        ['asc'],
+      );
+      saveState('rituals', orderByData111);
+      yield put(ritualDataSuccess(orderByData111));
+    } catch (e) {
+      // yield put(dropDownItemsError(e));
     }
 
   }

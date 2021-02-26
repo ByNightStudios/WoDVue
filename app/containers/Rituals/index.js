@@ -8,7 +8,7 @@
  *
  */
 
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -42,15 +42,24 @@ export function ClanPage(props) {
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
 
-  console.log(props);
-
   const {
     app: {
       rituals: { data: clanItems },
     },
+    match,
   } = props;
 
   const filterClans = clanItems;
+
+  useEffect(() => {
+    const {
+      match: {
+        params: { id },
+      },
+    } = props;
+    const findClanData = find(clanItems, { title: id });
+    setSelectedClan(findClanData);
+  }, [match]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -80,6 +89,21 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  console.log(selectedClan);
+  function getBooleanValue(item) {
+    const { thaumaturgy, abyssal, necromancy } = item;
+    if (thaumaturgy) {
+      return 'Thaumaturgy';
+    }
+    if (abyssal) {
+      return 'Abyssal';
+    }
+    if (necromancy) {
+      return 'Necromancy';
+    }
+    return false;
+  }
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -90,9 +114,53 @@ export function ClanPage(props) {
                 get(selectedClan, 'title'),
               )}`}
             >
-              <h1>{get(selectedClan, 'title', '')}</h1>
+              <div className="header-single">
+                <div className="row">
+                  <div className="col-lg-7 col-md-12 order-lg-12">
+                    <h1>{get(selectedClan, 'title', '')}</h1>
+                  </div>
+                  <div className="col-lg-5 col-md-12 order-lg-12">
+                    <div className="info">
+                    <div className="info-des" style={{ width: 130 }}>
+                        Type<span>{getBooleanValue(selectedClan)}</span>
+                      </div>
+                      <div className="info-des">
+                        Level<span>{get(selectedClan, 'level', '')}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div className="boxWhite">
+              <p>
+                <div>
+                  <h2>LEVEL</h2>
+                  {get(selectedClan, 'level')}
+                </div>
+
+                {!isEmpty(get(selectedClan, 'summary')) ? (
+                  <div>
+                    <h2>SUMMARY</h2>
+                    {map(get(selectedClan, 'summary'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+              {!isEmpty(get(selectedClan, 'testPool')) ? (
+                <div>
+                  <h2>TEST POOL</h2>
+                  {map(get(selectedClan, 'testPool'), item => (
+                    <p>{item}</p>
+                  ))}
+                </div>
+              ) : (
+                <div />
+              )}
+
               {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>
@@ -211,10 +279,7 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/"
-                  >
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
@@ -267,7 +332,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to="/Rituals"
+                      to={`/Rituals/${items.title}`}
                       className={`nav-link ${getClassName(items.title)}`}
                       value={items.title}
                       onClick={() => {
