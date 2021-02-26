@@ -46,6 +46,7 @@ export function ClanPage(props) {
     app: {
       merits: { data: clanItems },
     },
+    match,
   } = props;
 
   const filterClans = clanItems;
@@ -58,7 +59,7 @@ export function ClanPage(props) {
     } = props;
     const findClanData = find(clanItems, { merit: id });
     setSelectedClan(findClanData);
-  }, [props]);
+  }, [match]);
 
 
   function handleNavItemsClick(e) {
@@ -340,8 +341,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onRequestData: () => dispatch(getData()),
-    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    // onRequestData: () => dispatch(getData()),
+    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

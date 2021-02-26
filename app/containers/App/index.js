@@ -43,14 +43,16 @@ export function App({ app, onRequestData }) {
   useInjectSaga({ key: 'app', saga });
 
   const {
-    disciplines: { hasMore: disciplineHasMore },
+    appData: { hasMore: disciplineHasMore },
   } = app;
+
+  console.log(app);
 
   useEffect(() => {
     if (disciplineHasMore) {
       onRequestData();
     }
-  }, []);
+  });
 
   return (
     <div>

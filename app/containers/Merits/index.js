@@ -13,7 +13,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice, filter, orderBy } from 'lodash';
+import { map, slice, filter, orderBy, get } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -223,7 +223,7 @@ export function Merits({ app }) {
                         <span>{item.merit}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
-                        <span>{item.meritType[0]} - {item.clanSpecific[0]}</span>
+                        <span>{get(item ,'meritType[0]')} - {get(item, 'clanSpecific[0]')}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.meritCost}</span>

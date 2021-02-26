@@ -253,7 +253,7 @@ export function Flaw({ app }) {
                           </ul>
                         </div>
                         <h3>SUMMARY</h3>
-                        <p>{item.flawDescription[0]}</p>
+                        <p>{get(item, 'flawDescription[0]')}</p>
                         <a href={`/Flaws/${item.flaw}`} className="btn btn-primary">
                           Details
                         </a>

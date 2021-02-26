@@ -148,6 +148,7 @@ export function ClanPage(props) {
                           key={index}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
+                          target="_blank"
                         >
                           {item.fields.title}
                         </Link>
@@ -199,6 +200,7 @@ export function ClanPage(props) {
                           to={`/Merits/${item.fields.merit}`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
+                          target="_blank"
                         >
                           {item.fields.merit}
                         </Link>
@@ -219,6 +221,7 @@ export function ClanPage(props) {
                         to={`/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
+                        target="_blank"
                       >
                         {item.fields.flaw}
                       </Link>

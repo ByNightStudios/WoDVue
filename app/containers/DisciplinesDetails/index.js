@@ -54,23 +54,23 @@ export function ClanPage(props) {
   const [powerOfClans, setPowerOfClans] = useState('');
   const [direction, setDirection] = useState('asc');
 
-  const { onRequestData, homePage, OnRequestDropDownItems } = props;
+  const { homePage, app } = props;
 
   const {
-    contentful: { hasMore, loading, data: clanItems },
-  } = homePage;
+    disciplines: { hasMore, loading, data: clanItems },
+  } = app;
 
   const filterClans = sortBy(filter(clanItems, o => o.parent), 'title');
 
-  useEffect(() => {
-    if (hasMore) {
-      onRequestData();
-    }
-  });
+  // useEffect(() => {
+  //   if (hasMore) {
+  //     onRequestData();
+  //   }
+  // });
 
-  useEffect(() => {
-    OnRequestDropDownItems('disciplines');
-  }, []);
+  // useEffect(() => {
+  //   OnRequestDropDownItems('disciplines');
+  // }, []);
 
   useEffect(() => {
     const {
@@ -510,8 +510,8 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onRequestData: () => dispatch(getData()),
-    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    // onRequestData: () => dispatch(getData()),
+    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

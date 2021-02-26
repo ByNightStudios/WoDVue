@@ -17,16 +17,20 @@ import {
   SKILLS_DATA_SUCCESS,
   TECHNIQUES_DATA_SUCCESS,
   RITUALS_DATA_SUCCESS,
+  DATA_SUCCESS,
 } from './constants';
 
 export const initialState = {
-  disciplines: {
+  appData: {
     loading: false,
     data: [],
     error: false,
     skip: 0,
     limit: 100,
     hasMore: true,
+  },
+  disciplines: {
+    data: [],
   },
   clans: {
     loading: false,
@@ -73,14 +77,18 @@ const appReducer = (state = initialState, action) =>
         draft.disciplines.data = concat(state.disciplines.data, action.payload);
         draft.disciplines.skip += draft.disciplines.limit;
         break;
-      case CLANS_DATA_SUCCESS:
+      case DATA_SUCCESS:
         if (action.payload.length < 100) {
-          draft.clans.hasMore = false;
-          draft.clans.loading = false;
+          draft.appData.hasMore = false;
+          draft.appData.loading = false;
         }
-        draft.clans.data = concat(state.clans.data, action.payload);
-        draft.clans.skip += draft.clans.limit;
+        draft.appData.data = concat(state.appData.data, action.payload);
+        draft.appData.skip += draft.appData.limit;
         break;
+      case CLANS_DATA_SUCCESS:
+        draft.clans.data = action.payload;
+        break;
+
       case FLAWS_DATA_SUCCESS:
         draft.flaws.data = action.payload;
         break;
