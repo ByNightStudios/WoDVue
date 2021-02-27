@@ -27,7 +27,7 @@ import makeSelectHomePage from 'containers/HomePage/selectors';
 import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 
-import ToDoReader from 'images/toreador.png';
+import Smoke_style_4_clans from 'images/Smoke_style_4_clans.png';
 
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
@@ -107,7 +107,11 @@ export function ClanPage(props) {
                 <div className="col-lg-6 col-md-12 order-lg-12 boxThumb">
                   <img
                     className="thumbClan"
-                    src={get(selectedClan, 'featuredLead[0].fields.file.url')}
+                    src={get(
+                      selectedClan,
+                      'featuredLead[0].fields.file.url',
+                      Smoke_style_4_clans,
+                    )}
                     alt="$"
                   />
                 </div>
@@ -148,7 +152,6 @@ export function ClanPage(props) {
                           key={index}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
-                          target="_blank"
                         >
                           {item.fields.title}
                         </Link>
@@ -200,7 +203,6 @@ export function ClanPage(props) {
                           to={`/Merits/${item.fields.merit}`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
-                          target="_blank"
                         >
                           {item.fields.merit}
                         </Link>
@@ -221,7 +223,6 @@ export function ClanPage(props) {
                         to={`/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
-                        target="_blank"
                       >
                         {item.fields.flaw}
                       </Link>

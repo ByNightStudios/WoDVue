@@ -59,18 +59,18 @@ export function App({ app, onRequestData }) {
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
         <Route exact path="/Disciplines/" component={DisciplinesDetails} />
-        <Route exact path="/Disciplines/:id" component={DisciplinesDetails} />
+        <Route path="/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/Flaws" component={Flaw} />
-        <Route exact path="/Flaws/:id" component={FlawsDetails} />
+        <Route path="/Flaws/:id" component={FlawsDetails} />
         <Route exact path="/Merits" component={Merits} />
         <Route exact path="/Rituals" component={RitualsListing} />
-        <Route exact path="/Rituals/:id" component={Rituals} />
-        <Route exact path="/Merits/:id" component={MeritsDetails} />
+        <Route path="/Rituals/:id" component={Rituals} />
+        <Route path="/Merits/:id" component={MeritsDetails} />
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
         <Route exact path="/Skills" component={Skills} />
         <Route exact path="/Techniques" component={Techniques} />
-        <Route exact path="/Techniques/:id" component={TechniquesDetails} />
+        <Route path="/Techniques/:id" component={TechniquesDetails} />
         <Route
           exact
           path="/WoDVue/monsters/vampire/clan/:id"

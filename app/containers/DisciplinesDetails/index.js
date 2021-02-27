@@ -62,16 +62,6 @@ export function ClanPage(props) {
 
   const filterClans = sortBy(filter(clanItems, o => o.parent), 'title');
 
-  // useEffect(() => {
-  //   if (hasMore) {
-  //     onRequestData();
-  //   }
-  // });
-
-  // useEffect(() => {
-  //   OnRequestDropDownItems('disciplines');
-  // }, []);
-
   useEffect(() => {
     const {
       match: {
@@ -133,7 +123,8 @@ export function ClanPage(props) {
       setDirection('asc');
     }
   }
-
+  console.log(clanItems);
+  console.log(powerOfClans);
   return (
     <div className="clan-page">
       <div className="container main-content">
