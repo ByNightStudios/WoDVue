@@ -25,7 +25,7 @@ import {
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-
+import { Select } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectApp } from 'containers/App/selectors';
@@ -89,7 +89,9 @@ export function Merits({ app }) {
     window.scrollTo({ top: 8500, behavior: 'smooth' });
   }
 
-  const clanNames = uniq(without(map(data, o => get(o, 'clanSpecific[0]')), undefined));
+  const clanNames = uniq(
+    without(map(data, o => get(o, 'clanSpecific[0]')), undefined),
+  );
   clanNames.sort();
 
   return (
@@ -107,34 +109,27 @@ export function Merits({ app }) {
             <hr />
           </div>
           <div className="list-icons justify-content-center w-100">
-            <a className="box-icon" href="#">
-              <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
-              </span>
-              All Merits
-            </a>
-            {map(clanNames, item => (
-              <span
-                className="box-icon"
-                href="#"
-                onClick={() => handleFilterType(item)}
-              >
-                <span className="list icon-skull">
-                  <span className="path1" />
-                  <span className="path2" />
-                  <span className="path3" />
-                  <span className="path4" />
-                  <span className="path5" />
-                  <span className="path6" />
-                </span>
-                {item}
-              </span>
+            <Select
+              allowClear
+              style={{ width: '70vw', paddingBottom: 20 }}
+              showSearch
+              placeholder="Search to Filter Merits"
+              optionFilterProp="children"
+              filterOption={(input, option) =>
+                option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+              filterSort={(optionA, optionB) =>
+                optionA.children
+                  .toLowerCase()
+                  .localeCompare(optionB.children.toLowerCase())
+              }
+              onSelect={handleFilterType}
+            >
+             {map(clanNames, item => (
+              <Select.Option value={item}>{item}</Select.Option>
             ))}
+            </Select>
+
           </div>
           <form className="form-inline ">
             <div className="col-md-4">
