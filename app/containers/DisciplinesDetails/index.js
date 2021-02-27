@@ -51,7 +51,7 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
-  const [powerOfClans, setPowerOfClans] = useState('');
+  const [powerOfClans, setPowerOfClans] = useState([]);
   const [direction, setDirection] = useState('asc');
 
   const { homePage, app } = props;
@@ -68,7 +68,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    const findClanData = find(filterClans, { power: id });
+    const findClanData = find(filterClans, o => o.power === id );
     setSelectedClan(findClanData);
     const powerOfClansData = filter(clanItems, {
       power: get(findClanData, 'title'),
@@ -123,8 +123,9 @@ export function ClanPage(props) {
       setDirection('asc');
     }
   }
-  console.log(clanItems);
-  console.log(powerOfClans);
+
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -284,7 +285,10 @@ export function ClanPage(props) {
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
                         {map(get(selectedClan, 'sourceBook'), item => (
-                          <p>{item}</p>
+                         <p>
+                           <p>{get(item, 'fields.bookTitle')}</p>
+                           <p>{get(item, 'fields.system[0]')}</p>
+                         </p>
                         ))}
                       </div>
                     ) : (

@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
@@ -239,8 +240,11 @@ export function ClanPage(props) {
                   <Row>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
-                        {map(get(selectedClan, 'sourceBook'), item => (
-                          <p>{item}</p>
+                         {map(get(selectedClan, 'sourceBook'), item => (
+                         <p>
+                           <p>{get(item, 'fields.bookTitle')}</p>
+                           <p>{get(item, 'fields.system[0]')}</p>
+                         </p>
                         ))}
                       </div>
                     ) : (

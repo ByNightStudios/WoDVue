@@ -129,9 +129,12 @@ export function ClanPage(props) {
                   <h2>SOURCE BOOK</h2>
                   {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                     <div>
-                      {map(get(selectedClan, 'sourceBook'), item => (
-                        <p>{item}</p>
-                      ))}
+                       {map(get(selectedClan, 'sourceBook'), item => (
+                         <p>
+                           <p>{get(item, 'fields.bookTitle')}</p>
+                           <p>{get(item, 'fields.system[0]')}</p>
+                         </p>
+                        ))}
                     </div>
                   ) : (
                     <div> MET: VTM Source Book</div>

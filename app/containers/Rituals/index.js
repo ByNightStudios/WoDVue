@@ -135,8 +135,8 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <p>
                 <div>
-                  <h2>LEVEL</h2>
-                  {get(selectedClan, 'level')}
+                  <h2>TYPE</h2>
+                  {getBooleanValue(selectedClan)}
                 </div>
 
                 {!isEmpty(get(selectedClan, 'summary')) ? (
@@ -199,8 +199,11 @@ export function ClanPage(props) {
                     <h2>SOURCE BOOK</h2>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
-                        {map(get(selectedClan, 'sourceBook'), item => (
-                          <p>{item}</p>
+                         {map(get(selectedClan, 'sourceBook'), item => (
+                         <p>
+                           <p>{get(item, 'fields.bookTitle')}</p>
+                           <p>{get(item, 'fields.system[0]')}</p>
+                         </p>
                         ))}
                       </div>
                     ) : (

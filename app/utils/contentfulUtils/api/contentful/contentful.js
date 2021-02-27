@@ -213,7 +213,7 @@ class APIContentful {
     const keys = Object.keys(entryData);
     const data = keys.reduce((entry, k) => {
       entry[k] = this.getFieldValue(entryData[k], k, assestData);
-      entry[`${k}_html`] = entryData[k];
+      entry[`${k}_html`] = this.getEntryData(entryData[k], assestData);
       return entry;
     }, {});
     return data;
@@ -223,6 +223,10 @@ class APIContentful {
     return {
       field: value,
     };
+  }
+
+  getEntryData(object, assestData) {
+    return object;
   }
 
   getFieldValue(field, fieldName, assestData) {
@@ -247,11 +251,17 @@ class APIContentful {
   }
 
   getObjectValue(field, fieldName, assestData) {
+    if(fieldName === 'sourceBook'){
+      return intersectionWith(get(assestData, 'Entry', []), [field], (a, b) =>
+        isEqual(a.sys.id, b.sys.id),
+      );
+
+    } else
     if (field.sys) {
       return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
         isEqual(a.sys.id, b.sys.id),
       );
-    }
+    } else
     if (!isEmpty(field.content)) {
       const contentAry = field.content
         .map(c => c.content)
@@ -282,7 +292,7 @@ class APIContentful {
           inClanDiscipline = commonData;
         }
       });
-      return inClanDiscipline;
+      return isEmpty(inClanDiscipline) ? field : inClanDiscipline;
     }
 
     return field;
