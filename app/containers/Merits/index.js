@@ -13,7 +13,16 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice, filter, orderBy, get, without, uniq } from 'lodash';
+import {
+  map,
+  slice,
+  filter,
+  orderBy,
+  get,
+  without,
+  uniq,
+  sortBy,
+} from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -47,7 +56,7 @@ export function Merits({ app }) {
       target: { value },
     } = e;
 
-    setMerit(value)
+    setMerit(value);
   }
 
   function handleOnChangeLevel(e) {
@@ -80,10 +89,9 @@ export function Merits({ app }) {
     window.scrollTo({ top: 8500, behavior: 'smooth' });
   }
 
-  const clanNames = without(
-    map(data, o => get(o, 'clanSpecific[0]')),
-    undefined,
-  );
+  const clanNames = uniq(without(map(data, o => get(o, 'clanSpecific[0]')), undefined));
+  clanNames.sort();
+
   return (
     <div>
       <Helmet>
@@ -127,37 +135,6 @@ export function Merits({ app }) {
                 {item}
               </span>
             ))}
-
-            <span
-              className="box-icon"
-              href="#"
-              onClick={() => handleFilterType('Anarch')}
-            >
-              <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
-              </span>
-              Anarch
-            </span>
-            <span
-              className="box-icon"
-              href="#"
-              onClick={() => handleFilterType('Sabbat')}
-            >
-              <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
-              </span>
-              Sabbat
-            </span>
           </div>
           <form className="form-inline ">
             <div className="col-md-4">

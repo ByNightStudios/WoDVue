@@ -90,8 +90,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
-
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -105,6 +103,28 @@ export function ClanPage(props) {
               <h1>{get(selectedClan, 'flaw', '')}</h1>
             </div>
             <div className="boxWhite">
+            <p>
+                {get(selectedClan, 'flawCost') ? (
+                  <div>
+                    <h2>COST</h2>
+                    {get(selectedClan, 'flawCost')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+              <p>
+                {!isEmpty(get(selectedClan, 'flawType')) ? (
+                  <div>
+                    <h2>TYPE</h2>
+                    {map(get(selectedClan, 'flawType'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
               {!isEmpty(get(selectedClan, 'flawDescription')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>

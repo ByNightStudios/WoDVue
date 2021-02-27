@@ -179,7 +179,9 @@ export function Disciplines({ app }) {
                             </li>
                             <li>
                               <span>prerequisites</span>
-                              {get(item, 'prerequisites', '-')}
+                              {map(get(item, 'prerequisites', '-'), item => (
+                                <div style={{ marginRight: 10 }}>{item}</div>
+                              ))}
                             </li>
                             <li>
                               <span>SYSTEM</span>

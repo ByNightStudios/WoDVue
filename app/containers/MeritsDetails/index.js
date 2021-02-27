@@ -61,7 +61,6 @@ export function ClanPage(props) {
     setSelectedClan(findClanData);
   }, [match]);
 
-
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
@@ -90,7 +89,7 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(clanItems);
+  console.log(selectedClan);
 
   return (
     <div className="clan-page">
@@ -104,10 +103,34 @@ export function ClanPage(props) {
             >
               <h1>{get(selectedClan, 'merit', '')}</h1>
             </div>
+
             <div className="boxWhite">
+              <p>
+                {get(selectedClan, 'meritCost') ? (
+                  <div>
+                    <h2>COST</h2>
+                    {get(selectedClan, 'meritCost')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+              <p>
+                {!isEmpty(get(selectedClan, 'meritType')) ? (
+                  <div>
+                    <h2>TYPE</h2>
+                    {map(get(selectedClan, 'meritType'), item => (
+                      <p>{item}</p>
+                    ))}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+
               {!isEmpty(get(selectedClan, 'meritDescription')) ? (
                 <div>
-                  <h2>DESCRIPTION</h2>
+                  <h2>DESCRIPTION </h2>
                   {map(get(selectedClan, 'meritDescription'), item => (
                     <p>{item}</p>
                   ))}
@@ -143,11 +166,11 @@ export function ClanPage(props) {
                     <h2>SOURCE BOOK</h2>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
-                         {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
+                        {map(get(selectedClan, 'sourceBook'), item => (
+                          <p>
+                            <p>{get(item, 'fields.bookTitle')}</p>
+                            <p>{get(item, 'fields.system[0]')}</p>
+                          </p>
                         ))}
                       </div>
                     ) : (
@@ -210,8 +233,8 @@ export function ClanPage(props) {
                     living in this field.
                   </p>
                   <p>
-                    • Expert: You have surpassed the majority of your peers
-                    and are considered an expert.
+                    • Expert: You have surpassed the majority of your peers and
+                    are considered an expert.
                   </p>{' '}
                   <p>
                     • Master: You are world-class at this activity and
@@ -253,10 +276,7 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/"
-                  >
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

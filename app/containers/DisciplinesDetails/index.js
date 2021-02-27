@@ -267,6 +267,26 @@ export function ClanPage(props) {
                 <div />
               )}
 
+<p>
+                {!isEmpty(get(selectedClan, 'testPool')) ? (
+                  <div>
+                    <h2>TEST POOL</h2>
+                    {get(selectedClan, 'testPool')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+              <p>
+                {!isEmpty(get(selectedClan, 'testPool')) ? (
+                  <div>
+                    <h2>TEST POOL</h2>
+                    {get(selectedClan, 'testPool')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
               <p>
                 {!isEmpty(get(selectedClan, 'testPool')) ? (
                   <div>
@@ -345,7 +365,7 @@ export function ClanPage(props) {
                                   <span>{item.level}</span>
                                 </div>
                                 <div className="disc-cols3 hideMobile">
-                                  <span>Varies</span>
+                                  <span>{item.cost}</span>
                                 </div>
                                 <div className="disc-indicator">
                                   <a

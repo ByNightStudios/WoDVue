@@ -11,7 +11,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice, filter, orderBy, get } from 'lodash';
+import { map, slice, filter, orderBy, get, uniq, without } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 
@@ -71,6 +71,17 @@ export function Flaw({ app }) {
     }
   }
 
+  const clanNames = uniq(
+    without(map(data, o => get(o, 'flawType[0]')), undefined),
+  );
+  clanNames.sort();
+
+  function handleFilterType(type) {
+    const filterClans = filter(data, o => get(o, 'flawType[0]') === type);
+    setMeritsData(filterClans);
+    window.scrollTo({ top: 800, behavior: 'smooth' });
+  }
+
   return (
     <div className="page-white">
       <Helmet>
@@ -95,41 +106,25 @@ export function Flaw({ app }) {
                 <span className="path5" />
                 <span className="path6" />
               </span>
-              All Merits
+              All Flaws
             </a>
-            <a className="box-icon" href="#">
-            <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
+            {map(clanNames, item => (
+              <span
+                className="box-icon"
+                href="#"
+                onClick={() => handleFilterType(item)}
+              >
+                <span className="list icon-skull">
+                  <span className="path1" />
+                  <span className="path2" />
+                  <span className="path3" />
+                  <span className="path4" />
+                  <span className="path5" />
+                  <span className="path6" />
+                </span>
+                {item}
               </span>
-              Camarilla
-            </a>
-            <a className="box-icon" href="#">
-            <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
-              </span>
-              Anarch
-            </a>
-            <a className="box-icon" href="#">
-            <span className="list icon-skull">
-                <span className="path1" />
-                <span className="path2" />
-                <span className="path3" />
-                <span className="path4" />
-                <span className="path5" />
-                <span className="path6" />
-              </span>
-              Sabbat
-            </a>
+            ))}
           </div>
           <form className="form-inline ">
             <div className="col-md-4">
@@ -220,7 +215,7 @@ export function Flaw({ app }) {
                         <span>{item.flaw}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
-                        <span>{get(item,'flawType[0]','-')}</span>
+                        <span>{get(item, 'flawType[0]', '-')}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.flawCost}</span>
@@ -254,7 +249,10 @@ export function Flaw({ app }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{get(item, 'flawDescription[0]')}</p>
-                        <a href={`/Flaws/${item.flaw}`} className="btn btn-primary">
+                        <a
+                          href={`/Flaws/${item.flaw}`}
+                          className="btn btn-primary"
+                        >
                           Details
                         </a>
                       </div>

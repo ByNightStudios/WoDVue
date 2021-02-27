@@ -152,7 +152,10 @@ export function Disciplines({ app }) {
                       <div className="disc-power">
                         <span>{item.title}</span>
                       </div>
-                      <div className="disc-name">
+                      <div className="disc-name" style={{
+                        marginLeft: '71px',
+                        marginRight: '118px',
+                      }}>
                         <span>{getBooleanValue(item)}</span>
                       </div>
                       <div className="disc-foci">
