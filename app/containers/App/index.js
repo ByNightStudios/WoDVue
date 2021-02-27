@@ -30,6 +30,7 @@ import Rituals from 'containers/Rituals/Loadable';
 import FlawsDetails from 'containers/FlawsDetails/Loadable';
 import MeritsDetails from 'containers/MeritsDetails/Loadable';
 import RitualsListing from 'containers/RitualsListing/Loadable';
+import QuickStart from 'containers/QuickStart/Loadable';
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
 
@@ -80,6 +81,7 @@ export function App({ app, onRequestData }) {
           path="/WoDVue/monsters/vampire/clan/"
           component={ClanPage}
         />
+        <Route exact path="/QuickStart" component={QuickStart} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />
