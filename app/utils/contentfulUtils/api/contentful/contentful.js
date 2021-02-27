@@ -213,16 +213,19 @@ class APIContentful {
     const keys = Object.keys(entryData);
     const data = keys.reduce((entry, k) => {
       entry[k] = this.getFieldValue(entryData[k], k, assestData);
+      entry[`${k}_html`] = entryData[k];
       return entry;
     }, {});
     return data;
   }
 
+  getHtml(field, value) {
+    return {
+      field: value,
+    };
+  }
+
   getFieldValue(field, fieldName, assestData) {
-    if(field === "sourceBook"){
-      console.log(field);
-      console.log(assestData);
-    }
     const type = helpers.typeOf(field);
     switch (type) {
       case 'number':

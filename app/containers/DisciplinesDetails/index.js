@@ -33,7 +33,7 @@ import { makeSelectApp } from 'containers/App/selectors';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
-
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import Loader from 'components/Loader';
 import { getData } from 'containers/App/actions';
 
@@ -134,8 +134,6 @@ export function ClanPage(props) {
     }
   }
 
-  console.log(selectedClan);
-
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -155,7 +153,7 @@ export function ClanPage(props) {
                   <i> -{get(selectedClan, 'title', '')} </i>
                   ) : (
                     <div />
-                 )}
+                  )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
@@ -204,7 +202,12 @@ export function ClanPage(props) {
               <p>{get(selectedClan, 'summary[0]', [])}</p>
               {!isEmpty(get(selectedClan, 'quote')) ? (
                 <blockquote className="blockquote">
-                  <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.quote_html),
+                    }}
+                  />
                 </blockquote>
               ) : null}
               <p>
@@ -219,9 +222,12 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
-                  {map(get(selectedClan, 'system'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.summary_html),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
@@ -231,14 +237,22 @@ export function ClanPage(props) {
                 <div>
                   <h2>Focus</h2>
                   <Row gutter={[8, 8]}>
-                    {map(get(selectedClan, 'foci', []), item => (
-                      <p>{item}</p>
-                    ))}
+                    <div
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(selectedClan.foci_html),
+                      }}
+                    />
                   </Row>
                   <Row gutter={[8, 8]}>
-                    {map(get(selectedClan, 'focusDescriptor', []), item => (
-                      <p>{item}</p>
-                    ))}
+                    <div
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(
+                          selectedClan.focusDescriptor_html,
+                        ),
+                      }}
+                    />
                   </Row>
                 </div>
               ) : (
@@ -248,9 +262,14 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'interactions')) ? (
                 <div>
                   <h2>INTERACTIONS</h2>
-                  {map(get(selectedClan, 'interactions'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        selectedClan.interactions_html,
+                      ),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
