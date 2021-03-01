@@ -11,12 +11,21 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { map, slice, filter, orderBy, get, uniq, without } from 'lodash';
+import {
+  map,
+  slice,
+  filter,
+  orderBy,
+  get,
+  uniq,
+  without,
+  isEmpty,
+} from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Select } from 'antd';
 import { makeSelectApp } from 'containers/App/selectors';
-
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectFlaw from './selectors';
@@ -97,7 +106,7 @@ export function Flaw({ app }) {
             <hr />
           </div>
           <div className="list-icons justify-content-center w-100">
-          <Select
+            <Select
               allowClear
               style={{ width: '70vw', paddingBottom: 20 }}
               showSearch
@@ -113,9 +122,9 @@ export function Flaw({ app }) {
               }
               onSelect={handleFilterType}
             >
-             {map(clanNames, item => (
-              <Select.Option value={item}>{item}</Select.Option>
-            ))}
+              {map(clanNames, item => (
+                <Select.Option value={item}>{item}</Select.Option>
+              ))}
             </Select>
           </div>
           <form className="form-inline ">
@@ -229,6 +238,7 @@ export function Flaw({ app }) {
                       <div className="box-summary">
                         <div className="details">
                           <ul>
+                            {console.log(item)}
                             <li>
                               <span>Name</span>
                               {item.flaw}
@@ -239,14 +249,23 @@ export function Flaw({ app }) {
                             </li>
                           </ul>
                         </div>
-                        <h3>SUMMARY</h3>
-                        <p>{get(item, 'flawDescription[0]')}</p>
-                        <a
-                          href={`/Flaws/${item.flaw}`}
-                          className="btn btn-primary"
-                        >
-                          Details
-                        </a>
+                        <div
+                          /* eslint-disable-next-line react/no-danger */
+                          dangerouslySetInnerHTML={{
+                            __html: documentToHtmlString(
+                              item.flawDescription_html,
+                            ),
+                          }}
+                        />
+                        {!isEmpty(item.sourceBook) ? (
+                          <p>
+                            <h3>SOURCE BOOK</h3>
+                            <div>
+                              <span>{item.sourceBook[0].fields.bookTitle}</span>
+                              <span>{item.sourceBook[0].fields.system[0]}</span>
+                            </div>
+                          </p>
+                        ) : null}
                       </div>
                     </div>
                   </>

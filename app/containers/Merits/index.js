@@ -22,6 +22,7 @@ import {
   without,
   uniq,
   sortBy,
+  isEmpty,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -126,11 +127,10 @@ export function Merits({ app }) {
               }
               onSelect={handleFilterType}
             >
-             {map(clanNames, item => (
-              <Select.Option value={item}>{item}</Select.Option>
-            ))}
+              {map(clanNames, item => (
+                <Select.Option value={item}>{item}</Select.Option>
+              ))}
             </Select>
-
           </div>
           <form className="form-inline ">
             <div className="col-md-4">
@@ -262,14 +262,23 @@ export function Merits({ app }) {
                             </li>
                           </ul>
                         </div>
-                        <h3>SUMMARY</h3>
-                        <p>{item.meritDescription[0]}</p>
-                        <a
-                          href={`/Merits/${item.merit}`}
-                          className="btn btn-primary"
-                        >
-                          Details
-                        </a>
+                        <div
+                          /* eslint-disable-next-line react/no-danger */
+                          dangerouslySetInnerHTML={{
+                            __html: documentToHtmlString(
+                              item.meritDescription_html,
+                            ),
+                          }}
+                        />
+                        {!isEmpty(item.sourceBook) ? (
+                          <p>
+                            <h3>SOURCE BOOK</h3>
+                            <div>
+                              <span>{item.sourceBook[0].fields.bookTitle}</span>
+                              <span>{item.sourceBook[0].fields.system[0]}</span>
+                            </div>
+                          </p>
+                        ) : null}
                       </div>
                     </div>
                   </>
