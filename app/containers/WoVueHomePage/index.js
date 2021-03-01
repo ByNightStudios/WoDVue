@@ -26,7 +26,7 @@ export function WoVueHomePage() {
         <div className="row rowBox">
           <div className="col-lg-4 col-md-6 col-sm-6">
             <div className="box clans">
-              <h4>Clans & Blodlines</h4>
+              <h4>Clans & Bloodlines</h4>
               <a
                 href="/WoDVue/monsters/vampire/clan/"
                 className="btn btn-primary"

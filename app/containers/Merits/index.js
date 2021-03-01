@@ -29,6 +29,7 @@ import { Select } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { makeSelectApp } from 'containers/App/selectors';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import makeSelectMerits from './selectors';
 import reducer from './reducer';
 import saga from './saga';

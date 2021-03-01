@@ -16,6 +16,7 @@ import { compose } from 'redux';
 import { get, map, orderBy, toLower } from 'lodash';
 
 import Loader from 'components/Loader';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -104,6 +105,7 @@ export function Disciplines({ app }) {
   }
 
   function getArray(array) {
+    console.log(array);
     return array;
   }
 
@@ -152,10 +154,13 @@ export function Disciplines({ app }) {
                       <div className="disc-power">
                         <span>{item.title}</span>
                       </div>
-                      <div className="disc-name" style={{
-                        marginLeft: '71px',
-                        marginRight: '118px',
-                      }}>
+                      <div
+                        className="disc-name"
+                        style={{
+                          marginLeft: '71px',
+                          marginRight: '118px',
+                        }}
+                      >
                         <span>{getBooleanValue(item)}</span>
                       </div>
                       <div className="disc-foci">
@@ -198,16 +203,21 @@ export function Disciplines({ app }) {
                           </ul>
                         </div>
                         <h3>SUMMARY</h3>
-                        <p>{map(item.summary, dataItem => dataItem)}</p>
-                        <Link
-                          to={`/Rituals/${item.title}`}
-                          key={index}
-                          className="anchorTag"
-                        >
-                          <a href="" className="btn btn-primary">
-                            Details
-                          </a>
-                        </Link>
+                        <div
+                          /* eslint-disable-next-line react/no-danger */
+                          dangerouslySetInnerHTML={{
+                            __html: documentToHtmlString(item.summary_html),
+                          }}
+                        />
+                        <p>
+                        <h3>SYSTEM</h3>
+                        <div
+                          /* eslint-disable-next-line react/no-danger */
+                          dangerouslySetInnerHTML={{
+                            __html: documentToHtmlString(item.system_html),
+                          }}
+                        />
+                        </p>
                       </div>
                     </div>
                   </>

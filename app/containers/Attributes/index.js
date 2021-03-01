@@ -129,12 +129,12 @@ export function ClanPage(props) {
                   <h2>SOURCE BOOK</h2>
                   {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                     <div>
-                       {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
-                        ))}
+                      {map(get(selectedClan, 'sourceBook'), item => (
+                        <p>
+                          <p>{get(item, 'fields.bookTitle')}</p>
+                          <p>{get(item, 'fields.system[0]')}</p>
+                        </p>
+                      ))}
                     </div>
                   ) : (
                     <div> MET: VTM Source Book</div>
@@ -211,10 +211,7 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/"
-                  >
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
