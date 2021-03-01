@@ -101,6 +101,24 @@ export function WoVueHomePage() {
               </a>
             </div>
           </div>
+
+          <div className="col-md-6">
+            <div className="box bgs">
+              <h4>RITUALS</h4>
+              <a href="/Rituals" className="btn btn-primary">
+                Explore
+              </a>
+            </div>
+          </div>
+
+          <div className="col-md-6">
+            <div className="box bgs">
+              <h4>QUICK START</h4>
+              <a href="/QuickStart" className="btn btn-primary">
+                Explore
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

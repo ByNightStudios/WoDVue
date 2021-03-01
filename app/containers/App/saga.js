@@ -123,22 +123,6 @@ function* handleGetAppData() {
       ['asc'],
     );
     yield put(meritsDataSuccess(meritByData4));
-    const response = yield call(apiContentful, {
-      query: 'clans',
-      select: 'fields,sys.id',
-      parents: '',
-    });
-    const contentfulData = yield Promise.resolve(
-      response.getParentEntriesAsync,
-    );
-    const orderByData = orderBy(
-      contentfulData,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
-    saveState('clans', orderByData);
-    yield put(clanDataSuccess(orderByData));
-
     if (isEmpty(arributesData)) {
       try {
         const response1 = yield call(apiContentful, {
