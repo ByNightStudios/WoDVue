@@ -13,9 +13,9 @@ import React, { memo } from 'react';
 // import styled from 'styled-components';
 import { includes } from 'lodash';
 import history from 'utils/history';
-import LogoWOD from 'images/LogoWOD.svg';
+// import LogoWOD from 'images/LogoWOD.svg';
 import VampireLogo from 'images/VampireLogo.svg';
-
+import LogoWOD from '../../images/newLogo.jpg';
 function Header_1() {
   const {
     location: { pathname },
@@ -29,9 +29,6 @@ function Header_1() {
             <a className="navbar-brand" href="/">
               <img src={LogoWOD} />
             </a>
-            <a className="navbar-brand brand-section" href="#">
-              <img src={VampireLogo} />
-            </a>
           </div>
           <div className="col-md-9">
             <div className="navbar navbarUpper" id="navbarUpper">
@@ -39,21 +36,21 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link fa fa-facebook-square"
-                    href="#"
+                    href="https://www.facebook.com/ByNightStudios"
                     title="Facebook"
                   />
                 </li>
                 <li className="nav-item">
                   <a
                     className="nav-link fa fa-twitter-square"
-                    href="#"
+                    href="https://twitter.com/ByNightStudios"
                     title="Twitter"
                   />
                 </li>
                 <li className="nav-item">
                   <a
                     className="nav-link fa fa-camera-retro"
-                    href="#"
+                    href="https://www.instagram.com/bynightstudios/"
                     title="Instagram"
                   />
                 </li>
