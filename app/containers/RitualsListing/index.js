@@ -13,8 +13,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, map, orderBy, toLower } from 'lodash';
-
+import { get, map, orderBy, toLower, filter } from 'lodash';
+import { Select } from 'antd';
 import Loader from 'components/Loader';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { makeSelectApp } from 'containers/App/selectors';
@@ -123,6 +123,15 @@ export function Disciplines({ app }) {
     return false;
   }
 
+  function handleFilterType(type) {
+    const filterClans = filter(
+      disciplineData,
+      o => getBooleanValue(o) === type,
+    );
+    setDisciplineData(filterClans);
+  }
+
+  const clanNames = ['Thaumaturgy', 'Necromancy', 'Abyssal'];
   return (
     <div>
       <div className="container main-content">
@@ -132,6 +141,26 @@ export function Disciplines({ app }) {
               RITUALS
             </h1>
           </div>
+          <Select
+            allowClear
+            style={{ width: '100vw', paddingBottom: 20 }}
+            showSearch
+            placeholder="Search to Filter Rituals"
+            optionFilterProp="children"
+            filterOption={(input, option) =>
+              option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
+            }
+            filterSort={(optionA, optionB) =>
+              optionA.children
+                .toLowerCase()
+                .localeCompare(optionB.children.toLowerCase())
+            }
+            onSelect={handleFilterType}
+          >
+            {map(clanNames, item => (
+              <Select.Option value={item}>{item}</Select.Option>
+            ))}
+          </Select>
           <div className="col-md-12">
             <div className="header-disciplines">
               <div className="discipline" onClick={() => handleSortingByDisc()}>
@@ -210,13 +239,13 @@ export function Disciplines({ app }) {
                           }}
                         />
                         <p>
-                        <h3>SYSTEM</h3>
-                        <div
-                          /* eslint-disable-next-line react/no-danger */
-                          dangerouslySetInnerHTML={{
-                            __html: documentToHtmlString(item.system_html),
-                          }}
-                        />
+                          <h3>SYSTEM</h3>
+                          <div
+                            /* eslint-disable-next-line react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: documentToHtmlString(item.system_html),
+                            }}
+                          />
                         </p>
                       </div>
                     </div>
