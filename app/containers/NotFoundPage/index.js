@@ -5,12 +5,15 @@
  *
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FormattedMessage } from 'react-intl';
-
+import history from 'utils/history';
 import messages from './messages';
 
 export default function NotFound() {
+  useEffect(() => {
+    history.push('/');
+  }, []);
   return (
     <h1>
       <FormattedMessage {...messages.header} />

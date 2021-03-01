@@ -25,6 +25,7 @@ import {
   sortBy,
   orderBy,
   isEqual,
+  slice,
 } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
@@ -68,7 +69,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    const findClanData = find(filterClans, o => o.power === id );
+    const findClanData = find(filterClans, o => o.power === id);
     setSelectedClan(findClanData);
     const powerOfClansData = filter(clanItems, {
       power: get(findClanData, 'title'),
@@ -124,6 +125,16 @@ export function ClanPage(props) {
     }
   }
 
+  function getSummaryHtml(html) {
+    if(html){
+      const mappedHtml = {
+        ...html,
+        content: slice(html.content, 1, 6),
+      };
+      return mappedHtml;
+    }
+    return false;
+  }
   console.log(selectedClan);
 
   return (
@@ -142,7 +153,7 @@ export function ClanPage(props) {
                   get(selectedClan, 'power', 'demo'),
                   get(selectedClan, 'title', 'nano'),
                 ) ? (
-                  <i> -{get(selectedClan, 'title', '')} </i>
+                  <i>{get(selectedClan, 'title', '')} </i>
                   ) : (
                     <div />
                   )}
@@ -203,12 +214,14 @@ export function ClanPage(props) {
                 </blockquote>
               ) : null}
               <p>
-                <p>{get(selectedClan, 'summary[1]', [])}</p>
-                <p>{get(selectedClan, 'summary[2]', [])}</p>
-                <p>{get(selectedClan, 'summary[3]', [])}</p>
-                <p>{get(selectedClan, 'summary[4]', [])}</p>
-                <p>{get(selectedClan, 'summary[5]', [])}</p>
-                <p>{get(selectedClan, 'summary[6]', [])}</p>
+                <div
+                  /* eslint-disable-next-line react/no-danger */
+                  dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(
+                      getSummaryHtml(get(selectedClan, 'summary_html', '')),
+                    ),
+                  }}
+                />
               </p>
 
               {!isEmpty(get(selectedClan, 'system')) ? (
@@ -217,7 +230,7 @@ export function ClanPage(props) {
                   <div
                     /* eslint-disable-next-line react/no-danger */
                     dangerouslySetInnerHTML={{
-                      __html: documentToHtmlString(selectedClan.summary_html),
+                      __html: documentToHtmlString(selectedClan.system_html),
                     }}
                   />
                 </div>
@@ -267,16 +280,6 @@ export function ClanPage(props) {
                 <div />
               )}
 
-<p>
-                {!isEmpty(get(selectedClan, 'testPool')) ? (
-                  <div>
-                    <h2>TEST POOL</h2>
-                    {get(selectedClan, 'testPool')}
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </p>
               <p>
                 {!isEmpty(get(selectedClan, 'testPool')) ? (
                   <div>
@@ -287,17 +290,6 @@ export function ClanPage(props) {
                   <div />
                 )}
               </p>
-              <p>
-                {!isEmpty(get(selectedClan, 'testPool')) ? (
-                  <div>
-                    <h2>TEST POOL</h2>
-                    {get(selectedClan, 'testPool')}
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </p>
-
               <p>
                 {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                   <p>
@@ -305,10 +297,10 @@ export function ClanPage(props) {
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
                         {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
+                          <p>
+                            <p>{get(item, 'fields.bookTitle')}</p>
+                            <p>{get(item, 'fields.system[0]')}</p>
+                          </p>
                         ))}
                       </div>
                     ) : (

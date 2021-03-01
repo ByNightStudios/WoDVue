@@ -117,7 +117,7 @@ export function ClanPage(props) {
                   />
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
-                  <p>{get(selectedClan, 'description[0]', [])}</p>
+                  <p>{get(selectedClan, 'description[0]', 'Legend says that the first few generations of vampires did not suffer the divisions of clan, and that they were capable of performing miracle-like feats. As progenitors passed the Embrace down to their childer, and from there, to more childer, the powers inherent in vampiric vitae grew weaker.')}</p>
                 </div>
               </div>
               <br />
@@ -258,13 +258,6 @@ export function ClanPage(props) {
 
               {isEmpty(selectedClan) ? (
                 <p>
-                  <p>
-                    Legend says that the first few generations of vampires did
-                    not suffer the divisions of clan, and that they were capable
-                    of performing miracle-like feats. As progenitors passed the
-                    Embrace down to their childer, and from there, to more
-                    childer, the powers inherent in vampiric vitae grew weaker.{' '}
-                  </p>
                   <p>
                     Powers belonging to vampires of the Third Generation (those
                     known as Antediluvians ) were narrower in scope than the

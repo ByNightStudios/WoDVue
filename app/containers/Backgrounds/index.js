@@ -25,6 +25,8 @@ import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
 
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
 import { getData } from 'containers/App/actions';
 
 import makeSelectClanPage from './selectors';
@@ -78,6 +80,8 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -94,9 +98,12 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>
-                  {map(get(selectedClan, 'description'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.description_html),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
@@ -105,9 +112,26 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
-                  {map(get(selectedClan, 'system'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.system_html),
+                    }}
+                  />
+                </div>
+              ) : (
+                <div />
+              )}
+
+{!isEmpty(get(selectedClan, 'eratta')) ? (
+                <div>
+                  <h2>ERATTA</h2>
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.eratta_html),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
