@@ -37,8 +37,6 @@ import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import Loader from 'components/Loader';
-import { getData } from 'containers/App/actions';
 
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
@@ -57,10 +55,10 @@ export function ClanPage(props) {
   const [powerOfClans, setPowerOfClans] = useState([]);
   const [direction, setDirection] = useState('asc');
 
-  const { homePage, app } = props;
+  const { app } = props;
 
   const {
-    disciplines: { hasMore, loading, data: clanItems },
+    disciplines: { data: clanItems },
   } = app;
 
   const filterClans = sortBy(filter(clanItems, o => o.parent), 'title');
@@ -78,7 +76,6 @@ export function ClanPage(props) {
     if (!findClanData) {
       const findClanData3 = find(filterClans, o => o.power === id);
       setSelectedClan(findClanData3);
-      // window.location.href=window.location.href;
     }
     const powerOfClansData = filter(
       clanItems,
@@ -87,11 +84,10 @@ export function ClanPage(props) {
 
     const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
-  }, [props]);
 
-  // if (loading && hasMore) {
-  //   return <Loader />;
-  // }
+    console.log(clanItems);
+
+  }, [props]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -556,7 +552,7 @@ function mapDispatchToProps(dispatch) {
   return {
     dispatch,
     // onRequestData: () => dispatch(getData()),
-    OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
+    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

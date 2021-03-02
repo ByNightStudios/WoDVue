@@ -37,9 +37,9 @@ import Footer from 'components/Footer_1';
 import makeSelectApp from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import { getData } from './actions';
+import { getData, disciplineData } from './actions';
 
-export function App({ app, onRequestData }) {
+export function App({ app, onRequestData, onRequestDisciplineData }) {
   useInjectReducer({ key: 'app', reducer });
   useInjectSaga({ key: 'app', saga });
 
@@ -50,6 +50,7 @@ export function App({ app, onRequestData }) {
   useEffect(() => {
     if (disciplineHasMore) {
       onRequestData();
+      onRequestDisciplineData();
     }
   });
 
@@ -69,8 +70,15 @@ export function App({ app, onRequestData }) {
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
         <Route exact path="/Skills" component={Skills} />
-        <Route exact path="/WoDVue/monsters/vampire/Techniques" component={Techniques} />
-        <Route path="/WoDVue/monsters/vampire/Techniques/:id" component={TechniquesDetails} />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Techniques"
+          component={Techniques}
+        />
+        <Route
+          path="/WoDVue/monsters/vampire/Techniques/:id"
+          component={TechniquesDetails}
+        />
         <Route
           exact
           path="/WoDVue/monsters/vampire/clan/:id"
@@ -100,6 +108,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     onRequestData: () => dispatch(getData()),
+    onRequestDisciplineData: () => dispatch(disciplineData()),
   };
 }
 

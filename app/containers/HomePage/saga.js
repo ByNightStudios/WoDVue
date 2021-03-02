@@ -28,5 +28,5 @@ function* getData() {
 // Individual exports for testing
 export default function* homePageSaga() {
   // See example in containers/HomePage/saga.js
-  yield takeLatest(GET_DATA, getData);
+  // yield takeLatest(GET_DATA, getData);
 }

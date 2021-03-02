@@ -9,6 +9,7 @@ import {
   GET_DATA,
   DATA_SUCCESS,
   DATA_ERROR,
+  DISCIPLINES_DATA,
   DISCIPLINES_DATA_SUCCESS,
   CLANS_DATA_SUCCESS,
   FLAWS_DATA_SUCCESS,
@@ -38,6 +39,11 @@ export const getDataSuccess = payload => ({
 export const DataError = error => ({
   type: DATA_ERROR,
   error,
+});
+
+export const disciplineData = payload => ({
+  type: DISCIPLINES_DATA,
+  payload,
 });
 
 export const disciplineDataSuccess = payload => ({

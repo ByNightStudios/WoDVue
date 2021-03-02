@@ -30,7 +30,12 @@ export const initialState = {
     hasMore: true,
   },
   disciplines: {
+    loading: false,
     data: [],
+    error: false,
+    skip: 0,
+    limit: 100,
+    hasMore: true,
   },
   clans: {
     loading: false,
@@ -70,12 +75,12 @@ const appReducer = (state = initialState, action) =>
       case DEFAULT_ACTION:
         break;
       case DISCIPLINES_DATA_SUCCESS:
+        console.log(action);
         if (action.payload.length < 100) {
           draft.disciplines.hasMore = false;
           draft.disciplines.loading = false;
         }
         draft.disciplines.data = concat(state.disciplines.data, action.payload);
-        draft.disciplines.skip += draft.disciplines.limit;
         break;
       case DATA_SUCCESS:
         if (action.payload.length < 100) {

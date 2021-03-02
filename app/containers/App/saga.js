@@ -1,7 +1,15 @@
-import { call, put, debounce, takeLatest, select } from 'redux-saga/effects';
-import { orderBy, isEmpty, filter, sortBy, uniqBy } from 'lodash';
+import {
+  call,
+  put,
+  debounce,
+  takeLatest,
+  select,
+  delay,
+  take,
+} from 'redux-saga/effects';
+import { orderBy, isEmpty, filter, sortBy, uniqBy, get } from 'lodash';
 import localforage from 'localforage';
-import { GET_DATA } from './constants';
+import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
 import {
   disciplineDataSuccess,
@@ -16,6 +24,7 @@ import {
   getDataSuccess,
 } from './actions';
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
+
 // Individual exports for testing
 
 localforage.setDriver(localforage.LOCALSTORAGE);
@@ -81,22 +90,9 @@ function* handleGetAppData() {
       response.getParentEntriesAsync,
     );
     yield put(getDataSuccess(contentfulData));
-  } catch (e) {
-    //
-  }
+  } catch (e) {}
 
   if (skip === 1200) {
-    const disciplineAppData = sortBy(
-      filter(data, o => o.title),
-      'title',
-    );
-
-    const orderByData1 = orderBy(
-      disciplineAppData,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
-    yield put(disciplineDataSuccess(uniqBy(orderByData1, 'title')));
     const clanAppData = filter(data, o => o.inClanMerits);
     const orderByData2 = orderBy(
       clanAppData,
@@ -228,13 +224,41 @@ function* handleGetAppData() {
       saveState('rituals', orderByData111);
       yield put(ritualDataSuccess(orderByData111));
     } catch (e) {
+      console.log(e);
       // yield put(dropDownItemsError(e));
     }
-
   }
+}
 
+function* handleDisciplineData() {
+  const appState = yield select(makeSelectApp());
+
+  const {
+    appData: { skip, limit },
+  } = appState;
+  try {
+    const response10 = yield call(apiContentful, {
+      query: 'discipline',
+      select: 'fields,sys.id',
+      parents: '',
+      skip,
+      limit,
+    });
+    const contentfulData1 = yield Promise.resolve(
+      response10.getParentEntriesAsync,
+    );
+    const orderByData6 = orderBy(
+      contentfulData1,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    console.log(orderByData6);
+  } catch (e) {
+    //
+  }
 }
 export default function* appSaga() {
   // See example in containers/HomePage/saga.js
   yield takeLatest(GET_DATA, handleGetAppData);
+  yield takeLatest(DISCIPLINES_DATA, handleDisciplineData);
 }

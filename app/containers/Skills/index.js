@@ -330,7 +330,7 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    onRequestData: () => dispatch(getData()),
+    // onRequestData: () => dispatch(getData()),
     OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
