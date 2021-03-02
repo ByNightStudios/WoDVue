@@ -75,7 +75,6 @@ const appReducer = (state = initialState, action) =>
       case DEFAULT_ACTION:
         break;
       case DISCIPLINES_DATA_SUCCESS:
-        console.log(action);
         if (action.payload.length < 100) {
           draft.disciplines.hasMore = false;
           draft.disciplines.loading = false;

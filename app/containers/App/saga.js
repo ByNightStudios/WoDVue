@@ -224,7 +224,6 @@ function* handleGetAppData() {
       saveState('rituals', orderByData111);
       yield put(ritualDataSuccess(orderByData111));
     } catch (e) {
-      console.log(e);
       // yield put(dropDownItemsError(e));
     }
   }
@@ -235,6 +234,7 @@ function* handleDisciplineData() {
 
   const {
     appData: { skip, limit },
+    disciplines: { data: DisciplinesData },
   } = appState;
   try {
     const response10 = yield call(apiContentful, {
@@ -247,12 +247,13 @@ function* handleDisciplineData() {
     const contentfulData1 = yield Promise.resolve(
       response10.getParentEntriesAsync,
     );
+
     const orderByData6 = orderBy(
       contentfulData1,
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    console.log(orderByData6);
+    yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
     //
   }

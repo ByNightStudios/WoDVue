@@ -26,6 +26,7 @@ import {
   isEqual,
   slice,
   trim,
+  uniqBy,
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -61,7 +62,12 @@ export function ClanPage(props) {
     disciplines: { data: clanItems },
   } = app;
 
-  const filterClans = sortBy(filter(clanItems, o => o.parent), 'title');
+  const filterClans = uniqBy(
+    sortBy(filter(clanItems, o => o.parent), 'title'),
+    'title',
+  );
+
+  // const powerOfAllClans = uniqBy(clanItems, 'title');
 
   useEffect(() => {
     const {
@@ -84,9 +90,6 @@ export function ClanPage(props) {
 
     const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
-
-    console.log(clanItems);
-
   }, [props]);
 
   function handleNavItemsClick(e) {
@@ -357,69 +360,72 @@ export function ClanPage(props) {
 
                       <div className="listing-body">
                         <div className="listing">
-                          {map(powerOfClans, (item, index) => (
-                            <p>
-                              <div className={`item discipline-${index}`}>
-                                <div className="disc-cols3">
-                                  <span>{item.title}</span>
-                                </div>
-                                <div className="disc-cols3 hideMobile">
-                                  <span>{item.level}</span>
-                                </div>
-                                <div className="disc-cols3 hideMobile">
-                                  <span>{item.cost}</span>
-                                </div>
-                                <div className="disc-indicator">
-                                  <a
-                                    className="btn btn-primary collapsed"
-                                    data-toggle="collapse"
-                                    href={`#discipline-${index}`}
-                                    role="button"
-                                    aria-expanded="false"
-                                    aria-controls={`discipline-${index}`}
-                                  >
-                                    <i className="fa" />
-                                  </a>
-                                </div>
-                              </div>
-                              <div
-                                className="collapse"
-                                id={`discipline-${index}`}
-                              >
-                                <div className="box-summary">
-                                  <div className="details">
-                                    <ul>
-                                      <li>
-                                        <span>Level</span>
-                                        {item.level}
-                                      </li>
-                                      <li>
-                                        <span>Cost</span>Varies
-                                      </li>
-                                    </ul>
+                          {map(
+                            sortBy(uniqBy(powerOfClans, 'title'), 'title'),
+                            (item, index) => (
+                              <p>
+                                <div className={`item discipline-${index}`}>
+                                  <div className="disc-cols3">
+                                    <span>{item.title}</span>
                                   </div>
-                                  <h3>SUMMARY</h3>
-                                  {map(item.summary, d => (
-                                    <p>{d}</p>
-                                  ))}
-                                  <a
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                      window.scrollTo({
-                                        top: 0,
-                                        behavior: 'smooth',
-                                      });
-                                      setSelectedClan(item);
-                                    }}
-                                  >
-                                    <span style={{ color: '#fff' }}>
-                                      Details
-                                    </span>
-                                  </a>
+                                  <div className="disc-cols3 hideMobile">
+                                    <span>{item.level}</span>
+                                  </div>
+                                  <div className="disc-cols3 hideMobile">
+                                    <span>{item.cost}</span>
+                                  </div>
+                                  <div className="disc-indicator">
+                                    <a
+                                      className="btn btn-primary collapsed"
+                                      data-toggle="collapse"
+                                      href={`#discipline-${index}`}
+                                      role="button"
+                                      aria-expanded="false"
+                                      aria-controls={`discipline-${index}`}
+                                    >
+                                      <i className="fa" />
+                                    </a>
+                                  </div>
                                 </div>
-                              </div>
-                            </p>
-                          ))}
+                                <div
+                                  className="collapse"
+                                  id={`discipline-${index}`}
+                                >
+                                  <div className="box-summary">
+                                    <div className="details">
+                                      <ul>
+                                        <li>
+                                          <span>Level</span>
+                                          {item.level}
+                                        </li>
+                                        <li>
+                                          <span>Cost</span>Varies
+                                        </li>
+                                      </ul>
+                                    </div>
+                                    <h3>SUMMARY</h3>
+                                    {map(item.summary, d => (
+                                      <p>{d}</p>
+                                    ))}
+                                    <a
+                                      className="btn btn-primary"
+                                      onClick={() => {
+                                        window.scrollTo({
+                                          top: 0,
+                                          behavior: 'smooth',
+                                        });
+                                        setSelectedClan(item);
+                                      }}
+                                    >
+                                      <span style={{ color: '#fff' }}>
+                                        Details
+                                      </span>
+                                    </a>
+                                  </div>
+                                </div>
+                              </p>
+                            ),
+                          )}
                         </div>
                       </div>
                     </div>
