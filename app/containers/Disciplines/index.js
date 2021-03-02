@@ -426,6 +426,13 @@ export function ClanPage(props) {
                             ),
                           )}
                         </div>
+                        <h3>SUMMARY</h3>
+                        <p>{map(item.summary, dataItem => dataItem)}</p>
+                        <Link to={`/WoDVue/monsters/vampire/Disciplines/${item.power}`}>
+                          <a href="" className="btn btn-primary">
+                            Details
+                          </a>
+                        </Link>
                       </div>
                     </div>
                   </div>
