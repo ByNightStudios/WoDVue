@@ -216,7 +216,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Disciplines">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
@@ -226,27 +226,27 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Skills">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Merits">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Flaws">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Attributes">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Backgrounds">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>
@@ -263,7 +263,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to="/Attributes"
+                      to="/WoDVue/monsters/vampire/Attributes"
                       className={`nav-link ${getClassName(items.attribute)}`}
                       value={items.attribute}
                       onClick={() => {

@@ -161,7 +161,7 @@ export function ClanPage(props) {
                           style={{ marginRight: 10 }}
                           onClick={() => {
                             history.push(
-                              `/Disciplines/${item.fields.title}`,
+                              `/WoDVue/monsters/vampire/Disciplines/${item.fields.title}`,
                               item,
                             );
                           }}
@@ -214,7 +214,7 @@ export function ClanPage(props) {
                       get(selectedClan, 'inClanMerits', []),
                       (item, index) => (
                         <Link
-                          to={`/Merits/${item.fields.merit}`}
+                          to={`/WoDVue/monsters/vampire/Merits/${item.fields.merit}`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
                           onClick={() => {
@@ -237,7 +237,7 @@ export function ClanPage(props) {
                   <Row>
                     {map(get(selectedClan, 'flaws', []), (item, index) => (
                       <Link
-                        to={`/Flaws/${item.fields.flaw}`}
+                        to={`/WoDVue/monsters/vampire/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
                         onClick={() => {
@@ -383,7 +383,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Disciplines">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
@@ -396,27 +396,27 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Skills">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Merits">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Flaws">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Attributes">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Backgrounds">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>

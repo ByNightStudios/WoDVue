@@ -167,7 +167,7 @@ export function Disciplines({ app }) {
                         </div>
                         <h3>SUMMARY</h3>
                         <p>{map(item.summary, dataItem => dataItem)}</p>
-                        <Link to={`/Disciplines/${item.power}`}>
+                        <Link to={`/WoDVue/monsters/vampire/Disciplines/${item.power}`}>
                           <a href="" className="btn btn-primary">
                             Details
                           </a>

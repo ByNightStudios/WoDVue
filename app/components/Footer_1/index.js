@@ -39,8 +39,13 @@ function Footer_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Disciplines">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines/">
                     Disciplines
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Rituals">
+                    Rituals
                   </a>
                 </li>
                 <li className="nav-item">
@@ -49,27 +54,27 @@ function Footer_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Skills">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Merits">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Flaws">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Attributes">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Backgrounds">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>

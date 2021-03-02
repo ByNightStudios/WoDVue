@@ -103,9 +103,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Disciplines/' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Disciplines/' ? 'active' : null
                     }`}
-                    href="/Disciplines/"
+                    href="/WoDVue/monsters/vampire/Disciplines/"
                   >
                     Disciplines
                   </a>
@@ -113,9 +113,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Rituals' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Rituals' ? 'active' : null
                     }`}
-                    href="/Rituals"
+                    href="/WoDVue/monsters/vampire/Rituals"
                   >
                     Rituals
                   </a>
@@ -143,9 +143,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Merits' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Merits' ? 'active' : null
                     }`}
-                    href="/Merits"
+                    href="/WoDVue/monsters/vampire/Merits"
                   >
                     Merits
                   </a>
@@ -153,9 +153,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Flaws' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Flaws' ? 'active' : null
                     }`}
-                    href="/Flaws"
+                    href="/WoDVue/monsters/vampire/Flaws"
                   >
                     Flaws
                   </a>
@@ -163,9 +163,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Attributes' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Attributes' ? 'active' : null
                     }`}
-                    href="/Attributes"
+                    href="/WoDVue/monsters/vampire/Attributes"
                   >
                     Attributes
                   </a>
@@ -173,9 +173,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Backgrounds' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Backgrounds' ? 'active' : null
                     }`}
-                    href="/Backgrounds"
+                    href="/WoDVue/monsters/vampire/Backgrounds"
                   >
                     Backgrounds
                   </a>

@@ -59,17 +59,53 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
       <Header />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
-        <Route exact path="/Disciplines/" component={DisciplinesDetails} />
-        <Route path="/Disciplines/:id" component={DisciplinesDetails} />
-        <Route exact path="/Flaws" component={Flaw} />
-        <Route path="/Flaws/:id" component={FlawsDetails} />
-        <Route exact path="/Merits" component={Merits} />
-        <Route exact path="/Rituals" component={RitualsListing} />
-        <Route path="/Rituals/:id" component={Rituals} />
-        <Route path="/Merits/:id" component={MeritsDetails} />
-        <Route exact path="/Attributes" component={Attribute} />
-        <Route exact path="/Backgrounds" component={Backgrounds} />
-        <Route exact path="/Skills" component={Skills} />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Disciplines/"
+          component={DisciplinesDetails}
+        />
+        <Route
+          path="/WoDVue/monsters/vampire/Disciplines/:id"
+          component={DisciplinesDetails}
+        />
+        <Route exact path="/WoDVue/monsters/vampire/Flaws" component={Flaw} />
+        <Route
+          path="/WoDVue/monsters/vampire/Flaws/:id"
+          component={FlawsDetails}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Merits"
+          component={Merits}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Rituals"
+          component={RitualsListing}
+        />
+        <Route
+          path="/WoDVue/monsters/vampire/Rituals/:id"
+          component={Rituals}
+        />
+        <Route
+          path="/WoDVue/monsters/vampire/Merits/:id"
+          component={MeritsDetails}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Attributes"
+          component={Attribute}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Backgrounds"
+          component={Backgrounds}
+        />
+        <Route
+          exact
+          path="/WoDVue/monsters/vampire/Skills"
+          component={Skills}
+        />
         <Route
           exact
           path="/WoDVue/monsters/vampire/Techniques"

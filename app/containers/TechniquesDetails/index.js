@@ -106,7 +106,7 @@ export function ClanPage(props) {
                   <div>
                     <h2>PREREQUISITES</h2>
                     {map(get(selectedClan, 'prerequisites'), item =>(
-                      <a href={`/Disciplines/${split(item,' ')[0]}`} className="anchorTag" style={{ marginRight: 10 }}>{item}</a>
+                      <a href={`/WoDVue/monsters/vampire/Disciplines/${split(item,' ')[0]}`} className="anchorTag" style={{ marginRight: 10 }}>{item}</a>
                     ))}
                   </div>
                 ) : (
@@ -199,7 +199,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Disciplines">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
@@ -209,27 +209,27 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Skills">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Merits">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Flaws">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Attributes">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Backgrounds">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>
