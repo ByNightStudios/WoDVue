@@ -70,11 +70,6 @@ export function ClanPage(props) {
       match: {
         params: { id },
       },
-      history: {
-        location: {
-          state: { fields: findClanData2 },
-        },
-      },
     } = props;
     const findClanData = find(filterClans, o => o.power === trim(id));
     if (findClanData) {
