@@ -87,7 +87,7 @@ export function ClanPage(props) {
     }
     const powerOfClansData = filter(
       clanItems,
-      o => o.power === trim(get(selectedClan, 'title')),
+      o => o.power === selectedClan.title,
     );
 
     const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
