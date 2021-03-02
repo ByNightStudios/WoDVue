@@ -15,7 +15,7 @@ import { includes } from 'lodash';
 import history from 'utils/history';
 // import LogoWOD from 'images/LogoWOD.svg';
 import VampireLogo from 'images/VampireLogo.svg';
-import LogoWOD from '../../images/newLogo.jpg';
+import LogoWOD from '../../images/newLogo.png';
 function Header_1() {
   const {
     location: { pathname },
