@@ -89,7 +89,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -218,6 +217,9 @@ export function ClanPage(props) {
                           to={`/Merits/${item.fields.merit}`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
+                          onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
                         >
                           {item.fields.merit}
                         </Link>
@@ -238,6 +240,9 @@ export function ClanPage(props) {
                         to={`/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
+                        onClick={() => {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
                       >
                         {item.fields.flaw}
                       </Link>

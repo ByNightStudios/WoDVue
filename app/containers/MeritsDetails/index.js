@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find } from 'lodash';
+import { map, get, isEmpty, find, trim } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -57,7 +57,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    const findClanData = find(clanItems, { merit: id });
+    const findClanData = find(clanItems, { merit: trim(id) });
     setSelectedClan(findClanData);
   }, [match]);
 
