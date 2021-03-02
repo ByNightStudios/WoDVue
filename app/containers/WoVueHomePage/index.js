@@ -46,7 +46,7 @@ export function WoVueHomePage() {
           <div className="col">
             <div className="box techniques">
               <h4>Techniques</h4>
-              <a href="/Techniques/" className="btn btn-primary">
+              <a href="/WoDVue/monsters/vampire/Techniques/" className="btn btn-primary">
                 Explore
               </a>
             </div>

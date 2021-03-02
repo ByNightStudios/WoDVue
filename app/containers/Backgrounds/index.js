@@ -226,7 +226,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Techniques">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
                     Techniques
                   </a>
                 </li>

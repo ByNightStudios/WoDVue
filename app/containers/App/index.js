@@ -24,8 +24,8 @@ import ClanPage from 'containers/ClanPage/Loadable';
 import Attribute from 'containers/Attributes/Loadable';
 import Backgrounds from 'containers/Backgrounds/Loadable';
 import Skills from 'containers/Skills/Loadable';
-import Techniques from 'containers/Techniques/Loadable';
-import TechniquesDetails from 'containers/TechniquesDetails/Loadable';
+import Techniques from 'containers/WoDVue/monsters/vampire/Techniques/Loadable';
+import TechniquesDetails from 'containers/WoDVue/monsters/vampire/TechniquesDetails/Loadable';
 import Rituals from 'containers/Rituals/Loadable';
 import FlawsDetails from 'containers/FlawsDetails/Loadable';
 import MeritsDetails from 'containers/MeritsDetails/Loadable';
@@ -69,8 +69,8 @@ export function App({ app, onRequestData }) {
         <Route exact path="/Attributes" component={Attribute} />
         <Route exact path="/Backgrounds" component={Backgrounds} />
         <Route exact path="/Skills" component={Skills} />
-        <Route exact path="/Techniques" component={Techniques} />
-        <Route path="/Techniques/:id" component={TechniquesDetails} />
+        <Route exact path="/WoDVue/monsters/vampire/Techniques" component={Techniques} />
+        <Route path="/WoDVue/monsters/vampire/Techniques/:id" component={TechniquesDetails} />
         <Route
           exact
           path="/WoDVue/monsters/vampire/clan/:id"

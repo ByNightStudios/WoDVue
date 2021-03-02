@@ -123,9 +123,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/Techniques/' ? 'active' : null
+                      pathname === '/WoDVue/monsters/vampire/Techniques/' ? 'active' : null
                     }`}
-                    href="/Techniques/"
+                    href="/WoDVue/monsters/vampire/Techniques/"
                   >
                     Techniques
                   </a>

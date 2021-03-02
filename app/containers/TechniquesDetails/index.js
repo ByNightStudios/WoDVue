@@ -180,7 +180,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="/Techniques/">Techniques</a>
+                  <a href="/WoDVue/monsters/vampire/Techniques/">Techniques</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'technique', '')}
@@ -205,7 +205,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/Techniques">
+                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
                     Techniques
                   </a>
                 </li>
@@ -247,7 +247,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to={`/Techniques/${items.technique}`}
+                      to={`/WoDVue/monsters/vampire/Techniques/${items.technique}`}
                       className={`nav-link ${getClassName(items.technique)}`}
                       value={items.technique}
                       onClick={() => {
