@@ -20,6 +20,8 @@ import {
   uniq,
   without,
   isEmpty,
+  includes,
+  toLower,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -66,7 +68,12 @@ export function Flaw({ app }) {
   }
 
   function handleFilter() {
-    const meritFilterData = filter(meritsData, { flaw: merit });
+    const meritFilterData = filter(data, o => {
+      if (includes(toLower(o.flaw), toLower(merit))) {
+        return o;
+      }
+      return undefined;
+    });
     setMeritsData(meritFilterData);
   }
 
@@ -127,7 +134,7 @@ export function Flaw({ app }) {
               ))}
             </Select>
           </div>
-          <form className="form-inline ">
+          <form className="form-inline">
             <div className="col-md-4">
               <label>FLAWS NAME</label>
               <input
@@ -142,9 +149,9 @@ export function Flaw({ app }) {
             </div>
             <div className="col-md-2">
               <label />
-              <button className="btn btn-primary" onClick={handleFilter}>
+              <span className="btn btn-primary" onClick={handleFilter}>
                 filter
-              </button>
+              </span>
             </div>
             <div className="col-md-2">
               <label />
@@ -185,7 +192,7 @@ export function Flaw({ app }) {
           </div>
 
           <div className="col-md-12">
-            <div className="header-disciplines">
+            <div className="header-disciplines" style={{ marginLeft: '116px'}}>
               <div
                 className="disc-cols3 sort-down"
                 onClick={() => handleSortingByLevel('flaw')}

@@ -23,6 +23,9 @@ import {
   uniq,
   sortBy,
   isEmpty,
+  toLower,
+  trim,
+  includes,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -69,8 +72,11 @@ export function Merits({ app }) {
   }
 
   function handleFilter() {
-    const meritFilterData = data.filter(function(str) {
-      return str.indexOf(merit) === -1;
+    const meritFilterData = filter(data, o => {
+      if (includes(toLower(o.merit), toLower(merit))) {
+        return o;
+      }
+      return undefined;
     });
     setMeritsData(meritFilterData);
   }
@@ -147,9 +153,9 @@ export function Merits({ app }) {
             </div>
             <div className="col-md-2">
               <label />
-              <button className="btn btn-primary" onClick={handleFilter}>
+              <span className="btn btn-primary" onClick={handleFilter}>
                 filter
-              </button>
+              </span>
             </div>
             <div className="col-md-2">
               <label />
@@ -192,7 +198,12 @@ export function Merits({ app }) {
           </div>
 
           <div className="col-md-12">
-            <div className="header-disciplines">
+            <div
+              className="header-disciplines"
+              style={{
+                marginLeft: '116px',
+              }}
+            >
               <div
                 className="disc-cols3 "
                 onClick={() => handleSortingByLevel('merit')}
