@@ -89,7 +89,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
   function getBooleanValue(item) {
     const { thaumaturgy, abyssal, necromancy } = item;
     if (thaumaturgy) {

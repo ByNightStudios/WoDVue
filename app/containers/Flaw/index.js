@@ -238,7 +238,6 @@ export function Flaw({ app }) {
                       <div className="box-summary">
                         <div className="details">
                           <ul>
-                            {console.log(item)}
                             <li>
                               <span>Name</span>
                               {item.flaw}

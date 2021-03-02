@@ -76,7 +76,6 @@ export function ClanPage(props) {
         },
       },
     } = props;
-    console.log(id);
     const findClanData = find(filterClans, o => o.power === trim(id));
     if (findClanData) {
       setSelectedClan(findClanData);
@@ -151,7 +150,6 @@ export function ClanPage(props) {
     }
     return false;
   }
-  console.log(selectedClan);
 
   return (
     <div className="clan-page">

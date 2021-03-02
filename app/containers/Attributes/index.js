@@ -54,7 +54,6 @@ export function ClanPage(props) {
     if (e.target) {
       const value = e.target.getAttribute('value');
       const findClanData = find(filterClans, { attribute: value });
-      console.log(findClanData);
       setSelectedClan(findClanData);
     }
   }

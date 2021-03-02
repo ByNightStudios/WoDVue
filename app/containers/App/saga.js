@@ -82,7 +82,7 @@ function* handleGetAppData() {
     );
     yield put(getDataSuccess(contentfulData));
   } catch (e) {
-    console.log(e);
+    //
   }
 
   if (skip === 1200) {

@@ -105,7 +105,6 @@ export function Disciplines({ app }) {
   }
 
   function getArray(array) {
-    console.log(array);
     return array;
   }
 
