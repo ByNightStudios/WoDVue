@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -17,7 +18,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Card, Row, Col, Typography } from 'antd';
 import { map, find, get, isEmpty } from 'lodash';
-
+import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -88,7 +89,7 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
+  console.log(props);
 
   return (
     <div className="clan-page">
@@ -119,7 +120,13 @@ export function ClanPage(props) {
                   />
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
-                  <p>{get(selectedClan, 'description[0]', 'Legend says that the first few generations of vampires did not suffer the divisions of clan, and that they were capable of performing miracle-like feats. As progenitors passed the Embrace down to their childer, and from there, to more childer, the powers inherent in vampiric vitae grew weaker.')}</p>
+                  <p>
+                    {get(
+                      selectedClan,
+                      'description[0]',
+                      'Legend says that the first few generations of vampires did not suffer the divisions of clan, and that they were capable of performing miracle-like feats. As progenitors passed the Embrace down to their childer, and from there, to more childer, the powers inherent in vampiric vitae grew weaker.',
+                    )}
+                  </p>
                 </div>
               </div>
               <br />
@@ -150,14 +157,20 @@ export function ClanPage(props) {
                     {map(
                       get(selectedClan, 'inClanDisciplines', []),
                       (item, index) => (
-                        <Link
-                          to={`/Disciplines/${item.fields.title}`}
+                        <div
                           key={index}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
+                          onClick={() => {
+                            history.push(
+                              `/Disciplines/${item.fields.title}`,
+                              item,
+                            );
+                          }}
+                          role="button"
                         >
                           {item.fields.title}
-                        </Link>
+                        </div>
                       ),
                     )}
                   </Row>
@@ -242,11 +255,11 @@ export function ClanPage(props) {
                   <Row>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
-                         {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
+                        {map(get(selectedClan, 'sourceBook'), item => (
+                          <p>
+                            <p>{get(item, 'fields.bookTitle')}</p>
+                            <p>{get(item, 'fields.system[0]')}</p>
+                          </p>
                         ))}
                       </div>
                     ) : (
@@ -371,7 +384,10 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Techniques"
+                  >
                     Techniques
                   </a>
                 </li>

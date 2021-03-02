@@ -8,3 +8,7 @@
 .clan-page .header-single h1, h4 {
     color: #ffffff !important;
 }
+
+.system p {
+  white-space: break-spaces;
+}

@@ -111,8 +111,9 @@ export function ClanPage(props) {
 
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
-                  <h2>SYSTEM</h2>
+                  <h2>SYSTEMas</h2>
                   <div
+                    className="system"
                     /* eslint-disable-next-line react/no-danger */
                     dangerouslySetInnerHTML={{
                       __html: documentToHtmlString(selectedClan.system_html),

@@ -21,12 +21,14 @@ import {
   filter,
   get,
   isEmpty,
-  find,
   sortBy,
   orderBy,
   isEqual,
   slice,
+  trim,
 } from 'lodash';
+
+import { find } from 'underscore';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -68,12 +70,26 @@ export function ClanPage(props) {
       match: {
         params: { id },
       },
+      history: {
+        location: {
+          state: { fields: findClanData2 },
+        },
+      },
     } = props;
-    const findClanData = find(filterClans, o => o.power === id);
-    setSelectedClan(findClanData);
-    const powerOfClansData = filter(clanItems, {
-      power: get(findClanData, 'title'),
-    });
+    console.log(id);
+    const findClanData = find(filterClans, o => o.power === trim(id));
+    if (findClanData) {
+      setSelectedClan(findClanData);
+    }
+    if (!findClanData) {
+      const findClanData3 = find(filterClans, o => o.power === id);
+      setSelectedClan(findClanData3);
+      // window.location.href=window.location.href;
+    }
+    const powerOfClansData = filter(
+      clanItems,
+      o => o.power === trim(get(selectedClan, 'title')),
+    );
 
     const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
@@ -126,7 +142,7 @@ export function ClanPage(props) {
   }
 
   function getSummaryHtml(html) {
-    if(html){
+    if (html) {
       const mappedHtml = {
         ...html,
         content: slice(html.content, 1, 6),
@@ -317,7 +333,12 @@ export function ClanPage(props) {
                   <div>
                     <div>
                       <h2>POWERS</h2>
-                      <div className="header-disciplines">
+                      <div
+                        className="header-disciplines"
+                        style={{
+                          marginLeft: '73px',
+                        }}
+                      >
                         <div
                           className="disc-cols3 sort-up"
                           style={{ color: 'black' }}
@@ -461,7 +482,10 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Techniques"
+                  >
                     Techniques
                   </a>
                 </li>
