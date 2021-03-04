@@ -80,7 +80,7 @@ function* handleGetAppData() {
     skills: { data: skillsData },
     techniques: { data: techniquesData },
   } = appState;
-  console.log(appState);
+
   try {
     const response = yield call(apiContentful, {
       skip,
@@ -91,8 +91,7 @@ function* handleGetAppData() {
     );
     yield put(getDataSuccess(contentfulData));
   } catch (e) {}
-
-  if (skip === 1200) {
+  if (skip > 1200) {
     const clanAppData = filter(data, o => o.inClanMerits);
     const orderByData2 = orderBy(
       clanAppData,
