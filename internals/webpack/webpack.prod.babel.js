@@ -86,26 +86,26 @@ module.exports = require('./webpack.base.babel')({
 
     // Put it in the end to capture all the HtmlWebpackPlugin's
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
-    new OfflinePlugin({
-      relativePaths: false,
-      publicPath: '/',
-      appShell: '/',
-      autoUpdate: true,
-      // No need to cache .htaccess. See http://mxs.is/googmp,
-      // this is applied before any match in `caches` section
-      excludes: ['.htaccess', 'index.html'],
-      // Removes warning for about `additional` section usage
-      safeToUseOptionalCaches: true,
-      responseStrategy: 'network-first',
-      ServiceWorker: {
-        events: true,
-      },
-      AppCache: {
-        events: true,
-      },
-      version: new Date().getTime(),
-      updateStrategy: 'changed',
-    }),
+    // new OfflinePlugin({
+    //   relativePaths: false,
+    //   publicPath: '/',
+    //   appShell: '/',
+    //   autoUpdate: true,
+    //   // No need to cache .htaccess. See http://mxs.is/googmp,
+    //   // this is applied before any match in `caches` section
+    //   excludes: ['.htaccess', 'index.html'],
+    //   // Removes warning for about `additional` section usage
+    //   safeToUseOptionalCaches: true,
+    //   responseStrategy: 'network-first',
+    //   ServiceWorker: {
+    //     events: true,
+    //   },
+    //   AppCache: {
+    //     events: true,
+    //   },
+    //   version: new Date().getTime(),
+    //   updateStrategy: 'changed',
+    // }),
 
     new CompressionPlugin({
       algorithm: 'gzip',
