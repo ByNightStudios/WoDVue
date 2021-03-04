@@ -57,7 +57,7 @@ class APIContentful {
     this.environmentId = `master`;
     this.resourceBase = `/spaces/${this.spaceId}/environments/${
       this.environmentId
-    }/sync?initial=true`;
+    }`;
 
     // this is an array of objects, each object has some necessary
     // info about a contentType
