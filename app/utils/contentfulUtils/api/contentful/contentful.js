@@ -34,7 +34,7 @@ class APIContentful {
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
-        'Access-Control-Max-Age': 86400,
+        'Cache-Control': 'max-age=3600, must-revalidate',
       },
     });
 

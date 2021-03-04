@@ -7,18 +7,7 @@ import {
   delay,
   take,
 } from 'redux-saga/effects';
-import {
-  orderBy,
-  isEmpty,
-  filter,
-  sortBy,
-  uniqBy,
-  get,
-  last,
-  size,
-  isEqual,
-} from 'lodash';
-import moment from 'moment';
+import { orderBy, isEmpty, filter, sortBy, uniqBy, get } from 'lodash';
 import localforage from 'localforage';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
@@ -38,19 +27,7 @@ import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful
 
 // Individual exports for testing
 
-const dummyConfig = {
-  // Force WebSQL; same as using setDriver()
-  name: 'myApp',
-  version: 1.0,
-  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-  storeName: 'WoDo', // Should be alphanumeric, with underscores.
-};
-
-localforage.config(dummyConfig);
-
-const clear = async (config = dummyConfig) => {
-  localforage.clear(config);
-};
+localforage.setDriver(localforage.LOCALSTORAGE);
 
 const loadState = (stateData, cb) => {
   try {
@@ -93,7 +70,7 @@ function* handleGetAppData() {
   const appState = yield select(makeSelectApp());
 
   const {
-    appData: { skip, limit, hasMore, data: contentfulDataApi },
+    appData: { skip, limit, hasMore, data },
     attributes: { data: arributesData },
     backgrounds: { data: backgroundsData },
     clans: { data: clansData },
@@ -103,72 +80,45 @@ function* handleGetAppData() {
     skills: { data: skillsData },
     techniques: { data: techniquesData },
   } = appState;
+  console.log(appState);
+  try {
+    const response = yield call(apiContentful, {
+      skip,
+      limit,
+    });
+    const contentfulData = yield Promise.resolve(
+      response.getParentEntriesAsync,
+    );
+    yield put(getDataSuccess(contentfulData));
+  } catch (e) {}
 
-  let updateOnceInADay = 0;
-
-  const parsedDataResponse = yield call(
-    [localforage, localforage.getItem],
-    'contentfulData',
-  );
-
-  const lastSycnAt = yield call([localforage, localforage.getItem], 'sync-at');
-
-  const parsedData = JSON.parse(parsedDataResponse);
-
-  const parsedDataSize = size(parsedData);
-  const lastItem = get(last(parsedData), 'total_item');
-
-  const checkSavedDataExpiryAt = parsedDataSize > 1290;
-
-  if (lastSycnAt) {
-    const lastSavedData = JSON.parse(lastSycnAt);
-    const currentTime = JSON.parse(JSON.stringify(moment()));
-    updateOnceInADay = moment(currentTime).diff(lastSavedData, 'days');
-  }
-  if (updateOnceInADay > 0) {
-    clear();
-  }
-
-  if (!checkSavedDataExpiryAt && updateOnceInADay === 0) {
-    try {
-      const response = yield call(apiContentful, {
-        skip,
-        limit,
-      });
-      const contentfulData = yield Promise.resolve(
-        response.getParentEntriesAsync,
-      );
-      localforage.setItem('sync-at', JSON.stringify(moment()));
-      saveState('contentfulData', contentfulDataApi);
-      yield put(getDataSuccess(contentfulData));
-    } catch (e) {
-      // ToDo:
-    }
-  }
-
-  if (checkSavedDataExpiryAt) {
-    const clanAppData = filter(parsedData, o => o.inClanMerits);
+  if (skip === 1200) {
+    const clanAppData = filter(data, o => o.inClanMerits);
     const orderByData2 = orderBy(
       clanAppData,
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
+    saveState('clans', orderByData2);
     yield put(clanDataSuccess(orderByData2));
-    const flawsAppData = sortBy(filter(parsedData, o => o.flaw), 'flaw');
+
+    const flawsAppData = sortBy(filter(data, o => o.flaw), 'flaw');
+
     const orderByData3 = orderBy(
       flawsAppData,
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     yield put(flawsDataSuccess(orderByData3));
-    const meritAppData = sortBy(filter(parsedData, o => o.merit), 'merit');
+
+    const meritAppData = sortBy(filter(data, o => o.merit), 'merit');
+
     const meritByData4 = orderBy(
       meritAppData,
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     yield put(meritsDataSuccess(meritByData4));
-    console.log(arributesData);
     if (isEmpty(arributesData)) {
       try {
         const response1 = yield call(apiContentful, {
@@ -190,6 +140,7 @@ function* handleGetAppData() {
         // yield put(dropDownItemsError(e));
       }
     }
+
     if (isEmpty(backgroundsData)) {
       try {
         const response7 = yield call(apiContentful, {
@@ -211,6 +162,7 @@ function* handleGetAppData() {
         // yield put(dropDownItemsError(e));
       }
     }
+
     if (isEmpty(skillsData)) {
       try {
         const response77 = yield call(apiContentful, {
@@ -232,6 +184,7 @@ function* handleGetAppData() {
         // yield put(dropDownItemsError(e));
       }
     }
+
     if (isEmpty(techniquesData)) {
       try {
         const response777 = yield call(apiContentful, {
@@ -253,6 +206,7 @@ function* handleGetAppData() {
         // yield put(dropDownItemsError(e));
       }
     }
+
     try {
       const response111 = yield call(apiContentful, {
         query: 'rituals',
@@ -275,151 +229,37 @@ function* handleGetAppData() {
   }
 }
 
-// function* handleDisciplineDataApiCall() {
-//   const appState = yield select(makeSelectApp());
-
-//   const {
-//     appData: { skip, limit },
-//   } = appState;
-//   try {
-//     const response10 = yield call(apiContentful, {
-//       query: 'discipline',
-//       select: 'fields,sys.id',
-//       parents: '',
-//       skip,
-//       limit,
-//     });
-//     const contentfulData1 = yield Promise.resolve(
-//       response10.getParentEntriesAsync,
-//     );
-//   } catch (e) {
-//     console.log(e);
-//   }
-// }
-
-// const response = localforage.getItem('disciplines');
-// console.log(response);
-// const body = yield call([response, response.json]);
-// const myCustomFnc = data1 => data1;
-
-// const localDisciplineData = yield call([
-//   localforage.getItem('disciplines'),
-//   myCustomFnc,
-// ]);
-
-// console.log(localDisciplineData);
-
-//   localforage.getItem('disciplines', function* handleDisciplineDataApiCall(
-//     value,
-//   ) {
-//     // if err is non-null, we got an error. otherwise, value is the value
-//     const parsedData = JSON.parse(value);
-//     const parsedDataSize = size(parsedData);
-//     const totalItems = get(last(parsedData), 'total_items');
-//     const checkSavedDataExpiryAt = isEqual(parsedDataSize, totalItems);
-//     if (!checkSavedDataExpiryAt) {
-//       try {
-// //     const response10 = yield call(apiContentful, {
-// //       query: 'discipline',
-// //       select: 'fields,sys.id',
-// //       parents: '',
-// //       skip,
-// //       limit,
-// //     });
-// //     const contentfulData1 = yield Promise.resolve(
-// //       response10.getParentEntriesAsync,
-// //     );
-// //   } catch (e) {
-// //     console.log(e);
-// //   }
-//     }
-//   });
-
-// if (!checkSavedDataExpiryAt) {
-//   try {
-//     const response10 = yield call(apiContentful, {
-//       query: 'discipline',
-//       select: 'fields,sys.id',
-//       parents: '',
-//       skip,
-//       limit,
-//     });
-//     const contentfulData1 = yield Promise.resolve(
-//       response10.getParentEntriesAsync,
-//     );
-
-//     const orderByData6 = orderBy(
-//       contentfulData1,
-//       [item => getItems(item).toLowerCase()],
-//       ['asc'],
-//     );
-//     saveState('disciplines', orderByData6);
-//     yield put(disciplineDataSuccess(orderByData6));
-//   } catch (e) {
-//     //
-//   }
-// }
-//
-
 function* handleDisciplineData() {
   const appState = yield select(makeSelectApp());
-  let updateOnceInADay = 0;
+
   const {
     appData: { skip, limit },
-    disciplines: { data: disciplineData },
+    disciplines: { data: DisciplinesData },
   } = appState;
+  try {
+    const response10 = yield call(apiContentful, {
+      query: 'discipline',
+      select: 'fields,sys.id',
+      parents: '',
+      skip,
+      limit,
+    });
+    const contentfulData1 = yield Promise.resolve(
+      response10.getParentEntriesAsync,
+    );
 
-  const parsedDataResponse = yield call(
-    [localforage, localforage.getItem],
-    'disciplines',
-  );
-
-  const lastSycnAt = yield call([localforage, localforage.getItem], 'sync-at');
-  const parsedData = JSON.parse(parsedDataResponse);
-
-  const parsedDataSize = size(parsedData);
-  const lastItem = get(last(parsedDataSize), 'total_item');
-  const checkSavedDataExpiryAt = parsedDataSize < 390;
-  console.log(skip, limit);
-  if (lastSycnAt) {
-    const lastSavedData = JSON.parse(lastSycnAt);
-    const currentTime = JSON.parse(JSON.stringify(moment()));
-    updateOnceInADay = moment(currentTime).diff(lastSavedData, 'days');
-  }
-
-  if (updateOnceInADay > 0) {
-    clear();
-  }
-
-  console.log(skip, limit, checkSavedDataExpiryAt, parsedData);
-  if (!checkSavedDataExpiryAt && updateOnceInADay === 0) {
-    try {
-      const response10 = yield call(apiContentful, {
-        query: 'discipline',
-        select: 'fields,sys.id',
-        parents: '',
-        skip,
-        limit,
-      });
-      const contentfulData1 = yield Promise.resolve(
-        response10.getParentEntriesAsync,
-      );
-
-      const orderByData6 = orderBy(
-        contentfulData1,
-        [item => getItems(item).toLowerCase()],
-        ['asc'],
-      );
-      saveState('disciplines', disciplineData);
-      localforage.setItem('sync-at', JSON.stringify(moment()));
-      yield put(disciplineDataSuccess(orderByData6));
-    } catch (e) {
-      console.log(e);
-    }
+    const orderByData6 = orderBy(
+      contentfulData1,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(disciplineDataSuccess(orderByData6));
+  } catch (e) {
+    //
   }
 }
-
 export default function* appSaga() {
+  // See example in containers/HomePage/saga.js
   yield takeLatest(GET_DATA, handleGetAppData);
   yield takeLatest(DISCIPLINES_DATA, handleDisciplineData);
 }
