@@ -13,7 +13,7 @@ import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import { Switch, Route } from 'react-router-dom';
-
+import localforage from 'localforage';
 import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
 import Disciplines from 'containers/Disciplines/Loadable';
 import DisciplinesDetails from 'containers/DisciplinesDetails/Loadable';

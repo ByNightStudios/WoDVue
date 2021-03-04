@@ -105,6 +105,7 @@ function* handleGetAppData() {
   } = appState;
 
   let updateOnceInADay = 0;
+
   const parsedDataResponse = yield call(
     [localforage, localforage.getItem],
     'contentfulData',
@@ -113,11 +114,12 @@ function* handleGetAppData() {
   const lastSycnAt = yield call([localforage, localforage.getItem], 'sync-at');
 
   const parsedData = JSON.parse(parsedDataResponse);
-  const parsedDataSize = size(parsedData);
-  console.log(parsedDataSize);
-  const totalItems = get(last(parsedData), 'total_items');
 
-  const checkSavedDataExpiryAt = parsedDataSize < 1300;
+  const parsedDataSize = size(parsedData);
+  const lastItem = get(last(parsedData), 'total_item');
+
+  const checkSavedDataExpiryAt = parsedDataSize > 1290;
+
   if (lastSycnAt) {
     const lastSavedData = JSON.parse(lastSycnAt);
     const currentTime = JSON.parse(JSON.stringify(moment()));
@@ -144,142 +146,133 @@ function* handleGetAppData() {
     }
   }
 
-  // if (skip === 1200) {
-  //   const clanAppData = filter(data, o => o.inClanMerits);
-  //   const orderByData2 = orderBy(
-  //     clanAppData,
-  //     [item => getItems(item).toLowerCase()],
-  //     ['asc'],
-  //   );
-  //   saveState('clans', orderByData2);
-  //   yield put(clanDataSuccess(orderByData2));
-
-  //   const flawsAppData = sortBy(filter(data, o => o.flaw), 'flaw');
-
-  //   const orderByData3 = orderBy(
-  //     flawsAppData,
-  //     [item => getItems(item).toLowerCase()],
-  //     ['asc'],
-  //   );
-  //   yield put(flawsDataSuccess(orderByData3));
-
-  //   const meritAppData = sortBy(filter(data, o => o.merit), 'merit');
-
-  //   const meritByData4 = orderBy(
-  //     meritAppData,
-  //     [item => getItems(item).toLowerCase()],
-  //     ['asc'],
-  //   );
-  //   yield put(meritsDataSuccess(meritByData4));
-  //   if (isEmpty(arributesData)) {
-  //     try {
-  //       const response1 = yield call(apiContentful, {
-  //         query: 'attributes',
-  //         select: 'fields,sys.id',
-  //         parents: '',
-  //       });
-  //       const contentfulData1 = yield Promise.resolve(
-  //         response1.getParentEntriesAsync,
-  //       );
-  //       const orderByData6 = orderBy(
-  //         contentfulData1,
-  //         [item => getItems(item).toLowerCase()],
-  //         ['asc'],
-  //       );
-  //       saveState('attributes', orderByData6);
-  //       yield put(attributeDataSuccess(orderByData6));
-  //     } catch (e) {
-  //       // yield put(dropDownItemsError(e));
-  //     }
-  //   }
-
-  //   if (isEmpty(backgroundsData)) {
-  //     try {
-  //       const response7 = yield call(apiContentful, {
-  //         query: 'backgrounds',
-  //         select: 'fields,sys.id',
-  //         parents: '',
-  //       });
-  //       const contentfulData7 = yield Promise.resolve(
-  //         response7.getParentEntriesAsync,
-  //       );
-  //       const orderByData7 = orderBy(
-  //         contentfulData7,
-  //         [item => getItems(item).toLowerCase()],
-  //         ['asc'],
-  //       );
-  //       console.log(orderByData7);
-  //       saveState('backgrounds', orderByData7);
-  //       yield put(backgroundDataSuccess(orderByData7));
-  //     } catch (e) {
-  //       // yield put(dropDownItemsError(e));
-  //     }
-  //   }
-
-  //   if (isEmpty(skillsData)) {
-  //     try {
-  //       const response77 = yield call(apiContentful, {
-  //         query: 'skills',
-  //         select: 'fields,sys.id',
-  //         parents: '',
-  //       });
-  //       const contentfulData77 = yield Promise.resolve(
-  //         response77.getParentEntriesAsync,
-  //       );
-  //       const orderByData77 = orderBy(
-  //         contentfulData77,
-  //         [item => getItems(item).toLowerCase()],
-  //         ['asc'],
-  //       );
-  //       saveState('skills', orderByData77);
-  //       yield put(skillDataSuccess(orderByData77));
-  //     } catch (e) {
-  //       // yield put(dropDownItemsError(e));
-  //     }
-  //   }
-
-  //   if (isEmpty(techniquesData)) {
-  //     try {
-  //       const response777 = yield call(apiContentful, {
-  //         query: 'techniques',
-  //         select: 'fields,sys.id',
-  //         parents: '',
-  //       });
-  //       const contentfulData777 = yield Promise.resolve(
-  //         response777.getParentEntriesAsync,
-  //       );
-  //       const orderByData777 = orderBy(
-  //         contentfulData777,
-  //         [item => getItems(item).toLowerCase()],
-  //         ['asc'],
-  //       );
-  //       saveState('techniques', orderByData777);
-  //       yield put(techniquesDataSuccess(orderByData777));
-  //     } catch (e) {
-  //       // yield put(dropDownItemsError(e));
-  //     }
-  //   }
-
-  //   try {
-  //     const response111 = yield call(apiContentful, {
-  //       query: 'rituals',
-  //       select: 'fields,sys.id',
-  //       parents: '',
-  //     });
-  //     const contentfulData111 = yield Promise.resolve(
-  //       response111.getParentEntriesAsync,
-  //     );
-  //     const orderByData111 = orderBy(
-  //       contentfulData111,
-  //       [item => getItems(item).toLowerCase()],
-  //       ['asc'],
-  //     );
-  //     saveState('rituals', orderByData111);
-  //     yield put(ritualDataSuccess(orderByData111));
-  //   } catch (e) {
-  //     // yield put(dropDownItemsError(e));
-  //   }
-  // }
+  if (checkSavedDataExpiryAt) {
+    const clanAppData = filter(parsedData, o => o.inClanMerits);
+    const orderByData2 = orderBy(
+      clanAppData,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(clanDataSuccess(orderByData2));
+    const flawsAppData = sortBy(filter(parsedData, o => o.flaw), 'flaw');
+    const orderByData3 = orderBy(
+      flawsAppData,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(flawsDataSuccess(orderByData3));
+    const meritAppData = sortBy(filter(parsedData, o => o.merit), 'merit');
+    const meritByData4 = orderBy(
+      meritAppData,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(meritsDataSuccess(meritByData4));
+    console.log(arributesData);
+    if (isEmpty(arributesData)) {
+      try {
+        const response1 = yield call(apiContentful, {
+          query: 'attributes',
+          select: 'fields,sys.id',
+          parents: '',
+        });
+        const contentfulData1 = yield Promise.resolve(
+          response1.getParentEntriesAsync,
+        );
+        const orderByData6 = orderBy(
+          contentfulData1,
+          [item => getItems(item).toLowerCase()],
+          ['asc'],
+        );
+        saveState('attributes', orderByData6);
+        yield put(attributeDataSuccess(orderByData6));
+      } catch (e) {
+        // yield put(dropDownItemsError(e));
+      }
+    }
+    if (isEmpty(backgroundsData)) {
+      try {
+        const response7 = yield call(apiContentful, {
+          query: 'backgrounds',
+          select: 'fields,sys.id',
+          parents: '',
+        });
+        const contentfulData7 = yield Promise.resolve(
+          response7.getParentEntriesAsync,
+        );
+        const orderByData7 = orderBy(
+          contentfulData7,
+          [item => getItems(item).toLowerCase()],
+          ['asc'],
+        );
+        saveState('backgrounds', orderByData7);
+        yield put(backgroundDataSuccess(orderByData7));
+      } catch (e) {
+        // yield put(dropDownItemsError(e));
+      }
+    }
+    if (isEmpty(skillsData)) {
+      try {
+        const response77 = yield call(apiContentful, {
+          query: 'skills',
+          select: 'fields,sys.id',
+          parents: '',
+        });
+        const contentfulData77 = yield Promise.resolve(
+          response77.getParentEntriesAsync,
+        );
+        const orderByData77 = orderBy(
+          contentfulData77,
+          [item => getItems(item).toLowerCase()],
+          ['asc'],
+        );
+        saveState('skills', orderByData77);
+        yield put(skillDataSuccess(orderByData77));
+      } catch (e) {
+        // yield put(dropDownItemsError(e));
+      }
+    }
+    if (isEmpty(techniquesData)) {
+      try {
+        const response777 = yield call(apiContentful, {
+          query: 'techniques',
+          select: 'fields,sys.id',
+          parents: '',
+        });
+        const contentfulData777 = yield Promise.resolve(
+          response777.getParentEntriesAsync,
+        );
+        const orderByData777 = orderBy(
+          contentfulData777,
+          [item => getItems(item).toLowerCase()],
+          ['asc'],
+        );
+        saveState('techniques', orderByData777);
+        yield put(techniquesDataSuccess(orderByData777));
+      } catch (e) {
+        // yield put(dropDownItemsError(e));
+      }
+    }
+    try {
+      const response111 = yield call(apiContentful, {
+        query: 'rituals',
+        select: 'fields,sys.id',
+        parents: '',
+      });
+      const contentfulData111 = yield Promise.resolve(
+        response111.getParentEntriesAsync,
+      );
+      const orderByData111 = orderBy(
+        contentfulData111,
+        [item => getItems(item).toLowerCase()],
+        ['asc'],
+      );
+      saveState('rituals', orderByData111);
+      yield put(ritualDataSuccess(orderByData111));
+    } catch (e) {
+      // yield put(dropDownItemsError(e));
+    }
+  }
 }
 
 // function* handleDisciplineDataApiCall() {
@@ -383,9 +376,11 @@ function* handleDisciplineData() {
 
   const lastSycnAt = yield call([localforage, localforage.getItem], 'sync-at');
   const parsedData = JSON.parse(parsedDataResponse);
+
   const parsedDataSize = size(parsedData);
-  const totalItems = get(last(parsedData), 'total_items');
-  const checkSavedDataExpiryAt = parsedDataSize < totalItems;
+  const lastItem = get(last(parsedDataSize), 'total_item');
+  const checkSavedDataExpiryAt = parsedDataSize < 390;
+  console.log(skip, limit);
   if (lastSycnAt) {
     const lastSavedData = JSON.parse(lastSycnAt);
     const currentTime = JSON.parse(JSON.stringify(moment()));
@@ -396,6 +391,7 @@ function* handleDisciplineData() {
     clear();
   }
 
+  console.log(skip, limit, checkSavedDataExpiryAt, parsedData);
   if (!checkSavedDataExpiryAt && updateOnceInADay === 0) {
     try {
       const response10 = yield call(apiContentful, {
@@ -419,7 +415,6 @@ function* handleDisciplineData() {
       yield put(disciplineDataSuccess(orderByData6));
     } catch (e) {
       console.log(e);
-      //
     }
   }
 }
