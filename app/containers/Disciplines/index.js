@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get, map, orderBy } from 'lodash';
-
+import localforage from 'localforage';
 import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -34,8 +34,10 @@ export function Disciplines({ app }) {
   } = app;
 
   useEffect(() => {
+    console.log('demo');
+    console.log(localforage.getItem('disciplines'));
     setDisciplineData(data);
-  }, [data]);
+  }, []);
 
   // if (loading && hasMore) {
   //   return <Loader />;
@@ -64,6 +66,7 @@ export function Disciplines({ app }) {
       setDirection('asc');
     }
   }
+
 
   return (
     <div>

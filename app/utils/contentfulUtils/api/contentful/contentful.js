@@ -209,11 +209,12 @@ class APIContentful {
     return childEntries;
   }
 
-  extractData(entryData, assestData) {
+  extractData(entryData, assestData, total) {
     const keys = Object.keys(entryData);
     const data = keys.reduce((entry, k) => {
       entry[k] = this.getFieldValue(entryData[k], k, assestData);
       entry[`${k}_html`] = this.getEntryData(entryData[k], assestData);
+      entry['total_items'] = total;
       return entry;
     }, {});
     return data;
@@ -334,13 +335,13 @@ class APIContentful {
     initialVals = null,
     sortField = null,
   ) {
-    const { items, includes } = resContentful.data;
+    const { items, includes, total } = resContentful.data;
 
     const itemObjects = items.map(i => ({
       ...i.fields,
       id: i.sys.id,
     }));
-    let unsortedEntries = itemObjects.map(i => this.extractData(i, includes));
+    let unsortedEntries = itemObjects.map(i => this.extractData(i, includes, total));
 
     if (initialVals) {
       unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);

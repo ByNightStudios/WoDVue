@@ -12,7 +12,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import localforage from 'localforage';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row } from 'antd';
@@ -54,6 +54,7 @@ export function ClanPage(props) {
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
   const [powerOfClans, setPowerOfClans] = useState([]);
+  const [filterClans, setFilterClan] = useState([]);
   const [direction, setDirection] = useState('asc');
 
   const { app } = props;
@@ -62,34 +63,36 @@ export function ClanPage(props) {
     disciplines: { data: clanItems },
   } = app;
 
-  const filterClans = uniqBy(
-    sortBy(filter(clanItems, o => o.parent), 'title'),
-    'title',
-  );
-
   // const powerOfAllClans = uniqBy(clanItems, 'title');
 
   useEffect(() => {
-    const {
-      match: {
-        params: { id },
-      },
-    } = props;
-    const findClanData = find(filterClans, o => o.power === trim(id));
-    if (findClanData) {
-      setSelectedClan(findClanData);
-    }
-    if (!findClanData) {
-      const findClanData3 = find(filterClans, o => o.power === id);
-      setSelectedClan(findClanData3);
-    }
-    const powerOfClansData = filter(
-      clanItems,
-      o => o.power === get(selectedClan, 'title'),
-    );
+    localforage.getItem('disciplines').then(value => {
+      console.log(JSON.parse(value));
+      const filterClansfromLocal = uniqBy(
+        sortBy(filter(JSON.parse(value), o => o.parent), 'title'),
+        'title',
+      );
+      setFilterClan(filterClansfromLocal);
+      const {
+        match: {
+          params: { id },
+        },
+      } = props;
+      const findClanData = find(
+        filterClansfromLocal,
+        o => o.power === trim(id),
+      );
+      if (findClanData) {
+        setSelectedClan(findClanData);
+      }
+      const powerOfClansData = filter(
+        clanItems,
+        o => o.power === get(selectedClan, 'title'),
+      );
 
-    const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
-    setPowerOfClans(sortedByLevel);
+      const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
+      setPowerOfClans(sortedByLevel);
+    });
   }, [props]);
 
   function handleNavItemsClick(e) {
@@ -472,7 +475,10 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Disciplines"
+                  >
                     Disciplines
                   </a>
                 </li>
@@ -485,12 +491,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Skills"
+                  >
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Merits"
+                  >
                     Merits
                   </a>
                 </li>
@@ -500,12 +512,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Attributes"
+                  >
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Backgrounds"
+                  >
                     Backgrounds
                   </a>
                 </li>
@@ -522,7 +540,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to={items.power}
+                      to={`/WoDVue/monsters/vampire/Disciplines/${items.power}`}
                       className={`nav-link ${getClassName(items.power)}`}
                       value={items.power}
                       onClick={() => {
