@@ -215,7 +215,7 @@ class APIContentful {
     const data = keys.reduce((entry, k) => {
       entry[k] = this.getFieldValue(entryData[k], k, assestData);
       entry[`${k}_html`] = this.getEntryData(entryData[k], assestData);
-      entry['total_items'] = total;
+      entry.total_items = total;
       return entry;
     }, {});
     return data;
@@ -253,17 +253,16 @@ class APIContentful {
   }
 
   getObjectValue(field, fieldName, assestData) {
-    if(fieldName === 'sourceBook'){
+    if (fieldName === 'sourceBook') {
       return intersectionWith(get(assestData, 'Entry', []), [field], (a, b) =>
         isEqual(a.sys.id, b.sys.id),
       );
-
-    } else
+    }
     if (field.sys) {
       return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
         isEqual(a.sys.id, b.sys.id),
       );
-    } else
+    }
     if (!isEmpty(field.content)) {
       const contentAry = field.content
         .map(c => c.content)
@@ -342,7 +341,9 @@ class APIContentful {
       ...i.fields,
       id: i.sys.id,
     }));
-    let unsortedEntries = itemObjects.map(i => this.extractData(i, includes, total));
+    let unsortedEntries = itemObjects.map(i =>
+      this.extractData(i, includes, total),
+    );
 
     if (initialVals) {
       unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
