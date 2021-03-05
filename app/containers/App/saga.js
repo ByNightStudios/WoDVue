@@ -12,6 +12,7 @@ import localforage from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
 import mockAppData from 'mockData/app.json';
 import disciplineDataMock from 'mockData/discipline.json';
+import skillMock from 'mockData/skill.json';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
 import {
@@ -94,6 +95,7 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
+    saveState('data', JSON.stringify(mockAppData));
     yield put(clanDataSuccess(orderByData2));
     const flawsAppData = sortBy(filter(contentfulData, o => o.flaw), 'flaw');
     const orderByData3 = orderBy(
@@ -109,6 +111,15 @@ function* handleGetAppData() {
       ['asc'],
     );
     yield put(meritsDataSuccess(meritByData4));
+
+    const contentfulData77 = extractEntryDataFromResponse(skillMock);
+    const orderByData77 = orderBy(
+      contentfulData77,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    saveState('data', orderByData77);
+    yield put(skillDataSuccess(orderByData77));
   } catch (e) {
     console.log(e);
   }
