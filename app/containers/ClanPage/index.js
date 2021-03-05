@@ -433,7 +433,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to={`/WoDVue/monsters/vampire/Clans/${items.title}`}
+                      to={`/WoDVue/monsters/vampire/clan/${items.title}`}
                       className={`nav-link ${getClassName(items.title)}`}
                       value={items.title}
                       onClick={() => {

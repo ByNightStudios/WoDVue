@@ -52,7 +52,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
       onRequestData();
       onRequestDisciplineData();
     }
-  });
+  }, []);
 
   return (
     <div>
