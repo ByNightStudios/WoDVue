@@ -190,6 +190,16 @@ function Header_1() {
                     Quick Start
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a
+                    className={`nav-link ${
+                      pathname === '/Backers' ? 'active' : null
+                    }`}
+                    href="/Backers"
+                  >
+                    Backers
+                  </a>
+                </li>
               </ul>
             </div>
           </div>

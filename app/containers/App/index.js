@@ -14,6 +14,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 
 import { Switch, Route } from 'react-router-dom';
 import localforage from 'localforage';
+
 import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
 import Disciplines from 'containers/Disciplines/Loadable';
 import DisciplinesDetails from 'containers/DisciplinesDetails/Loadable';
@@ -31,6 +32,8 @@ import FlawsDetails from 'containers/FlawsDetails/Loadable';
 import MeritsDetails from 'containers/MeritsDetails/Loadable';
 import RitualsListing from 'containers/RitualsListing/Loadable';
 import QuickStart from 'containers/QuickStart/Loadable';
+import Backers from 'containers/Backers/Loadable';
+
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
 
@@ -126,6 +129,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
           component={ClanPage}
         />
         <Route exact path="/QuickStart" component={QuickStart} />
+        <Route exact path="/Backers" component={Backers} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

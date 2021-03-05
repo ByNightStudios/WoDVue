@@ -1,13 +1,5 @@
-import {
-  call,
-  put,
-  debounce,
-  takeLatest,
-  select,
-  delay,
-  take,
-} from 'redux-saga/effects';
-import { orderBy, isEmpty, filter, sortBy, uniqBy, get } from 'lodash';
+import { put, takeLatest, select } from 'redux-saga/effects';
+import { orderBy, filter, sortBy } from 'lodash';
 import localforage from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
 
@@ -33,7 +25,6 @@ import {
   ritualDataSuccess,
   getDataSuccess,
 } from './actions';
-import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 
 // const apiContentManager = new APIContentful();
 // Individual exports for testing
