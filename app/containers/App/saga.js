@@ -10,11 +10,15 @@ import {
 import { orderBy, isEmpty, filter, sortBy, uniqBy, get } from 'lodash';
 import localforage from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
+
 import mockAppData from 'mockData/app.json';
-import disciplineDataMock from 'mockData/discipline.json';
+import disciplineDataMock from 'mockData/disciplineData.json';
 import skillMock from 'mockData/skill.json';
 import attributeMock from 'mockData/attribute.json';
 import backgroundMock from 'mockData/background.json';
+import ritualsMock from 'mockData/ritual.json';
+import techniqueMock from 'mockData/technique.json';
+
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
 import {
@@ -140,6 +144,23 @@ function* handleGetAppData() {
     );
     saveState('backgrounds', orderByData7);
     yield put(backgroundDataSuccess(orderByData7));
+    const contentfulData777 = extractEntryDataFromResponse(ritualsMock);
+    const orderByData777 = orderBy(
+      contentfulData777,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    saveState('techniques', orderByData777);
+    yield put(techniquesDataSuccess(orderByData777));
+
+    const contentfulData7771 = extractEntryDataFromResponse(techniqueMock);
+    const orderByData7771 = orderBy(
+      contentfulData7771,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    saveState('rituals', orderByData7771);
+    yield put(ritualDataSuccess(orderByData7771));
   } catch (e) {
     console.log(e);
   }
@@ -229,28 +250,6 @@ function* handleGetAppData() {
     //   }
     // }
   }
-
-  try {
-    const response111 = yield call(apiContentful, {
-      query: 'rituals',
-      select: 'fields,sys.id',
-      parents: '',
-    });
-    const contentfulData111 = yield Promise.resolve(
-      response111.getParentEntriesAsync,
-    );
-    console.log(contentfulData111);
-    // const orderByData111 = orderBy(
-    //   contentfulData111,
-    //   [item => getItems(item).toLowerCase()],
-    //   ['asc'],
-    // );
-    // saveState('rituals', orderByData111);
-    // yield put(ritualDataSuccess(orderByData111));
-  } catch (e) {
-    console.log(e);
-    // yield put(dropDownItemsError(e));
-  }
 }
 
 function* handleDisciplineData() {
@@ -268,10 +267,9 @@ function* handleDisciplineData() {
     //   skip,
     //   limit,
     // });
-    const contentfulData1 = extractEntryDataFromResponse(disciplineDataMock);
 
     const orderByData6 = orderBy(
-      contentfulData1,
+      disciplineDataMock,
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
