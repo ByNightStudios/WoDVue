@@ -27,10 +27,10 @@ let selectData = '';
 let parentData = '';
 let mySubArrayData = [];
 
-class APIContentful {
-  constructor({ url }) {
+export default class APIContentful {
+  constructor() {
     http = axios.create({
-      baseURL: url,
+      baseURL: '/',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
@@ -330,34 +330,37 @@ class APIContentful {
     return item;
   }
 
+
   extractEntryDataFromResponse(
     resContentful,
     initialVals = null,
     sortField = null,
   ) {
-    const { items, includes, total } = resContentful.data;
+    if(!isEmpty(resContentful)){
+      const { items, includes, total } = resContentful.data;
 
-    const itemObjects = items.map(i => ({
-      ...i.fields,
-      id: i.sys.id,
-    }));
-    let unsortedEntries = itemObjects.map(i =>
-      this.extractData(i, includes, total),
-    );
+      const itemObjects = map(items, i => ({
+        ...i.fields,
+        id: i.sys.id,
+      }));
+      let unsortedEntries = itemObjects.map(i =>
+        this.extractData(i, includes, total),
+      );
 
-    if (initialVals) {
-      unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
+      if (initialVals) {
+        unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
+      }
+      if (sortField) {
+        const sorted = this.getSortedEntries(unsortedEntries, sortField);
+        return sorted;
+      }
+
+      const getUnsortedEntriesWithMedia = unsortedEntries.map(itemData =>
+        this.getClanArt(itemData, get(includes, 'Asset', [])),
+      );
+
+      return getUnsortedEntriesWithMedia;
     }
-    if (sortField) {
-      const sorted = this.getSortedEntries(unsortedEntries, sortField);
-      return sorted;
-    }
-
-    const getUnsortedEntriesWithMedia = unsortedEntries.map(itemData =>
-      this.getClanArt(itemData, get(includes, 'Asset', [])),
-    );
-
-    return getUnsortedEntriesWithMedia;
   }
 
   async queryContentfulAsync(resource) {
@@ -426,7 +429,7 @@ class APIContentful {
   }
 }
 
-export default function apiContentful(params) {
+function apiContentful(params) {
   const { skip, limit, query, select, parents } = params;
   skipData = skip;
   limitData = limit;
