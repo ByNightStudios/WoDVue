@@ -13,6 +13,8 @@ import extractEntryDataFromResponse from 'utils/parsingText';
 import mockAppData from 'mockData/app.json';
 import disciplineDataMock from 'mockData/discipline.json';
 import skillMock from 'mockData/skill.json';
+import attributeMock from 'mockData/attribute.json';
+import backgroundMock from 'mockData/background.json';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
 import {
@@ -120,6 +122,24 @@ function* handleGetAppData() {
     );
     saveState('data', orderByData77);
     yield put(skillDataSuccess(orderByData77));
+
+    const contentfulData1 = extractEntryDataFromResponse(attributeMock);
+    const orderByData6 = orderBy(
+      contentfulData1,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    saveState('attributes', orderByData6);
+    yield put(attributeDataSuccess(orderByData6));
+
+    const contentfulData7 = extractEntryDataFromResponse(backgroundMock);
+    const orderByData7 = orderBy(
+      contentfulData7,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    saveState('backgrounds', orderByData7);
+    yield put(backgroundDataSuccess(orderByData7));
   } catch (e) {
     console.log(e);
   }
