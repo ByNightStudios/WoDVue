@@ -286,15 +286,23 @@ export function Merits({ app }) {
                             ),
                           }}
                         />
-                        {!isEmpty(item.sourceBook) ? (
-                          <p>
-                            <h3>SOURCE BOOK</h3>
-                            <div>
-                              <span>{item.sourceBook[0].fields.bookTitle}</span>
-                              <span>{item.sourceBook[0].fields.system[0]}</span>
-                            </div>
-                          </p>
-                        ) : null}
+                        <p>
+                          <h3>SOURCE BOOK</h3>
+                          {!isEmpty(item.sourceBook) ? (
+                            <p>
+                              <div>
+                                <span>
+                                  {item.sourceBook[0].fields.bookTitle}
+                                </span>
+                                <span>
+                                  {item.sourceBook[0].fields.system[0]}
+                                </span>
+                              </div>
+                            </p>
+                          ) : (
+                            <p>MET - VTM - Main Source Book</p>
+                          )}
+                        </p>
                       </div>
                     </div>
                   </>
