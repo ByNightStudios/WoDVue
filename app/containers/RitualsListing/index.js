@@ -123,10 +123,7 @@ export function Disciplines({ app }) {
   }
 
   function handleFilterType(type) {
-    const filterClans = filter(
-      disciplineData,
-      o => getBooleanValue(o) === type,
-    );
+    const filterClans = filter(data, o => getBooleanValue(o) === type);
     setDisciplineData(filterClans);
   }
 

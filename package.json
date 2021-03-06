@@ -103,7 +103,8 @@
     "reselect": "4.0.0",
     "sanitize.css": "8.0.0",
     "styled-components": "4.2.0",
-    "underscore": "^1.12.0"
+    "underscore": "^1.12.0",
+    "write-json-file": "^4.3.0"
   },
   "devDependencies": {
     "@babel/cli": "7.4.3",

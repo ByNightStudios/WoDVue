@@ -11,7 +11,12 @@ const getObjectValue = (field, fieldName, assestData) => {
       isEqual(a.sys.id, b.sys.id),
     );
   }
-  if (field.sys) {
+  if (fieldName === 'clanSymbol') {
+    return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
+      isEqual(a.sys.id, b.sys.id),
+    );
+  }
+  if (field.sys && fieldName !== 'clanSymbol') {
     return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
       isEqual(a.sys.id, b.sys.id),
     );
@@ -153,6 +158,6 @@ const extractEntryDataFromResponse = (
     return getUnsortedEntriesWithMedia;
   }
   return false;
-}
+};
 
 export default extractEntryDataFromResponse;

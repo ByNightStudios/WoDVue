@@ -47,6 +47,7 @@ export function Flaw({ app }) {
 
   const {
     flaws: { data },
+    merits: { data: meritData },
   } = app;
 
   useEffect(() => {
@@ -92,6 +93,11 @@ export function Flaw({ app }) {
   );
   clanNames.sort();
 
+  const meritClanNames = uniq(
+    without(map(meritData, o => get(o, 'clanSpecific[0]')), undefined),
+  );
+  meritClanNames.sort();
+
   function handleFilterType(type) {
     const filterClans = filter(data, o => get(o, 'flawType[0]') === type);
     setMeritsData(filterClans);
@@ -115,9 +121,12 @@ export function Flaw({ app }) {
           <div className="list-icons justify-content-center w-100">
             <Select
               allowClear
-              style={{ width: '70vw', paddingBottom: 20 }}
+              style={{
+                width: '70vw',
+                paddingBottom: 20,
+              }}
               showSearch
-              placeholder="Search to Filter Merits"
+              placeholder="Search to Filter Flaws"
               optionFilterProp="children"
               filterOption={(input, option) =>
                 option.children.toLowerCase().indexOf(input.toLowerCase()) >= 0
@@ -130,6 +139,9 @@ export function Flaw({ app }) {
               onSelect={handleFilterType}
             >
               {map(clanNames, item => (
+                <Select.Option value={item}>{item}</Select.Option>
+              ))}
+              {map(meritClanNames, item => (
                 <Select.Option value={item}>{item}</Select.Option>
               ))}
             </Select>
@@ -192,7 +204,7 @@ export function Flaw({ app }) {
           </div>
 
           <div className="col-md-12">
-            <div className="header-disciplines" style={{ marginLeft: '116px'}}>
+            <div className="header-disciplines" style={{ marginLeft: '116px' }}>
               <div
                 className="disc-cols3 sort-down"
                 onClick={() => handleSortingByLevel('flaw')}

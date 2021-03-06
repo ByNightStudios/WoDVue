@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Card, Row, Col, Typography } from 'antd';
-import { map, find, get, isEmpty } from 'lodash';
+import { map, find, get, isEmpty, includes } from 'lodash';
 import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -51,6 +51,7 @@ export function ClanPage(props) {
     clans: { data: clanItems },
   } = app;
 
+  console.log(clanItems);
   useEffect(() => {
     const {
       match: {
@@ -70,21 +71,27 @@ export function ClanPage(props) {
   }
 
   function getClassName(item) {
-    if (item === 'Followers of Set') {
+    if (includes(item, 'Followers of Set')) {
       return 'icon-FollowersofSet';
     }
-    if (item === 'Daughters of Cacophony') {
+    if (includes(item, 'Daughters of Cacophony')) {
       return 'icon-DaughtersofCacophony';
+    }
+    if (includes(item, 'Assamite')) {
+      return 'icon-Assamites';
     }
     return `icon-${item}`;
   }
 
   function getClassHeaderName(item) {
-    if (item === 'Followers of Set') {
+    if (includes(item, 'Followers of Set')) {
       return 'icon-FollowersofSet';
     }
-    if (item === 'Daughters of Cacophony') {
+    if (includes(item, 'Daughters of Cacophony')) {
       return 'icon-DaughtersofCacophony';
+    }
+    if (includes(item, 'Assamite')) {
+      return 'icon-Assamites';
     }
     return `icon-${item}`;
   }
@@ -161,7 +168,9 @@ export function ClanPage(props) {
                           style={{ marginRight: 10 }}
                           onClick={() => {
                             history.push(
-                              `/WoDVue/monsters/vampire/Disciplines/${item.fields.title}`,
+                              `/WoDVue/monsters/vampire/Disciplines/${
+                                item.fields.title
+                              }`,
                               item,
                             );
                           }}
@@ -214,7 +223,9 @@ export function ClanPage(props) {
                       get(selectedClan, 'inClanMerits', []),
                       (item, index) => (
                         <Link
-                          to={`/WoDVue/monsters/vampire/Merits/${item.fields.merit}`}
+                          to={`/WoDVue/monsters/vampire/Merits/${
+                            item.fields.merit
+                          }`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
                           onClick={() => {
@@ -237,7 +248,9 @@ export function ClanPage(props) {
                   <Row>
                     {map(get(selectedClan, 'flaws', []), (item, index) => (
                       <Link
-                        to={`/WoDVue/monsters/vampire/Flaws/${item.fields.flaw}`}
+                        to={`/WoDVue/monsters/vampire/Flaws/${
+                          item.fields.flaw
+                        }`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
                         onClick={() => {
@@ -383,7 +396,10 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Disciplines"
+                  >
                     Disciplines
                   </a>
                 </li>
@@ -396,12 +412,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Skills"
+                  >
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Merits"
+                  >
                     Merits
                   </a>
                 </li>
@@ -411,12 +433,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Attributes"
+                  >
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Backgrounds"
+                  >
                     Backgrounds
                   </a>
                 </li>
