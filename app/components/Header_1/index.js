@@ -48,6 +48,11 @@ function Header_1() {
                     Contributors
                   </a>
                 </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/SupportUs" title="Contributors">
+                    Support Us
+                  </a>
+                </li>
               </ul>
               <ul className="navbar-nav navbarSocial">
                 <li className="nav-item">

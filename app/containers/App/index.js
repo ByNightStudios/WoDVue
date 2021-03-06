@@ -34,6 +34,7 @@ import RitualsListing from 'containers/RitualsListing/Loadable';
 import QuickStart from 'containers/QuickStart/Loadable';
 import Backers from 'containers/Backers/Loadable';
 import Contributors from 'containers/Contributors/Loadable';
+import SupportUs from 'containers/SupportUs/Loadable';
 
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
@@ -132,6 +133,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/QuickStart" component={QuickStart} />
         <Route exact path="/Backers" component={Backers} />
         <Route exact path="/Contributors" component={Contributors} />
+        <Route exact path="/SupportUs" component={SupportUs} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />
