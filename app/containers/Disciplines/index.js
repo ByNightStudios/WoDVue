@@ -9,7 +9,6 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
@@ -43,8 +42,6 @@ import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getDropDownItems } from './actions';
-
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -60,8 +57,6 @@ export function ClanPage(props) {
   const {
     disciplines: { data: clanItems },
   } = app;
-
-
 
   const filterClans = uniqBy(
     sortBy(filter(clanItems, o => o.parent), 'title'),
@@ -145,10 +140,6 @@ export function ClanPage(props) {
     }
     return false;
   }
-
-  console.log(clanItems);
-  console.log(clanItems.length);
-  console.log(filterClans);
 
   return (
     <div className="clan-page">
@@ -575,8 +566,6 @@ export function ClanPage(props) {
 
 ClanPage.propTypes = {
   ...ClanPage,
-  onRequestData: PropTypes.func,
-  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -588,8 +577,6 @@ const mapStateToProps = createStructuredSelector({
 function mapDispatchToProps(dispatch) {
   return {
     dispatch,
-    // onRequestData: () => dispatch(getData()),
-    // OnRequestDropDownItems: params => dispatch(getDropDownItems(params)),
   };
 }
 

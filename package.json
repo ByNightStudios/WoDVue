@@ -74,6 +74,7 @@
     "compression": "1.7.4",
     "connected-react-router": "6.4.0",
     "contentful": "^8.1.7",
+    "contentful-import": "^7.9.40",
     "copy-webpack-plugin": "4.5.2",
     "cross-env": "5.2.0",
     "dotenv": "8.2.0",

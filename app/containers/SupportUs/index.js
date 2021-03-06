@@ -8,7 +8,7 @@ import React, { memo, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
-import { FormattedMessage } from 'react-intl';
+
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get } from 'lodash';
@@ -17,7 +17,7 @@ import { useInjectReducer } from 'utils/injectReducer';
 import makeSelectQuickStart from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-import messages from './messages';
+
 import { defaultAction } from './actions';
 import './style.css';
 
@@ -29,7 +29,6 @@ export function QuickStart({ getContentPage, quickStart }) {
     getContentPage();
   }, []);
 
-  console.log(quickStart);
 
   return (
     <div>
