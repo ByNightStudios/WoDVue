@@ -1,5 +1,5 @@
 import { put, takeLatest, select } from 'redux-saga/effects';
-import { orderBy, filter, sortBy } from 'lodash';
+import { orderBy, filter, sortBy, concat } from 'lodash';
 import localforage from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
 
@@ -85,6 +85,10 @@ function* handleGetAppData() {
 
   try {
     const contentfulData = extractEntryDataFromResponse(mockAppData);
+    const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');
+    const RitualsDataMock2 = filter(contentfulData, 'necromancy');
+    const RitualsDataMock3 = filter(contentfulData, 'abyssal');
+
     yield put(getDataSuccess(contentfulData));
     const clanAppData = filter(contentfulData, o => o.inClanMerits);
     const orderByData2 = orderBy(
@@ -144,7 +148,11 @@ function* handleGetAppData() {
     saveState('techniques', orderByData777);
     yield put(techniquesDataSuccess(orderByData777));
 
-    const contentfulData7771 = extractEntryDataFromResponse(techniqueMock);
+    const contentfulData7771 = concat(
+      RitualsDataMock1,
+      RitualsDataMock2,
+      RitualsDataMock3,
+    );
     const orderByData7771 = orderBy(
       contentfulData7771,
       [item => getItems(item).toLowerCase()],
@@ -258,14 +266,17 @@ function* handleDisciplineData() {
     //   skip,
     //   limit,
     // });
+    const contentfulData = extractEntryDataFromResponse(mockAppData);
+    const disciplineDataMock2 = filter(contentfulData, o => o.power);
 
     const orderByData6 = orderBy(
-      disciplineDataMock,
+      disciplineDataMock2,
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
+    console.log(e);
     //
   }
 }
