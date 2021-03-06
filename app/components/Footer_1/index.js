@@ -39,27 +39,42 @@ function Footer_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines/">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Disciplines/"
+                  >
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Rituals">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Rituals"
+                  >
                     Rituals
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Techniques"
+                  >
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Skills"
+                  >
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Merits"
+                  >
                     Merits
                   </a>
                 </li>
@@ -69,12 +84,18 @@ function Footer_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Attributes"
+                  >
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Backgrounds"
+                  >
                     Backgrounds
                   </a>
                 </li>
@@ -112,6 +133,36 @@ function Footer_1() {
               </a>
             </div>
           </div>
+        </div>
+        <div className="bottom-footer">
+          <p>
+            <form
+              action="https://www.paypal.com/donate"
+              method="post"
+              target="_top"
+            >
+              <input
+                type="hidden"
+                name="hosted_button_id"
+                value="8PUS5TKR868YA"
+              />
+              <input
+                type="image"
+                src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"
+                border="0"
+                name="submit"
+                title="PayPal - The safer, easier way to pay online!"
+                alt="Donate with PayPal button"
+              />
+              <img
+                alt=""
+                border="0"
+                src="https://www.paypal.com/en_US/i/scr/pixel.gif"
+                width="1"
+                height="1"
+              />
+            </form>
+          </p>
         </div>
       </footer>
       <div className="bottom-footer">

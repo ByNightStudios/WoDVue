@@ -6,12 +6,18 @@ const getEntryData = (object, assestData) => object;
 const getBooleanValue = field => field;
 
 const getObjectValue = (field, fieldName, assestData) => {
+  console.log(field, fieldName);
   if (fieldName === 'sourceBook') {
     return intersectionWith(get(assestData, 'Entry', []), [field], (a, b) =>
       isEqual(a.sys.id, b.sys.id),
     );
   }
-  if (field.sys) {
+  if (fieldName === 'clanSymbol') {
+    return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
+      isEqual(a.sys.id, b.sys.id),
+    );
+  }
+  if (field.sys && fieldName !== 'clanSymbol') {
     return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
       isEqual(a.sys.id, b.sys.id),
     );
@@ -153,6 +159,6 @@ const extractEntryDataFromResponse = (
     return getUnsortedEntriesWithMedia;
   }
   return false;
-}
+};
 
 export default extractEntryDataFromResponse;

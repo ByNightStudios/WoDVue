@@ -32,7 +32,24 @@ function Header_1() {
           </div>
           <div className="col-md-9">
             <div className="navbar navbarUpper" id="navbarUpper">
-              <ul className="navbar-nav ml-auto navbarSocial">
+              <ul className="navbar-nav ml-auto mr-auto navbarExtra hideMobile">
+                <li className="nav-item">
+                  <a className="nav-link" href="/QuickStart" title="QuickStart">
+                    QuickStart
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/Backers" title="Backers">
+                    Backers
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#" title="Contributors">
+                    Contributors
+                  </a>
+                </li>
+              </ul>
+              <ul className="navbar-nav navbarSocial">
                 <li className="nav-item">
                   <a
                     className="nav-link fa fa-facebook-square"
@@ -55,19 +72,6 @@ function Header_1() {
                   />
                 </li>
               </ul>
-
-              {/* <ul className="navbar-nav ml-0 navbarAccount">
-                <li className="nav-item active">
-                  <a className="nav-link" href="#">
-                    Sign In
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a className="nav-link" href="#">
-                    Register
-                  </a>
-                </li>
-              </ul> */}
             </div>
           </div>
           <div className="col-md-12">
@@ -86,6 +90,23 @@ function Header_1() {
               className="collapse navbar-collapse navbarBottom"
               id="navbarResponsive"
             >
+              <ul className="navbar-nav ml-auto mr-auto navbarExtra showMobile">
+                <li className="nav-item">
+                  <a className="nav-link" href="#" title="QuickStart">
+                    QuickStart
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#" title="Backers">
+                    Backers
+                  </a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="#" title="Contributors">
+                    Contributors
+                  </a>
+                </li>
+              </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <a
@@ -178,26 +199,6 @@ function Header_1() {
                     href="/WoDVue/monsters/vampire/Backgrounds"
                   >
                     Backgrounds
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/QuickStart' ? 'active' : null
-                    }`}
-                    href="/QuickStart"
-                  >
-                    Quick Start
-                  </a>
-                </li>
-                <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/Backers' ? 'active' : null
-                    }`}
-                    href="/Backers"
-                  >
-                    Backers
                   </a>
                 </li>
               </ul>

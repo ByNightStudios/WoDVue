@@ -123,3 +123,24 @@
 .icon-Ventrue:before {
   content: "\e915";
 }
+.icon-Anarch:before {
+  content: "\e91d";
+}
+.icon-Camarilla:before {
+  content: "\e91e";
+}
+.icon-Sabbat:before {
+  content: "\e91f";
+}
+.icon-Abyssal-Mysticism:before {
+  content: "\e921";
+}
+.icon-Necromancy:before {
+  content: "\e920";
+}
+.icon-Thaumaturgy:before {
+  content: "\e927";
+}
+.icon-Morality:before {
+  content: "\e928";
+}

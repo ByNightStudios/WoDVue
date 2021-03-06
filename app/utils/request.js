@@ -39,6 +39,7 @@ const getClanArt = (item, data) => {
 
 const getFieldValue = (field, fieldName, assestData) => {
   const type = helpers.typeOf(field);
+  console.log(type);
   switch (type) {
     case 'number':
     case 'string':
