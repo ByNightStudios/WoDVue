@@ -85,10 +85,11 @@ export function ClanPage(props) {
     }
     const powerOfClansData = filter(
       clanItems,
-      o => o.power === get(selectedClan, 'title'),
+      o => o.power === trim(findClanData.title),
     );
 
-    const sortedByLevel = orderBy(powerOfClansData, 'level', [direction]);
+    const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
+    const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
   }, [props]);
 
@@ -126,6 +127,7 @@ export function ClanPage(props) {
 
   function handleClanPower(sortByData) {
     const sortedByLevel = orderBy(powerOfClans, [sortByData], [direction]);
+    console.log(sortedByLevel);
     setPowerOfClans(sortedByLevel);
     if (direction === 'asc') {
       setDirection('desc');
@@ -360,72 +362,69 @@ export function ClanPage(props) {
 
                       <div className="listing-body">
                         <div className="listing">
-                          {map(
-                            sortBy(uniqBy(powerOfClans, 'title'), 'title'),
-                            (item, index) => (
-                              <p>
-                                <div className={`item discipline-${index}`}>
-                                  <div className="disc-cols3">
-                                    <span>{item.title}</span>
-                                  </div>
-                                  <div className="disc-cols3 hideMobile">
-                                    <span>{item.level}</span>
-                                  </div>
-                                  <div className="disc-cols3 hideMobile">
-                                    <span>{item.cost}</span>
-                                  </div>
-                                  <div className="disc-indicator">
-                                    <a
-                                      className="btn btn-primary collapsed"
-                                      data-toggle="collapse"
-                                      href={`#discipline-${index}`}
-                                      role="button"
-                                      aria-expanded="false"
-                                      aria-controls={`discipline-${index}`}
-                                    >
-                                      <i className="fa" />
-                                    </a>
-                                  </div>
+                          {map(powerOfClans, (item, index) => (
+                            <p>
+                              <div className={`item discipline-${index}`}>
+                                <div className="disc-cols3">
+                                  <span>{item.title}</span>
                                 </div>
-                                <div
-                                  className="collapse"
-                                  id={`discipline-${index}`}
-                                >
-                                  <div className="box-summary">
-                                    <div className="details">
-                                      <ul>
-                                        <li>
-                                          <span>Level</span>
-                                          {item.level}
-                                        </li>
-                                        <li>
-                                          <span>Cost</span>Varies
-                                        </li>
-                                      </ul>
-                                    </div>
-                                    <h3>SUMMARY</h3>
-                                    {map(item.summary, d => (
-                                      <p>{d}</p>
-                                    ))}
-                                    <a
-                                      className="btn btn-primary"
-                                      onClick={() => {
-                                        window.scrollTo({
-                                          top: 0,
-                                          behavior: 'smooth',
-                                        });
-                                        setSelectedClan(item);
-                                      }}
-                                    >
-                                      <span style={{ color: '#fff' }}>
-                                        Details
-                                      </span>
-                                    </a>
-                                  </div>
+                                <div className="disc-cols3 hideMobile">
+                                  <span>{item.level}</span>
                                 </div>
-                              </p>
-                            ),
-                          )}
+                                <div className="disc-cols3 hideMobile">
+                                  <span>{item.cost}</span>
+                                </div>
+                                <div className="disc-indicator">
+                                  <a
+                                    className="btn btn-primary collapsed"
+                                    data-toggle="collapse"
+                                    href={`#discipline-${index}`}
+                                    role="button"
+                                    aria-expanded="false"
+                                    aria-controls={`discipline-${index}`}
+                                  >
+                                    <i className="fa" />
+                                  </a>
+                                </div>
+                              </div>
+                              <div
+                                className="collapse"
+                                id={`discipline-${index}`}
+                              >
+                                <div className="box-summary">
+                                  <div className="details">
+                                    <ul>
+                                      <li>
+                                        <span>Level</span>
+                                        {item.level}
+                                      </li>
+                                      <li>
+                                        <span>Cost</span>Varies
+                                      </li>
+                                    </ul>
+                                  </div>
+                                  <h3>SUMMARY</h3>
+                                  {map(item.summary, d => (
+                                    <p>{d}</p>
+                                  ))}
+                                  <a
+                                    className="btn btn-primary"
+                                    onClick={() => {
+                                      window.scrollTo({
+                                        top: 0,
+                                        behavior: 'smooth',
+                                      });
+                                      setSelectedClan(item);
+                                    }}
+                                  >
+                                    <span style={{ color: '#fff' }}>
+                                      Details
+                                    </span>
+                                  </a>
+                                </div>
+                              </div>
+                            </p>
+                          ))}
                         </div>
                       </div>
                     </div>
@@ -472,7 +471,10 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Disciplines"
+                  >
                     Disciplines
                   </a>
                 </li>
@@ -485,12 +487,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Skills"
+                  >
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Merits"
+                  >
                     Merits
                   </a>
                 </li>
@@ -500,12 +508,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Attributes"
+                  >
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Backgrounds"
+                  >
                     Backgrounds
                   </a>
                 </li>
