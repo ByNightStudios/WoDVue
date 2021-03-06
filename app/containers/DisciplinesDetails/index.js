@@ -85,7 +85,7 @@ export function ClanPage(props) {
     }
     const powerOfClansData = filter(
       clanItems,
-      o => o.power === trim(findClanData.title),
+      o => o.power === trim(get(findClanData,'title')),
     );
 
     const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
