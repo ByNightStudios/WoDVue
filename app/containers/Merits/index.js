@@ -133,6 +133,11 @@ export function Merits({ app }) {
               }
               onSelect={handleFilterType}
             >
+              <Select.Option value="Anarch">Anarch</Select.Option>
+              <Select.Option value="Camarilla">Camarilla</Select.Option>
+              <Select.Option value="Clan">Clan</Select.Option>
+              <Select.Option value="General">General</Select.Option>
+              <Select.Option value="Sabbat">Sabbat</Select.Option>
               {map(clanNames, item => (
                 <Select.Option value={item}>{item}</Select.Option>
               ))}
