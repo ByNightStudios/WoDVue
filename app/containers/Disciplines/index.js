@@ -61,6 +61,8 @@ export function ClanPage(props) {
     disciplines: { data: clanItems },
   } = app;
 
+
+
   const filterClans = uniqBy(
     sortBy(filter(clanItems, o => o.parent), 'title'),
     'title',
@@ -143,6 +145,10 @@ export function ClanPage(props) {
     }
     return false;
   }
+
+  console.log(clanItems);
+  console.log(clanItems.length);
+  console.log(filterClans);
 
   return (
     <div className="clan-page">

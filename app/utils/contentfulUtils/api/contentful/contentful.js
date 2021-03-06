@@ -27,14 +27,13 @@ let selectData = '';
 let parentData = '';
 let mySubArrayData = [];
 
-export default class APIContentful {
-  constructor() {
+class APIContentful {
+  constructor({ url }) {
     http = axios.create({
-      baseURL: '/',
+      baseURL: url,
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo`,
-        'Cache-Control': 'public',
       },
     });
 
@@ -210,12 +209,11 @@ export default class APIContentful {
     return childEntries;
   }
 
-  extractData(entryData, assestData, total) {
+  extractData(entryData, assestData) {
     const keys = Object.keys(entryData);
     const data = keys.reduce((entry, k) => {
       entry[k] = this.getFieldValue(entryData[k], k, assestData);
       entry[`${k}_html`] = this.getEntryData(entryData[k], assestData);
-      entry.total_items = total;
       return entry;
     }, {});
     return data;
@@ -253,16 +251,17 @@ export default class APIContentful {
   }
 
   getObjectValue(field, fieldName, assestData) {
-    if (fieldName === 'sourceBook') {
+    if(fieldName === 'sourceBook'){
       return intersectionWith(get(assestData, 'Entry', []), [field], (a, b) =>
         isEqual(a.sys.id, b.sys.id),
       );
-    }
+
+    } else
     if (field.sys) {
       return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
         isEqual(a.sys.id, b.sys.id),
       );
-    }
+    } else
     if (!isEmpty(field.content)) {
       const contentAry = field.content
         .map(c => c.content)
@@ -330,37 +329,32 @@ export default class APIContentful {
     return item;
   }
 
-
   extractEntryDataFromResponse(
     resContentful,
     initialVals = null,
     sortField = null,
   ) {
-    if(!isEmpty(resContentful)){
-      const { items, includes, total } = resContentful.data;
+    const { items, includes } = resContentful.data;
 
-      const itemObjects = map(items, i => ({
-        ...i.fields,
-        id: i.sys.id,
-      }));
-      let unsortedEntries = itemObjects.map(i =>
-        this.extractData(i, includes, total),
-      );
+    const itemObjects = items.map(i => ({
+      ...i.fields,
+      id: i.sys.id,
+    }));
+    let unsortedEntries = itemObjects.map(i => this.extractData(i, includes));
 
-      if (initialVals) {
-        unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
-      }
-      if (sortField) {
-        const sorted = this.getSortedEntries(unsortedEntries, sortField);
-        return sorted;
-      }
-
-      const getUnsortedEntriesWithMedia = unsortedEntries.map(itemData =>
-        this.getClanArt(itemData, get(includes, 'Asset', [])),
-      );
-
-      return getUnsortedEntriesWithMedia;
+    if (initialVals) {
+      unsortedEntries = this.addInitialVals(unsortedEntries, initialVals);
     }
+    if (sortField) {
+      const sorted = this.getSortedEntries(unsortedEntries, sortField);
+      return sorted;
+    }
+
+    const getUnsortedEntriesWithMedia = unsortedEntries.map(itemData =>
+      this.getClanArt(itemData, get(includes, 'Asset', [])),
+    );
+
+    return getUnsortedEntriesWithMedia;
   }
 
   async queryContentfulAsync(resource) {
@@ -429,7 +423,7 @@ export default class APIContentful {
   }
 }
 
-function apiContentful(params) {
+export default function apiContentful(params) {
   const { skip, limit, query, select, parents } = params;
   skipData = skip;
   limitData = limit;
