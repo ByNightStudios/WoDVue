@@ -44,7 +44,7 @@ function Header_1() {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#" title="Contributors">
+                  <a className="nav-link" href="/Contributors" title="Contributors">
                     Contributors
                   </a>
                 </li>
@@ -92,17 +92,17 @@ function Header_1() {
             >
               <ul className="navbar-nav ml-auto mr-auto navbarExtra showMobile">
                 <li className="nav-item">
-                  <a className="nav-link" href="#" title="QuickStart">
+                  <a className="nav-link" href="/QuickStart" title="QuickStart">
                     QuickStart
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#" title="Backers">
+                  <a className="nav-link" href="/Backers" title="Backers">
                     Backers
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="#" title="Contributors">
+                  <a className="nav-link" href="/Contributors" title="Contributors">
                     Contributors
                   </a>
                 </li>
