@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -55,6 +56,7 @@ export function ClanPage(props) {
   const [selectedClan, setSelectedClan] = useState('');
   const [powerOfClans, setPowerOfClans] = useState([]);
   const [direction, setDirection] = useState('asc');
+  const [powerClanIndex, setPowenClanIndex] = useState(-1);
 
   const { app } = props;
 
@@ -85,12 +87,13 @@ export function ClanPage(props) {
     }
     const powerOfClansData = filter(
       clanItems,
-      o => o.power === trim(get(findClanData,'title')),
+      o => o.power === trim(get(findClanData, 'title')),
     );
 
     const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
     const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
+    setPowenClanIndex(-1);
   }, [props]);
 
   function handleNavItemsClick(e) {
@@ -374,9 +377,12 @@ export function ClanPage(props) {
                                 <div className="disc-cols3 hideMobile">
                                   <span>{item.cost}</span>
                                 </div>
-                                <div className="disc-indicator">
+                                <div
+                                  className="disc-indicator"
+                                  onClick={() => setPowenClanIndex(index)}
+                                >
                                   <a
-                                    className="btn btn-primary collapsed"
+                                    className={`btn btn-primary ${index === powerClanIndex ? 'collaps' : 'collapsed'}`}
                                     data-toggle="collapse"
                                     href={`#discipline-${index}`}
                                     role="button"
@@ -388,7 +394,9 @@ export function ClanPage(props) {
                                 </div>
                               </div>
                               <div
-                                className="collapse"
+                                className={
+                                  index === powerClanIndex ? 'collapse show' : 'collapse'
+                                }
                                 id={`discipline-${index}`}
                               >
                                 <div className="box-summary">
@@ -415,6 +423,7 @@ export function ClanPage(props) {
                                         behavior: 'smooth',
                                       });
                                       setSelectedClan(item);
+                                      setPowenClanIndex(-1);
                                     }}
                                   >
                                     <span style={{ color: '#fff' }}>

@@ -106,6 +106,13 @@ export function ClanPage(props) {
                 get(selectedClan, 'title'),
               )}`}
             >
+              {/* <img
+                src={get(selectedClan, 'clanSymbol.file.url')}
+                alt=""
+                style={{
+                  width: 45,
+                }}
+              /> */}
               <h1>{get(selectedClan, 'title', '')}</h1>
               <h4 style={{ fontSize: 18 }}>
                 <i>{get(selectedClan, 'nickname', '')}</i>
@@ -460,15 +467,21 @@ export function ClanPage(props) {
                     value={items.title}
                     key={index}
                   >
-                    {console.log(items)}
                     <Link
                       to={`/WoDVue/monsters/vampire/clan/${items.title}`}
-                      className={`nav-link ${getClassName(items.title)}`}
+                      className="nav-link"
                       value={items.title}
                       onClick={() => {
                         window.scrollTo({ top: 0, behavior: 'smooth' });
                       }}
                     >
+                      <img
+                        src={get(items, 'clanSymbol.file.url')}
+                        alt={items.title}
+                        style={{
+                          width: 22,
+                        }}
+                      />{' '}
                       {items.title}
                     </Link>
                   </li>

@@ -1,6 +1,6 @@
-import { put, takeLatest, select } from 'redux-saga/effects';
+import { put, takeLatest, select, call } from 'redux-saga/effects';
 import { orderBy, filter, sortBy, concat } from 'lodash';
-import localforage from 'localforage';
+import localforage, { clear } from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
 
 import mockAppData from 'mockData/app.json';
@@ -10,7 +10,7 @@ import attributeMock from 'mockData/attribute.json';
 import backgroundMock from 'mockData/background.json';
 import ritualsMock from 'mockData/ritual.json';
 import techniqueMock from 'mockData/technique.json';
-
+import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
 import {
@@ -84,10 +84,19 @@ function* handleGetAppData() {
   } = appState;
 
   try {
+    const responseApi = yield call(apiContentful, {
+      skip,
+      limit,
+    });
+    const contentfulDataApi = yield Promise.resolve(
+      responseApi.getParentEntriesAsync,
+    );
+
+    console.log(responseApi, contentfulDataApi);
+
     const contentfulData = extractEntryDataFromResponse(mockAppData);
 
     const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');
-    console.log(RitualsDataMock1);
     const RitualsDataMock2 = filter(contentfulData, 'necromancy');
     const RitualsDataMock3 = filter(contentfulData, 'abyssal');
 
