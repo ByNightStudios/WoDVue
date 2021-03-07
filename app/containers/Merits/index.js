@@ -92,8 +92,20 @@ export function Merits({ app }) {
   }
 
   function handleFilterType(type) {
-    const filterClans = filter(data, o => get(o, 'clanSpecific[0]') === type);
-    setMeritsData(filterClans);
+    setMeritsData(data);
+    if (includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
+      const filterClans = filter(data, o => {
+        return includes(get(o, 'meritType[0]'), type);
+      });
+      setMeritsData(filterClans);
+    }
+    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
+      const filterClans = filter(data, o =>
+        includes(get(o, 'clanSpecific[0]'), type),
+      );
+      setMeritsData(filterClans);
+    }
+
     window.scrollTo({ top: 8500, behavior: 'smooth' });
   }
 
@@ -101,6 +113,7 @@ export function Merits({ app }) {
     without(map(data, o => get(o, 'clanSpecific[0]')), undefined),
   );
   clanNames.sort();
+
 
   return (
     <div>
@@ -232,7 +245,7 @@ export function Merits({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(meritsData, page, page + 10), (item, index) => (
+                {map(meritsData, (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">
@@ -240,7 +253,7 @@ export function Merits({ app }) {
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>
-                          {get(item, 'meritType[0]')} -{' '}
+                          {get(item, 'meritType[0]')}{' '}
                           {get(item, 'clanSpecific[0]')}
                         </span>
                       </div>

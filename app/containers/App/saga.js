@@ -29,18 +29,15 @@ import {
 // const apiContentManager = new APIContentful();
 // Individual exports for testing
 
-localforage.setDriver(localforage.LOCALSTORAGE);
-
-const loadState = (stateData, cb) => {
-  try {
-    localforage.getItem(`${stateData}`, (err, state) => {
-      if (err) return cb(err);
-      return cb(JSON.parse(state));
-    });
-  } catch (err) {
-    return cb(null, {});
-  }
-};
+localforage.config({
+  driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
+  name: 'NightStudio',
+  version: 1.0,
+  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
+  storeName: 'NightStudio', // Should be alphanumeric, with underscores.
+  description:
+    'The official licensed publisher of new Mind`s Eye Theatre products for World of Darkness. Like us for product news and more. Night is rising.',
+});
 
 const saveState = (name, state) => {
   try {
@@ -82,16 +79,8 @@ function* handleGetAppData() {
     skills: { data: skillsData },
     techniques: { data: techniquesData },
   } = appState;
-
+  clear();
   try {
-    // const responseApi = yield call(apiContentful, {
-    //   skip,
-    //   limit,
-    // });
-    // const contentfulDataApi = yield Promise.resolve(
-    //   responseApi.getParentEntriesAsync,
-    // );
-
     const contentfulData = extractEntryDataFromResponse(mockAppData);
 
     const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');
@@ -105,9 +94,13 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    saveState('data', JSON.stringify(mockAppData));
+
     yield put(clanDataSuccess(orderByData2));
-    const flawsAppData = sortBy(filter(contentfulData, o => o.flaw), 'flaw');
+
+    const flawsAppData = sortBy(
+      filter(contentfulData, o => o.flawType),
+      'flaw',
+    );
     const orderByData3 = orderBy(
       flawsAppData,
       [item => getItems(item).toLowerCase()],
