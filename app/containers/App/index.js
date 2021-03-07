@@ -57,8 +57,6 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
     if (disciplineHasMore) {
       onRequestData();
       onRequestDisciplineData();
-
-      console.log(disciplineHasMore);
     }
   }, []);
 

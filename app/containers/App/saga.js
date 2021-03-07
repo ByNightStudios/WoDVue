@@ -1,19 +1,16 @@
-import { put, takeLatest, select, call } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import { orderBy, filter, sortBy, concat } from 'lodash';
 import localforage, { clear } from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
 
 import mockAppData from 'mockData/app.json';
-import disciplineDataMock from 'mockData/disciplineData.json';
 import skillMock from 'mockData/skill.json';
 import attributeMock from 'mockData/attribute.json';
 import backgroundMock from 'mockData/background.json';
 import ritualsMock from 'mockData/ritual.json';
-import techniqueMock from 'mockData/technique.json';
 import clanMock from 'mockData/clan.json';
-import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
-import { makeSelectApp } from './selectors';
+// import { makeSelectApp } from './selectors';
 import {
   disciplineDataSuccess,
   clanDataSuccess,
@@ -67,34 +64,8 @@ function getItems(item) {
 }
 
 function* handleGetAppData() {
-  const appState = yield select(makeSelectApp());
-
-  const {
-    appData: { skip, limit, hasMore, data },
-    attributes: { data: arributesData },
-    backgrounds: { data: backgroundsData },
-    clans: { data: clansData },
-    disciplines: { data: DisciplinesData },
-    flaws: { data: flawsData },
-    merits: { data: meritsData },
-    skills: { data: skillsData },
-    techniques: { data: techniquesData },
-  } = appState;
   clear('NightStudio');
-
-  // try {
-  //   const response1 = yield call(apiContentful, {
-  //     query: 'techniques',
-  //     select: 'fields,sys.id',
-  //     parents: '',
-  //   });
-  //   console.log(response1);
-  // } catch (e) {
-  //   // yield put(dropDownItemsError(e));
-  // }
-
   try {
-    // }
     const contentfulData = extractEntryDataFromResponse(mockAppData);
 
     const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');
@@ -128,7 +99,6 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    console.log(meritByData4.length);
 
     yield put(meritsDataSuccess(meritByData4));
 
@@ -165,7 +135,6 @@ function* handleGetAppData() {
       ['asc'],
     );
     saveState('techniques', orderByData777);
-    console.log(orderByData777.length);
     yield put(techniquesDataSuccess(orderByData777));
 
     const contentfulData7771 = concat(
@@ -183,109 +152,10 @@ function* handleGetAppData() {
   } catch (e) {
     //
   }
-  if (skip > 1200) {
-    // if (isEmpty(arributesData)) {
-    //   try {
-    //     const response1 = yield call(apiContentful, {
-    //       query: 'attributes',
-    //       select: 'fields,sys.id',
-    //       parents: '',
-    //     });
-    //     const contentfulData1 = yield Promise.resolve(
-    //       response1.getParentEntriesAsync,
-    //     );
-    //     const orderByData6 = orderBy(
-    //       contentfulData1,
-    //       [item => getItems(item).toLowerCase()],
-    //       ['asc'],
-    //     );
-    //     saveState('attributes', orderByData6);
-    //     yield put(attributeDataSuccess(orderByData6));
-    //   } catch (e) {
-    //     // yield put(dropDownItemsError(e));
-    //   }
-    // }
-    // if (isEmpty(backgroundsData)) {
-    //   try {
-    //     const response7 = yield call(apiContentful, {
-    //       query: 'backgrounds',
-    //       select: 'fields,sys.id',
-    //       parents: '',
-    //     });
-    //     const contentfulData7 = yield Promise.resolve(
-    //       response7.getParentEntriesAsync,
-    //     );
-    //     const orderByData7 = orderBy(
-    //       contentfulData7,
-    //       [item => getItems(item).toLowerCase()],
-    //       ['asc'],
-    //     );
-    //     saveState('backgrounds', orderByData7);
-    //     yield put(backgroundDataSuccess(orderByData7));
-    //   } catch (e) {
-    //     // yield put(dropDownItemsError(e));
-    //   }
-    // }
-    // if (isEmpty(skillsData)) {
-    //   try {
-    //     const response77 = yield call(apiContentful, {
-    //       query: 'skills',
-    //       select: 'fields,sys.id',
-    //       parents: '',
-    //     });
-    //     const contentfulData77 = yield Promise.resolve(
-    //       response77.getParentEntriesAsync,
-    //     );
-    //     const orderByData77 = orderBy(
-    //       contentfulData77,
-    //       [item => getItems(item).toLowerCase()],
-    //       ['asc'],
-    //     );
-    //     saveState('skills', orderByData77);
-    //     yield put(skillDataSuccess(orderByData77));
-    //   } catch (e) {
-    //     // yield put(dropDownItemsError(e));
-    //   }
-    // }
-    // if (isEmpty(techniquesData)) {
-    //   try {
-    //     const response777 = yield call(apiContentful, {
-    //       query: 'techniques',
-    //       select: 'fields,sys.id',
-    //       parents: '',
-    //     });
-    //     const contentfulData777 = yield Promise.resolve(
-    //       response777.getParentEntriesAsync,
-    //     );
-    //     const orderByData777 = orderBy(
-    //       contentfulData777,
-    //       [item => getItems(item).toLowerCase()],
-    //       ['asc'],
-    //     );
-    //     saveState('techniques', orderByData777);
-    //     yield put(techniquesDataSuccess(orderByData777));
-    //   } catch (e) {
-    //     // yield put(dropDownItemsError(e));
-    //   }
-    // }
-  }
 }
 
 function* handleDisciplineData() {
-  const appState = yield select(makeSelectApp());
-
-  const {
-    appData: { skip, limit },
-    disciplines: { data: DisciplinesData },
-  } = appState;
   try {
-    // const response10 = yield call(apiContentful, {
-    //   query: 'discipline',
-    //   select: 'fields,sys.id',
-    //   parents: '',
-    //   skip,
-    //   limit,
-    // });
     const contentfulData = extractEntryDataFromResponse(mockAppData);
     const disciplineDataMock2 = filter(contentfulData, o => o.power);
 

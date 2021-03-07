@@ -151,7 +151,6 @@ export function ClanPage(props) {
     return data;
   }
 
-  console.log(selectedClan);
 
   return (
     <div className="clan-page">

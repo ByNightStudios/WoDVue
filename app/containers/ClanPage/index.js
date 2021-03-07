@@ -95,7 +95,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  console.log(selectedClan);
 
   return (
     <div className="clan-page">
