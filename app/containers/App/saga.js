@@ -10,6 +10,7 @@ import attributeMock from 'mockData/attribute.json';
 import backgroundMock from 'mockData/background.json';
 import ritualsMock from 'mockData/ritual.json';
 import techniqueMock from 'mockData/technique.json';
+import clanMock from 'mockData/clan.json';
 import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 import { makeSelectApp } from './selectors';
@@ -101,7 +102,8 @@ function* handleGetAppData() {
     const RitualsDataMock3 = filter(contentfulData, 'abyssal');
 
     yield put(getDataSuccess(contentfulData));
-    const clanAppData = filter(contentfulData, o => o.inClanMerits);
+
+    const clanAppData = extractEntryDataFromResponse(clanMock);
     const orderByData2 = orderBy(
       clanAppData,
       [item => getItems(item).toLowerCase()],
@@ -126,6 +128,8 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
+    console.log(meritByData4.length);
+
     yield put(meritsDataSuccess(meritByData4));
 
     const contentfulData77 = extractEntryDataFromResponse(skillMock);
