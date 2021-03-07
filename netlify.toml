@@ -1,6 +1,6 @@
 [build]
   command = "echo 'hello Netlify build'"
-  publish = "fixtures/publishDir"
+  publish = "build"
   functions = "fixtures/functions"
 
 [[plugins]]
