@@ -42,7 +42,7 @@ const client = contentful.createClient({
   accessToken: 'rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo',
 });
 
-let skipCount = 0;
+let skipCount1 = 0;
 let hasMore = false;
 
 client
