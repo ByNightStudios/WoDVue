@@ -80,6 +80,18 @@ function* handleGetAppData() {
     techniques: { data: techniquesData },
   } = appState;
   clear('NightStudio');
+
+  try {
+    const response1 = yield call(apiContentful, {
+      query: 'techniques',
+      select: 'fields,sys.id',
+      parents: '',
+    });
+    console.log(response1);
+  } catch (e) {
+    // yield put(dropDownItemsError(e));
+  }
+
   try {
     // }
     const contentfulData = extractEntryDataFromResponse(mockAppData);
@@ -149,6 +161,7 @@ function* handleGetAppData() {
       ['asc'],
     );
     saveState('techniques', orderByData777);
+    console.log(orderByData777.length);
     yield put(techniquesDataSuccess(orderByData777));
 
     const contentfulData7771 = concat(
