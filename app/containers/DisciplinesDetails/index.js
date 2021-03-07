@@ -151,6 +151,8 @@ export function ClanPage(props) {
     return data;
   }
 
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -255,16 +257,7 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'exceptional')) ? (
                 <div>
                   <h2>Exceptional Success</h2>
-                  <Row gutter={[8, 8]}>
-                    <div
-                      /* eslint-disable-next-line react/no-danger */
-                      dangerouslySetInnerHTML={{
-                        __html: documentToHtmlString(
-                          selectedClan.exceptional_html,
-                        ),
-                      }}
-                    />
-                  </Row>
+                  <Row gutter={[8, 8]}>{get(selectedClan, 'exceptional')}</Row>
                 </div>
               ) : (
                 <div />
