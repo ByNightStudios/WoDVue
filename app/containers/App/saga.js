@@ -152,7 +152,7 @@ function* handleGetAppData() {
 
     const contentfulData7771 = concat(
       RitualsDataMock1,
-      RitualsDataMock2,
+      filter(RitualsDataMock2, o => !o.power),
       RitualsDataMock3,
     );
     const orderByData7771 = orderBy(

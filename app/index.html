@@ -58,6 +58,24 @@
         siteId: '52c24889-e9da-4b12-b4e3-3efe0191edcb',
         branch: 'master',
         selector: 'div#search',
+
+        // Optional
+        analytics: true,                                // Enable search analytics
+        hitsPerPage: 5,                                 // Amount of results to display
+        poweredBy: true,                                // Controls displaying the logo (mandatory with our FREE plan)
+        placeholder: 'Search...',                       // Input placeholder
+        openOnFocus: true,                              // Open search panel with default search, when focusing input
+        detached: { mediaQuery: '(max-width: 500px)' }, // Determine when the search popup should open in detached mode (full screen, modal experience). Can be set to `true` or `false` to always/never go in detached mode.
+
+        // Theme
+        theme: {
+          mark: '#fff',                                 // Color of the matching content
+          background: '#23263b',                        // Background Color of the input and the panel
+          selected: '#111432',                          // Background Color of the selected item
+          text: '#d6d6e7',                              // Color of the title of the items
+          colorSourceIcon: '#d6d6e7'                    // Color of the icon on the left of results
+        }
+
       });
     </script>
 <script>
