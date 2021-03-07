@@ -85,7 +85,9 @@ function* handleGetAppData() {
 
   try {
     const contentfulData = extractEntryDataFromResponse(mockAppData);
+
     const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');
+    console.log(RitualsDataMock1);
     const RitualsDataMock2 = filter(contentfulData, 'necromancy');
     const RitualsDataMock3 = filter(contentfulData, 'abyssal');
 
