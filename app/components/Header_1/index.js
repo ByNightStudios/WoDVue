@@ -239,11 +239,6 @@ function Header_1() {
           </div>
         </div>
       </div>
-      <div
-        id="div#search"
-        className="div#search"
-        style={{ width: 100, height: 30 }}
-      />
     </nav>
   );
 }
