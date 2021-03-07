@@ -80,7 +80,27 @@ function* handleGetAppData() {
     techniques: { data: techniquesData },
   } = appState;
   clear();
+
   try {
+    const response1 = yield call(apiContentful, {
+      skip,
+      limit,
+    });
+    const contentfulData1 = yield Promise.resolve(
+      response1.getParentEntriesAsync,
+    );
+    const orderByData6 = orderBy(
+      contentfulData1,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    yield put(disciplineDataSuccess(orderByData6));
+  } catch (e) {
+    // yield put(dropDownItemsError(e));
+  }
+
+  try {
+    // }
     const contentfulData = extractEntryDataFromResponse(mockAppData);
 
     const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');

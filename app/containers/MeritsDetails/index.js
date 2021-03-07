@@ -89,7 +89,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-
   return (
     <div className="clan-page">
       <div className="container main-content">
@@ -281,22 +280,34 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Disciplines"
+                  >
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Techniques"
+                  >
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Skills"
+                  >
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Merits"
+                  >
                     Merits
                   </a>
                 </li>
@@ -306,12 +317,18 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Attributes"
+                  >
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
+                  <a
+                    className="nav-link"
+                    href="/WoDVue/monsters/vampire/Backgrounds"
+                  >
                     Backgrounds
                   </a>
                 </li>

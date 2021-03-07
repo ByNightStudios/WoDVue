@@ -211,7 +211,7 @@ function Header_1() {
           </div>
         </div>
       </div>
-      <div id="div#search" style={{ width: 100, height: 30 }} />
+      <div id="#search" style={{ width: 100, height: 30 }} />
     </nav>
   );
 }
