@@ -81,16 +81,16 @@ function* handleGetAppData() {
   } = appState;
   clear('NightStudio');
 
-  try {
-    const response1 = yield call(apiContentful, {
-      query: 'techniques',
-      select: 'fields,sys.id',
-      parents: '',
-    });
-    console.log(response1);
-  } catch (e) {
-    // yield put(dropDownItemsError(e));
-  }
+  // try {
+  //   const response1 = yield call(apiContentful, {
+  //     query: 'techniques',
+  //     select: 'fields,sys.id',
+  //     parents: '',
+  //   });
+  //   console.log(response1);
+  // } catch (e) {
+  //   // yield put(dropDownItemsError(e));
+  // }
 
   try {
     // }
