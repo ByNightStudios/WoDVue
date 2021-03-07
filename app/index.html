@@ -48,6 +48,18 @@
       crossorigin="anonymous"
     ></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XFK6E7DE4"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css" />
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
+    <script type="text/javascript">
+      algoliasearchNetlify({
+        appId: 'FLL6X8YRIN',
+        apiKey: 'c119ed5ee357491175144486cc23ab97',
+        siteId: '52c24889-e9da-4b12-b4e3-3efe0191edcb',
+        branch: 'master',
+        selector: 'div#search',
+      });
+    </script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
