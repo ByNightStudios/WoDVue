@@ -23,7 +23,6 @@ function Header_1() {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top navbarHeader">
-      <div id="#search" style={{ width: 100, height: 30 }} />
       <div className="container">
         <div className="row">
           <div className="col-md-3 boxLogos">
@@ -212,6 +211,7 @@ function Header_1() {
           </div>
         </div>
       </div>
+      <div id="div#search" style={{ width: 100, height: 30 }} />
     </nav>
   );
 }
