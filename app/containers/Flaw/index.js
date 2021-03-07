@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable react/no-unused-prop-types */
 /* eslint-disable react/button-has-type */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -68,14 +70,23 @@ export function Flaw({ app }) {
     setMeritLevel(value);
   }
 
-  function handleFilter() {
-    const meritFilterData = filter(data, o => {
-      if (includes(toLower(o.flaw), toLower(merit))) {
-        return o;
-      }
-      return undefined;
-    });
-    setMeritsData(meritFilterData);
+
+  function handleFilter(type) {
+    setMeritsData(data);
+    if (includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
+      const filterClans = filter(data, o => {
+        return includes(get(o, 'flawType[0]'), type);
+      });
+      setMeritsData(filterClans);
+    }
+    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
+      const filterClans = filter(data, o =>
+        includes(get(o, 'clanSpecific[0]'), type),
+      );
+      setMeritsData(filterClans);
+    }
+
+    window.scrollTo({ top: 8500, behavior: 'smooth' });
   }
 
   function handleSortingByLevel(type) {
@@ -97,12 +108,6 @@ export function Flaw({ app }) {
     without(map(meritData, o => get(o, 'clanSpecific[0]')), undefined),
   );
   meritClanNames.sort();
-
-  function handleFilterType(type) {
-    const filterClans = filter(data, o => get(o, 'flawType[0]') === type);
-    setMeritsData(filterClans);
-    window.scrollTo({ top: 800, behavior: 'smooth' });
-  }
 
   return (
     <div className="page-white">
@@ -136,7 +141,7 @@ export function Flaw({ app }) {
                   .toLowerCase()
                   .localeCompare(optionB.children.toLowerCase())
               }
-              onSelect={handleFilterType}
+              onSelect={handleFilter}
             >
               {map(clanNames, item => (
                 <Select.Option value={item}>{item}</Select.Option>
@@ -228,7 +233,7 @@ export function Flaw({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(meritsData, page, page + 10), (item, index) => (
+                {map(meritsData, (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">

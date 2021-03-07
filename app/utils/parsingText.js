@@ -12,9 +12,17 @@ const getObjectValue = (field, fieldName, assestData) => {
     );
   }
   if (fieldName === 'clanSymbol') {
-    return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
-      isEqual(a.sys.id, b.sys.id),
+    const clanSymbolData = intersectionWith(
+      get(assestData, 'Asset', []),
+      [field],
+      (a, b) => {
+        if (isEqual(a.sys.id, b.sys.id)) {
+          return a;
+        }
+        return false;
+      },
     );
+    return get(clanSymbolData, '[0].fields');
   }
   if (field.sys && fieldName !== 'clanSymbol') {
     return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
@@ -118,16 +126,6 @@ const getClanArt = (item, data) => {
       ...item,
       clanArt:
         item.clanArt[0].sys.id === data[0].sys.id
-          ? data[0].fields.file.url
-          : '',
-    };
-    return mediaData;
-  }
-  if (item.clanSymbol) {
-    const mediaData = {
-      ...item,
-      clanSymbol:
-        item.clanSymbol[0].sys.id === data[0].sys.id
           ? data[0].fields.file.url
           : '',
     };
