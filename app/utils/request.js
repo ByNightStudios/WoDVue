@@ -39,7 +39,6 @@ const getClanArt = (item, data) => {
 
 const getFieldValue = (field, fieldName, assestData) => {
   const type = helpers.typeOf(field);
-  console.log(type);
   switch (type) {
     case 'number':
     case 'string':
@@ -139,8 +138,6 @@ const extractEntryDataFromResponse = resContentful => {
   return getUnsortedEntriesWithMedia;
 };
 
-console.log(cache);
-
 export const axiosInstance = axios.create({
   baseURL:
     'https://cdn.contentful.com/spaces/yicuw1hpxsdg/environments/master/entries',
@@ -153,10 +150,7 @@ export const axiosInstance = axios.create({
 });
 
 /* eslint no-param-reassign:0 */
-axiosInstance.interceptors.request.use(config => {
-  console.log(config);
-  return config;
-});
+axiosInstance.interceptors.request.use(config => config);
 
 axiosInstance.interceptors.response.use(
   response => response,

@@ -69,8 +69,6 @@ export function ClanPage(props) {
     'title',
   );
 
-  // const powerOfAllClans = uniqBy(clanItems, 'title');
-
   useEffect(() => {
     const {
       match: {
@@ -130,7 +128,6 @@ export function ClanPage(props) {
 
   function handleClanPower(sortByData) {
     const sortedByLevel = orderBy(powerOfClans, [sortByData], [direction]);
-    console.log(sortedByLevel);
     setPowerOfClans(sortedByLevel);
     if (direction === 'asc') {
       setDirection('desc');
@@ -148,6 +145,10 @@ export function ClanPage(props) {
       return mappedHtml;
     }
     return false;
+  }
+
+  function getFilterPower(data) {
+    return data;
   }
 
   return (
@@ -246,6 +247,42 @@ export function ClanPage(props) {
                       __html: documentToHtmlString(selectedClan.system_html),
                     }}
                   />
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'exceptional')) ? (
+                <div>
+                  <h2>Exceptional Success</h2>
+                  <Row gutter={[8, 8]}>
+                    <div
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(
+                          selectedClan.exceptional_html,
+                        ),
+                      }}
+                    />
+                  </Row>
+                </div>
+              ) : (
+                <div />
+              )}
+
+              {!isEmpty(get(selectedClan, 'exceptionalLong')) ? (
+                <div>
+                  <h2>Exceptional Success</h2>
+                  <Row gutter={[8, 8]}>
+                    <div
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(
+                          selectedClan.exceptionalLong_html,
+                        ),
+                      }}
+                    />
+                  </Row>
                 </div>
               ) : (
                 <div />
@@ -365,7 +402,7 @@ export function ClanPage(props) {
 
                       <div className="listing-body">
                         <div className="listing">
-                          {map(powerOfClans, (item, index) => (
+                          {map(getFilterPower(powerOfClans), (item, index) => (
                             <p>
                               <div className={`item discipline-${index}`}>
                                 <div className="disc-cols3">
@@ -382,7 +419,11 @@ export function ClanPage(props) {
                                   onClick={() => setPowenClanIndex(index)}
                                 >
                                   <a
-                                    className={`btn btn-primary ${index === powerClanIndex ? 'collaps' : 'collapsed'}`}
+                                    className={`btn btn-primary ${
+                                      index === powerClanIndex
+                                        ? 'collaps'
+                                        : 'collapsed'
+                                    }`}
                                     data-toggle="collapse"
                                     href={`#discipline-${index}`}
                                     role="button"
@@ -395,7 +436,9 @@ export function ClanPage(props) {
                               </div>
                               <div
                                 className={
-                                  index === powerClanIndex ? 'collapse show' : 'collapse'
+                                  index === powerClanIndex
+                                    ? 'collapse show'
+                                    : 'collapse'
                                 }
                                 id={`discipline-${index}`}
                               >

@@ -51,7 +51,6 @@ export function ClanPage(props) {
     clans: { data: clanItems },
   } = app;
 
-  console.log(clanItems);
   useEffect(() => {
     const {
       match: {

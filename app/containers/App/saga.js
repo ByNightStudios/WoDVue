@@ -84,15 +84,13 @@ function* handleGetAppData() {
   } = appState;
 
   try {
-    const responseApi = yield call(apiContentful, {
-      skip,
-      limit,
-    });
-    const contentfulDataApi = yield Promise.resolve(
-      responseApi.getParentEntriesAsync,
-    );
-
-    console.log(responseApi, contentfulDataApi);
+    // const responseApi = yield call(apiContentful, {
+    //   skip,
+    //   limit,
+    // });
+    // const contentfulDataApi = yield Promise.resolve(
+    //   responseApi.getParentEntriesAsync,
+    // );
 
     const contentfulData = extractEntryDataFromResponse(mockAppData);
 
@@ -172,7 +170,7 @@ function* handleGetAppData() {
     saveState('rituals', orderByData7771);
     yield put(ritualDataSuccess(orderByData7771));
   } catch (e) {
-    console.log(e);
+    //
   }
   if (skip > 1200) {
     // if (isEmpty(arributesData)) {
@@ -287,7 +285,6 @@ function* handleDisciplineData() {
     );
     yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
-    console.log(e);
     //
   }
 }

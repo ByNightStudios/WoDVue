@@ -12,7 +12,6 @@ function* getContentPage() {
     });
 
     const response = client.getEntry('2dTZzlq6zZDtWxn3gycudK').then(entry => {
-      console.log(entry);
       const myObject = {
         title: entry.fields.title,
         quote: documentToHtmlString(entry.fields.quote),

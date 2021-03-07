@@ -29,8 +29,6 @@ export function QuickStart({ getContentPage, quickStart }) {
     getContentPage();
   }, []);
 
-  console.log(quickStart);
-
   return (
     <div>
       <Helmet>
