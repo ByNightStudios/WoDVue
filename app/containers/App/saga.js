@@ -79,26 +79,7 @@ function* handleGetAppData() {
     skills: { data: skillsData },
     techniques: { data: techniquesData },
   } = appState;
-  clear();
-
-  try {
-    const response1 = yield call(apiContentful, {
-      skip,
-      limit,
-    });
-    const contentfulData1 = yield Promise.resolve(
-      response1.getParentEntriesAsync,
-    );
-    const orderByData6 = orderBy(
-      contentfulData1,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
-    yield put(disciplineDataSuccess(orderByData6));
-  } catch (e) {
-    // yield put(dropDownItemsError(e));
-  }
-
+  clear('NightStudio');
   try {
     // }
     const contentfulData = extractEntryDataFromResponse(mockAppData);

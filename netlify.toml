@@ -1,7 +1,0 @@
-[build]
-  command = "echo 'hello Netlify build'"
-  publish = "build"
-  functions = "fixtures/functions"
-
-[[plugins]]
-package = "@netlify/plugin-local-install-core"
