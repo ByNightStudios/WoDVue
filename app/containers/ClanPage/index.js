@@ -100,22 +100,23 @@ export function ClanPage(props) {
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
-            <div
-              className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
-              )}`}
-            >
-              {/* <img
-                src={get(selectedClan, 'clanSymbol.file.url')}
-                alt=""
-                style={{
-                  width: 45,
-                }}
-              /> */}
-              <h1>{get(selectedClan, 'title', '')}</h1>
-              <h4 style={{ fontSize: 18 }}>
+            <div className="header-single">
+              <div style={{ display: 'flex' }}>
+                <img
+                  src={get(selectedClan, 'clanSymbol.file.url')}
+                  alt=""
+                  style={{
+                    width: 45,
+                  }}
+                />
+                <div className="col-md-8">
+                <h1>{get(selectedClan, 'title', '')}</h1>
+                <h4 style={{ fontSize: 18 }}>
                 <i>{get(selectedClan, 'nickname', '')}</i>
               </h4>
+                </div>
+              </div>
+
             </div>
             <div className="boxWhite">
               <div className="row">
