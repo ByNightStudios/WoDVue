@@ -43,7 +43,7 @@ function Header_1() {
                     Backers
                   </a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className="nav-link"
                     href="/Contributors"
@@ -51,7 +51,7 @@ function Header_1() {
                   >
                     Contributors
                   </a>
-                </li>
+                </li> */}
                 <li className="nav-item">
                   <a
                     className="nav-link"
