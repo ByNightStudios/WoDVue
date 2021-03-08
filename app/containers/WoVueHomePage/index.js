@@ -27,10 +27,7 @@ export function WoVueHomePage() {
           <div className="col-lg-4 col-md-6 col-sm-6">
             <div className="box clans">
               <h4>Clans & Bloodlines</h4>
-              <a
-                href="/vampire/clan/"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/clan/" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -38,10 +35,7 @@ export function WoVueHomePage() {
           <div className="col">
             <div className="box disciplines">
               <h4>Disciplines</h4>
-              <a
-                href="/vampire/Disciplines"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Disciplines" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -49,10 +43,7 @@ export function WoVueHomePage() {
           <div className="col">
             <div className="box techniques">
               <h4>Techniques</h4>
-              <a
-                href="/vampire/Techniques/"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Techniques/" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -78,10 +69,7 @@ export function WoVueHomePage() {
           <div className="col-md-6">
             <div className="box merits">
               <h4>MERITS</h4>
-              <a
-                href="/vampire/Merits"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Merits" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -89,10 +77,7 @@ export function WoVueHomePage() {
           <div className="col-md-6">
             <div className="box flaws">
               <h4>Flaws</h4>
-              <a
-                href="/vampire/Flaws"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Flaws" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -100,10 +85,7 @@ export function WoVueHomePage() {
           <div className="col-md-6">
             <div className="box attributes">
               <h4>Attributes</h4>
-              <a
-                href="/vampire/Attributes"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Attributes" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -111,10 +93,7 @@ export function WoVueHomePage() {
           <div className="col-md-6">
             <div className="box bgs">
               <h4>Backgrounds</h4>
-              <a
-                href="/vampire/Backgrounds"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Backgrounds" className="btn btn-primary">
                 Explore
               </a>
             </div>
@@ -123,10 +102,7 @@ export function WoVueHomePage() {
           <div className="col-md-6">
             <div className="box bgs">
               <h4>RITUALS</h4>
-              <a
-                href="/vampire/Merits"
-                className="btn btn-primary"
-              >
+              <a href="/vampire/Merits" className="btn btn-primary">
                 Explore
               </a>
             </div>

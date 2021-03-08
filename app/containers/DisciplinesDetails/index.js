@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row } from 'antd';
+import { Row, Typography } from 'antd';
 import {
   map,
   filter,
@@ -28,6 +28,8 @@ import {
   slice,
   trim,
   uniqBy,
+  groupBy,
+  reduce,
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -151,7 +153,17 @@ export function ClanPage(props) {
     return data;
   }
 
-  console.log(selectedClan);
+  const groupByData1 = filter(filterClans, o => o.thaumaturgy);
+  const groupByData2 = filter(filterClans, o => o.necromancy);
+  const groupByData3 = filter(
+    filterClans,
+    o => !o.thaumaturgy && !o.necromancy,
+  );
+  const filterClansByReduce = [
+    { listName: 'disciplines', data: groupByData3 },
+    { listName: 'necromancy', data: groupByData2 },
+    { listName: 'thaumaturgy', data: groupByData1 },
+  ];
 
   return (
     <div className="clan-page">
@@ -511,34 +523,22 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Disciplines"
-                  >
+                  <a className="nav-link" href="/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Techniques"
-                  >
+                  <a className="nav-link" href="/vampire/Techniques">
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Skills"
-                  >
+                  <a className="nav-link" href="/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Merits"
-                  >
+                  <a className="nav-link" href="/vampire/Merits">
                     Merits
                   </a>
                 </li>
@@ -548,44 +548,46 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Attributes"
-                  >
+                  <a className="nav-link" href="/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Backgrounds"
-                  >
+                  <a className="nav-link" href="/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>
               </ul>
             </div>
             <div className="boxWhite">
-              <h3>DISCIPLINES</h3>
               <ul className="nav flex-column nav-clans">
-                {map(filterClans, (items, index) => (
-                  <li
-                    className="nav-item"
-                    onClick={handleNavItemsClick}
-                    value={items.title}
-                    key={index}
-                  >
-                    <Link
-                      to={`/vampire/Disciplines/${items.power}`}
-                      className={`nav-link ${getClassName(items.power)}`}
-                      value={items.power}
-                      onClick={() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    >
-                      {items.power}
-                    </Link>
-                  </li>
+                {map(filterClansByReduce, (items, index) => (
+                  <ul key={index} style={{ marginLeft: '-2vw'}}>
+                    <Typography.Title level={3}>
+                      {items.listName}
+                    </Typography.Title>
+                    <li style={{ marginLeft: 10 }}>
+                      {map(get(items, 'data'), (items1, index1) => (
+                        <li
+                          className="nav-item"
+                          onClick={handleNavItemsClick}
+                          value={items1.title}
+                          key={index1}
+                        >
+                          <Link
+                            to={`/vampire/Disciplines/${items1.power}`}
+                            className={`nav-link ${getClassName(items1.power)}`}
+                            value={items1.power}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {items1.power}
+                          </Link>
+                        </li>
+                      ))}
+                    </li>
+                  </ul>
                 ))}
               </ul>
             </div>

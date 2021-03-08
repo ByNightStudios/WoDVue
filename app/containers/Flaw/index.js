@@ -143,10 +143,10 @@ export function Flaw({ app }) {
               }
               onSelect={handleFilter}
             >
-              {map(clanNames, item => (
+              {map(uniq(clanNames), item => (
                 <Select.Option value={item}>{item}</Select.Option>
               ))}
-              {map(meritClanNames, item => (
+              {map(uniq(meritClanNames), item => (
                 <Select.Option value={item}>{item}</Select.Option>
               ))}
             </Select>

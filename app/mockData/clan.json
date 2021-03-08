@@ -12764,7 +12764,7 @@
                                 {
                                     "data": {},
                                     "marks": [],
-                                    "value": " Followers congregate in temples, usually one within every major region. That temple coordinates a network of underground cults and drug dens, spreading its vampiric priesthood over several states or territories. A Follower of Set’s clan prestige is based upon the prestige of the temple she serves and her position in its religious hierarchy. The largest and most prestigious temple is located in northern Africa, where a powerful Methuselah reigns. From there, the Grand High Priest sends out edicts to lesser temples in the name of Set.\r\n",
+                                    "value": " Followers congregate in temples, usually one within every major region. That temple coordinates a network of underground cults and drug dens, spreading its vampiric priesthood over several states or territories. A Followers of Set’s clan prestige is based upon the prestige of the temple she serves and her position in its religious hierarchy. The largest and most prestigious temple is located in northern Africa, where a powerful Methuselah reigns. From there, the Grand High Priest sends out edicts to lesser temples in the name of Set.\r\n",
                                     "nodeType": "text"
                                 }
                             ],
@@ -13622,7 +13622,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Follower of Set"
+                        "Followers of Set"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -14196,7 +14196,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Follower of Set"
+                        "Followers of Set"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -15191,7 +15191,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Follower of Set"
+                        "Followers of Set"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -17359,7 +17359,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Daughter of Cacophony"
+                        "Daughters of Cacophony"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -28936,7 +28936,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Follower of Set"
+                        "Followers of Set"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -30618,7 +30618,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Follower of Set"
+                        "Followers of Set"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -37504,7 +37504,7 @@
                         "nodeType": "document"
                     },
                     "clanSpecific": [
-                        "Daughter of Cacophony"
+                        "Daughters of Cacophony"
                     ],
                     "meritType": [
                         "Clan-Specific"
@@ -38726,7 +38726,7 @@
                                     {
                                         "data": {},
                                         "marks": [],
-                                        "value": "The music of the spheres manifests differently for every Daughter of Cacophony. For some, it is a woeful dirge, for others, a passionate aria. For you, it is especially rhythmic: a song that naturally falls in line with the rhythm of combat, regardless of the form it takes. You can use your Social attribute to determine your initiative, instead of using the greater of your Physical or Mental attributes. When comparing ties among these three categories, your initiative falls after characters with equal Physical and Mental attributes.\n\n\n",
+                                        "value": "The music of the spheres manifests differently for every Daughters of Cacophony. For some, it is a woeful dirge, for others, a passionate aria. For you, it is especially rhythmic: a song that naturally falls in line with the rhythm of combat, regardless of the form it takes. You can use your Social attribute to determine your initiative, instead of using the greater of your Physical or Mental attributes. When comparing ties among these three categories, your initiative falls after characters with equal Physical and Mental attributes.\n\n\n",
                                         "nodeType": "text"
                                     }
                                 ],
@@ -40712,8 +40712,8 @@
                     "locale": "en-US"
                 },
                 "fields": {
-                    "title": "Follower of Set art",
-                    "description": "Follower of Set art",
+                    "title": "Followers of Set art",
+                    "description": "Followers of Set art",
                     "file": {
                         "url": "//images.ctfassets.net/yicuw1hpxsdg/696fU3RjB9re2kEteBwK0J/0b35b5a7e1affc92775c052d61248030/Followers_of_Set_Single_Design.png",
                         "details": {
@@ -41111,7 +41111,7 @@
                     "locale": "en-US"
                 },
                 "fields": {
-                    "title": "Follower of Set Legacy Clan Symbol",
+                    "title": "Followers of Set Legacy Clan Symbol",
                     "description": "FoS Legacy Clan Symbol",
                     "file": {
                         "url": "//images.ctfassets.net/yicuw1hpxsdg/mOcuML2b7O0A20fZa8gAB/bc707606747cb389060f1617f0abaa44/LogoClanFollowersofSet.png",

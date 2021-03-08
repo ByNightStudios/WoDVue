@@ -12,6 +12,7 @@ import React, { memo } from 'react';
 import LogoWOD from 'images/LogoWOD.svg';
 import VampireLogo from 'images/VampireLogo.svg';
 import ByNightStudios from 'images/ByNightStudios.svg';
+import FooterImage1 from 'images/footerImage.png';
 
 function Footer_1() {
   return (
@@ -21,11 +22,11 @@ function Footer_1() {
           <div className="row">
             <div className="col-lg-4 col-md-12 widgetLogos text-center">
               <a className="navbar-brand" href="/">
-                <img src={LogoWOD} alt="" />
+                <img src={FooterImage1} alt="" />
               </a>
-              <a className="navbar-brand brand-section" href="/">
+              {/* <a className="navbar-brand brand-section" href="/">
                 <img src={VampireLogo} alt="" />
-              </a>
+              </a> */}
             </div>
             <div className="col-lg-4 col-md-6">
               <h3>
@@ -49,7 +50,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/vampire/Rituals"
+                    href="/vampire/Rituals#Abyssal"
                   >
                     Rituals
                   </a>
@@ -128,7 +129,7 @@ function Footer_1() {
                   />
                 </li>
               </ul>
-              <a className="navbar-brand brand-company" href="#">
+              <a className="navbar-brand brand-company" href="https://www.bynightstudios.com">
                 <img src={ByNightStudios} />
               </a>
             </div>
@@ -136,7 +137,13 @@ function Footer_1() {
         </div>
       </footer>
       <div className="bottom-footer">
-        <p>BY NIGHT STUDIOS | WORLDOFDARKNESS - {new Date().getFullYear()}</p>
+        <p className="nav-item">
+          <a href="https://www.bynightstudios.com" className="nav-link" style={{ color:'#fff'}}>
+          <p>BY NIGHT STUDIOS | WORLD OF DARKNESS - {new Date().getFullYear()}</p>
+          </a>
+
+        </p>
+       
         <p>
           <form
             action="https://www.paypal.com/donate"

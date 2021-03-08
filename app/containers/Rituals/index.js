@@ -57,6 +57,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
+
     const findClanData = find(clanItems, { title: id });
     setSelectedClan(findClanData);
   }, [match]);
