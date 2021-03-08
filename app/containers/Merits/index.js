@@ -26,6 +26,7 @@ import {
   toLower,
   trim,
   includes,
+  concat,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -93,13 +94,23 @@ export function Merits({ app }) {
 
   function handleFilterType(type) {
     setMeritsData(data);
-    if (includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
-      const filterClans = filter(data, o => {
-        return includes(get(o, 'meritType[0]'), type);
-      });
+    if (
+      includes(
+        ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+        type,
+      )
+    ) {
+      const filterClans = filter(data, o =>
+        includes(get(o, 'meritType[0]'), type),
+      );
       setMeritsData(filterClans);
     }
-    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
+    if (
+      !includes(
+        ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+        type,
+      )
+    ) {
       const filterClans = filter(data, o =>
         includes(get(o, 'clanSpecific[0]'), type),
       );
@@ -109,11 +120,14 @@ export function Merits({ app }) {
     window.scrollTo({ top: 8500, behavior: 'smooth' });
   }
 
-  const clanNames = uniq(
+  let clanNames = uniq(
     without(map(data, o => get(o, 'clanSpecific[0]')), undefined),
   );
-  clanNames.sort();
 
+  clanNames = concat(
+    ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+    clanNames,
+  ).sort();
 
   return (
     <div>
@@ -146,11 +160,6 @@ export function Merits({ app }) {
               }
               onSelect={handleFilterType}
             >
-              <Select.Option value="Anarch">Anarch</Select.Option>
-              <Select.Option value="Camarilla">Camarilla</Select.Option>
-              <Select.Option value="Clan">Clan</Select.Option>
-              <Select.Option value="General">General</Select.Option>
-              <Select.Option value="Sabbat">Sabbat</Select.Option>
               {map(clanNames, item => (
                 <Select.Option value={item}>{item}</Select.Option>
               ))}
@@ -245,7 +254,7 @@ export function Merits({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(meritsData, (item, index) => (
+                {map(slice(meritsData, page, page + 10), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">

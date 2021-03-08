@@ -151,6 +151,7 @@ export function ClanPage(props) {
     return data;
   }
 
+  console.log(selectedClan);
 
   return (
     <div className="clan-page">
@@ -283,16 +284,11 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'focusDescriptor')) ? (
                 <div>
                   <h2>Focus</h2>
-                  <Row gutter={[8, 8]}>
+                  <Row type="flex" justify="start">
+                    <u> {get(selectedClan, 'foci')}</u>
+                    <span>&nbsp;{' : '}&nbsp;</span>
                     <div
-                      /* eslint-disable-next-line react/no-danger */
-                      dangerouslySetInnerHTML={{
-                        __html: documentToHtmlString(selectedClan.foci_html),
-                      }}
-                    />
-                  </Row>
-                  <Row gutter={[8, 8]}>
-                    <div
+                      style={{ width: '85%' }}
                       /* eslint-disable-next-line react/no-danger */
                       dangerouslySetInnerHTML={{
                         __html: documentToHtmlString(

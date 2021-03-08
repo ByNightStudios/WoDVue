@@ -164,6 +164,7 @@ function* handleDisciplineData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
+    console.log(disciplineDataMock2.length);
     yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
     //
