@@ -219,7 +219,7 @@ function NavBar({
           >
             <Button
               onMouseEnter={() => {
-                history.push(`/WoDVue/monsters/vampire/${getText(text)}`);
+                history.push(`/vampire/${getText(text)}`);
                 handleOnMouseUp(contentTypeId);
               }}
               onMouseLeave={handleOnMouseLeave}

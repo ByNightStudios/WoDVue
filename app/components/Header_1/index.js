@@ -114,7 +114,7 @@ function Header_1() {
                     Backers
                   </a>
                 </li>
-                <li className="nav-item">
+                {/* <li className="nav-item">
                   <a
                     className="nav-link"
                     href="/Contributors"
@@ -122,17 +122,17 @@ function Header_1() {
                   >
                     Contributors
                   </a>
-                </li>
+                </li> */}
               </ul>
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      includes([pathname], '/WoDVue/monsters/vampire/clan/')
+                      includes([pathname], '/vampire/clan/')
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/clan/"
+                    href="/vampire/clan/"
                   >
                     Clans
                     <span className="sr-only">(current)</span>
@@ -141,11 +141,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Disciplines/'
+                      pathname === '/vampire/Disciplines/'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Disciplines/"
+                    href="/vampire/Disciplines/"
                   >
                     Disciplines
                   </a>
@@ -153,11 +153,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Rituals'
+                      pathname === '/vampire/Rituals'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Rituals"
+                    href="/vampire/Rituals"
                   >
                     Rituals
                   </a>
@@ -165,11 +165,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Techniques/'
+                      pathname === '/vampire/Techniques/'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Techniques/"
+                    href="/vampire/Techniques/"
                   >
                     Techniques
                   </a>
@@ -181,7 +181,7 @@ function Header_1() {
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Skills"
+                    href="/vampire/Skills"
                   >
                     Skills
                   </a>
@@ -189,11 +189,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Merits'
+                      pathname === '/vampire/Merits'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Merits"
+                    href="/vampire/Merits"
                   >
                     Merits
                   </a>
@@ -201,11 +201,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Flaws'
+                      pathname === '/vampire/Flaws'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Flaws"
+                    href="/vampire/Flaws"
                   >
                     Flaws
                   </a>
@@ -213,11 +213,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Attributes'
+                      pathname === '/vampire/Attributes'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Attributes"
+                    href="/vampire/Attributes"
                   >
                     Attributes
                   </a>
@@ -225,11 +225,11 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/WoDVue/monsters/vampire/Backgrounds'
+                      pathname === '/vampire/Backgrounds'
                         ? 'active'
                         : null
                     }`}
-                    href="/WoDVue/monsters/vampire/Backgrounds"
+                    href="/vampire/Backgrounds"
                   >
                     Backgrounds
                   </a>

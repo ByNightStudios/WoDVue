@@ -33,7 +33,7 @@ function Footer_1() {
               </h3>
               <ul className="navbar-nav menuFooter">
                 <li className="nav-item active">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/clan/">
+                  <a className="nav-link" href="/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
@@ -41,7 +41,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Disciplines/"
+                    href="/vampire/Disciplines/"
                   >
                     Disciplines
                   </a>
@@ -49,7 +49,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Rituals"
+                    href="/vampire/Rituals"
                   >
                     Rituals
                   </a>
@@ -57,7 +57,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Techniques"
+                    href="/vampire/Techniques"
                   >
                     Techniques
                   </a>
@@ -65,7 +65,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Skills"
+                    href="/vampire/Skills"
                   >
                     Skills
                   </a>
@@ -73,20 +73,20 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Merits"
+                    href="/vampire/Merits"
                   >
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Flaws">
+                  <a className="nav-link" href="/vampire/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Attributes"
+                    href="/vampire/Attributes"
                   >
                     Attributes
                   </a>
@@ -94,7 +94,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/Backgrounds"
+                    href="/vampire/Backgrounds"
                   >
                     Backgrounds
                   </a>

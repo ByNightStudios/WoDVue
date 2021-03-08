@@ -20,7 +20,7 @@ function Header() {
           justifyContent: 'space-between',
         }}
       >
-        <a href="/WoDVue/monsters/vampire" className="btn-vampire">
+        <a href="/vampire" className="btn-vampire">
           Vampire the Masquerade
         </a>
         <a href="/" className="logo" active="" />

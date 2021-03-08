@@ -20,7 +20,7 @@ function Footer() {
             <a href="/" className="router-link-active btn-vampire">
               Vampire the Masquerade
             </a>
-            <a href="/WoDVue/monsters/werewolf" className="btn-werewolf">
+            <a href="/werewolf" className="btn-werewolf">
               Werewolf the Apocalypse
             </a>
           </div>

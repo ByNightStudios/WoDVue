@@ -259,7 +259,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="/WoDVue/monsters/vampire/Flaws">Flaws</a>
+                  <a href="/vampire/Flaws">Flaws</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'flaw', '')}
@@ -275,44 +275,44 @@ export function ClanPage(props) {
                 <li className="nav-item active">
                   <a
                     className="nav-link"
-                    href="/WoDVue/monsters/vampire/clan/"
+                    href="/vampire/clan/"
                   >
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Disciplines">
+                  <a className="nav-link" href="/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Techniques">
+                  <a className="nav-link" href="/vampire/Techniques">
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Skills">
+                  <a className="nav-link" href="/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Merits">
+                  <a className="nav-link" href="/vampire/Merits">
                     Merits
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Flaws">
+                  <a className="nav-link" href="/vampire/Flaws">
                     Flaws
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Attributes">
+                  <a className="nav-link" href="/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a className="nav-link" href="/WoDVue/monsters/vampire/Backgrounds">
+                  <a className="nav-link" href="/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>
@@ -329,7 +329,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to={`/WoDVue/monsters/vampire/Flaws/${items.flaw}`}
+                      to={`/vampire/Flaws/${items.flaw}`}
                       className={`nav-link ${getClassName(items.flaw)}`}
                       value={items.flaw}
                       onClick={() => {
