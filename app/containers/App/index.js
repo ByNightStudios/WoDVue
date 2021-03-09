@@ -14,6 +14,8 @@ import { useInjectReducer } from 'utils/injectReducer';
 
 import { Switch, Route } from 'react-router-dom';
 import localforage from 'localforage';
+import ReactGA from "react-ga";
+import history from "utils/history";
 
 import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
 import Disciplines from 'containers/Disciplines/Loadable';
@@ -44,9 +46,17 @@ import reducer from './reducer';
 import saga from './saga';
 import { getData, disciplineData } from './actions';
 
+
+ReactGA.initialize("G-4XFK6E7DE4");
+
 export function App({ app, onRequestData, onRequestDisciplineData }) {
   useInjectReducer({ key: 'app', reducer });
   useInjectSaga({ key: 'app', saga });
+
+  history.listen(location => {
+    ReactGA.set({ page: location.pathname });
+    ReactGA.pageview(location.pathname);
+  });
 
   const {
     appData: { hasMore: disciplineHasMore },
@@ -57,6 +67,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
       onRequestData();
       onRequestDisciplineData();
     }
+    ReactGA.pageview(window.location.pathname);
   }, []);
 
   return (
