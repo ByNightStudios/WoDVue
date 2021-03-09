@@ -33,7 +33,8 @@ export function QuickStart({ getContentPage, quickStart }) {
   return (
     <div>
       <Helmet>
-        <meta name="description" content="Description of QuickStart" />
+        <title>{`World of Darkness - MET - Vampire - QuickStart`}</title>
+        <meta name="description" content="Description of Merits" />
       </Helmet>
       <div className="container main-content">
         <div className="row">

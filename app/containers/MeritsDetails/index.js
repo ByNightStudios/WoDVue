@@ -12,7 +12,7 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find, trim } from 'lodash';
@@ -92,6 +92,13 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>{`
+          World of Darkness - MET - Vampire - Merits -{' '}
+          ${get(selectedClan, 'merit', '')}`}
+        </title>
+        <meta name="description" content="Description of Merits" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -281,34 +288,22 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Disciplines"
-                  >
+                  <a className="nav-link" href="/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Techniques"
-                  >
+                  <a className="nav-link" href="/vampire/Techniques">
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Skills"
-                  >
+                  <a className="nav-link" href="/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Merits"
-                  >
+                  <a className="nav-link" href="/vampire/Merits">
                     Merits
                   </a>
                 </li>
@@ -318,18 +313,12 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Attributes"
-                  >
+                  <a className="nav-link" href="/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Backgrounds"
-                  >
+                  <a className="nav-link" href="/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>

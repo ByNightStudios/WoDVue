@@ -14,7 +14,8 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get, map, orderBy, toLower } from 'lodash';
-
+import { Helmet } from 'react-helmet';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -110,6 +111,10 @@ export function Disciplines({ app }) {
 
   return (
     <div>
+       <Helmet>
+        <title>World of Darkness - MET - Techniques</title>
+        <meta name="description" content="Description of Merits" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">

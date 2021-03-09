@@ -152,9 +152,6 @@ function* handleGetAppData() {
       ['asc'],
     );
     saveState('rituals', orderByData7771);
-
-    console.log(orderByData7771);
-
     yield put(ritualDataSuccess(orderByData7771));
   } catch (e) {
     //
@@ -171,7 +168,6 @@ function* handleDisciplineData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    console.log(disciplineDataMock2.length);
     yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
     //

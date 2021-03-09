@@ -12,11 +12,11 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find, split } from 'lodash';
-
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -88,8 +88,16 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+  console.log(selectedClan);
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>
+          World of Darkness - MET - Techniques -
+          {get(selectedClan, 'technique', '')}
+        </title>
+        <meta name="description" content="Description of Merits" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -101,13 +109,18 @@ export function ClanPage(props) {
               <h1>{get(selectedClan, 'technique', '')}</h1>
             </div>
             <div className="boxWhite">
-
-             <p>
+              <p>
                 {!isEmpty(get(selectedClan, 'prerequisites')) ? (
                   <div>
                     <h2>PREREQUISITES</h2>
-                    {map(get(selectedClan, 'prerequisites'), item =>(
-                      <a href={`/vampire/Disciplines/${split(item,' ')[0]}`} className="anchorTag" style={{ marginRight: 10 }}>{item}</a>
+                    {map(get(selectedClan, 'prerequisites'), item => (
+                      <a
+                        href={`/vampire/Disciplines/${split(item, ' ')[0]}`}
+                        className="anchorTag"
+                        style={{ marginRight: 10 }}
+                      >
+                        {item}
+                      </a>
                     ))}
                   </div>
                 ) : (
@@ -118,9 +131,14 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>
-                  {map(get(selectedClan, 'description'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        selectedClan.description_html,
+                      ),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
@@ -129,9 +147,12 @@ export function ClanPage(props) {
               <div>
                 {!isEmpty(get(selectedClan, 'quote')) ? (
                   <blockquote className="blockquote">
-                    {map(get(selectedClan, 'quote'), item => (
-                      <p className="mb-0">{item}</p>
-                    ))}
+                    <div
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(selectedClan.quote_html),
+                      }}
+                    />
                   </blockquote>
                 ) : null}
               </div>
@@ -139,9 +160,13 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
-                  {map(get(selectedClan, 'system'), item => (
-                    <p>{item}</p>
-                  ))}
+                    <div
+                      className="techniques-paragraph"
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(selectedClan.system_html),
+                      }}
+                    />
                 </div>
               ) : (
                 <div />
@@ -151,12 +176,12 @@ export function ClanPage(props) {
                 <h2>SOURCE BOOK</h2>
                 {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                   <div>
-                     {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
-                        ))}
+                    {map(get(selectedClan, 'sourceBook'), item => (
+                      <p>
+                        <p>{get(item, 'fields.bookTitle')}</p>
+                        <p>{get(item, 'fields.system[0]')}</p>
+                      </p>
+                    ))}
                   </div>
                 ) : (
                   <div> MET: VTM Source Book</div>

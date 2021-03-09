@@ -51,7 +51,7 @@ export function HomePage({ onRequestData, homePage }) {
       style={{ height: '100vh' }}
     >
       <Helmet>
-        <title>World of darkness</title>
+        <title>{`World of Darkness - MET - Vampire`}</title>
         <meta name="description" content="Description of HomePage" />
       </Helmet>
       <Header />

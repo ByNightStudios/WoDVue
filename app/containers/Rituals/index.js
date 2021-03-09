@@ -12,7 +12,7 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find } from 'lodash';
@@ -51,7 +51,6 @@ export function ClanPage(props) {
 
   const filterClans = clanItems;
 
-  console.log(clanItems);
   useEffect(() => {
     const {
       match: {
@@ -107,6 +106,13 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>{`
+          World of Darkness - MET - Vampire - Rituals -{' '}
+          ${get(selectedClan, 'title', '')}`}
+        </title>
+        <meta name="description" content="Description of Merits" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -122,7 +128,7 @@ export function ClanPage(props) {
                   </div>
                   <div className="col-lg-5 col-md-12 order-lg-12">
                     <div className="info">
-                    <div className="info-des" style={{ width: 130 }}>
+                      <div className="info-des" style={{ width: 130 }}>
                         Type<span>{getBooleanValue(selectedClan)}</span>
                       </div>
                       <div className="info-des">
@@ -200,11 +206,11 @@ export function ClanPage(props) {
                     <h2>SOURCE BOOK</h2>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
-                         {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
+                        {map(get(selectedClan, 'sourceBook'), item => (
+                          <p>
+                            <p>{get(item, 'fields.bookTitle')}</p>
+                            <p>{get(item, 'fields.system[0]')}</p>
+                          </p>
                         ))}
                       </div>
                     ) : (

@@ -12,7 +12,7 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find, trim } from 'lodash';
@@ -50,7 +50,6 @@ export function ClanPage(props) {
   } = props;
 
   const filterClans = clanItems;
-  console.log(filterClans);
 
   useEffect(() => {
     const {
@@ -94,6 +93,13 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
+       <Helmet>
+        <title>{`
+          World of Darkness - MET - Vampire - FlawsDetails -
+          ${get(selectedClan, 'flaw', '')}`}
+        </title>
+        <meta name="description" content="Description of QuickStart" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">

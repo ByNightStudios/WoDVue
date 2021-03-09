@@ -8,6 +8,7 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -42,15 +43,14 @@ export function Disciplines(props) {
   }, [data]);
 
   useEffect(() => {
-   const {
+    const {
       location: { hash },
     } = history;
-    if(hash){
-          const hashKey = replace(hash, '#', '');
-    const filterClans = filter(data, o => getBooleanValue(o) === hashKey);
-    setDisciplineData(filterClans);
+    if (hash) {
+      const hashKey = replace(hash, '#', '');
+      const filterClans = filter(data, o => getBooleanValue(o) === hashKey);
+      setDisciplineData(filterClans);
     }
-
   }, [match]);
 
   function handleSortingByLevel(type) {
@@ -145,6 +145,10 @@ export function Disciplines(props) {
   const clanNames = ['Thaumaturgy', 'Necromancy', 'Abyssal'];
   return (
     <div>
+      <Helmet>
+        <title>World of Darkness - MET - Vampire - Rituals</title>
+        <meta name="description" content="Description of Merits" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-12">

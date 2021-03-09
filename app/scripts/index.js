@@ -18,10 +18,9 @@ client
   .then(entry => entry).then(data => {
 
     const csvApi = { api: `${data}`};
-    // STEP 3: Writing to a file 
-    fs.writeFile("./api.json", csvApi, err => { 
-      if (err) throw err;  
-      console.log("Done writing"); 
+    // STEP 3: Writing to a file
+    fs.writeFile("./api.json", csvApi, err => {
+      if (err) throw err;
     });
   });
 

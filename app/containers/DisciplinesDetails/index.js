@@ -13,7 +13,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Typography } from 'antd';
@@ -154,8 +154,6 @@ export function ClanPage(props) {
     return data;
   }
 
-  console.log(filterClans);
-
   const groupByData1 = filter(filterClans, o => o.thaumaturgy);
   const groupByData2 = filter(filterClans, o => o.necromancy);
   const groupByData3 = filter(
@@ -174,6 +172,14 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>{`
+          World of Darkness - MET - Vampire - Disciplines -
+          ${get(selectedClan, 'power', '') - get(selectedClan, 'title', '')}`}
+        </title>
+        <meta name="description" content="Description of QuickStart" />
+      </Helmet>
+
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -185,8 +191,8 @@ export function ClanPage(props) {
               <h1>
                 {get(selectedClan, 'power', '')}{' '}
                 {!isEqual(
-                  get(selectedClan, 'power', 'demo'),
-                  get(selectedClan, 'title', 'nano'),
+                  get(selectedClan, 'power', ''),
+                  get(selectedClan, 'title', ''),
                 ) ? (
                   <i>{get(selectedClan, 'title', '')} </i>
                   ) : (
@@ -568,7 +574,7 @@ export function ClanPage(props) {
             </div>
             <div className="boxWhite">
               <ul className="nav flex-column nav-clans">
-              <Typography.Title level={3}>Disciplines</Typography.Title>
+                <Typography.Title level={3}>Disciplines</Typography.Title>
                 {map(filterClansByReduce, (items, index) => (
                   <ul key={index} style={{ marginLeft: '-2vw' }}>
                     <Typography.Title level={3} className="nav-item">

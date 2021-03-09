@@ -38,6 +38,7 @@ export function QuickStart(props) {
   return (
     <div>
       <Helmet>
+        <title>{`World of Darkness - MET - Vampire - Backers`} </title>
         <meta name="description" content="Description of QuickStart" />
       </Helmet>
       <div className="container main-content">

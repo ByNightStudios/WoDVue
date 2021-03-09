@@ -225,7 +225,7 @@ export function Monster({
       style={{ height: '100vh' }}
     >
       <Helmet>
-        <title>Monster</title>
+        <title>World of Darkness - MET - Vampire - Monster</title>
         <meta name="description" content="Description of Monster" />
       </Helmet>
       <div style={{ width: '100% ' }}>

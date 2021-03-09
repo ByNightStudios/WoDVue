@@ -12,7 +12,7 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find } from 'lodash';
@@ -54,7 +54,7 @@ export function ClanPage(props) {
   useEffect(() => {
     clevertap.event.push(window.location.pathname);
   }, [match]);
-  
+
   const filterClans = clanItems;
 
   function handleNavItemsClick(e) {
@@ -85,9 +85,15 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>
+          {`World of Darkness - MET - Vampire - Backgrounds -
+          ${get(selectedClan, 'title')}`}
+        </title>
+        <meta name="description" content="Description of QuickStart" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -105,7 +111,9 @@ export function ClanPage(props) {
                   <div
                     /* eslint-disable-next-line react/no-danger */
                     dangerouslySetInnerHTML={{
-                      __html: documentToHtmlString(selectedClan.description_html),
+                      __html: documentToHtmlString(
+                        selectedClan.description_html,
+                      ),
                     }}
                   />
                 </div>
@@ -128,7 +136,7 @@ export function ClanPage(props) {
                 <div />
               )}
 
-{!isEmpty(get(selectedClan, 'eratta')) ? (
+              {!isEmpty(get(selectedClan, 'eratta')) ? (
                 <div>
                   <h2>ERATTA</h2>
                   <div
@@ -157,12 +165,12 @@ export function ClanPage(props) {
                   <h2>SOURCE BOOK</h2>
                   {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                     <div>
-                       {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
-                        ))}
+                      {map(get(selectedClan, 'sourceBook'), item => (
+                        <p>
+                          <p>{get(item, 'fields.bookTitle')}</p>
+                          <p>{get(item, 'fields.system[0]')}</p>
+                        </p>
+                      ))}
                     </div>
                   ) : (
                     <div> MET: VTM Source Book</div>
@@ -217,10 +225,7 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/vampire/clan/"
-                  >
+                  <a className="nav-link" href="/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>

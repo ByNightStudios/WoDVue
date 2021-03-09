@@ -12,7 +12,7 @@ import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find } from 'lodash';
@@ -86,6 +86,13 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>{`
+          World of Darkness - MET - Vampire - Attributes -
+          ${get(selectedClan, 'attribute')}`}
+        </title>
+        <meta name="description" content="Description of QuickStart" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">

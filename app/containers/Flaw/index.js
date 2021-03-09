@@ -114,7 +114,7 @@ export function Flaw({ app }) {
   return (
     <div className="page-white">
       <Helmet>
-        <title>Flaw</title>
+        <title>{`World of Darkness - MET - Vampire - Flaw`}</title>
         <meta name="description" content="Description of Flaw" />
       </Helmet>
       <div className="container main-content">

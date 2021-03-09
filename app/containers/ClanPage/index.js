@@ -13,7 +13,7 @@ import React, { memo, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-
+import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Card, Row, Col, Typography } from 'antd';
@@ -100,9 +100,15 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-
   return (
     <div className="clan-page">
+      <Helmet>
+        <title>{`
+          World of Darkness - MET - Vampire - Clan -{' '}
+          ${get(selectedClan, 'title', '')}`}
+        </title>
+        <meta name="description" content="Description of QuickStart" />
+      </Helmet>
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -116,13 +122,12 @@ export function ClanPage(props) {
                   }}
                 />
                 <div className="col-md-8">
-                <h1>{get(selectedClan, 'title', '')}</h1>
-                <h4 style={{ fontSize: 18 }}>
-                <i>{get(selectedClan, 'nickname', '')}</i>
-              </h4>
+                  <h1>{get(selectedClan, 'title', '')}</h1>
+                  <h4 style={{ fontSize: 18 }}>
+                    <i>{get(selectedClan, 'nickname', '')}</i>
+                  </h4>
                 </div>
               </div>
-
             </div>
             <div className="boxWhite">
               <div className="row">
@@ -181,9 +186,7 @@ export function ClanPage(props) {
                           style={{ marginRight: 10 }}
                           onClick={() => {
                             history.push(
-                              `/vampire/Disciplines/${
-                                item.fields.title
-                              }`,
+                              `/vampire/Disciplines/${item.fields.title}`,
                               item,
                             );
                           }}
@@ -236,9 +239,7 @@ export function ClanPage(props) {
                       get(selectedClan, 'inClanMerits', []),
                       (item, index) => (
                         <Link
-                          to={`/vampire/Merits/${
-                            item.fields.merit
-                          }`}
+                          to={`/vampire/Merits/${item.fields.merit}`}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
                           onClick={() => {
@@ -261,9 +262,7 @@ export function ClanPage(props) {
                   <Row>
                     {map(get(selectedClan, 'flaws', []), (item, index) => (
                       <Link
-                        to={`/vampire/Flaws/${
-                          item.fields.flaw
-                        }`}
+                        to={`/vampire/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
                         style={{ marginRight: 10 }}
                         onClick={() => {
@@ -409,34 +408,22 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Disciplines"
-                  >
+                  <a className="nav-link" href="/vampire/Disciplines">
                     Disciplines
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Techniques"
-                  >
+                  <a className="nav-link" href="/vampire/Techniques">
                     Techniques
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Skills"
-                  >
+                  <a className="nav-link" href="/vampire/Skills">
                     Skills
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Merits"
-                  >
+                  <a className="nav-link" href="/vampire/Merits">
                     Merits
                   </a>
                 </li>
@@ -446,18 +433,12 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Attributes"
-                  >
+                  <a className="nav-link" href="/vampire/Attributes">
                     Attributes
                   </a>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className="nav-link"
-                    href="/vampire/Backgrounds"
-                  >
+                  <a className="nav-link" href="/vampire/Backgrounds">
                     Backgrounds
                   </a>
                 </li>

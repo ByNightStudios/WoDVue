@@ -30,11 +30,11 @@ export function QuickStart({ getContentPage, quickStart }) {
     clevertap.event.push(window.location.pathname);
   }, []);
 
-
   return (
     <div>
       <Helmet>
-        <meta name="description" content="Description of QuickStart" />
+        <title>World of Darkness - MET - Vampire - SupportUs</title>
+        <meta name="description" content="Description of Merits" />
       </Helmet>
       <div className="container main-content">
         <div className="row">

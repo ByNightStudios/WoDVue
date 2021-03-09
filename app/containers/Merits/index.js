@@ -134,7 +134,7 @@ export function Merits({ app }) {
   return (
     <div>
       <Helmet>
-        <title>Merits</title>
+        <title>{`World of Darkness - MET - Vampire - Merits`}</title>
         <meta name="description" content="Description of Merits" />
       </Helmet>
       <div className="container main-content">
