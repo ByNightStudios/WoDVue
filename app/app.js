@@ -11,6 +11,9 @@ import '@babel/polyfill';
 
 // Import all the third party stuff
 import React from 'react';
+
+import ReactGA from 'react-ga';
+
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
