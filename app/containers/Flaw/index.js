@@ -283,10 +283,10 @@ export function Flaw({ app }) {
                         {!isEmpty(item.sourceBook) ? (
                           <p>
                             <h3>SOURCE BOOK</h3>
-                            <div>
-                              <span>{item.sourceBook[0].fields.bookTitle}</span>
-                              <span>{item.sourceBook[0].fields.system[0]}</span>
-                            </div>
+                            <p>
+                              <p>{item.sourceBook[0].fields.bookTitle}</p>
+                              <p>{item.sourceBook[0].fields.system[0]}</p>
+                            </p>
                           </p>
                         ) : null}
                       </div>

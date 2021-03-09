@@ -27,6 +27,7 @@ import {
   trim,
   includes,
   concat,
+  uniqBy,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -254,81 +255,80 @@ export function Merits({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(meritsData, page, page + 10), (item, index) => (
-                  <>
-                    <div className={`item discipline-${index}`}>
-                      <div className="disc-cols3">
-                        <span>{item.merit}</span>
-                      </div>
-                      <div className="disc-cols3 hideMobile">
-                        <span>
-                          {get(item, 'meritType[0]')}{' '}
-                          {get(item, 'clanSpecific[0]')}
-                        </span>
-                      </div>
-                      <div className="disc-cols3 hideMobile">
-                        <span>{item.meritCost}</span>
-                      </div>
-                      <div className="disc-indicator">
-                        <a
-                          className="btn btn-primary collapsed"
-                          data-toggle="collapse"
-                          href={`#discipline-${index}`}
-                          role="button"
-                          aria-expanded="false"
-                          aria-controls={`discipline-${index}`}
-                        >
-                          <i className="fa" />
-                        </a>
-                      </div>
-                    </div>
-                    <div className="collapse" id={`discipline-${index}`}>
-                      <div className="box-summary">
-                        <div className="details">
-                          <ul>
-                            <li>
-                              <span>Name</span>
-                              {item.merit}
-                            </li>
-                            <li>
-                              <span>Category</span>
-                              {item.meritType[0]}
-                            </li>
-                            <li>
-                              <span>Cost</span>
-                              {item.meritCost}
-                            </li>
-                          </ul>
+                {map(
+                  uniqBy(slice(meritsData, page, page + 10), 'merit'),
+                  (item, index) => (
+                    <>
+                      <div className={`item discipline-${index}`}>
+                        <div className="disc-cols3">
+                          <span>{item.merit}</span>
                         </div>
-                        <div
-                          /* eslint-disable-next-line react/no-danger */
-                          dangerouslySetInnerHTML={{
-                            __html: documentToHtmlString(
-                              item.meritDescription_html,
-                            ),
-                          }}
-                        />
-                        <p>
-                          <h3>SOURCE BOOK</h3>
-                          {!isEmpty(item.sourceBook) ? (
-                            <p>
-                              <div>
-                                <span>
-                                  {item.sourceBook[0].fields.bookTitle}
-                                </span>
-                                <span>
-                                  {item.sourceBook[0].fields.system[0]}
-                                </span>
-                              </div>
-                            </p>
-                          ) : (
-                            <p>MET - VTM - Main Source Book</p>
-                          )}
-                        </p>
+                        <div className="disc-cols3 hideMobile">
+                          <span>
+                            {get(item, 'meritType[0]')}{' '}
+                            {get(item, 'clanSpecific[0]')}
+                          </span>
+                        </div>
+                        <div className="disc-cols3 hideMobile">
+                          <span>{item.meritCost}</span>
+                        </div>
+                        <div className="disc-indicator">
+                          <a
+                            className="btn btn-primary collapsed"
+                            data-toggle="collapse"
+                            href={`#discipline-${index}`}
+                            role="button"
+                            aria-expanded="false"
+                            aria-controls={`discipline-${index}`}
+                          >
+                            <i className="fa" />
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  </>
-                ))}
+                      <div className="collapse" id={`discipline-${index}`}>
+                        <div className="box-summary">
+                          <div className="details">
+                            <ul>
+                              <li>
+                                <span>Name</span>
+                                {item.merit}
+                              </li>
+                              <li>
+                                <span>Category</span>
+                                {item.meritType[0]}
+                              </li>
+                              <li>
+                                <span>Cost</span>
+                                {item.meritCost}
+                              </li>
+                            </ul>
+                          </div>
+                          <div
+                            /* eslint-disable-next-line react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: documentToHtmlString(
+                                item.meritDescription_html,
+                              ),
+                            }}
+                          />
+                          <p>
+                            <h3>SOURCE BOOK</h3>
+                            {!isEmpty(item.sourceBook) ? (
+                              <p>
+                                <p>
+                                  <p>{item.sourceBook[0].fields.bookTitle}</p>
+                                  <p>{item.sourceBook[0].fields.system[0]}</p>
+                                </p>
+                              </p>
+                            ) : (
+                              <p>MET - VTM - Main Source Book</p>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                    </>
+                  ),
+                )}
               </div>
             </div>
           </div>

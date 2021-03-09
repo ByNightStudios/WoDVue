@@ -157,12 +157,16 @@ export function ClanPage(props) {
   const groupByData2 = filter(filterClans, o => o.necromancy);
   const groupByData3 = filter(
     filterClans,
-    o => !o.thaumaturgy && !o.necromancy,
+    o =>
+      !o.thaumaturgy &&
+      !o.necromancy &&
+      o.title !== 'Necromancy' &&
+      o.title !== 'Thaumaturgy',
   );
   const filterClansByReduce = [
-    { listName: 'disciplines', data: groupByData3 },
-    { listName: 'necromancy', data: groupByData2 },
-    { listName: 'thaumaturgy', data: groupByData1 },
+    { listName: '', data: groupByData3 },
+    { listName: 'Necromancy', data: groupByData2 },
+    { listName: 'Thaumaturgy', data: groupByData1 },
   ];
 
   return (
@@ -561,10 +565,16 @@ export function ClanPage(props) {
             </div>
             <div className="boxWhite">
               <ul className="nav flex-column nav-clans">
+              <Typography.Title level={3}>Disciplines</Typography.Title>
                 {map(filterClansByReduce, (items, index) => (
-                  <ul key={index} style={{ marginLeft: '-2vw'}}>
-                    <Typography.Title level={3}>
-                      {items.listName}
+                  <ul key={index} style={{ marginLeft: '-2vw' }}>
+                    <Typography.Title level={3} className="nav-item">
+                      <Link
+                        to={`/vampire/Disciplines/${items.listName}`}
+                        className={`nav-link ${getClassName(items.listName)}`}
+                      >
+                        {items.listName}
+                      </Link>
                     </Typography.Title>
                     <li style={{ marginLeft: 10 }}>
                       {map(get(items, 'data'), (items1, index1) => (
