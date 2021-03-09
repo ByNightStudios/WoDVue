@@ -128,9 +128,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      includes([pathname], '/vampire/clan/')
-                        ? 'active'
-                        : null
+                      includes([pathname], '/vampire/clan/') ? 'active' : null
                     }`}
                     href="/vampire/clan/"
                   >
@@ -141,9 +139,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Disciplines/'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Disciplines/' ? 'active' : null
                     }`}
                     href="/vampire/Disciplines/"
                   >
@@ -153,11 +149,9 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Rituals#Abyssal'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Rituals' ? 'active' : null
                     }`}
-                    href="/vampire/Rituals#Abyssal"
+                    href="/vampire/Rituals"
                   >
                     Rituals
                   </a>
@@ -165,9 +159,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Techniques/'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Techniques/' ? 'active' : null
                     }`}
                     href="/vampire/Techniques/"
                   >
@@ -177,9 +169,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === 'WoDVue/monsters/vampire/Skills'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Skills' ? 'active' : null
                     }`}
                     href="/vampire/Skills"
                   >
@@ -189,9 +179,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Merits'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Merits' ? 'active' : null
                     }`}
                     href="/vampire/Merits"
                   >
@@ -201,9 +189,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Flaws'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Flaws' ? 'active' : null
                     }`}
                     href="/vampire/Flaws"
                   >
@@ -213,9 +199,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Attributes'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Attributes' ? 'active' : null
                     }`}
                     href="/vampire/Attributes"
                   >
@@ -225,9 +209,7 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
-                      pathname === '/vampire/Backgrounds'
-                        ? 'active'
-                        : null
+                      pathname === '/vampire/Backgrounds' ? 'active' : null
                     }`}
                     href="/vampire/Backgrounds"
                   >

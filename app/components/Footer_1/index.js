@@ -50,7 +50,7 @@ function Footer_1() {
                 <li className="nav-item">
                   <a
                     className="nav-link"
-                    href="/vampire/Rituals#Abyssal"
+                    href="/vampire/Rituals"
                   >
                     Rituals
                   </a>
