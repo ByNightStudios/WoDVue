@@ -15,7 +15,6 @@ import { useInjectReducer } from 'utils/injectReducer';
 import { Switch, Route } from 'react-router-dom';
 import localforage from 'localforage';
 
-
 import WoVueHomePage from 'containers/WoVueHomePage/Loadable';
 import Disciplines from 'containers/Disciplines/Loadable';
 import DisciplinesDetails from 'containers/DisciplinesDetails/Loadable';
@@ -70,72 +69,25 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
           path="/vampire/Disciplines/"
           component={DisciplinesDetails}
         />
-        <Route
-          path="/vampire/Disciplines/:id"
-          component={DisciplinesDetails}
-        />
+        <Route path="/vampire/Disciplines/:id" component={DisciplinesDetails} />
         <Route exact path="/vampire/Flaws" component={Flaw} />
-        <Route
-          path="/vampire/Flaws/:id"
-          component={FlawsDetails}
-        />
-        <Route
-          exact
-          path="/vampire/Merits"
-          component={Merits}
-        />
-        <Route
-          exact
-          path="/vampire/Rituals"
-          component={RitualsListing}
-        />
-        <Route
-          path="/vampire/Rituals/:id"
-          component={Rituals}
-        />
-        <Route
-          path="/vampire/Merits/:id"
-          component={MeritsDetails}
-        />
-        <Route
-          exact
-          path="/vampire/Attributes"
-          component={Attribute}
-        />
-        <Route
-          exact
-          path="/vampire/Backgrounds"
-          component={Backgrounds}
-        />
-        <Route
-          exact
-          path="/vampire/Skills"
-          component={Skills}
-        />
-        <Route
-          exact
-          path="/vampire/Techniques"
-          component={Techniques}
-        />
-        <Route
-          path="/vampire/Techniques/:id"
-          component={TechniquesDetails}
-        />
-        <Route
-          exact
-          path="/vampire/clan/:id"
-          component={ClanPage}
-        />
-        <Route
-          exact
-          path="/vampire/clan/"
-          component={ClanPage}
-        />
+        <Route path="/vampire/Flaws/:id" component={FlawsDetails} />
+        <Route exact path="/vampire/Merits" component={Merits} />
+        <Route exact path="/vampire/Rituals" component={RitualsListing} />
+        <Route path="/vampire/Rituals/:id" component={Rituals} />
+        <Route path="/vampire/Merits/:id" component={MeritsDetails} />
+        <Route exact path="/vampire/Attributes" component={Attribute} />
+        <Route exact path="/vampire/Backgrounds" component={Backgrounds} />
+        <Route exact path="/vampire/Skills" component={Skills} />
+        <Route exact path="/vampire/Techniques" component={Techniques} />
+        <Route path="/vampire/Techniques/:id" component={TechniquesDetails} />
+        <Route exact path="/vampire/clan/:id" component={ClanPage} />
+        <Route exact path="/vampire/clan/" component={ClanPage} />
         <Route exact path="/QuickStart" component={QuickStart} />
         <Route exact path="/Backers" component={Backers} />
         <Route exact path="/Contributors" component={Contributors} />
         <Route exact path="/SupportUs" component={SupportUs} />
-        <Route exact path="/Search" component={Search} />
+        {/* <Route exact path="/Search" component={Search} /> */}
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />
