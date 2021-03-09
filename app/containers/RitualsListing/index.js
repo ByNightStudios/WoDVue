@@ -43,6 +43,7 @@ export function Disciplines({ app }) {
     const hashKey = replace(hash, '#', '');
     const filterClans = filter(data, o => getBooleanValue(o) === hashKey);
     setDisciplineData(filterClans);
+    clevertap.event.push(window.location.pathname);
   }, [data]);
 
   function handleSortingByLevel(type) {

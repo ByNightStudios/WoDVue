@@ -50,6 +50,7 @@ export function ClanPage(props) {
   } = props;
 
   const filterClans = clanItems;
+  console.log(filterClans);
 
   useEffect(() => {
     const {
@@ -57,6 +58,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
+    clevertap.event.push(window.location.pathname);
     const findClanData = find(clanItems, { flaw: trim(id) });
     setSelectedClan(findClanData);
   }, [match]);

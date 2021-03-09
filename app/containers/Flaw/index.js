@@ -24,6 +24,7 @@ import {
   isEmpty,
   includes,
   toLower,
+  concat,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -50,10 +51,12 @@ export function Flaw({ app }) {
   const {
     flaws: { data },
     merits: { data: meritData },
+    clans: { data: clanItemsData },
   } = app;
 
   useEffect(() => {
     setMeritsData(data);
+    clevertap.event.push(window.location.pathname);
   }, [data]);
 
   function handleOnChange(e) {
@@ -104,10 +107,9 @@ export function Flaw({ app }) {
   );
   clanNames.sort();
 
-  const meritClanNames = uniq(
-    without(map(meritData, o => get(o, 'clanSpecific[0]')), undefined),
-  );
+  const meritClanNames = [];
   meritClanNames.sort();
+  const clanItemsDataOfFlaws = [];
 
   return (
     <div className="page-white">
@@ -233,14 +235,14 @@ export function Flaw({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(meritsData, page, page + 10), (item, index) => (
+                {map(slice(concat(meritsData, clanItemsDataOfFlaws), page, page + 10), (item, index) => (
                   <>
                     <div className={`item discipline-${index}`}>
                       <div className="disc-cols3">
-                        <span>{item.flaw}</span>
+                        <span>{get(item,'flaw', get(item, 'flaws[0].fields.flaw'))}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
-                        <span>{get(item, 'flawType[0]', '-')}</span>
+                        <span>{get(item, 'flawType[0]', get(item,'title'))}</span>
                       </div>
                       <div className="disc-cols3 hideMobile">
                         <span>{item.flawCost}</span>

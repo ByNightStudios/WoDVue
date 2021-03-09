@@ -8,7 +8,7 @@
  *
  */
 
-import React, { memo, useState } from 'react';
+import React, { memo, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -48,8 +48,13 @@ export function ClanPage(props) {
     app: {
       backgrounds: { data: clanItems },
     },
+    match,
   } = props;
 
+  useEffect(() => {
+    clevertap.event.push(window.location.pathname);
+  }, [match]);
+  
   const filterClans = clanItems;
 
   function handleNavItemsClick(e) {

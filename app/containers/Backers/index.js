@@ -29,6 +29,12 @@ export function QuickStart({ getContentPage, quickStart }) {
     getContentPage();
   }, []);
 
+  const { match } = props;
+
+  useEffect(() => {
+    clevertap.event.push(window.location.pathname);
+  }, [match]);
+
   return (
     <div>
       <Helmet>

@@ -57,6 +57,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
+    clevertap.event.push(window.location.pathname);
     const findClanData = find(clanItems, { merit: trim(id) });
     setSelectedClan(findClanData);
   }, [match]);

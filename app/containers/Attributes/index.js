@@ -42,6 +42,12 @@ export function ClanPage(props) {
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
 
+  const { match } = props;
+
+  useEffect(() => {
+    clevertap.event.push(window.location.pathname);
+  }, [match]);
+
   const {
     app: {
       attributes: { data: clanItems },

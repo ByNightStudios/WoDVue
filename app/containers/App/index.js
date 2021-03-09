@@ -54,8 +54,8 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
   useInjectSaga({ key: 'app', saga });
 
   history.listen(location => {
-    ReactGA.set({ page: location.pathname });
-    ReactGA.pageview(location.pathname);
+    ReactGA.set({ page: window.location.pathname });
+    ReactGA.pageview(window.location.pathname);
   });
 
   const {

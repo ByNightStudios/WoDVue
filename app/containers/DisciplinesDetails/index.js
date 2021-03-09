@@ -77,6 +77,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
+    clevertap.event.push(window.location.pathname);
     const findClanData = find(filterClans, o => o.power === trim(id));
     if (findClanData) {
       setSelectedClan(findClanData);
@@ -152,6 +153,8 @@ export function ClanPage(props) {
   function getFilterPower(data) {
     return data;
   }
+
+  console.log(filterClans);
 
   const groupByData1 = filter(filterClans, o => o.thaumaturgy);
   const groupByData2 = filter(filterClans, o => o.necromancy);

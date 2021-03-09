@@ -27,7 +27,9 @@ export function QuickStart({ getContentPage, quickStart }) {
 
   useEffect(() => {
     getContentPage();
+    clevertap.event.push(window.location.pathname);
   }, []);
+
 
   return (
     <div>

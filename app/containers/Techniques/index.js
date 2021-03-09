@@ -35,6 +35,7 @@ export function Disciplines({ app }) {
 
   useEffect(() => {
     setDisciplineData(data);
+    clevertap.event.push(window.location.pathname);
   }, [data]);
 
   function handleSortingByLevel(type) {

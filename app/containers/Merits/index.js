@@ -56,6 +56,7 @@ export function Merits({ app }) {
 
   useEffect(() => {
     setMeritsData(data);
+    clevertap.event.push(window.location.pathname);
   }, [data]);
 
   function handleOnChange(e) {
