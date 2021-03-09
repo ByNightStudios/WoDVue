@@ -8,6 +8,7 @@ import skillMock from 'mockData/skill.json';
 import attributeMock from 'mockData/attribute.json';
 import backgroundMock from 'mockData/background.json';
 import ritualsMock from 'mockData/ritual.json';
+import techniqueMock from 'mockData/technique.json';
 import clanMock from 'mockData/clan.json';
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 // import { makeSelectApp } from './selectors';
@@ -148,6 +149,9 @@ function* handleGetAppData() {
       ['asc'],
     );
     saveState('rituals', orderByData7771);
+
+    console.log(orderByData7771);
+
     yield put(ritualDataSuccess(orderByData7771));
   } catch (e) {
     //

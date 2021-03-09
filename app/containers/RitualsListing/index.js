@@ -26,25 +26,32 @@ import reducer from './reducer';
 import saga from './saga';
 import { getDisciplines } from './actions';
 
-export function Disciplines({ app }) {
+export function Disciplines(props) {
   useInjectReducer({ key: 'disciplines', reducer });
   useInjectSaga({ key: 'disciplines', saga });
   const [disciplineData, setDisciplineData] = useState([]);
   const [direction, setDirection] = useState('asc');
+
+  const { app, match } = props;
   const {
     rituals: { data },
   } = app;
 
   useEffect(() => {
     setDisciplineData(data);
-    const {
+  }, [data]);
+
+  useEffect(() => {
+   const {
       location: { hash },
     } = history;
-    const hashKey = replace(hash, '#', '');
+    if(hash){
+          const hashKey = replace(hash, '#', '');
     const filterClans = filter(data, o => getBooleanValue(o) === hashKey);
     setDisciplineData(filterClans);
-    clevertap.event.push(window.location.pathname);
-  }, [data]);
+    }
+
+  }, [match]);
 
   function handleSortingByLevel(type) {
     const sortedByLevel = orderBy(disciplineData, [type], [direction]);
