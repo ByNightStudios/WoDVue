@@ -37,6 +37,12 @@ export function Disciplines({ app }) {
 
   useEffect(() => {
     setDisciplineData(data);
+    const {
+      location: { hash },
+    } = history;
+    const hashKey = replace(hash, '#', '');
+    const filterClans = filter(data, o => getBooleanValue(o) === hashKey);
+    setDisciplineData(filterClans);
   }, [data]);
 
   function handleSortingByLevel(type) {
