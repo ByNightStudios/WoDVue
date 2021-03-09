@@ -21,7 +21,7 @@ import messages from './messages';
 import { defaultAction } from './actions';
 import './style.css';
 
-export function QuickStart({ getContentPage, quickStart }) {
+export function QuickStart(props) {
   useInjectReducer({ key: 'quickStart', reducer });
   useInjectSaga({ key: 'quickStart', saga });
 
@@ -29,7 +29,7 @@ export function QuickStart({ getContentPage, quickStart }) {
     getContentPage();
   }, []);
 
-  const { match } = props;
+  const { match, getContentPage, quickStart } = props;
 
   useEffect(() => {
     clevertap.event.push(window.location.pathname);

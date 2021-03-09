@@ -10,6 +10,9 @@ import backgroundMock from 'mockData/background.json';
 import ritualsMock from 'mockData/ritual.json';
 import techniqueMock from 'mockData/technique.json';
 import clanMock from 'mockData/clan.json';
+
+// import apiScriptJson from 'scripts/api.json';
+
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
 // import { makeSelectApp } from './selectors';
 import {

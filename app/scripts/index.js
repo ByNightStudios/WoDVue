@@ -15,20 +15,14 @@ client
     skip: 0,
     limit: 100,
   })
-  .then(entry => {
-    const object = {
-      name: 'demo',
-    };
-    fs.writeFileSync('./api.json', stringify(object));
+  .then(entry => entry).then(data => {
 
+    const csvApi = { api: `${data}`};
     // STEP 3: Writing to a file 
-    fs.writeFile("./api.json", JSON.stringify(entry), err => { 
-        
-      // Checking for errors 
+    fs.writeFile("./api.json", csvApi, err => { 
       if (err) throw err;  
-    
-      console.log("Done writing"); // Success 
-    }); 
+      console.log("Done writing"); 
+    });
   });
 
 
