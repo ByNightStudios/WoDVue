@@ -20,4 +20,15 @@ client
       name: 'demo',
     };
     fs.writeFileSync('./api.json', stringify(object));
+
+    // STEP 3: Writing to a file 
+    fs.writeFile("./api.json", JSON.stringify(entry), err => { 
+        
+      // Checking for errors 
+      if (err) throw err;  
+    
+      console.log("Done writing"); // Success 
+    }); 
   });
+
+
