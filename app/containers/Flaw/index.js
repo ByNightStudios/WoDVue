@@ -89,7 +89,6 @@ export function Flaw({ app }) {
         window.scrollTo({ top: 8500, behavior: 'smooth' });
       } else {
         setMeritsData(data);
-        message.info('No Flaws found');
       }
     }
   }

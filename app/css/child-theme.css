@@ -10147,6 +10147,10 @@ hr {
 .attributes {
   background-image: url(../images/attributes.png); }
 
+.quickStart { background-image: url(../images/QuickStart.png);}
+
+.rituals { background-image: url(../images/Rituals.png);}
+
 .bgs {
   background-image: url(../images/bgs.png); }
 
