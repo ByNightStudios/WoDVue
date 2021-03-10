@@ -25,10 +25,11 @@ import {
   includes,
   toLower,
   concat,
+  remove,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Select } from 'antd';
+import { message, Select } from 'antd';
 import { makeSelectApp } from 'containers/App/selectors';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -50,8 +51,7 @@ export function Flaw({ app }) {
 
   const {
     flaws: { data },
-    merits: { data: meritData },
-    clans: { data: clanItemsData },
+    clans: { data: meritData },
   } = app;
 
   useEffect(() => {
@@ -73,23 +73,25 @@ export function Flaw({ app }) {
     setMeritLevel(value);
   }
 
-
   function handleFilter(type) {
     setMeritsData(data);
     if (includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
-      const filterClans = filter(data, o => {
-        return includes(get(o, 'flawType[0]'), type);
-      });
-      setMeritsData(filterClans);
-    }
-    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
       const filterClans = filter(data, o =>
-        includes(get(o, 'clanSpecific[0]'), type),
+        includes(get(o, 'flawType[0]'), type),
       );
       setMeritsData(filterClans);
+      window.scrollTo({ top: 8500, behavior: 'smooth' });
     }
-
-    window.scrollTo({ top: 8500, behavior: 'smooth' });
+    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
+      const filterClans = filter(data, o => includes(get(o, 'clanFlaw'), type));
+      if (!isEmpty(filterClans)) {
+        setMeritsData(filterClans);
+        window.scrollTo({ top: 8500, behavior: 'smooth' });
+      } else {
+        setMeritsData(data);
+        message.info('No Flaws found');
+      }
+    }
   }
 
   function handleSortingByLevel(type) {
@@ -105,16 +107,22 @@ export function Flaw({ app }) {
   const clanNames = uniq(
     without(map(data, o => get(o, 'flawType[0]')), undefined),
   );
-  clanNames.sort();
 
-  const meritClanNames = [];
-  meritClanNames.sort();
+  const meritClanNames = uniq(
+    without(map(meritData, o => o.title), undefined),
+  );
+
   const clanItemsDataOfFlaws = [];
+
+  const filterList = concat(clanNames, meritClanNames);
+  filterList.sort();
+
+  console.log(filterList);
 
   return (
     <div className="page-white">
       <Helmet>
-        <title>{`World of Darkness - MET - Vampire - Flaw`}</title>
+        <title>World of Darkness - MET - Vampire - Flaw</title>
         <meta name="description" content="Description of Flaw" />
       </Helmet>
       <div className="container main-content">
@@ -145,12 +153,12 @@ export function Flaw({ app }) {
               }
               onSelect={handleFilter}
             >
-              {map(uniq(clanNames), item => (
+              {map(filterList, item => (
                 <Select.Option value={item}>{item}</Select.Option>
               ))}
-              {map(uniq(meritClanNames), item => (
+              {/* {map(uniq(meritClanNames), item => (
                 <Select.Option value={item}>{item}</Select.Option>
-              ))}
+              ))} */}
             </Select>
           </div>
           <form className="form-inline">
@@ -235,66 +243,83 @@ export function Flaw({ app }) {
 
             <div className="listing-body">
               <div className="listing">
-                {map(slice(concat(meritsData, clanItemsDataOfFlaws), page, page + 10), (item, index) => (
-                  <>
-                    <div className={`item discipline-${index}`}>
-                      <div className="disc-cols3">
-                        <span>{get(item,'flaw', get(item, 'flaws[0].fields.flaw'))}</span>
-                      </div>
-                      <div className="disc-cols3 hideMobile">
-                        <span>{get(item, 'flawType[0]', get(item,'title'))}</span>
-                      </div>
-                      <div className="disc-cols3 hideMobile">
-                        <span>{item.flawCost}</span>
-                      </div>
-                      <div className="disc-indicator">
-                        <a
-                          className="btn btn-primary collapsed"
-                          data-toggle="collapse"
-                          href={`#discipline-${index}`}
-                          role="button"
-                          aria-expanded="false"
-                          aria-controls={`discipline-${index}`}
-                        >
-                          <i className="fa" />
-                        </a>
-                      </div>
-                    </div>
-                    <div className="collapse" id={`discipline-${index}`}>
-                      <div className="box-summary">
-                        <div className="details">
-                          <ul>
-                            <li>
-                              <span>Name</span>
-                              {item.flaw}
-                            </li>
-                            <li>
-                              <span>Cost</span>
-                              {item.flawCost}
-                            </li>
-                          </ul>
+                {map(
+                  slice(
+                    concat(meritsData, clanItemsDataOfFlaws),
+                    page,
+                    page + 10,
+                  ),
+                  (item, index) => (
+                    <>
+                      <div className={`item discipline-${index}`}>
+                        <div className="disc-cols3">
+                          <span>{get(item, 'flaw', '-')}</span>
                         </div>
-                        <div
-                          /* eslint-disable-next-line react/no-danger */
-                          dangerouslySetInnerHTML={{
-                            __html: documentToHtmlString(
-                              item.flawDescription_html,
-                            ),
-                          }}
-                        />
-                        {!isEmpty(item.sourceBook) ? (
-                          <p>
-                            <h3>SOURCE BOOK</h3>
-                            <p>
-                              <p>{item.sourceBook[0].fields.bookTitle}</p>
-                              <p>{item.sourceBook[0].fields.system[0]}</p>
-                            </p>
-                          </p>
-                        ) : null}
+                        <div className="disc-cols3 hideMobile">
+                          <span>
+                            {get(item, 'clanFlaw') ? (
+                              <>
+                                {' '}
+                                {get(item, 'flawType[0]')} -{' '}
+                                {get(item, 'clanFlaw')}
+                              </>
+                            ) : (
+                              get(item, 'flawType[0]', '-')
+                            )}
+                          </span>
+                        </div>
+                        <div className="disc-cols3 hideMobile">
+                          <span>{item.flawCost}</span>
+                        </div>
+                        <div className="disc-indicator">
+                          <a
+                            className="btn btn-primary collapsed"
+                            data-toggle="collapse"
+                            href={`#discipline-${index}`}
+                            role="button"
+                            aria-expanded="false"
+                            aria-controls={`discipline-${index}`}
+                          >
+                            <i className="fa" />
+                          </a>
+                        </div>
                       </div>
-                    </div>
-                  </>
-                ))}
+                      <div className="collapse" id={`discipline-${index}`}>
+                        <div className="box-summary">
+                          <div className="details">
+                            <ul>
+                              <li>
+                                <span>Name</span>
+                                {item.flaw}
+                              </li>
+                              <li>
+                                <span>Cost</span>
+                                {item.flawCost}
+                              </li>
+                            </ul>
+                          </div>
+                          <div
+                            /* eslint-disable-next-line react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: documentToHtmlString(
+                                item.flawDescription_html,
+                              ),
+                            }}
+                          />
+                          {!isEmpty(item.sourceBook) ? (
+                            <p>
+                              <h3>SOURCE BOOK</h3>
+                              <p>
+                                <p>{item.sourceBook[0].fields.bookTitle}</p>
+                                <p>{item.sourceBook[0].fields.system[0]}</p>
+                              </p>
+                            </p>
+                          ) : null}
+                        </div>
+                      </div>
+                    </>
+                  ),
+                )}
               </div>
             </div>
           </div>

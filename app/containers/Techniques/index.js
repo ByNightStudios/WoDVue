@@ -15,7 +15,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get, map, orderBy, toLower } from 'lodash';
 import { Helmet } from 'react-helmet';
-import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
 import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';

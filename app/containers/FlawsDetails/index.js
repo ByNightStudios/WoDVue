@@ -111,6 +111,17 @@ export function ClanPage(props) {
               <h1>{get(selectedClan, 'flaw', '')}</h1>
             </div>
             <div className="boxWhite">
+
+            <p>
+                {get(selectedClan, 'clanFlaw') ? (
+                  <div>
+                    <h2>CLAN</h2>
+                    {get(selectedClan, 'clanFlaw')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
             <p>
                 {get(selectedClan, 'flawCost') ? (
                   <div>

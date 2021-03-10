@@ -170,16 +170,31 @@ export function ClanPage(props) {
     { listName: 'Thaumaturgy', data: groupByData1 },
   ];
 
+  function renderHelment() {
+    return (
+      <Helmet
+        meta={[
+          {
+            name: `${get(selectedClan, 'power', '')}`,
+            content: `${get(selectedClan, 'summary[0]', '')}`,
+          },
+        ]}
+      >
+        <title>
+          {`
+          World of Darkness - MET - Vampire - Disciplines`}
+        </title>
+        <meta
+          name={`${get(selectedClan, 'power', '')}`}
+          content={`${get(selectedClan, 'summary[0]', '')}`}
+        />
+      </Helmet>
+    );
+  }
+
   return (
     <div className="clan-page">
-      <Helmet>
-        <title>{`
-          World of Darkness - MET - Vampire - Disciplines -
-          ${get(selectedClan, 'power', '') - get(selectedClan, 'title', '')}`}
-        </title>
-        <meta name="description" content="Description of QuickStart" />
-      </Helmet>
-
+      {renderHelment()}
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -380,12 +395,7 @@ export function ClanPage(props) {
                   <div>
                     <div>
                       <h2>POWERS</h2>
-                      <div
-                        className="header-disciplines"
-                        style={{
-                          marginLeft: '73px',
-                        }}
-                      >
+                      <div className="header-disciplines">
                         <div
                           className="disc-cols3 sort-up"
                           style={{ color: 'black' }}
@@ -576,8 +586,12 @@ export function ClanPage(props) {
               <ul className="nav flex-column nav-clans">
                 <Typography.Title level={3}>Disciplines</Typography.Title>
                 {map(filterClansByReduce, (items, index) => (
-                  <ul key={index} style={{ marginLeft: '-2vw' }}>
-                    <Typography.Title level={3} className="nav-item">
+                  <ul key={index}>
+                    <Typography.Title
+                      level={3}
+                      className="nav-item"
+                      style={{ marginLeft: '-40px' }}
+                    >
                       <Link
                         to={`/vampire/Disciplines/${items.listName}`}
                         className={`nav-link ${getClassName(items.listName)}`}

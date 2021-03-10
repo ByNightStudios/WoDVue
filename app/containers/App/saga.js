@@ -10,6 +10,7 @@ import backgroundMock from 'mockData/background.json';
 import ritualsMock from 'mockData/ritual.json';
 import techniqueMock from 'mockData/technique.json';
 import clanMock from 'mockData/clan.json';
+import flawMock from 'mockData/flaw.json';
 
 // import apiScriptJson from 'scripts/api.json';
 
@@ -87,10 +88,7 @@ function* handleGetAppData() {
 
     yield put(clanDataSuccess(orderByData2));
 
-    const flawsAppData = sortBy(
-      filter(contentfulData, o => o.flawType),
-      'flaw',
-    );
+    const flawsAppData = extractEntryDataFromResponse(flawMock);
     const orderByData3 = orderBy(
       flawsAppData,
       [item => getItems(item).toLowerCase()],

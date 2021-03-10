@@ -24,6 +24,16 @@ const getObjectValue = (field, fieldName, assestData) => {
     );
     return get(clanSymbolData, '[0].fields');
   }
+
+  if (fieldName === 'clanFlaw') {
+    const clanName = intersectionWith(
+      get(assestData, 'Entry', []),
+      [field],
+      (a, b) => isEqual(a.sys.id, b.sys.id),
+    );
+    return get(clanName, '[0].fields.title');
+  }
+
   if (field.sys && fieldName !== 'clanSymbol') {
     return intersectionWith(get(assestData, 'Asset', []), [field], (a, b) =>
       isEqual(a.sys.id, b.sys.id),
@@ -40,6 +50,11 @@ const getObjectValue = (field, fieldName, assestData) => {
 
 const getArrayValue = (field, fieldName, assestData) => {
   let inClanDiscipline = [];
+
+  if (fieldName === 'clanFlaw') {
+    console.log(fieldName);
+  }
+
   if (
     fieldName === 'inClanDisciplines' ||
     fieldName === 'inClanMerits' ||
@@ -61,7 +76,6 @@ const getArrayValue = (field, fieldName, assestData) => {
     });
     return isEmpty(inClanDiscipline) ? field : inClanDiscipline;
   }
-
   return field;
 };
 

@@ -103,11 +103,18 @@ export function ClanPage(props) {
   return (
     <div className="clan-page">
       <Helmet>
-        <title>{`
-          World of Darkness - MET - Vampire - Clan -{' '}
-          ${get(selectedClan, 'title', '')}`}
+        <title>
+          {`
+          World of Darkness - MET - Vampire - Clan`}
         </title>
-        <meta name="description" content="Description of QuickStart" />
+        <meta
+          name={`${get(selectedClan, 'title', '')}`}
+          content={`${get(
+            selectedClan,
+            'description[0]',
+            'Legend says that the first few generations of vampires did not suffer the divisions of clan, and that they were capable of performing miracle-like feats. As progenitors passed the Embrace down to their childer, and from there, to more childer, the powers inherent in vampiric vitae grew weaker.',
+          )}`}
+        />
       </Helmet>
       <div className="container main-content">
         <div className="row">
