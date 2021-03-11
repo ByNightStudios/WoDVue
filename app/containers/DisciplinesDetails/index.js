@@ -514,7 +514,7 @@ export function ClanPage(props) {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="#">
+                  <a href="/">
                     <span className="icon-skull">
                       <span className="path1" />
                       <span className="path2" />
@@ -526,7 +526,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Disciplines</a>
+                  <a href="/vampire/Disciplines">Disciplines</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'title', '')}

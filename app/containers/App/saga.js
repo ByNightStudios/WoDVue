@@ -74,11 +74,11 @@ function getItems(item) {
 function* handleGetAppData() {
   clear('NightStudio');
 
-  const response111 = yield call(apiContentful, {
-    query: 'rituals',
-    select: 'fields,sys.id',
-    parents: '',
-  });
+  // const response111 = yield call(apiContentful, {
+  //   query: 'rituals',
+  //   select: 'fields,sys.id',
+  //   parents: '',
+  // });
 
   try {
     const contentfulData = extractEntryDataFromResponse(mockAppData);

@@ -129,11 +129,6 @@ sub {
 
 sup {
   top: -.5em; }
-  .anchorTag {
-    color: #821919 !important;
-    text-decoration: none !important;
-    background-color: transparent !important;
-}
 
 a {
   color: #821919;
@@ -10364,7 +10359,7 @@ hr {
   padding: 0px !important; }
 
 .disc-power {
-  text-align: left; }
+  text-align: center; }
 
 .details {
   display: none; }

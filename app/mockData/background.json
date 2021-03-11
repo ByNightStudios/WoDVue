@@ -1,1088 +1,1176 @@
 {
   "sys": {
-    "type": "Array"
+      "type": "Array"
   },
   "total": 11,
   "skip": 0,
   "limit": 100,
   "items": [
-    {
-      "fields": {
-        "title": "Rituals (Sabbat Only)",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
+      {
+          "fields": {
+              "title": " Generation",
+              "description": {
                   "data": {},
-                  "marks": [],
-                  "value": "The Rituals background can only be purchased by an  Initiated member of the Sabbat (one who has undergone  the Creation Rites). Purchasing this background means  that your character is trained in a number of Auctoritas or  Ignoblis Ritae. You know the ritae and rituals of the Sabbat,  and you can enact many of them. This background is vital to  being a pack Priest — without this background, you cannot  cast the ritae (though you can still participate, if someone  else is officiating). ",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "By purchasing the first dot of Rituals, a character  learns four Ritae: the Creation Rites, the Vaulderie, the  Monomacy, plus one ritae of your choosing. For every dot  of Rituals purchased thereafter, the character can choose  to learn an additional two Auctoritas, Ignoblis, or Faction  Ritae. \nNote that Games of Instinct covers an entire spectrum  of ritae; a character does not have to purchase each game  individually. Performing any ritual requires the practitioner  to have faith in that ritual’s innate precept.\n\nRemember that Faction Ritae can only be learned and  utilized by members of that political faction, unless  otherwise noted in the description of the ritus. If a character  who has learned a Faction Ritae abandons that faction, she  loses the ability to cast that faction’s ritae. She cannot  choose another ritae in its place, and any XP she spent on  the Rituals background to purchase that specific Faction  Ritae is not refunded. To become a pack Priest, a character \nmust purchase at least 1 dot of the Rituals background. A  character must have the appropriate Sabbat status trait to  initiate one of the Auctoritas Ritae, but any character with  the Rituals background may assist in the casting of that  ritae, so long as she knows the specific ritus.  \n\n\n\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "1wSg7cmWFlS4hdQW7UuRX9"
-      }
-    },
-    {
-      "fields": {
-        "title": "Resources",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "There are many ways to acquire goods, services, property, and luxuries in the World of Darkness, but ready access to money is one of the oldest and most reliable. Vampires often maintain some kind of cash ﬂow, though they must do so either through mortal proxies, alternate identities, or other subterfuges, and even then they must be wary of attracting the wrong kind of attention: they cannot afford to trigger an audit from government ﬁnancial institutions, or become the focus of a securities fraud investigation. The Resources background measures your character’s purchasing power, available credit, accumulated assets, and liquid cash reserves.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\nResources may be actual cash, but as this background’s rating increases, it is more likely that the character has signiﬁcant investments in stocks and bonds, real estate, or hedge funds than piles of cash sitting around. At the upper end of the background, she may gain money by exerting control over a corporation, criminal syndicate, or religious institution; or she may own a large amount of land, live off a trust fund, smuggle precious objects d’art, control a massive criminal infrastructure, or receive signiﬁcant tithes from control of the church. \r\nA character with no dots in the Resources background is impoverished. She has enough clothing and supplies to survive, and she may live in a cheap motel or a small apartment (or something similar). Characters without Resources have little or no liquid cash and cannot afford luxury items. They rarely, if ever, pay their debts.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\nThe Resources background provides a guideline for a general standard of living. It shows wealth and buying power in mortal equivalents; most vampires who have Sufﬁcient Resources do not pay taxes, for example, and almost none earn an income from holding down a regular job. The gulf between each dot of Resources widens considerably the farther up the scale you go, but the exact amount of cash your character has on hand should be decided by the Storyteller. You must also work with your Storyteller to detail exactly where your character’s money comes from and how it can be accessed. ",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "The Storyteller should also adjust the details of this background so that it is appropriate for her setting and chronicle. Standards of living can vary markedly between geographic areas, and what’s acknowledged as Comfortable in one community might be considered Sufﬁcient in another. \r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "* Sufﬁcient: You can maintain a typical working class residence: a small house or condo. You can afford an economical car, you pay your bills on time, and you can purchase simple luxuries like good-quality electronics or occasional vacations to other countries. Through careful management of your ﬁnances, you may spend up to $1,000 in liquid cash per month.\r",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "** Moderate: You can support an upper-middleclass lifestyle and home with the occasional lavish gift or conspicuous indulgences such as multiple vehicles or a time-share condominium in addition to your comfortable home. You can employ a servant or personal assistant, or hire temporary help as necessary. You can spend up to $2,500 in liquid cash per month. ",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "*** Comfortable: You are a prominent and established member of your community with land investments, a large, luxurious home, and at least one second home in a fashionable vacation destination. You likely have more money tied up in investments and property than you do in ready cash. You can spend up to $20,000 in liquid cash per month without much concern. ",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "**** Wealthy: You rarely touch cash, as most of your assets exist in tangible forms that are themselves more valuable and stable than paper money, such as gold, diamonds, and gems, or in massive credit reserves based on these holdings. You hold more wealth than many who would claim to be your peers, but it’s likely they underestimate your true total net worth. At this level of wealth, banks and government institutions closely monitor how you convert your money to cash. You can easily spend up to $100,000 in liquid cash per month without attracting the wrong kind of attention.\r",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "***** Extremely Wealthy: You are the model others wish to emulate, at least in popular opinion. You have vast and widely distributed assets, perhaps tied to the fates of nations, each managed by large, specialized staffs and supported with connections to every level of society through a region. Corporations and governments sometimes come to you to buy into stocks or bond programs. If there is something you want, and it is possible to buy, you can purchase it without the cost affecting your bottom line. At this level of wealth, the banks, the IRS, and other agencies closely monitor how you convert your money to cash. You can easily spend up to $250,000 in liquid cash per month without attracting the wrong kind of attention.",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "45bej8wGZ42Q2TN08F1GoW"
-      }
-    },
-    {
-      "fields": {
-        "title": "Influences",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "The Inﬂuence background is a mechanical means to express the series of social connections, business transactions, and personal favors that make up your character’s inﬂuence over the mortal world.  \r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "You may purchase up to 5 dots of either inﬂuence category as listed below:",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\n- The Elite : You have inﬂuence over the upper crust, those who are wealthy, hold legitimate power, own corporations, or control noteworthy institutions. These individuals live in a world of wealth and afﬂuence.\r \n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\n- The Underworld : You have inﬂuence over those who work outside of the law, whether it is the working classes looking the other way, or those who live on the street ruling gangs and drug cartels, running networks of thieves, or controlling intricate cultural bureaucracy. These individuals live in a world of rumors, whispers, and lies.\r\nInformation about utilizing inﬂuences can be found in Chapter Thirteen: Inﬂuences and Equipment.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "1CACbMLB3hD07gdPrCH0WN"
-      }
-    },
-    {
-      "fields": {
-        "title": "Alternate Identity ",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "You maintain a second identity, complete with papers, birth certiﬁcates, or any other necessary documentation. This \rcover personality may be a ruse to help your character hide among the mortal populace, or it may be a vampire identity designed to inﬁltrate another clan. You may buy this background multiple times, with each instance representing an entirely separate cover identity.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "•  Your identity is very shallow. You have a driver’s license or other minor documentation, and it can survive a perfunctory internet search.\r\n••  You have a well-grounded identity that could withstand the scrutiny of a minor criminal investigation. This might include birth certiﬁcates and social security numbers, or in vampiric society, it might represent a newly established inﬁltration.\r\n•••  Your identity is very well established and will stand up to all but the toughest scrutiny. This persona has a long and believable history, including friends, family, and character witnesses. In vampiric society, you may have arranged a plausible (but dead) sire and a veriﬁable history.\r\n••••  Your identity is designed to inﬁltrate another clan or sect. At this level you’ve established a rudimentary identity as a new (or fairly new) vampire of the clan/sect you’re attempting to inﬁltrate. You have arranged a living sire who claims to have created you, and you have been present at several historical events as a member of the clan.\r\n••••• Your identity is a respected member of society; it holds powerful ofﬁce in the mortal world, or among vampires, concretely inﬂuences another clan or sect. You have a long history, an in-depth lineage, and your cover is solid enough to pass even supernatural means of veriﬁcation. Note that this doesn’t prevent the character from being “found out” if you make a mistake and other players catch on. Even the strongest Alternate Identity will fail if you can’t keep a secret.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nAlternate Identity will not fool supernatural powers or direct observation. For example, it will not help you when targeted by Telepathy .  In addition, an Alternate Identity can be Accepted by another sect or political group, and gain status in that group. For more information on Acceptance and status, see Chapter Seven: Dramatic Systems, Status and Vampire Society on page 310.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "5FxxoSiBwTn2q3xmmSzvtg"
-      }
-    },
-    {
-      "fields": {
-        "title": "Allies ",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "The Allies background represents mortals who support and help you. These mortals may be family, friends, or even a loyal corporation or criminal organization. Allies may represent friends who work at the morgue, write for a prominent blog, or circulate in the high society of local celebrities. With Allies, you can make a few calls, cut a few deals, and get trustworthy assistance in a wide range of activities.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "Remember that Allies are mortal, and are not aware of the supernatural world of vampires. They genuinely believe you are a friend, and they may ask you for a favor in the future. If your Allies ask for a favor in return, and you are unable to assist them, you may lose dots in the Allies background until you “make good” on the deal.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": " For each dot of Allies that you purchase, you must deﬁne one group of people with whom your character is allied. For example, a character with 3 dots of Allies may choose to deﬁne those Allies as mortuary workers, a local gang called the Vatos, and a local independent rock band known as the Iron Jugs. When you have your character call in favors, you must tell the Storyteller which group (or groups) she is contacting and explain how that group is capable of assisting your character with the speciﬁc problem. \r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nThese Allies can perform reasonable tasks and may be more capable if the task is something appropriate to their profession. For example, Allies in the local morgue could do something mundane, like watch a building. They would be very good at something in line with their profession, like disposing of a body. However, it would be outside their area of expertise to rob the local liquor store. The character’s second Ally, the local gang, would be more appropriate for that task. \r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "If the situation requires character sheets for your Allies, the Storyteller generates up to three Stock NPCs, one of level 3 and two at level 1. All of these NPCs are mortal, and none have any supernatural abilities. Note that Allies are capable of ﬁghting, but they are not designed to be a character’s personal army. If a character’s Allies are killed, the character loses access to the Allies background for the next two games or one month (whichever is longer). \r\nYou may use this background once per game for each dot of Allies the character possesses. \r\n ",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "1WProkiv3zIl3CfxB79tHJ"
-      }
-    },
-    {
-      "fields": {
-        "title": "Contacts",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "You have established close personal relationships with people all over the city. When you start making phone \rcalls and asking for gossip or inside tips, the amount of information you can dig up is impressive. You know who to bribe, manipulate, or coerce into offering information, and the favorites list on your cellphone looks like a who’s who of the city’s most important people. \r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\nYour Contacts help you keep an ear out for rumors and gather information. When you call on your Contacts, the character makes a few phone calls, checks in on her snitches, and listens to the local gossipmongers. The character very quickly gets rumors and information appropriate to the network she’s established with this background. ",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": " For each dot of Contacts that you purchase, you must deﬁne one individual with whom your character has a close relationship. This individual is considered to be very well connected in their ﬁeld or area of expertise; she knows a great deal and actively remains aware of current events within her sphere of inﬂuence. For example, a character with 3 dots of Contacts may choose to deﬁne those individuals as Bethany, the wealthy socialite; Carlos, the head of Accounting at a local ﬁnancial conglomerate; and Jane Anne, the owner of one of the most popular nightclubs in the city. When the player has her character call these Contacts, she must tell the Storyteller which individual (or individuals) she is contacting and explain how that individual might know information of use to her character in the speciﬁc situation. \r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nWhen you use your Contacts, you may ask the Storyteller for one piece of information about an ongoing plot, or you may ask for information about one inﬂuence  transaction that occurred within the city in the last month. If used to investigate plot, these Contacts will provide information that the Storyteller considers appropriate. If the Contacts are used to investigate inﬂuences, the character will gain a full description of the inﬂuence result and information that may be used to discover who controls that inﬂuence (if anyone).\r\nYou may use this background once for each dot of Contacts the character possesses, per session. ",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "177YaJ8AykF5GtEJPRuzEJ"
-      }
-    },
-    {
-      "fields": {
-        "title": "Fame",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "Mortals are often chosen for the Embrace from the ranks of the elite. As a result, some vampires can claim a particular distinction from their breathing days: whether a prominent career in music or art, or a birthright within a royal or exceptionally wealthy family. Fame fades over the years, and is therefore normally the province of younger vampires. A player portraying an older vampire with this background must justify to the Storyteller the reasons that her character is still well known and recognizable to mortal society.\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\nWhen purchasing Fame, decide why your character is famous. The number of dots purchased in this background determines the range of the character’s mortal acclaim. For example, a painter with 1 dot of Fame might be known only within artistic circles, while an actor with 5 dots of Fame would be a nationally known celebrity.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "When you interact with mortals who recognize your character’s Fame, you may add +5 to any non-supernatural Social challenges. Additionally, NPCs will often give you favors, assist you without question, and grant you the beneﬁt of the doubt. For example, a famous celebrity will not have difficulty getting a private room, borrowing someone’s car, or convincing people in a hotel that the strange things they saw were just scenes being ﬁlmed for a new horror movie.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nNote that when you call on your Fame to help you, the circumstances will quickly become common knowledge among your sphere of acclaim. If a famous painter asks for a free ride home from the airport, it will make the news and, people will speculate about her reasons for needing the ride.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nFame ranges: \n•  Local scene\r\n••  City\r\n•••  State\r\n••••  Adjoining states/region\r\n•••••  Entire country\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "High levels of Fame can be disruptive to a chronicle. Storytellers should regulate the Fame background as they feel appropriate for their setting.\r\n ",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
-      },
-      "sys": {
-        "id": "3LIM2xrcTqumaKT7gFRo5m"
-      }
-    },
-    {
-      "fields": {
-        "title": " Retainers ",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "Whether out of personal gratitude, love, the blood bond, or some other means, you have the fellowship of a mortal who is intensely trustworthy and loyal to you. Unlike the Allies background, your Retainers are always available when you need them. They can be trusted to oversee your personal effects, defend your property, and further your goals. \r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nA Retainer does not have the specialized knowledge of a Contact, nor the broad capacity to perform favors like Allies do, but she is more loyal and resilient than either of the other two. A Retainer will ﬁght for the vampire, if necessary, defending her when she is sleeping or carrying out her will when the vampire cannot do something for herself. For a vampire, a Retainer is usually a ghoul, controlled via the blood bond; even if the Retainer is free-willed, she will put the vampire’s needs and survival ahead of her own. \r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nUse the rules for Stock NPCs to build Retainers. They can take any action that an NPC can take, but the Storyteller should remember that Retainers are not perfect. For example, a Retainer spying on the Brujah clan meeting would certainly report back to her master, but would not be able to quote the things she’s observed verbatim. If there is ever a question about what a Retainer can accomplish, the Storyteller has the ﬁnal call.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nYou may purchase the Retainer background multiple times, representing multiple Retainers, but you must purchase dots separately for each Retainer. No Retainer can have more than 5 dots.\r\nIf your Retainer is released or killed, you lose access to that background for one game or two weeks (whichever is longer) for every dot you purchased for that speciﬁc Retainer. During this time, the vampire is ﬁnding a suitable replacement.\r\nPlayers should work with their Storytellers to determine how the character secured such a loyal Retainer.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "Your Retainer’s test pool for most actions will be equal to her Retainer rating x2. For example, a level 3 Retainer has a test pool of 6 for most actions.\r\n\nSpecialties There are two types of specialties: skill specialties and discipline specialties. A Retainer has a number of specialties equal to the Retainer’s overall rating. For example, a 2-point Retainer has two specialties, and may choose to place them both in different skills, or one in a skill and one in a discipline.\r\n• Skill Specialty: Choose one skill in which your Retainer will specialize. When the Retainer makes a challenge utilizing this skill specialty, her test pool is increased by 5. For example, if our aforementioned 2-point Retainer selected a skill specialty in Brawl, her test pool for unarmed combat would be 9 (rating 2 x2 = 4 + 5 = 9).\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\n• Discipline Specialty: Retainers may use one (and only one) of their specialties to learn a discipline that is inclan for their domitor. A discipline specialty allows the Retainer access to one power per dot of the Retainer. For example, if our 2-point Retainer from the above example was a ghoul, she could choose to select a second specialization in Potence. This gives her access to the ﬁrst 2 dots of the Potence discipline, because she is a 2-point Retainer. If the player purchases a 3rd dot in this Retainer background, the ghoul immediately gains a 3rd dot of Potence and gains the ability to select a third specialty. \r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "Retainer Finishing Touches \nRetainers do not have Willpower and cannot retest failed challenges unless they can overbid. Ghoul Retainers have 5 potent Blood points that may be spent on vampiric powers and 5 mortal Blood points, which cannot be spent. They can spend 1 Blood per turn to heal or power disciplines.\r\nRetainers have one effective health level per rating of the background. For example, a 4-point Retainer has four health levels. When a Retainer runs out of health levels, she falls unconscious, or is in too much pain to act effectively. Retainers are not automatically killed, but they may die if they don’t receive medical attention. \r\nFor more information on retainers, please see Chapter Twelve: Allies and Antagonists, Stock NPC Generation. ",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "eratta": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": " Remove the word “ghoul” from this sentence: “Ghoul Retainers may use one (and only one) of their specialties to learn a discipline that is in-clan for their domitor.” Characters who have access to vampiric or ghostly retainers may give their underling a discipline specialty.\n\nChange “…can spend 1 Blood per round,” to read “…can spend 1 Blood per ",
-                  "nodeType": "text"
-                },
-                {
-                  "data": {},
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "According to some clans’ legends, the biblical ﬁgure known as Caine was cursed by God and became the ﬁrst vampire. Caine then Embraced a second generation of vampires, who in turn Embraced a third, and so on. Because of this legend, vampires (even those who do not believe the myth) measure the strength of their blood in generations, counting how many sires have passed between them and the mythical apex, whomever it might be.\r\nGeneration is the measure of a vampire’s capability, based on the strength of her blood. Generation can only be purchased at character creation and is static thereafter for the course of the game (except in the case of diablerie, see below). \r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\nVampiric blood, also known as vitae, is a signiﬁcant factor in a vampire’s potency. To reﬂect this, there \rare mechanical differences, both advantages and disadvantages, to purchasing Generation. Having several dots in Generation means your vampire has stronger, purer blood, which can support elder powers . Thus, vampires of the 8th generation and above are collectively called “elders.”\r\nBuying fewer dots of Generation means the vampire’s blood is diluted, thinner and less pure, but therefore also less static. The blood of a character with fewer ranks in Generation is ﬂexible enough to support techniques : powers created by mixing two or more disciplines together into a single effect. \r\nTo play a vampire, you must purchase 1 dot of Generation. You may purchase more dots during character creation, but you cannot purchase them after the character enters play. Players should note that these dots are not additive — if you buy 2 dots, you don’t get the bonuses of both: only those of the highest dot purchased. \n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\n",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "value": "Diablerie:",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\nThe less scrupulous among the higher generations sometimes steal the power of their elders through the foul process of diablerie. Diablerie allows a vampire to consume the soul of a more potent vampire and therefore gain some of her victim’s power. For more information on diablerie, see Chapter Seven: Dramatic Systems. ",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
                   ],
-                  "value": "turn",
-                  "nodeType": "text"
-                },
-                {
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
                   "data": {},
-                  "marks": [],
-                  "value": ".”\n\n\n\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        }
-      },
-      "sys": {
-        "id": "2C0UiVdRKYf9Hn2WlfdMLL"
-      }
-    },
-    {
-      "fields": {
-        "title": " Generation",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Generation (Neonate) \r\nNeonates have very weak potency of blood. They are usually recent Embraces and, therefore, more attuned to the modern world. The vitae of a Neonate is far too thin to develop elder powers, due to their distance in generation from the ﬁrst vampire of her line. However, the beneﬁt of thin blood is that its ﬂexibility allows Neonates to easily learn and utilize techniques.\r",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "System:",
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": " With 1 dot, the character is of the 11th generation. If the player wishes, she can choose to take ﬂaws that will reduce her generation by one or two steps (12th or 13th generation), both of which are also considered “Neonates.” A Neonate has a Blood pool of 10 points, and can spend that Blood at a rate of 1 point per turn. Neonates may purchase any number of techniques at standard cost. \r\nNeonates purchase skills and backgrounds at reduced cost. Neonates may purchase skills and backgrounds for new level x1 instead of the standard new level x2.\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\n•• Generation (Ancilla) \r\nThe blood of an Ancilla vampire is thicker than that of a Neonate, but is still not pure enough to empower elder powers. Ancilla may learn and utilize techniques, just like vampires with thinner blood. These vampires are usually of moderate age and do not understand modern technology with the ease shown by Neonates.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "System:",
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": " With 2 dots, the character is of the 9th generation. If the player wishes, she can choose to take a ﬂ aw that will reduce her generation by one step (10th generation), which is still considered “Ancilla.” An Ancilla has a Blood pool of 12 points, and can spend that Blood at a rate of 2 points per turn. Ancilla may purchase any number of techniques at standard cost. Ancilla purchase skills and backgrounds at the standard rate.\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\n••• Generation (Pretender Elder) \r\nA vampiric Pretender Elder is a powerful creature, with blood just thick enough to support one of her kind’s most potent powers — but only one. At this stage, a vampire’s blood still retains a certain ﬂexibility. This allows a Pretender Elder to become adept at techniques, though she cannot learn these powers as easily as Neonates or Ancillae. Such vampires tend to be hundreds of years old.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "System:",
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": " With 3 dots, the character is of the 8th generation. A Pretender Elder has a Blood pool of 15 points, and can spend that Blood at a rate of 3 points per turn. She may purchase any number of techniques at increased cost (20 XP each), and may purchase one (and only one) elder power at standard cost (whether in-clan or out-of-clan). Elders purchase skills and backgrounds at standard costs.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\n•••• Generation (Master Elder) \r\nThese frighteningly potent vampires are paragons of their clans. Their vitae is powerful and increasingly pure, capable of learning and utilizing multiple elder powers. However, this potency means that a Master Elder’s blood is static, and she does not possess the ﬂexibility necessary to learn techniques.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "System: ",
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "With 4 dots, the character is of the 7th generation. A Master Elder has a Blood pool of 20 points, and can spend that Blood at a rate of 4 points per turn. Master Elder characters may purchase any number of elder powers (both inclan and out-of-clan). A Master Elder cannot purchase any techniques and purchases skills and backgrounds at standard costs.\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\n••••• Generation (Luminary Elder) \r\nLuminary Elders are fearsome creatures. These vampires are pure-blooded reﬂections of the ancient founders, with extremely thick and potent vitae. This potency allows a Luminary Elder to utilize elder powers, but the purity of her blood makes learning out-of-clan disciplines more difﬁcult, as her blood is so strongly attuned to the powers of her clan.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "System: ",
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "With 5 dots, the character is of the 6th generation. A Luminary Elder has a Blood pool of 30 points, and can spend that Blood at a rate of 5 points per turn. Luminary Elder characters may purchase any number of elder powers (both in-clan and out-of-clan). Luminary Elders may purchase the sixth level of all skills. A Luminary Elder cannot purchase any techniques. Luminary Elders pay increased costs for all out-of-clan disciplines (including elder powers).The cost for a Luminary Elder to purchase an out-of-clan discipline is the new level x5 instead of the standard new level x4. Luminary Elders purchase skills and backgrounds at standard costs.\nBeyond the scope of elder powers lie another terrifying threshold of abilities: luminary powers. Luminary powers are superior expressions of disciplines practiced by those of ancient and potent blood. These powers represent the supreme mastery of a discipline and the product of countless nights of study and insight.  Luminary powers function as a daunting trump card in an elder’s arsenal. Player characters must be 6th generation to purchase a luminary power. NPC and PC Luminary Elders may purchase a single luminary power from their in-clan disciplines. NPC vampires who are of the 5th generation or lower may purchase multiple luminary powers from their in-clan disciplines. Luminary powers cost 24 XP, and may only be purchased if a character has at least 1 elder power of the same discipline.  Elder powers and luminary powers are distinguished from each other by the number of dots that follows the name of the parent discipline.  Six dots denotes and elder power; seven dots denotes a luminary power.",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nAttribute Bonuses ",
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "data": {}
+                              },
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nA character’s attributes  comprise her Physical, Social, and Mental capacity. All characters in Vampire have a default maximum of 10 attributes in each of the three categories. \r\nEach dot of Generation gives a character one bonus attribute point. Players can use these points to increase their character’s attribute maximums. Each bonus point increases a single attribute category maximum by 1; a character must still purchase the attribute with XP as normal. \r\nAn 8th generation character receives 3 bonus points granted by her dots in Generation. The player of this character may choose to raise one attribute maximum by 3, to a new maximum of 13; this means she leaves the other two attribute maximums at 10. That same player could instead decide to raise one attribute maximum by 1 point (to 11), and one by 2 (to 12) points, leaving the third attribute category at its standard maximum of 10. \r\nAgain, in all cases, the character must spend XP in order to purchase attributes up to that new maximum.\r\nPlayers are not required to assign attribute points until the character is ready to purchase an attribute above 10. For example, Marlowe the 8th generation Malkavian has 3 bonus attribute points, but at character creation none of his attributes are above 10. After playing for a few months, Marlowe realizes that the Mental discipline Obfuscate has become a staple of his play-style and decides to raise his Mental attribute to 11. At this point Marlowe has spent 1 of his 3 bonus attribute points.",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              },
+              "eratta": {
                   "data": {},
-                  "marks": [],
-                  "value": "According to some clans’ legends, the biblical ﬁgure known as Caine was cursed by God and became the ﬁrst vampire. Caine then Embraced a second generation of vampires, who in turn Embraced a third, and so on. Because of this legend, vampires (even those who do not believe the myth) measure the strength of their blood in generations, counting how many sires have passed between them and the mythical apex, whomever it might be.\r\nGeneration is the measure of a vampire’s capability, based on the strength of her blood. Generation can only be purchased at character creation and is static thereafter for the course of the game (except in the case of diablerie, see below). \r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\nVampiric blood, also known as vitae, is a signiﬁcant factor in a vampire’s potency. To reﬂect this, there \rare mechanical differences, both advantages and disadvantages, to purchasing Generation. Having several dots in Generation means your vampire has stronger, purer blood, which can support elder powers . Thus, vampires of the 8th generation and above are collectively called “elders.”\r\nBuying fewer dots of Generation means the vampire’s blood is diluted, thinner and less pure, but therefore also less static. The blood of a character with fewer ranks in Generation is ﬂexible enough to support techniques : powers created by mixing two or more disciplines together into a single effect. \r\nTo play a vampire, you must purchase 1 dot of Generation. You may purchase more dots during character creation, but you cannot purchase them after the character enters play. Players should note that these dots are not additive — if you buy 2 dots, you don’t get the bonuses of both: only those of the highest dot purchased. \n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "\nDiablerie:\nThe less scrupulous among the higher generations sometimes steal the power of their elders through the foul process of diablerie. Diablerie allows a vampire to consume the soul of a more potent vampire and therefore gain some of her victim’s power. For more information on diablerie, see Chapter Seven: Dramatic Systems. ",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "• Generation (Neonate) \r\nNeonates have very weak potency of blood. They are usually recent Embraces and, therefore, more attuned to the modern world. The vitae of a Neonate is far too thin to develop elder powers, due to their distance in generation from the ﬁrst vampire of her line. However, the beneﬁt of thin blood is that its ﬂexibility allows Neonates to easily learn and utilize techniques.\r",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "System: With 1 dot, the character is of the 11th generation. If the player wishes, she can choose to take ﬂaws that will reduce her generation by one or two steps (12th or 13th generation), both of which are also considered “Neonates.” A Neonate has a Blood pool of 10 points, and can spend that Blood at a rate of 1 point per turn. Neonates may purchase any number of techniques at standard cost. \r\nNeonates purchase skills and backgrounds at reduced cost. Neonates may purchase skills and backgrounds for new level x1 instead of the standard new level x2.\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\n•• Generation (Ancilla) \r\nThe blood of an Ancilla vampire is thicker than that of a Neonate, but is still not pure enough to empower elder powers. Ancilla may learn and utilize techniques, just like vampires with thinner blood. These vampires are usually of moderate age and do not understand modern technology with the ease shown by Neonates.\r\nSystem: With 2 dots, the character is of the 9th generation. If the player wishes, she can choose to take a ﬂ aw that will reduce her generation by one step (10th generation), which is still considered “Ancilla.” An Ancilla has a Blood pool of 12 points, and can spend that Blood at a rate of 2 points per turn. Ancilla may purchase any number of techniques at standard cost. Ancilla purchase skills and backgrounds at the standard rate.\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\n••• Generation (Pretender Elder) \r\nA vampiric Pretender Elder is a powerful creature, with blood just thick enough to support one of her kind’s most potent powers — but only one. At this stage, a vampire’s blood still retains a certain ﬂexibility. This allows a Pretender Elder to become adept at techniques, though she cannot learn these powers as easily as Neonates or Ancillae. Such vampires tend to be hundreds of years old.\r\nSystem: With 3 dots, the character is of the 8th generation. A Pretender Elder has a Blood pool of 15 points, and can spend that Blood at a rate of 3 points per turn. She may purchase any number of techniques at increased cost (20 XP each), and may purchase one (and only one) elder power at standard cost (whether in-clan or out-of-clan). Elders purchase skills and backgrounds at standard costs.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\n•••• Generation (Master Elder) \r\nThese frighteningly potent vampires are paragons of their clans. Their vitae is powerful and increasingly pure, capable of learning and utilizing multiple elder powers. However, this potency means that a Master Elder’s blood is static, and she does not possess the ﬂexibility necessary to learn techniques.\r\nSystem: With 4 dots, the character is of the 7th generation. A Master Elder has a Blood pool of 20 points, and can spend that Blood at a rate of 4 points per turn. Master Elder characters may purchase any number of elder powers (both inclan and out-of-clan). A Master Elder cannot purchase any techniques and purchases skills and backgrounds at standard costs.\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\n••••• Generation (Luminary Elder) \r\nLuminary Elders are fearsome creatures. These vampires are pure-blooded reﬂections of the ancient founders, with extremely thick and potent vitae. This potency allows a Luminary Elder to utilize elder powers, but the purity of her blood makes learning out-of-clan disciplines more difﬁcult, as her blood is so strongly attuned to the powers of her clan.\r\nSystem: With 5 dots, the character is of the 6th generation. A Luminary Elder has a Blood pool of 30 points, and can spend that Blood at a rate of 5 points per turn. Luminary Elder characters may purchase any number of elder powers (both in-clan and out-of-clan). Luminary Elders may purchase the sixth level of all skills. A Luminary Elder cannot purchase any techniques. Luminary Elders pay increased costs for all out-of-clan disciplines (including elder powers).The cost for a Luminary Elder to purchase an out-of-clan discipline is the new level x5 instead of the standard new level x4. Luminary Elders purchase skills and backgrounds at standard costs.",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "\nAttribute Bonuses \nA character’s attributes  comprise her Physical, Social, and Mental capacity. All characters in Vampire have a default maximum of 10 attributes in each of the three categories. \r\nEach dot of Generation gives a character one bonus attribute point. Players can use these points to increase their character’s attribute maximums. Each bonus point increases a single attribute category maximum by 1; a character must still purchase the attribute with XP as normal. \r\nAn 8th generation character receives 3 bonus points granted by her dots in Generation. The player of this character may choose to raise one attribute maximum by 3, to a new maximum of 13; this means she leaves the other two attribute maximums at 10. That same player could instead decide to raise one attribute maximum by 1 point (to 11), and one by 2 (to 12) points, leaving the third attribute category at its standard maximum of 10. \r\nAgain, in all cases, the character must spend XP in order to purchase attributes up to that new maximum.\r\nPlayers are not required to assign attribute points until the character is ready to purchase an attribute above 10. For example, Marlowe the 8th generation Malkavian has 3 bonus attribute points, but at character creation none of his attributes are above 10. After playing for a few months, Marlowe realizes that the Mental discipline Obfuscate has become a staple of his play-style and decides to raise his Mental attribute to 11. At this point Marlowe has spent 1 of his 3 bonus attribute points.",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ],
-          "nodeType": "document"
-        },
-        "eratta": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
-                  "data": {},
-                  "marks": [],
-                  "value": "Change all references to “…and can spend that Blood at a rate of…point[s] per round” to read “…and can spend that Blood at a rate of…point[s] per ",
-                  "nodeType": "text"
-                },
-                {
-                  "data": {},
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Change all references to “…and can spend that Blood at a rate of…point[s] per round” to read “…and can spend that Blood at a rate of…point[s] per ",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "value": "turn",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": ".” Similarly, change the header of the fourth column in the Generation Chart to read “Blood/",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "value": "Turn",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": ".”\n\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
                   ],
-                  "value": "turn",
-                  "nodeType": "text"
-                },
-                {
+                  "nodeType": "document"
+              }
+          },
+          "sys": {
+              "id": "3xB3mUa46BijzTcORL8z3k"
+          }
+      },
+      {
+          "fields": {
+              "title": "Rituals (Sabbat Only)",
+              "description": {
                   "data": {},
-                  "marks": [],
-                  "value": ".” Similarly, change the header of the fourth column in the Generation Chart to read “Blood/",
-                  "nodeType": "text"
-                },
-                {
-                  "data": {},
-                  "marks": [
-                    {
-                      "type": "bold"
-                    }
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "The Rituals background can only be purchased by an  Initiated member of the Sabbat (one who has undergone  the Creation Rites). Purchasing this background means  that your character is trained in a number of Auctoritas or  Ignoblis Ritae. You know the ritae and rituals of the Sabbat,  and you can enact many of them. This background is vital to  being a pack Priest — without this background, you cannot  cast the ritae (though you can still participate, if someone  else is officiating). ",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
                   ],
-                  "value": "Turn",
-                  "nodeType": "text"
-                },
-                {
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
                   "data": {},
-                  "marks": [],
-                  "value": ".”\n\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        }
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "By purchasing the first dot of Rituals, a character  learns four Ritae: the Creation Rites, the Vaulderie, the  Monomacy, plus one ritae of your choosing. For every dot  of Rituals purchased thereafter, the character can choose  to learn an additional two Auctoritas, Ignoblis, or Faction  Ritae. \n\nNote that Games of Instinct covers an entire spectrum  of ritae; a character does not have to purchase each game  individually. Performing any ritual requires the practitioner  to have faith in that ritual’s innate precept.\n\nRemember that Faction Ritae can only be learned and  utilized by members of that political faction, unless  otherwise noted in the description of the ritus. If a character  who has learned a Faction Ritae abandons that faction, she  loses the ability to cast that faction’s ritae. She cannot  choose another ritae in its place, and any XP she spent on  the Rituals background to purchase that specific Faction  Ritae is not refunded. To become a pack Priest, a character \nmust purchase at least 1 dot of the Rituals background. A  character must have the appropriate Sabbat status trait to  initiate one of the Auctoritas Ritae, but any character with  the Rituals background may assist in the casting of that  ritae, so long as she knows the specific ritus.  \n\n\n\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "1wSg7cmWFlS4hdQW7UuRX9"
+          }
       },
-      "sys": {
-        "id": "3xB3mUa46BijzTcORL8z3k"
-      }
-    },
-    {
-      "fields": {
-        "title": "Herd",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
+      {
+          "fields": {
+              "title": "Resources",
+              "description": {
                   "data": {},
-                  "marks": [],
-                  "value": "You have gathered a group of mortals from whom you feed without fear of reprisals or risking the notice of mortal authorities. A vampire with the Herd background doesn’t have to go far to hunt; the Herd offers a safe and easy way to gain blood. You must deﬁne your Herd, whether they are kinky club-goers captivated by a vampire’s charisma, or a fanatically religious cult that views you as some kind of priestess or incarnate divinity. A Herd could be a group of enslaved prisoners, a medical pass that gives you access to fresh blood supplies, or a personal zoo of animals. Work with your Storyteller to describe the exact nature of your character’s Herd.",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "There are many ways to acquire goods, services, property, and luxuries in the World of Darkness, but ready access to money is one of the oldest and most reliable. Vampires often maintain some kind of cash ﬂow, though they must do so either through mortal proxies, alternate identities, or other subterfuges, and even then they must be wary of attracting the wrong kind of attention: they cannot afford to trigger an audit from government ﬁnancial institutions, or become the focus of a securities fraud investigation. The Resources background measures your character’s purchasing power, available credit, accumulated assets, and liquid cash reserves.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\nResources may be actual cash, but as this background’s rating increases, it is more likely that the character has signiﬁcant investments in stocks and bonds, real estate, or hedge funds than piles of cash sitting around. At the upper end of the background, she may gain money by exerting control over a corporation, criminal syndicate, or religious institution; or she may own a large amount of land, live off a trust fund, smuggle precious objects d’art, control a massive criminal infrastructure, or receive signiﬁcant tithes from control of the church. \r\nA character with no dots in the Resources background is impoverished. She has enough clothing and supplies to survive, and she may live in a cheap motel or a small apartment (or something similar). Characters without Resources have little or no liquid cash and cannot afford luxury items. They rarely, if ever, pay their debts.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\nThe Resources background provides a guideline for a general standard of living. It shows wealth and buying power in mortal equivalents; most vampires who have Sufﬁcient Resources do not pay taxes, for example, and almost none earn an income from holding down a regular job. The gulf between each dot of Resources widens considerably the farther up the scale you go, but the exact amount of cash your character has on hand should be decided by the Storyteller. You must also work with your Storyteller to detail exactly where your character’s money comes from and how it can be accessed. ",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
                   "data": {},
-                  "marks": [],
-                  "value": "Characters with the Herd background do not have to spend a downtime action feeding each game. If plot, inﬂuence actions, or other circumstances require vampires to spend more than 1 downtime action feeding, you reduce the number of downtime actions required by a number equal to your dots in Herd. If you have more dots in Herd than you must expend for downtime actions to feed, you may allow other individuals to feed on your Herd, thus using the dots to supplement their downtime actions in the same manner.\r\nAdditionally, at any point you may spend ﬁve minutes out-of-game feeding rather than the standard 15 minutes. If you do, you will gain a number of Blood points equal to your herd rating. You cannot allow other characters access to this advantage.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "eratta": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": " In the sentence “Characters with the Herd background do not have to spend a downtime action feeding each month,” replace “month” with “game.”\n\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "The Storyteller should also adjust the details of this background so that it is appropriate for her setting and chronicle. Standards of living can vary markedly between geographic areas, and what’s acknowledged as Comfortable in one community might be considered Sufﬁcient in another. \r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "* Sufﬁcient: You can maintain a typical working class residence: a small house or condo. You can afford an economical car, you pay your bills on time, and you can purchase simple luxuries like good-quality electronics or occasional vacations to other countries. Through careful management of your ﬁnances, you may spend up to $1,000 in liquid cash per month.\r",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "** Moderate: You can support an upper-middleclass lifestyle and home with the occasional lavish gift or conspicuous indulgences such as multiple vehicles or a time-share condominium in addition to your comfortable home. You can employ a servant or personal assistant, or hire temporary help as necessary. You can spend up to $2,500 in liquid cash per month. ",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "*** Comfortable: You are a prominent and established member of your community with land investments, a large, luxurious home, and at least one second home in a fashionable vacation destination. You likely have more money tied up in investments and property than you do in ready cash. You can spend up to $20,000 in liquid cash per month without much concern. ",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "**** Wealthy: You rarely touch cash, as most of your assets exist in tangible forms that are themselves more valuable and stable than paper money, such as gold, diamonds, and gems, or in massive credit reserves based on these holdings. You hold more wealth than many who would claim to be your peers, but it’s likely they underestimate your true total net worth. At this level of wealth, banks and government institutions closely monitor how you convert your money to cash. You can easily spend up to $100,000 in liquid cash per month without attracting the wrong kind of attention.\r",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "***** Extremely Wealthy: You are the model others wish to emulate, at least in popular opinion. You have vast and widely distributed assets, perhaps tied to the fates of nations, each managed by large, specialized staffs and supported with connections to every level of society through a region. Corporations and governments sometimes come to you to buy into stocks or bond programs. If there is something you want, and it is possible to buy, you can purchase it without the cost affecting your bottom line. At this level of wealth, the banks, the IRS, and other agencies closely monitor how you convert your money to cash. You can easily spend up to $250,000 in liquid cash per month without attracting the wrong kind of attention.",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "45bej8wGZ42Q2TN08F1GoW"
+          }
       },
-      "sys": {
-        "id": "2OnadCocJwBf8kPkgpnLeg"
-      }
-    },
-    {
-      "fields": {
-        "title": " Haven ",
-        "description": {
-          "data": {},
-          "content": [
-            {
-              "data": {},
-              "content": [
-                {
+      {
+          "fields": {
+              "title": "Influences",
+              "description": {
                   "data": {},
-                  "marks": [],
-                  "value": "Every vampire must have a safe place she can retreat to during the day, commonly described as a haven. A vampiric haven can be anyplace your character may reasonably survive: an expensive hotel suite, a mansion, a trailer park, a hidden tunnel in the sewer system, etc.\r\n",
-                  "nodeType": "text"
-                }
-              ],
-              "nodeType": "paragraph"
-            }
-          ],
-          "nodeType": "document"
-        },
-        "system": {
-          "nodeType": "document",
-          "data": {},
-          "content": [
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": " Every time you purchase a dot in the Haven merit choose one of the following advantages. You cannot select the same advantage more than once for a single Haven location.\r\n• Guards: Guardians regularly patrol your Haven. Anyone who tries to inﬁltrate your Haven must contend with 5 levels of Retainers who guard your Haven (you may choose to make ﬁve level 1 retainers, one level 5 retainer, or any other combination that adds up to 5. Your guards only work in your Haven and cannot travel with you. If you want underlings who can leave your Haven, consider the Retainer background.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Library: Before making a Research or Lore test, you can spend one hour looking things up in your library to receive a +3 bonus to your pool.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Location: Your Haven is located in a prestigious neighborhood. Anyone who wishes to use downtime actions to negatively affect you must spend twice as many downtime actions as long as you regularly stay in your Haven. Additionally, you receive a number of story beneﬁ ts (police respond quickly when you call, your roads get cleared ﬁ rst when the weather is bad, etc.)\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Luxury: You’ve ﬁlled your Haven with comfortable and expensive extras, such as televisions, automatic chairs, computers, or works of art. You receive a +3 bonus to Social tests versus mortals when they are in your Haven.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Security: Any challenges made to break into your Haven or to bypass detection suffer a −3 penalty. Additionally you will always receive at least one turn of warning when someone attempts to break into your Haven (no matter how well your attacker tests). Characters with the Security skill gain this bonus for free.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Size: Your Haven is enormous with dozens of rooms. You can comfortably house up to 10 additional characters.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Staff: Your Haven includes several servants who see to the needs of yourself and your guests. Staff doesn’t normally fight, but if forced to engage, treat them as level 1 Retainers with no specialties applicable to combat.\r\n",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            },
-            {
-              "nodeType": "paragraph",
-              "content": [
-                {
-                  "nodeType": "text",
-                  "value": "• Occult: Your Haven contains a number of simple wards and hedge-wizard tricks to keep out unwanted guests. You may have runes carved into the window sills or a line of salt at the door. Regardless of the wards used, supernatural Stock NPCs  cannot enter your Haven without being invited. This has no effect on playercharacters or NPCs with full character sheets. You cannot purchase this bonus unless you have the Occult  skill.\r\n ",
-                  "marks": [],
-                  "data": {}
-                }
-              ],
-              "data": {}
-            }
-          ]
-        }
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "The Inﬂuence background is a mechanical means to express the series of social connections, business transactions, and personal favors that make up your character’s inﬂuence over the mortal world.  \r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "You may purchase up to 5 dots of either inﬂuence category as listed below:",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\n- The Elite : You have inﬂuence over the upper crust, those who are wealthy, hold legitimate power, own corporations, or control noteworthy institutions. These individuals live in a world of wealth and afﬂuence.\r \n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\n- The Underworld : You have inﬂuence over those who work outside of the law, whether it is the working classes looking the other way, or those who live on the street ruling gangs and drug cartels, running networks of thieves, or controlling intricate cultural bureaucracy. These individuals live in a world of rumors, whispers, and lies.\r\nInformation about utilizing inﬂuences can be found in Chapter Thirteen: Inﬂuences and Equipment.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "1CACbMLB3hD07gdPrCH0WN"
+          }
       },
-      "sys": {
-        "id": "6ik0jTdjCW3aflsJAHoMMN"
+      {
+          "fields": {
+              "title": "Alternate Identity ",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "You maintain a second identity, complete with papers, birth certiﬁcates, or any other necessary documentation. This \rcover personality may be a ruse to help your character hide among the mortal populace, or it may be a vampire identity designed to inﬁltrate another clan. You may buy this background multiple times, with each instance representing an entirely separate cover identity.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "•  Your identity is very shallow. You have a driver’s license or other minor documentation, and it can survive a perfunctory internet search.\r\n••  You have a well-grounded identity that could withstand the scrutiny of a minor criminal investigation. This might include birth certiﬁcates and social security numbers, or in vampiric society, it might represent a newly established inﬁltration.\r\n•••  Your identity is very well established and will stand up to all but the toughest scrutiny. This persona has a long and believable history, including friends, family, and character witnesses. In vampiric society, you may have arranged a plausible (but dead) sire and a veriﬁable history.\r\n••••  Your identity is designed to inﬁltrate another clan or sect. At this level you’ve established a rudimentary identity as a new (or fairly new) vampire of the clan/sect you’re attempting to inﬁltrate. You have arranged a living sire who claims to have created you, and you have been present at several historical events as a member of the clan.\r\n••••• Your identity is a respected member of society; it holds powerful ofﬁce in the mortal world, or among vampires, concretely inﬂuences another clan or sect. You have a long history, an in-depth lineage, and your cover is solid enough to pass even supernatural means of veriﬁcation. Note that this doesn’t prevent the character from being “found out” if you make a mistake and other players catch on. Even the strongest Alternate Identity will fail if you can’t keep a secret.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nAlternate Identity will not fool supernatural powers or direct observation. For example, it will not help you when targeted by Telepathy .  In addition, an Alternate Identity can be Accepted by another sect or political group, and gain status in that group. For more information on Acceptance and status, see Chapter Seven: Dramatic Systems, Status and Vampire Society on page 310.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "5FxxoSiBwTn2q3xmmSzvtg"
+          }
+      },
+      {
+          "fields": {
+              "title": "Allies ",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "The Allies background represents mortals who support and help you. These mortals may be family, friends, or even a loyal corporation or criminal organization. Allies may represent friends who work at the morgue, write for a prominent blog, or circulate in the high society of local celebrities. With Allies, you can make a few calls, cut a few deals, and get trustworthy assistance in a wide range of activities.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Remember that Allies are mortal, and are not aware of the supernatural world of vampires. They genuinely believe you are a friend, and they may ask you for a favor in the future. If your Allies ask for a favor in return, and you are unable to assist them, you may lose dots in the Allies background until you “make good” on the deal.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": " For each dot of Allies that you purchase, you must deﬁne one group of people with whom your character is allied. For example, a character with 3 dots of Allies may choose to deﬁne those Allies as mortuary workers, a local gang called the Vatos, and a local independent rock band known as the Iron Jugs. When you have your character call in favors, you must tell the Storyteller which group (or groups) she is contacting and explain how that group is capable of assisting your character with the speciﬁc problem. \r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nThese Allies can perform reasonable tasks and may be more capable if the task is something appropriate to their profession. For example, Allies in the local morgue could do something mundane, like watch a building. They would be very good at something in line with their profession, like disposing of a body. However, it would be outside their area of expertise to rob the local liquor store. The character’s second Ally, the local gang, would be more appropriate for that task. \r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "If the situation requires character sheets for your Allies, the Storyteller generates up to three Stock NPCs, one of level 3 and two at level 1. All of these NPCs are mortal, and none have any supernatural abilities. Note that Allies are capable of ﬁghting, but they are not designed to be a character’s personal army. If a character’s Allies are killed, the character loses access to the Allies background for the next two games or one month (whichever is longer). \r\nYou may use this background once per game for each dot of Allies the character possesses. \r\n ",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "1WProkiv3zIl3CfxB79tHJ"
+          }
+      },
+      {
+          "fields": {
+              "title": "Contacts",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "You have established close personal relationships with people all over the city. When you start making phone \rcalls and asking for gossip or inside tips, the amount of information you can dig up is impressive. You know who to bribe, manipulate, or coerce into offering information, and the favorites list on your cellphone looks like a who’s who of the city’s most important people. \r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\nYour Contacts help you keep an ear out for rumors and gather information. When you call on your Contacts, the character makes a few phone calls, checks in on her snitches, and listens to the local gossipmongers. The character very quickly gets rumors and information appropriate to the network she’s established with this background. ",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": " For each dot of Contacts that you purchase, you must deﬁne one individual with whom your character has a close relationship. This individual is considered to be very well connected in their ﬁeld or area of expertise; she knows a great deal and actively remains aware of current events within her sphere of inﬂuence. For example, a character with 3 dots of Contacts may choose to deﬁne those individuals as Bethany, the wealthy socialite; Carlos, the head of Accounting at a local ﬁnancial conglomerate; and Jane Anne, the owner of one of the most popular nightclubs in the city. When the player has her character call these Contacts, she must tell the Storyteller which individual (or individuals) she is contacting and explain how that individual might know information of use to her character in the speciﬁc situation. \r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nWhen you use your Contacts, you may ask the Storyteller for one piece of information about an ongoing plot, or you may ask for information about one inﬂuence  transaction that occurred within the city in the last month. If used to investigate plot, these Contacts will provide information that the Storyteller considers appropriate. If the Contacts are used to investigate inﬂuences, the character will gain a full description of the inﬂuence result and information that may be used to discover who controls that inﬂuence (if anyone).\r\nYou may use this background once for each dot of Contacts the character possesses, per session. ",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "177YaJ8AykF5GtEJPRuzEJ"
+          }
+      },
+      {
+          "fields": {
+              "title": "Fame",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Mortals are often chosen for the Embrace from the ranks of the elite. As a result, some vampires can claim a particular distinction from their breathing days: whether a prominent career in music or art, or a birthright within a royal or exceptionally wealthy family. Fame fades over the years, and is therefore normally the province of younger vampires. A player portraying an older vampire with this background must justify to the Storyteller the reasons that her character is still well known and recognizable to mortal society.\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\nWhen purchasing Fame, decide why your character is famous. The number of dots purchased in this background determines the range of the character’s mortal acclaim. For example, a painter with 1 dot of Fame might be known only within artistic circles, while an actor with 5 dots of Fame would be a nationally known celebrity.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "When you interact with mortals who recognize your character’s Fame, you may add +5 to any non-supernatural Social challenges. Additionally, NPCs will often give you favors, assist you without question, and grant you the beneﬁt of the doubt. For example, a famous celebrity will not have difficulty getting a private room, borrowing someone’s car, or convincing people in a hotel that the strange things they saw were just scenes being ﬁlmed for a new horror movie.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nNote that when you call on your Fame to help you, the circumstances will quickly become common knowledge among your sphere of acclaim. If a famous painter asks for a free ride home from the airport, it will make the news and, people will speculate about her reasons for needing the ride.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nFame ranges: \n•  Local scene\r\n••  City\r\n•••  State\r\n••••  Adjoining states/region\r\n•••••  Entire country\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "High levels of Fame can be disruptive to a chronicle. Storytellers should regulate the Fame background as they feel appropriate for their setting.\r\n ",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "3LIM2xrcTqumaKT7gFRo5m"
+          }
+      },
+      {
+          "fields": {
+              "title": " Retainers ",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Whether out of personal gratitude, love, the blood bond, or some other means, you have the fellowship of a mortal who is intensely trustworthy and loyal to you. Unlike the Allies background, your Retainers are always available when you need them. They can be trusted to oversee your personal effects, defend your property, and further your goals. \r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nA Retainer does not have the specialized knowledge of a Contact, nor the broad capacity to perform favors like Allies do, but she is more loyal and resilient than either of the other two. A Retainer will ﬁght for the vampire, if necessary, defending her when she is sleeping or carrying out her will when the vampire cannot do something for herself. For a vampire, a Retainer is usually a ghoul, controlled via the blood bond; even if the Retainer is free-willed, she will put the vampire’s needs and survival ahead of her own. \r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nUse the rules for Stock NPCs to build Retainers. They can take any action that an NPC can take, but the Storyteller should remember that Retainers are not perfect. For example, a Retainer spying on the Brujah clan meeting would certainly report back to her master, but would not be able to quote the things she’s observed verbatim. If there is ever a question about what a Retainer can accomplish, the Storyteller has the ﬁnal call.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "\nYou may purchase the Retainer background multiple times, representing multiple Retainers, but you must purchase dots separately for each Retainer. No Retainer can have more than 5 dots.\r\nIf your Retainer is released or killed, you lose access to that background for one game or two weeks (whichever is longer) for every dot you purchased for that speciﬁc Retainer. During this time, the vampire is ﬁnding a suitable replacement.\r\nPlayers should work with their Storytellers to determine how the character secured such a loyal Retainer.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Your Retainer’s test pool for most actions will be equal to her Retainer rating x2. For example, a level 3 Retainer has a test pool of 6 for most actions.\r\n\nSpecialties There are two types of specialties: skill specialties and discipline specialties. A Retainer has a number of specialties equal to the Retainer’s overall rating. For example, a 2-point Retainer has two specialties, and may choose to place them both in different skills, or one in a skill and one in a discipline.\r\n• Skill Specialty: Choose one skill in which your Retainer will specialize. When the Retainer makes a challenge utilizing this skill specialty, her test pool is increased by 5. For example, if our aforementioned 2-point Retainer selected a skill specialty in Brawl, her test pool for unarmed combat would be 9 (rating 2 x2 = 4 + 5 = 9).\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "\n• Discipline Specialty: Retainers may use one (and only one) of their specialties to learn a discipline that is inclan for their domitor. A discipline specialty allows the Retainer access to one power per dot of the Retainer. For example, if our 2-point Retainer from the above example was a ghoul, she could choose to select a second specialization in Potence. This gives her access to the ﬁrst 2 dots of the Potence discipline, because she is a 2-point Retainer. If the player purchases a 3rd dot in this Retainer background, the ghoul immediately gains a 3rd dot of Potence and gains the ability to select a third specialty. \r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      },
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Retainer Finishing Touches \nRetainers do not have Willpower and cannot retest failed challenges unless they can overbid. Ghoul Retainers have 5 potent Blood points that may be spent on vampiric powers and 5 mortal Blood points, which cannot be spent. They can spend 1 Blood per turn to heal or power disciplines.\r\nRetainers have one effective health level per rating of the background. For example, a 4-point Retainer has four health levels. When a Retainer runs out of health levels, she falls unconscious, or is in too much pain to act effectively. Retainers are not automatically killed, but they may die if they don’t receive medical attention. \r\nFor more information on retainers, please see Chapter Twelve: Allies and Antagonists, Stock NPC Generation. ",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "eratta": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": " Remove the word “ghoul” from this sentence: “Ghoul Retainers may use one (and only one) of their specialties to learn a discipline that is in-clan for their domitor.” Characters who have access to vampiric or ghostly retainers may give their underling a discipline specialty.\n\nChange “…can spend 1 Blood per round,” to read “…can spend 1 Blood per ",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [
+                                      {
+                                          "type": "bold"
+                                      }
+                                  ],
+                                  "value": "turn",
+                                  "nodeType": "text"
+                              },
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": ".”\n\n\n\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              }
+          },
+          "sys": {
+              "id": "2C0UiVdRKYf9Hn2WlfdMLL"
+          }
+      },
+      {
+          "fields": {
+              "title": "Herd",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "You have gathered a group of mortals from whom you feed without fear of reprisals or risking the notice of mortal authorities. A vampire with the Herd background doesn’t have to go far to hunt; the Herd offers a safe and easy way to gain blood. You must deﬁne your Herd, whether they are kinky club-goers captivated by a vampire’s charisma, or a fanatically religious cult that views you as some kind of priestess or incarnate divinity. A Herd could be a group of enslaved prisoners, a medical pass that gives you access to fresh blood supplies, or a personal zoo of animals. Work with your Storyteller to describe the exact nature of your character’s Herd.",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Characters with the Herd background do not have to spend a downtime action feeding each game. If plot, inﬂuence actions, or other circumstances require vampires to spend more than 1 downtime action feeding, you reduce the number of downtime actions required by a number equal to your dots in Herd. If you have more dots in Herd than you must expend for downtime actions to feed, you may allow other individuals to feed on your Herd, thus using the dots to supplement their downtime actions in the same manner.\r\nAdditionally, at any point you may spend ﬁve minutes out-of-game feeding rather than the standard 15 minutes. If you do, you will gain a number of Blood points equal to your herd rating. You cannot allow other characters access to this advantage.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "eratta": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": " In the sentence “Characters with the Herd background do not have to spend a downtime action feeding each month,” replace “month” with “game.”\n\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "2OnadCocJwBf8kPkgpnLeg"
+          }
+      },
+      {
+          "fields": {
+              "title": " Haven ",
+              "description": {
+                  "data": {},
+                  "content": [
+                      {
+                          "data": {},
+                          "content": [
+                              {
+                                  "data": {},
+                                  "marks": [],
+                                  "value": "Every vampire must have a safe place she can retreat to during the day, commonly described as a haven. A vampiric haven can be anyplace your character may reasonably survive: an expensive hotel suite, a mansion, a trailer park, a hidden tunnel in the sewer system, etc.\r\n",
+                                  "nodeType": "text"
+                              }
+                          ],
+                          "nodeType": "paragraph"
+                      }
+                  ],
+                  "nodeType": "document"
+              },
+              "system": {
+                  "nodeType": "document",
+                  "data": {},
+                  "content": [
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": " Every time you purchase a dot in the Haven merit choose one of the following advantages. You cannot select the same advantage more than once for a single Haven location.\r\n• Guards: Guardians regularly patrol your Haven. Anyone who tries to inﬁltrate your Haven must contend with 5 levels of Retainers who guard your Haven (you may choose to make ﬁve level 1 retainers, one level 5 retainer, or any other combination that adds up to 5. Your guards only work in your Haven and cannot travel with you. If you want underlings who can leave your Haven, consider the Retainer background.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Library: Before making a Research or Lore test, you can spend one hour looking things up in your library to receive a +3 bonus to your pool.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Location: Your Haven is located in a prestigious neighborhood. Anyone who wishes to use downtime actions to negatively affect you must spend twice as many downtime actions as long as you regularly stay in your Haven. Additionally, you receive a number of story beneﬁ ts (police respond quickly when you call, your roads get cleared ﬁ rst when the weather is bad, etc.)\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Luxury: You’ve ﬁlled your Haven with comfortable and expensive extras, such as televisions, automatic chairs, computers, or works of art. You receive a +3 bonus to Social tests versus mortals when they are in your Haven.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Security: Any challenges made to break into your Haven or to bypass detection suffer a −3 penalty. Additionally you will always receive at least one turn of warning when someone attempts to break into your Haven (no matter how well your attacker tests). Characters with the Security skill gain this bonus for free.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Size: Your Haven is enormous with dozens of rooms. You can comfortably house up to 10 additional characters.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Staff: Your Haven includes several servants who see to the needs of yourself and your guests. Staff doesn’t normally fight, but if forced to engage, treat them as level 1 Retainers with no specialties applicable to combat.\r\n",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      },
+                      {
+                          "nodeType": "paragraph",
+                          "content": [
+                              {
+                                  "nodeType": "text",
+                                  "value": "• Occult: Your Haven contains a number of simple wards and hedge-wizard tricks to keep out unwanted guests. You may have runes carved into the window sills or a line of salt at the door. Regardless of the wards used, supernatural Stock NPCs  cannot enter your Haven without being invited. This has no effect on playercharacters or NPCs with full character sheets. You cannot purchase this bonus unless you have the Occult  skill.\r\n ",
+                                  "marks": [],
+                                  "data": {}
+                              }
+                          ],
+                          "data": {}
+                      }
+                  ]
+              }
+          },
+          "sys": {
+              "id": "6ik0jTdjCW3aflsJAHoMMN"
+          }
       }
-    }
   ]
 }

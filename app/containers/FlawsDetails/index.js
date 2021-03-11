@@ -266,7 +266,7 @@ export function ClanPage(props) {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="#">
+                  <a href="/">
                     <span className="icon-skull">
                       <span className="path1" />
                       <span className="path2" />
