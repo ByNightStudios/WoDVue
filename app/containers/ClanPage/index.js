@@ -38,6 +38,8 @@ import saga from './saga';
 import { getDropDownItems } from './actions';
 import './style.css';
 
+const { Paragraph } = Typography;
+
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -141,7 +143,18 @@ export function ClanPage(props) {
                   }}
                 />
                 <div className="col-md-8">
-                  <h1>{get(selectedClan, 'title', '')}</h1>
+                  <div className="row">
+                    <h1>{get(selectedClan, 'title', '')}</h1>
+                    <Paragraph
+                      copyable={{
+                        text: `${window.location.href}`,
+                      }}
+                      style={{ marginLeft: 10, color: '#fff' }}
+                    >
+                      {' '}
+                      Share Link
+                    </Paragraph>
+                  </div>
                   <h4 style={{ fontSize: 18 }}>
                     <i>{get(selectedClan, 'nickname', '')}</i>
                   </h4>
@@ -200,7 +213,7 @@ export function ClanPage(props) {
                       /* eslint-disable-next-line react/no-danger */
                       dangerouslySetInnerHTML={{
                         __html: documentToHtmlString(
-                          get(selectedClan, 'organization_html', '')
+                          get(selectedClan, 'organization_html', ''),
                         ),
                       }}
                     />

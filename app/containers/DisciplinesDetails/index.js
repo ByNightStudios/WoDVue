@@ -10,7 +10,7 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -36,6 +36,8 @@ import { find } from 'underscore';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import history from 'utils/history';
+
 import { makeSelectApp } from 'containers/App/selectors';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
@@ -48,6 +50,8 @@ import saga from './saga';
 
 import { getDropDownItems } from './actions';
 import './style.css';
+
+const { Paragraph } = Typography;
 
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
@@ -192,6 +196,35 @@ export function ClanPage(props) {
     );
   }
 
+  function renderLink(item) {
+    const { title } = item;
+    if (title === 'Necromancy') {
+      return (
+        <Paragraph
+          copyable={{
+            text: `${window.location.origin}/vampire/Rituals#${title}`,
+          }}
+          style={{ marginLeft: 10 }}
+        >
+          Copy Link
+        </Paragraph>
+      );
+    }
+
+    if (title === 'Thaumaturgy') {
+      return (
+        <Paragraph
+          copyable={{
+            text: `${window.location.origin}/vampire/Rituals#${title}`,
+          }}
+          style={{ marginLeft: 10 }}
+        >
+          Copy Link
+        </Paragraph>
+      );
+    }
+    return false;
+  }
   return (
     <div className="clan-page">
       {renderHelment()}
@@ -481,21 +514,25 @@ export function ClanPage(props) {
                                   {map(item.summary, d => (
                                     <p>{d}</p>
                                   ))}
-                                  <a
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                      window.scrollTo({
-                                        top: 0,
-                                        behavior: 'smooth',
-                                      });
-                                      setSelectedClan(item);
-                                      setPowenClanIndex(-1);
-                                    }}
-                                  >
-                                    <span style={{ color: '#fff' }}>
-                                      Details
-                                    </span>
-                                  </a>
+                                  <div className="row">
+                                    <a
+                                      className="btn btn-primary"
+                                      onClick={() => {
+                                        window.scrollTo({
+                                          top: 0,
+                                          behavior: 'smooth',
+                                        });
+                                        setSelectedClan(item);
+                                        setPowenClanIndex(-1);
+                                      }}
+                                    >
+                                      <span style={{ color: '#fff' }}>
+                                        Details
+                                      </span>
+                                    </a>
+
+                                    {renderLink(item)}
+                                  </div>
                                 </div>
                               </div>
                             </p>
