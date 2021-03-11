@@ -100,7 +100,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-
   function getSummaryHtml(html) {
     if (html) {
       const mappedHtml = {
@@ -179,7 +178,7 @@ export function ClanPage(props) {
                 </blockquote>
               ) : null}
 
-<p>
+              <p>
                 <div
                   /* eslint-disable-next-line react/no-danger */
                   dangerouslySetInnerHTML={{
@@ -197,9 +196,14 @@ export function ClanPage(props) {
                 <>
                   <h2>ORGANIZATION</h2>
                   <p>
-                    {map(get(selectedClan, 'organization', []), item => (
-                      <p key={item}>{item}</p>
-                    ))}
+                    <div
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(
+                          get(selectedClan, 'organization_html', '')
+                        ),
+                      }}
+                    />
                   </p>
                 </>
               ) : null}

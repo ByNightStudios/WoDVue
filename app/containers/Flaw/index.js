@@ -203,7 +203,7 @@ export function Flaw({ app }) {
                 </button>
               </li>
               <li className="page-item active">
-                <span className="page-link">{2 + page}</span>
+                <span className="page-link">{page}</span>
               </li>
               <li className="page-item">
                 <button
@@ -218,7 +218,7 @@ export function Flaw({ app }) {
           </div>
 
           <div className="col-md-12">
-            <div className="header-disciplines" style={{ marginLeft: '116px' }}>
+            <div className="header-disciplines">
               <div
                 className="disc-cols3 sort-down"
                 onClick={() => handleSortingByLevel('flaw')}

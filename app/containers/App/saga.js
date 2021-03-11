@@ -1,4 +1,4 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest, call } from 'redux-saga/effects';
 import { orderBy, filter, sortBy, concat } from 'lodash';
 import localforage, { clear } from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
@@ -11,10 +11,13 @@ import ritualsMock from 'mockData/ritual.json';
 import techniqueMock from 'mockData/technique.json';
 import clanMock from 'mockData/clan.json';
 import flawMock from 'mockData/flaw.json';
+import meritMock from 'mockData/merit.json';
 
 // import apiScriptJson from 'scripts/api.json';
 
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
+import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
+
 // import { makeSelectApp } from './selectors';
 import {
   disciplineDataSuccess,
@@ -70,6 +73,13 @@ function getItems(item) {
 
 function* handleGetAppData() {
   clear('NightStudio');
+
+  const response111 = yield call(apiContentful, {
+    query: 'rituals',
+    select: 'fields,sys.id',
+    parents: '',
+  });
+
   try {
     const contentfulData = extractEntryDataFromResponse(mockAppData);
 
@@ -95,12 +105,11 @@ function* handleGetAppData() {
       ['asc'],
     );
     yield put(flawsDataSuccess(orderByData3));
-    const meritAppData = sortBy(filter(contentfulData, o => o.merit), 'merit');
-    const meritByData4 = orderBy(
-      meritAppData,
-      [item => getItems(item).toLowerCase()],
-      ['asc'],
-    );
+    const meritAppData = extractEntryDataFromResponse(meritMock);
+
+    console.log(meritAppData);
+
+    const meritByData4 = orderBy(meritAppData, 'merit', ['asc']);
 
     yield put(meritsDataSuccess(meritByData4));
 
