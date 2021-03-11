@@ -17,11 +17,11 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Card, Row, Col, Typography } from 'antd';
-import { map, find, get, isEmpty, includes } from 'lodash';
+import { map, find, get, isEmpty, includes, slice } from 'lodash';
 import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
@@ -100,6 +100,19 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
+
+  function getSummaryHtml(html) {
+    if (html) {
+      const mappedHtml = {
+        ...html,
+        content: slice(html.content, 1, 6),
+      };
+      return mappedHtml;
+    }
+    return false;
+  }
+
+  console.log(selectedClan);
   return (
     <div className="clan-page">
       <Helmet>
@@ -165,6 +178,17 @@ export function ClanPage(props) {
                   <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
                 </blockquote>
               ) : null}
+
+<p>
+                <div
+                  /* eslint-disable-next-line react/no-danger */
+                  dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(
+                      getSummaryHtml(get(selectedClan, 'description_html', '')),
+                    ),
+                  }}
+                />
+              </p>
               <p>
                 <p>{get(selectedClan, 'summary[1]', [])}</p>
                 <p>{get(selectedClan, 'summary[2]', [])}</p>

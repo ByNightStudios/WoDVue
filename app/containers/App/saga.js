@@ -139,11 +139,7 @@ function* handleGetAppData() {
     saveState('techniques', orderByData777);
     yield put(techniquesDataSuccess(orderByData777));
 
-    const contentfulData7771 = concat(
-      RitualsDataMock1,
-      filter(RitualsDataMock2, o => !o.power),
-      RitualsDataMock3,
-    );
+    const contentfulData7771 = extractEntryDataFromResponse(techniqueMock);
     const orderByData7771 = orderBy(
       contentfulData7771,
       [item => getItems(item).toLowerCase()],

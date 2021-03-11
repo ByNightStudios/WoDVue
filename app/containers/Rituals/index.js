@@ -104,6 +104,8 @@ export function ClanPage(props) {
     return false;
   }
 
+  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <Helmet>
@@ -160,9 +162,7 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'testPool')) ? (
                 <div>
                   <h2>TEST POOL</h2>
-                  {map(get(selectedClan, 'testPool'), item => (
-                    <p>{item}</p>
-                  ))}
+                    <p>{get(selectedClan,'testPool')}</p>
                 </div>
               ) : (
                 <div />
