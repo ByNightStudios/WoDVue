@@ -19,7 +19,7 @@ import { map, get, isEmpty, find, trim } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-
+import { Typography } from 'antd';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
@@ -34,6 +34,7 @@ import saga from './saga';
 import { getDropDownItems } from './actions';
 import './style.css';
 
+const { Paragraph } = Typography;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -93,7 +94,8 @@ export function ClanPage(props) {
   return (
     <div className="clan-page">
       <Helmet>
-        <title>{`
+        <title>
+          {`
           World of Darkness - MET - Vampire - Merits -{' '}
           ${get(selectedClan, 'merit', '')}`}
         </title>
@@ -107,7 +109,18 @@ export function ClanPage(props) {
                 get(selectedClan, 'merit'),
               )}`}
             >
-              <h1>{get(selectedClan, 'merit', '')}</h1>
+              <div className="row">
+                <h1>{get(selectedClan, 'merit', '')}</h1>
+                <Paragraph
+                  copyable={{
+                    text: `${window.location.href}`,
+                  }}
+                  style={{ marginLeft: 10, color: '#fff' }}
+                >
+                  {' '}
+                  Share Link
+                </Paragraph>
+              </div>
             </div>
 
             <div className="boxWhite">
@@ -261,7 +274,7 @@ export function ClanPage(props) {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="#">
+                  <a href="/">
                     <span className="icon-skull">
                       <span className="path1" />
                       <span className="path2" />

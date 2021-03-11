@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row } from 'antd';
+import { Row, Typography } from 'antd';
 import {
   map,
   filter,
@@ -42,6 +42,7 @@ import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+const { Paragraph } = Typography;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -157,11 +158,22 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
+                get(selectedClan, 'power'),
               )}`}
             >
               <h1>
-                {get(selectedClan, 'power', '')}{' '}
+                <div className="row">
+                    <h1>{get(selectedClan, 'power', '')}</h1>
+                    <Paragraph
+                      copyable={{
+                        text: `${window.location.href}`,
+                      }}
+                      style={{ marginLeft: 10, color: '#fff' }}
+                    >
+                      {' '}
+                      Share Link
+                    </Paragraph>
+                  </div>
                 {!isEqual(
                   get(selectedClan, 'power', 'demo'),
                   get(selectedClan, 'title', 'nano'),
@@ -452,7 +464,7 @@ export function ClanPage(props) {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="#">
+                  <a href="/">
                     <span className="icon-skull">
                       <span className="path1" />
                       <span className="path2" />
@@ -464,7 +476,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Disciplines</a>
+                  <a href="/vampire/Disciplines">Disciplines</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'title', '')}

@@ -53,7 +53,8 @@ const getArrayValue = (field, fieldName, assestData) => {
   if (
     fieldName === 'inClanDisciplines' ||
     fieldName === 'inClanMerits' ||
-    fieldName === 'flaws'
+    fieldName === 'flaws' || 
+    fieldName === 'sourceBook'
   ) {
     map(field, item => {
       if (item.sys) {

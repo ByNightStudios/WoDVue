@@ -262,6 +262,17 @@ export function Disciplines(props) {
                             }}
                           />
                         </p>
+                        <p>
+                          <h3>Source Book </h3>
+                          <p>
+                            {get(
+                              item,
+                              'sourceBook[0].fields.bookTitle',
+                              'MET: VTM Source Book',
+                            )}
+                          </p>
+                          <p>{get(item, 'sourceBook[0].fields.system', '')}</p>
+                        </p>
                       </div>
                     </div>
                   </>

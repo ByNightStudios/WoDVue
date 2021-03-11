@@ -10,7 +10,7 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -28,14 +28,15 @@ import {
   slice,
   trim,
   uniqBy,
-  groupBy,
-  reduce,
+  includes,
 } from 'lodash';
 
 import { find } from 'underscore';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+import history from 'utils/history';
+
 import { makeSelectApp } from 'containers/App/selectors';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
@@ -48,6 +49,8 @@ import saga from './saga';
 
 import { getDropDownItems } from './actions';
 import './style.css';
+
+const { Paragraph } = Typography;
 
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
@@ -192,6 +195,49 @@ export function ClanPage(props) {
     );
   }
 
+  function renderLink(item) {
+    const { title } = item;
+    if (includes(title, 'Necromancy')) {
+      return (
+        <a
+          className="btn btn-primary"
+          onClick={() => {
+            history.push(`/vampire/Rituals#Necromancy`);
+          }}
+        >
+          <span style={{ color: '#fff' }}>Details</span>
+        </a>
+      );
+    }
+
+    if (includes(title, 'Thaumaturgy')) {
+      return (
+        <a
+          className="btn btn-primary"
+          onClick={() => {
+            history.push(`/vampire/Rituals#Thaumaturgy`);
+          }}
+        >
+          <span style={{ color: '#fff' }}>Details</span>
+        </a>
+      );
+    }
+    return (
+      <a
+        className="btn btn-primary"
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+          setSelectedClan(item);
+          setPowenClanIndex(-1);
+        }}
+      >
+        <span style={{ color: '#fff' }}>Details</span>
+      </a>
+    );
+  }
   return (
     <div className="clan-page">
       {renderHelment()}
@@ -200,11 +246,22 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
+                get(selectedClan, 'power'),
               )}`}
             >
               <h1>
-                {get(selectedClan, 'power', '')}{' '}
+                <div className="row">
+                    <h1>{get(selectedClan, 'power', '')}</h1>
+                    <Paragraph
+                      copyable={{
+                        text: `${window.location.href}`,
+                      }}
+                      style={{ marginLeft: 10, color: '#fff' }}
+                    >
+                      {' '}
+                      Share Link
+                    </Paragraph>
+                  </div>
                 {!isEqual(
                   get(selectedClan, 'power', ''),
                   get(selectedClan, 'title', ''),
@@ -481,21 +538,7 @@ export function ClanPage(props) {
                                   {map(item.summary, d => (
                                     <p>{d}</p>
                                   ))}
-                                  <a
-                                    className="btn btn-primary"
-                                    onClick={() => {
-                                      window.scrollTo({
-                                        top: 0,
-                                        behavior: 'smooth',
-                                      });
-                                      setSelectedClan(item);
-                                      setPowenClanIndex(-1);
-                                    }}
-                                  >
-                                    <span style={{ color: '#fff' }}>
-                                      Details
-                                    </span>
-                                  </a>
+                                  <div className="row">{renderLink(item)}</div>
                                 </div>
                               </div>
                             </p>
@@ -514,7 +557,7 @@ export function ClanPage(props) {
             <nav aria-label="breadcrumb">
               <ol className="breadcrumb">
                 <li className="breadcrumb-item">
-                  <a href="#">
+                  <a href="/">
                     <span className="icon-skull">
                       <span className="path1" />
                       <span className="path2" />
@@ -526,7 +569,7 @@ export function ClanPage(props) {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                  <a href="#">Disciplines</a>
+                  <a href="/vampire/Disciplines">Disciplines</a>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   {get(selectedClan, 'title', '')}
