@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row } from 'antd';
+import { Row, Typography } from 'antd';
 import {
   map,
   filter,
@@ -42,6 +42,7 @@ import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
+const { Paragraph } = Typography;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -157,11 +158,22 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
+                get(selectedClan, 'power'),
               )}`}
             >
               <h1>
-                {get(selectedClan, 'power', '')}{' '}
+                <div className="row">
+                    <h1>{get(selectedClan, 'power', '')}</h1>
+                    <Paragraph
+                      copyable={{
+                        text: `${window.location.href}`,
+                      }}
+                      style={{ marginLeft: 10, color: '#fff' }}
+                    >
+                      {' '}
+                      Share Link
+                    </Paragraph>
+                  </div>
                 {!isEqual(
                   get(selectedClan, 'power', 'demo'),
                   get(selectedClan, 'title', 'nano'),

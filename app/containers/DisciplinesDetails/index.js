@@ -246,11 +246,22 @@ export function ClanPage(props) {
           <div className="col-md-8 order-md-12">
             <div
               className={`header-single ${getClassHeaderName(
-                get(selectedClan, 'title'),
+                get(selectedClan, 'power'),
               )}`}
             >
               <h1>
-                {get(selectedClan, 'power', '')}{' '}
+                <div className="row">
+                    <h1>{get(selectedClan, 'power', '')}</h1>
+                    <Paragraph
+                      copyable={{
+                        text: `${window.location.href}`,
+                      }}
+                      style={{ marginLeft: 10, color: '#fff' }}
+                    >
+                      {' '}
+                      Share Link
+                    </Paragraph>
+                  </div>
                 {!isEqual(
                   get(selectedClan, 'power', ''),
                   get(selectedClan, 'title', ''),

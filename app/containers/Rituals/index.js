@@ -19,7 +19,7 @@ import { map, get, isEmpty, find } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Select } from 'antd';
+import { Typography } from 'antd';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
@@ -34,6 +34,7 @@ import saga from './saga';
 import { getDropDownItems } from './actions';
 import './style.css';
 
+const { Paragraph } = Typography;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -104,11 +105,11 @@ export function ClanPage(props) {
     return false;
   }
 
-
   return (
     <div className="clan-page">
       <Helmet>
-        <title>{`
+        <title>
+          {`
           World of Darkness - MET - Vampire - Rituals -{' '}
           ${get(selectedClan, 'title', '')}`}
         </title>
@@ -125,7 +126,18 @@ export function ClanPage(props) {
               <div className="header-single">
                 <div className="row">
                   <div className="col-lg-7 col-md-12 order-lg-12">
-                    <h1>{get(selectedClan, 'title', '')}</h1>
+                    <div className="row">
+                      <h1>{get(selectedClan, 'title', '')}</h1>
+                      <Paragraph
+                        copyable={{
+                          text: `${window.location.href}`,
+                        }}
+                        style={{ marginLeft: 10, color: '#fff' }}
+                      >
+                        {' '}
+                        Share Link
+                      </Paragraph>
+                    </div>
                   </div>
                   <div className="col-lg-5 col-md-12 order-lg-12">
                     <div className="info">
@@ -161,7 +173,7 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'testPool')) ? (
                 <div>
                   <h2>TEST POOL</h2>
-                    <p>{get(selectedClan,'testPool')}</p>
+                  <p>{get(selectedClan, 'testPool')}</p>
                 </div>
               ) : (
                 <div />

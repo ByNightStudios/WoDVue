@@ -16,7 +16,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find } from 'lodash';
-
+import { Typography } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -34,6 +34,7 @@ import saga from './saga';
 import { getDropDownItems } from './actions';
 import './style.css';
 
+const { Paragraph } = Typography;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -85,7 +86,8 @@ export function ClanPage(props) {
   return (
     <div className="clan-page">
       <Helmet>
-        <title>{`
+        <title>
+          {`
           World of Darkness - MET - Vampire - Skills -
           ${get(selectedClan, 'title')}`}
         </title>
@@ -99,7 +101,17 @@ export function ClanPage(props) {
                 get(selectedClan, 'title'),
               )}`}
             >
-              <h1>{get(selectedClan, 'title', '')}</h1>
+              <div className="row">
+                <h1>{get(selectedClan, 'title', '')}</h1>
+                <Paragraph
+                  copyable={{
+                    text: `${window.location.href}`,
+                  }}
+                  style={{ marginLeft: 10, color: '#fff' }}
+                >
+                  Share Link
+                </Paragraph>
+              </div>
             </div>
             <div className="boxWhite">
               {!isEmpty(get(selectedClan, 'description')) ? (
