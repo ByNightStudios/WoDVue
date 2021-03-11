@@ -28,8 +28,7 @@ import {
   slice,
   trim,
   uniqBy,
-  groupBy,
-  reduce,
+  includes,
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -198,32 +197,46 @@ export function ClanPage(props) {
 
   function renderLink(item) {
     const { title } = item;
-    if (title === 'Necromancy') {
+    if (includes(title, 'Necromancy')) {
       return (
-        <Paragraph
-          copyable={{
-            text: `${window.location.origin}/vampire/Rituals#${title}`,
+        <a
+          className="btn btn-primary"
+          onClick={() => {
+            history.push(`/vampire/Rituals#Necromancy`);
           }}
-          style={{ marginLeft: 10 }}
         >
-          Copy Link
-        </Paragraph>
+          <span style={{ color: '#fff' }}>Details</span>
+        </a>
       );
     }
 
-    if (title === 'Thaumaturgy') {
+    if (includes(title, 'Thaumaturgy')) {
       return (
-        <Paragraph
-          copyable={{
-            text: `${window.location.origin}/vampire/Rituals#${title}`,
+        <a
+          className="btn btn-primary"
+          onClick={() => {
+            history.push(`/vampire/Rituals#Thaumaturgy`);
           }}
-          style={{ marginLeft: 10 }}
         >
-          Copy Link
-        </Paragraph>
+          <span style={{ color: '#fff' }}>Details</span>
+        </a>
       );
     }
-    return false;
+    return (
+      <a
+        className="btn btn-primary"
+        onClick={() => {
+          window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+          });
+          setSelectedClan(item);
+          setPowenClanIndex(-1);
+        }}
+      >
+        <span style={{ color: '#fff' }}>Details</span>
+      </a>
+    );
   }
   return (
     <div className="clan-page">
@@ -514,25 +527,7 @@ export function ClanPage(props) {
                                   {map(item.summary, d => (
                                     <p>{d}</p>
                                   ))}
-                                  <div className="row">
-                                    <a
-                                      className="btn btn-primary"
-                                      onClick={() => {
-                                        window.scrollTo({
-                                          top: 0,
-                                          behavior: 'smooth',
-                                        });
-                                        setSelectedClan(item);
-                                        setPowenClanIndex(-1);
-                                      }}
-                                    >
-                                      <span style={{ color: '#fff' }}>
-                                        Details
-                                      </span>
-                                    </a>
-
-                                    {renderLink(item)}
-                                  </div>
+                                  <div className="row">{renderLink(item)}</div>
                                 </div>
                               </div>
                             </p>

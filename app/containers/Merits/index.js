@@ -72,26 +72,26 @@ export function Merits({ app }) {
     const {
       target: { value },
     } = e;
-
-    if (value) {
-      const filterData = filter(
-        data,
-        o => toNumber(o.meritCost) === toNumber(value),
-      );
-      setMeritsData(filterData);
-    } else {
-      setMeritsData(data);
-    }
+    setMeritLevel(value);
   }
 
   function handleFilter() {
-    const meritFilterData = filter(data, o => {
-      if (includes(toLower(o.merit), toLower(merit))) {
-        return o;
-      }
-      return undefined;
-    });
-    setMeritsData(meritFilterData);
+
+    if (!isEmpty(level)) {
+      const filterData = filter(
+        data,
+        o => toNumber(o.meritCost) === toNumber(level),
+      );
+      setMeritsData(filterData);
+    } else {
+      const meritFilterData = filter(data, o => {
+        if (includes(toLower(o.merit), toLower(merit))) {
+          return o;
+        }
+        return undefined;
+      });
+      setMeritsData(meritFilterData);
+    }
   }
 
   function handleSortingByLevel(type) {
