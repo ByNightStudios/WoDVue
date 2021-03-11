@@ -16,7 +16,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find, trim } from 'lodash';
-
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -137,9 +137,14 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'meritDescription')) ? (
                 <div>
                   <h2>DESCRIPTION </h2>
-                  {map(get(selectedClan, 'meritDescription'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        selectedClan.meritDescription_html,
+                      ),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />

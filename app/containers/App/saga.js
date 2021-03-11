@@ -107,8 +107,6 @@ function* handleGetAppData() {
     yield put(flawsDataSuccess(orderByData3));
     const meritAppData = extractEntryDataFromResponse(meritMock);
 
-    console.log(meritAppData);
-
     const meritByData4 = orderBy(meritAppData, 'merit', ['asc']);
 
     yield put(meritsDataSuccess(meritByData4));

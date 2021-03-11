@@ -26,6 +26,7 @@ import {
   toLower,
   concat,
   remove,
+  toNumber,
 } from 'lodash';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
@@ -74,21 +75,44 @@ export function Flaw({ app }) {
   }
 
   function handleFilter(type) {
-    setMeritsData(data);
-    if (includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
-      const filterClans = filter(data, o =>
-        includes(get(o, 'flawType[0]'), type),
-      );
-      setMeritsData(filterClans);
-      window.scrollTo({ top: 8500, behavior: 'smooth' });
+    if (!isEmpty(merit)) {
+      const meritFilterData = filter(data, o => {
+        if (includes(toLower(o.flaw), toLower(merit))) {
+          return o;
+        }
+        return undefined;
+      });
+      setMeritsData(meritFilterData);
     }
-    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
-      const filterClans = filter(data, o => includes(get(o, 'clanFlaw'), type));
-      if (!isEmpty(filterClans)) {
+
+    if (!isEmpty(level)) {
+      const meritFilterData = filter(data, o => o.flawCost === toNumber(level));
+      setMeritsData(meritFilterData);
+    }
+
+    if (isEmpty(merit) && isEmpty(level)) {
+      setMeritsData(data);
+      if (
+        includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)
+      ) {
+        const filterClans = filter(data, o =>
+          includes(get(o, 'flawType[0]'), type),
+        );
         setMeritsData(filterClans);
         window.scrollTo({ top: 8500, behavior: 'smooth' });
-      } else {
-        setMeritsData(data);
+      }
+      if (
+        !includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)
+      ) {
+        const filterClans = filter(data, o =>
+          includes(get(o, 'clanFlaw'), type),
+        );
+        if (!isEmpty(filterClans)) {
+          setMeritsData(filterClans);
+          window.scrollTo({ top: 8500, behavior: 'smooth' });
+        } else {
+          setMeritsData(data);
+        }
       }
     }
   }
@@ -108,7 +132,15 @@ export function Flaw({ app }) {
   );
 
   const meritClanNames = uniq(
-    without(map(meritData, o => o.title), undefined),
+    without(
+      map(meritData, o => {
+        if (!o.parentClan) {
+          return o.title;
+        }
+        return undefined;
+      }),
+      undefined,
+    ),
   );
 
   const clanItemsDataOfFlaws = [];
@@ -116,7 +148,22 @@ export function Flaw({ app }) {
   const filterList = concat(clanNames, meritClanNames);
   filterList.sort();
 
-  console.log(filterList);
+  function aclean(arr) {
+    const unique = new Map();
+
+    arr.forEach(word => {
+      const sorted = word
+        .toLowerCase()
+        .split('')
+        .sort()
+        .join('');
+      if (!unique.has(sorted)) {
+        unique.set(sorted, word);
+      }
+    });
+
+    return [...unique.values()];
+  }
 
   return (
     <div className="page-white">
@@ -171,7 +218,11 @@ export function Flaw({ app }) {
             </div>
             <div className="col-md-4">
               <label>FLAWS LEVEL</label>
-              <input className="form-control" onChange={handleOnChangeLevel} />
+              <input
+                type="number"
+                className="form-control"
+                onChange={handleOnChangeLevel}
+              />
             </div>
             <div className="col-md-2">
               <label />
@@ -203,7 +254,7 @@ export function Flaw({ app }) {
                 </button>
               </li>
               <li className="page-item active">
-                <span className="page-link">{page}</span>
+                <span className="page-link" style={{ width: 100 }}>{(page / 10) + 1}</span>
               </li>
               <li className="page-item">
                 <button

@@ -111,7 +111,7 @@ export function ClanPage(props) {
     return false;
   }
 
-  console.log(selectedClan);
+
   return (
     <div className="clan-page">
       <Helmet>

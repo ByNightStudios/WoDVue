@@ -11,9 +11,9 @@ import history from 'utils/history';
 import messages from './messages';
 
 export default function NotFound() {
-  // useEffect(() => {
-  //   history.push('/');
-  // }, []);
+  useEffect(() => {
+    history.push('/');
+  }, []);
   return (
     <h1>
       <FormattedMessage {...messages.header} />

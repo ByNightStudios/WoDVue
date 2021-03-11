@@ -50,11 +50,6 @@ const getObjectValue = (field, fieldName, assestData) => {
 
 const getArrayValue = (field, fieldName, assestData) => {
   let inClanDiscipline = [];
-
-  if (fieldName === 'clanFlaw') {
-    console.log(fieldName);
-  }
-
   if (
     fieldName === 'inClanDisciplines' ||
     fieldName === 'inClanMerits' ||

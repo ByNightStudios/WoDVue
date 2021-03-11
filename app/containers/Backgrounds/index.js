@@ -138,7 +138,7 @@ export function ClanPage(props) {
 
               {!isEmpty(get(selectedClan, 'eratta')) ? (
                 <div>
-                  <h2>ERATTA</h2>
+                  <h2>ERRATA</h2>
                   <div
                     /* eslint-disable-next-line react/no-danger */
                     dangerouslySetInnerHTML={{
