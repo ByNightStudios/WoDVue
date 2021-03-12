@@ -111,7 +111,7 @@ export function ClanPage(props) {
             >
               <div className="row">
                 <h1>{get(selectedClan, 'merit', '')}</h1>
-                <Paragraph
+                { get(selectedClan, 'merit', '')? <Paragraph
                   copyable={{
                     text: `${window.location.href}`,
                   }}
@@ -119,11 +119,21 @@ export function ClanPage(props) {
                 >
                   {' '}
                   Share Link
-                </Paragraph>
+                </Paragraph> : null}
               </div>
             </div>
 
             <div className="boxWhite">
+              <p>
+                {get(selectedClan, 'clanSpecific') ? (
+                  <div>
+                    <h2>CLAN</h2>
+                    {get(selectedClan, 'clanSpecific[0]')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
               <p>
                 {get(selectedClan, 'meritCost') ? (
                   <div>

@@ -278,15 +278,6 @@ export function Merits({ app }) {
                           <span>
                             {get(item, 'meritType[0]')}{' '}
                             {get(item, 'clanSpecific[0]')}
-                            {get(item, 'clanSpecific[0]') ? (
-                              <p>
-                                <b>
-                                  CLAN: <i>{get(item, 'clanSpecific[0]')}</i>
-                                </b>
-                              </p>
-                            ) : (
-                              ''
-                            )}
                           </span>
                         </div>
                         <div className="disc-cols3 hideMobile">

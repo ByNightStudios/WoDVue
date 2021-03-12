@@ -108,14 +108,14 @@ export function ClanPage(props) {
             >
               <div className="row">
                 <h1>{get(selectedClan, 'technique', '')}</h1>
-                <Paragraph
+                { get(selectedClan, 'technique', '') ? <Paragraph
                   copyable={{
                     text: `${window.location.href}`,
                   }}
                   style={{ marginLeft: 10, color: '#fff' }}
                 >
                   Share Link
-                </Paragraph>
+                </Paragraph> : null}
               </div>
             </div>
             <div className="boxWhite">

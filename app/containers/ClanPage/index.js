@@ -113,7 +113,6 @@ export function ClanPage(props) {
     return false;
   }
 
-  console.log(selectedClan);
 
   return (
     <div className="clan-page">
@@ -146,6 +145,7 @@ export function ClanPage(props) {
                 <div className="col-md-8">
                   <div className="row">
                     <h1>{get(selectedClan, 'title', '')}</h1>
+                    {get(selectedClan, 'title', '') ?
                     <Paragraph
                       copyable={{
                         text: `${window.location.href}`,
@@ -154,7 +154,7 @@ export function ClanPage(props) {
                     >
                       {' '}
                       Share Link
-                    </Paragraph>
+                    </Paragraph> : null}
                   </div>
                   <h4 style={{ fontSize: 18 }}>
                     <i>{get(selectedClan, 'nickname', '')}</i>

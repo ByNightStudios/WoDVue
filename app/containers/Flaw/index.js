@@ -314,15 +314,6 @@ export function Flaw({ app }) {
                                 {' '}
                                 {get(item, 'flawType[0]')} -{' '}
                                 {get(item, 'clanFlaw')}
-                                {get(item, 'clanFlaw') ? (
-                                  <p>
-                                    {' '}
-                                    <b>CLAN : </b>{' '}
-                                    <i>{get(item, 'clanFlaw')}</i>
-                                  </p>
-                                ) : (
-                                  ''
-                                )}
                               </>
                             ) : (
                               get(item, 'flawType[0]', '-')

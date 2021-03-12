@@ -252,7 +252,7 @@ export function ClanPage(props) {
               <h1>
                 <div className="row">
                     <h1>{get(selectedClan, 'power', '')}</h1>
-                    <Paragraph
+                    { get(selectedClan, 'power', '') ? <Paragraph
                       copyable={{
                         text: `${window.location.href}`,
                       }}
@@ -260,7 +260,7 @@ export function ClanPage(props) {
                     >
                       {' '}
                       Share Link
-                    </Paragraph>
+                    </Paragraph> : null}
                   </div>
                 {!isEqual(
                   get(selectedClan, 'power', ''),

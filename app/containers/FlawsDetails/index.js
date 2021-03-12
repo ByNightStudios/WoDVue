@@ -63,7 +63,6 @@ export function ClanPage(props) {
     setSelectedClan(findClanData);
   }, [match]);
 
-
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
@@ -94,8 +93,9 @@ export function ClanPage(props) {
 
   return (
     <div className="clan-page">
-       <Helmet>
-        <title>{`
+      <Helmet>
+        <title>
+          {`
           World of Darkness - MET - Vampire - FlawsDetails -
           ${get(selectedClan, 'flaw', '')}`}
         </title>
@@ -110,21 +110,20 @@ export function ClanPage(props) {
               )}`}
             >
               <div className="row">
-                    <h1>{get(selectedClan, 'flaw', '')}</h1>
-                    <Paragraph
-                      copyable={{
-                        text: `${window.location.href}`,
-                      }}
-                      style={{ marginLeft: 10, color: '#fff' }}
-                    >
-                      {' '}
-                      Share Link
-                    </Paragraph>
-                  </div>
+                <h1>{get(selectedClan, 'flaw', '')}</h1>
+                { get(selectedClan, 'flaw', '') ? <Paragraph
+                  copyable={{
+                    text: `${window.location.href}`,
+                  }}
+                  style={{ marginLeft: 10, color: '#fff' }}
+                >
+                  {' '}
+                  Share Link
+                </Paragraph> : null}
+              </div>
             </div>
             <div className="boxWhite">
-
-            <p>
+              <p>
                 {get(selectedClan, 'clanFlaw') ? (
                   <div>
                     <h2>CLAN</h2>
@@ -134,7 +133,7 @@ export function ClanPage(props) {
                   <div />
                 )}
               </p>
-            <p>
+              <p>
                 {get(selectedClan, 'flawCost') ? (
                   <div>
                     <h2>COST</h2>
@@ -194,11 +193,11 @@ export function ClanPage(props) {
                     <h2>SOURCE BOOK</h2>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                       <div>
-                         {map(get(selectedClan, 'sourceBook'), item => (
-                         <p>
-                           <p>{get(item, 'fields.bookTitle')}</p>
-                           <p>{get(item, 'fields.system[0]')}</p>
-                         </p>
+                        {map(get(selectedClan, 'sourceBook'), item => (
+                          <p>
+                            <p>{get(item, 'fields.bookTitle')}</p>
+                            <p>{get(item, 'fields.system[0]')}</p>
+                          </p>
                         ))}
                       </div>
                     ) : (
@@ -304,10 +303,7 @@ export function ClanPage(props) {
             >
               <ul className="navbar-nav ml-auto">
                 <li className="nav-item active">
-                  <a
-                    className="nav-link"
-                    href="/vampire/clan/"
-                  >
+                  <a className="nav-link" href="/vampire/clan/">
                     Clans & Bloodlines
                     <span className="sr-only">(current)</span>
                   </a>
