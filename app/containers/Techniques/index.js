@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, map, orderBy, toLower } from 'lodash';
+import { get, map, orderBy, toLower, split } from 'lodash';
 import { Helmet } from 'react-helmet';
 
 import Loader from 'components/Loader';
@@ -77,13 +77,17 @@ export function Disciplines({ app }) {
     }
   }
 
+  const rotate = (arr, count = 1) => {
+    return [...arr.slice(count, arr.length), ...arr.slice(0, count)];
+  };
+
   function handleSortingBy2() {
     const sortedByLevel = orderBy(
       disciplineData,
-      [user => user.prerequisites[1].toLowerCase()],
+      [user => toLower(user.prerequisites[1], ' ')],
       [direction, 'desc'],
     );
-    setDisciplineData(sortedByLevel);
+    setDisciplineData(rotate(sortedByLevel));
     if (direction === 'asc') {
       setDirection('desc');
     } else {
@@ -105,13 +109,13 @@ export function Disciplines({ app }) {
     }
   }
 
-  function getArray(array){
+  function getArray(array) {
     return array;
   }
 
   return (
     <div>
-       <Helmet>
+      <Helmet>
         <title>World of Darkness - MET - Techniques</title>
         <meta name="description" content="Description of Merits" />
       </Helmet>
@@ -124,13 +128,13 @@ export function Disciplines({ app }) {
           </div>
           <div className="col-md-12">
             <div className="header-disciplines">
-              <div className="discipline" onClick={() => handleSortingByDisc()}>
+              <div className="discipline" onClick={() => handleSortingBy2()}>
                 <span style={{ color: '#ffffff' }}>Techniques</span>
               </div>
               <div className="discipline" onClick={() => handleSortingBy1()}>
                 <span style={{ color: '#ffffff' }}>Discipline 1</span>
               </div>
-              <div className="discipline" onClick={() => handleSortingBy2()}>
+              <div className="discipline" onClick={() => handleSortingByDisc()}>
                 <span style={{ color: '#ffffff' }}>Discipline 2</span>
               </div>
               <div className="discipline" onClick={() => handleSortingBy3()}>

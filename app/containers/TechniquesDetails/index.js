@@ -19,7 +19,7 @@ import { map, get, isEmpty, find, split } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Typography } from 'antd'; 
+import { Typography } from 'antd';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';

@@ -254,7 +254,9 @@ export function Flaw({ app }) {
                 </button>
               </li>
               <li className="page-item active">
-                <span className="page-link" style={{ width: 100 }}>{(page / 10) + 1}</span>
+                <span className="page-link" style={{ width: 100 }}>
+                  {page / 10 + 1}
+                </span>
               </li>
               <li className="page-item">
                 <button
@@ -312,6 +314,15 @@ export function Flaw({ app }) {
                                 {' '}
                                 {get(item, 'flawType[0]')} -{' '}
                                 {get(item, 'clanFlaw')}
+                                {get(item, 'clanFlaw') ? (
+                                  <p>
+                                    {' '}
+                                    <b>CLAN : </b>{' '}
+                                    <i>{get(item, 'clanFlaw')}</i>
+                                  </p>
+                                ) : (
+                                  ''
+                                )}
                               </>
                             ) : (
                               get(item, 'flawType[0]', '-')

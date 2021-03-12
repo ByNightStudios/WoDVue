@@ -106,13 +106,14 @@ export function ClanPage(props) {
     if (html) {
       const mappedHtml = {
         ...html,
-        content: slice(html.content, 1, 6),
+        content: slice(html.content, 1, html.content.length),
       };
       return mappedHtml;
     }
     return false;
   }
 
+  console.log(selectedClan);
 
   return (
     <div className="clan-page">
@@ -228,7 +229,8 @@ export function ClanPage(props) {
                     {map(
                       get(selectedClan, 'inClanDisciplines', []),
                       (item, index) => (
-                        <div
+                        <Link
+                          to={`/vampire/Disciplines/${item.fields.title}`}
                           key={index}
                           className="anchorTag"
                           style={{ marginRight: 10 }}
@@ -241,7 +243,7 @@ export function ClanPage(props) {
                           role="button"
                         >
                           {item.fields.title}
-                        </div>
+                        </Link>
                       ),
                     )}
                   </Row>
