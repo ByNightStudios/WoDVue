@@ -494,7 +494,7 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <Row type="flex">
                 <Select
-                  style={{ width: '70%', marginBottom: 10 }}
+                  style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
                   onChange={handleChangeFilter}
                 >

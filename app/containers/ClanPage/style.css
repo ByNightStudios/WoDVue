@@ -8,3 +8,10 @@
 .clan-page .header-single h1, h4 {
     color: #ffffff !important;
 }
+
+.ant-select-selection-placeholder {
+  color: #000000;
+}
+.ant-picker-input input::placeholder {
+  color: #000000;
+}
