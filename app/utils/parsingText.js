@@ -6,7 +6,7 @@ const getEntryData = (object, assestData) => object;
 const getBooleanValue = field => field;
 
 const getObjectValue = (field, fieldName, assestData) => {
-  if (fieldName === 'sourceBook') {
+  if (fieldName === 'sourceBook' || fieldName === 'sourceBooks') {
     return intersectionWith(get(assestData, 'Entry', []), [field], (a, b) =>
       isEqual(a.sys.id, b.sys.id),
     );
@@ -53,8 +53,9 @@ const getArrayValue = (field, fieldName, assestData) => {
   if (
     fieldName === 'inClanDisciplines' ||
     fieldName === 'inClanMerits' ||
-    fieldName === 'flaws' || 
-    fieldName === 'sourceBook'
+    fieldName === 'flaws' ||
+    fieldName === 'sourceBook' ||
+    fieldName === 'sourceBooks'
   ) {
     map(field, item => {
       if (item.sys) {

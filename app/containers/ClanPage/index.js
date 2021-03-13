@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable camelcase */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable no-restricted-globals */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -10,35 +12,36 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Card, Row, Col, Typography } from 'antd';
-import { map, find, get, isEmpty, includes, slice } from 'lodash';
+import { Row, Typography, Select, Button } from 'antd';
+
+import { map, find, get, isEmpty, slice, uniq, filter } from 'lodash';
+
 import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 
-import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 
 import Smoke_style_4_clans from 'images/Smoke_style_4_clans.png';
-
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getDropDownItems } from './actions';
 import './style.css';
 
 const { Paragraph } = Typography;
+const { Option } = Select;
 
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
@@ -46,6 +49,8 @@ export function ClanPage(props) {
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
+
+  const [clanItemsList, setSelectedClanItemsList] = useState([]);
   const [selectedClan, setSelectedClan] = useState('');
   const { app } = props;
 
@@ -55,12 +60,16 @@ export function ClanPage(props) {
   } = app;
 
   useEffect(() => {
+    setSelectedClanItemsList(clanItems);
+  }, []);
+
+  useEffect(() => {
     const {
       match: {
         params: { id },
       },
     } = props;
-    const findClanData = find(clanItems, { title: id });
+    const findClanData = find(clanItemsList, { title: id });
     setSelectedClan(findClanData);
   }, [props]);
 
@@ -71,35 +80,18 @@ export function ClanPage(props) {
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
-      const findClanData = find(clanItems, { title: value });
+      const findClanData = find(clanItemsList, { title: value });
       setSelectedClan(findClanData);
     }
   }
 
-  function getClassName(item) {
-    if (includes(item, 'Followers of Set')) {
-      return 'icon-FollowersofSet';
-    }
-    if (includes(item, 'Daughters of Cacophony')) {
-      return 'icon-DaughtersofCacophony';
-    }
-    if (includes(item, 'Assamite')) {
-      return 'icon-Assamites';
-    }
-    return `icon-${item}`;
-  }
-
-  function getClassHeaderName(item) {
-    if (includes(item, 'Followers of Set')) {
-      return 'icon-FollowersofSet';
-    }
-    if (includes(item, 'Daughters of Cacophony')) {
-      return 'icon-DaughtersofCacophony';
-    }
-    if (includes(item, 'Assamite')) {
-      return 'icon-Assamites';
-    }
-    return `icon-${item}`;
+  function handleChangeFilter(item) {
+    setSelectedClanItemsList(clanItems);
+    const filterClanItems = filter(
+      clanItemsList,
+      o => o.sourceBooks[0].fields.bookTitle === item,
+    );
+    setSelectedClanItemsList(filterClanItems);
   }
 
   function getSummaryHtml(html) {
@@ -113,6 +105,13 @@ export function ClanPage(props) {
     return false;
   }
 
+  const sourceBook = map(clanItems, item =>
+    get(item, 'sourceBooks[0].fields.bookTitle', ''),
+  );
+
+  const uniqSourceBook = uniq(sourceBook);
+
+  console.log(clanItems);
 
   return (
     <div className="clan-page">
@@ -145,16 +144,17 @@ export function ClanPage(props) {
                 <div className="col-md-8">
                   <div className="row">
                     <h1>{get(selectedClan, 'title', '')}</h1>
-                    {get(selectedClan, 'title', '') ?
-                    <Paragraph
-                      copyable={{
-                        text: `${window.location.href}`,
-                      }}
-                      style={{ marginLeft: 10, color: '#fff' }}
-                    >
-                      {' '}
-                      Share Link
-                    </Paragraph> : null}
+                    {get(selectedClan, 'title', '') ? (
+                      <Paragraph
+                        copyable={{
+                          text: `${window.location.href}`,
+                        }}
+                        style={{ marginLeft: 10, color: '#fff' }}
+                      >
+                        {' '}
+                        Share Link
+                      </Paragraph>
+                    ) : null}
                   </div>
                   <h4 style={{ fontSize: 18 }}>
                     <i>{get(selectedClan, 'nickname', '')}</i>
@@ -272,7 +272,7 @@ export function ClanPage(props) {
                 <p>
                   <h2>WEAKNESS</h2>
                   <Row>
-                    {map(get(selectedClan, 'weakness', []), (item, index) => (
+                    {map(get(selectedClan, 'weakness', []), item => (
                       <p key={item}>{item}</p>
                     ))}
                   </Row>
@@ -285,21 +285,18 @@ export function ClanPage(props) {
                 <p>
                   <h2>IN CLAN MERITS</h2>
                   <Row>
-                    {map(
-                      get(selectedClan, 'inClanMerits', []),
-                      (item, index) => (
-                        <Link
-                          to={`/vampire/Merits/${item.fields.merit}`}
-                          className="anchorTag"
-                          style={{ marginRight: 10 }}
-                          onClick={() => {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                          }}
-                        >
-                          {item.fields.merit}
-                        </Link>
-                      ),
-                    )}
+                    {map(get(selectedClan, 'inClanMerits', []), item => (
+                      <Link
+                        to={`/vampire/Merits/${item.fields.merit}`}
+                        className="anchorTag"
+                        style={{ marginRight: 10 }}
+                        onClick={() => {
+                          window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                      >
+                        {item.fields.merit}
+                      </Link>
+                    ))}
                   </Row>
                 </p>
               ) : (
@@ -310,7 +307,7 @@ export function ClanPage(props) {
                 <p>
                   <h2>IN CLAN FLAWS</h2>
                   <Row>
-                    {map(get(selectedClan, 'flaws', []), (item, index) => (
+                    {map(get(selectedClan, 'flaws', []), item => (
                       <Link
                         to={`/vampire/Flaws/${item.fields.flaw}`}
                         className="anchorTag"
@@ -495,9 +492,24 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', marginBottom: 10 }}
+                  placeholder="filter by source book"
+                  onChange={handleChangeFilter}
+                >
+                  {map(uniqSourceBook, item => (
+                    <Option value={item}>{item}</Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
+
               <h3>CLANS & BLOODLINES</h3>
               <ul className="nav flex-column nav-clans">
-                {map(clanItems, (items, index) => (
+                {map(clanItemsList, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
