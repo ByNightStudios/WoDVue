@@ -1,6 +1,8 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable no-shadow */
 /**
  *
  * Disciplines
@@ -8,15 +10,13 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, map, orderBy, toLower, split } from 'lodash';
+import { get, map, orderBy, toLower } from 'lodash';
 import { Helmet } from 'react-helmet';
 
-import Loader from 'components/Loader';
 import { makeSelectApp } from 'containers/App/selectors';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -38,16 +38,6 @@ export function Disciplines({ app }) {
     setDisciplineData(data);
     clevertap.event.push(window.location.pathname);
   }, [data]);
-
-  function handleSortingByLevel(type) {
-    const sortedByLevel = orderBy(disciplineData, [type], [direction]);
-    setDisciplineData(sortedByLevel);
-    if (direction === 'asc') {
-      setDirection('desc');
-    } else {
-      setDirection('asc');
-    }
-  }
 
   function handleSortingByDisc() {
     const sortedByLevel = orderBy(
@@ -77,9 +67,10 @@ export function Disciplines({ app }) {
     }
   }
 
-  const rotate = (arr, count = 1) => {
-    return [...arr.slice(count, arr.length), ...arr.slice(0, count)];
-  };
+  const rotate = (arr, count = 1) => [
+    ...arr.slice(count, arr.length),
+    ...arr.slice(0, count),
+  ];
 
   function handleSortingBy2() {
     const sortedByLevel = orderBy(
@@ -131,13 +122,22 @@ export function Disciplines({ app }) {
               <div className="discipline" onClick={() => handleSortingBy2()}>
                 <span style={{ color: '#ffffff' }}>Techniques</span>
               </div>
-              <div className="discipline" onClick={() => handleSortingBy1()}>
+              <div
+                className="discipline hideTablet"
+                onClick={() => handleSortingBy1()}
+              >
                 <span style={{ color: '#ffffff' }}>Discipline 1</span>
               </div>
-              <div className="discipline" onClick={() => handleSortingByDisc()}>
+              <div
+                className="discipline hideTablet"
+                onClick={() => handleSortingByDisc()}
+              >
                 <span style={{ color: '#ffffff' }}>Discipline 2</span>
               </div>
-              <div className="discipline" onClick={() => handleSortingBy3()}>
+              <div
+                className="discipline hideTablet"
+                onClick={() => handleSortingBy3()}
+              >
                 <span style={{ color: '#ffffff' }}>Discipline 3</span>
               </div>
               <div className="indicator" />
@@ -151,14 +151,14 @@ export function Disciplines({ app }) {
                       <div className="disc-power">
                         <span>{item.technique}</span>
                       </div>
-                      <div className="disc-name">
+                      <div className="disc-name ">
                         <span>{get(item, 'prerequisites[0]', '-')}</span>
                       </div>
-                      <div className="disc-foci">
+                      <div className="disc-foci hideTablet">
                         <span>{get(item, 'prerequisites[1]', '-')}</span>
                       </div>
 
-                      <div className="disc-foci">
+                      <div className="disc-foci hideTablet">
                         <span>{get(item, 'prerequisites[2]', '-')}</span>
                       </div>
 
@@ -220,8 +220,7 @@ export function Disciplines({ app }) {
 }
 
 Disciplines.propTypes = {
-  OnRequestDropDownItems: PropTypes.func,
-  disciplines: PropTypes.object,
+  ...Disciplines,
 };
 
 const mapStateToProps = createStructuredSelector({

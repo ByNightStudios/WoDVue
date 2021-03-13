@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -9,7 +10,6 @@
  */
 
 import React, { memo, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -25,13 +25,10 @@ import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
 
-import { getData } from 'containers/App/actions';
-
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getDropDownItems } from './actions';
 import './style.css';
 
 const { Paragraph } = Typography;
@@ -108,14 +105,16 @@ export function ClanPage(props) {
             >
               <div className="row">
                 <h1>{get(selectedClan, 'technique', '')}</h1>
-                { get(selectedClan, 'technique', '') ? <Paragraph
-                  copyable={{
-                    text: `${window.location.href}`,
-                  }}
-                  style={{ marginLeft: 10, color: '#fff' }}
-                >
-                  Share Link
-                </Paragraph> : null}
+                {get(selectedClan, 'technique', '') ? (
+                  <Paragraph
+                    copyable={{
+                      text: `${window.location.href}`,
+                    }}
+                    style={{ marginLeft: 10, color: '#fff' }}
+                  >
+                    Share Link
+                  </Paragraph>
+                ) : null}
               </div>
             </div>
             <div className="boxWhite">
@@ -170,13 +169,13 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
-                    <div
-                      className="techniques-paragraph"
-                      /* eslint-disable-next-line react/no-danger */
-                      dangerouslySetInnerHTML={{
-                        __html: documentToHtmlString(selectedClan.system_html),
-                      }}
-                    />
+                  <div
+                    className="techniques-paragraph"
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.system_html),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
@@ -304,8 +303,6 @@ export function ClanPage(props) {
 
 ClanPage.propTypes = {
   ...ClanPage,
-  onRequestData: PropTypes.func,
-  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({

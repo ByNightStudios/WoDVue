@@ -10136,7 +10136,7 @@ hr {
   background-image: url(../images/flaws.png); }
 
 .attributes {
-  background-image: url(../images/attributes.png); }
+  background-image: url(../images/attributes.png); }  
   .quickStart { background-image: url(../images/QuickStart.png);}
 
   .rituals { background-image: url(../images/Rituals.png);}
@@ -10334,7 +10334,7 @@ hr {
   text-align: center; }
 
 .power, .disc-power {
-  width: 270px; }
+  min-width: 200px; }
 
 .disc-name, .discipline {
   width: calc(100% - 200px);
@@ -10359,7 +10359,7 @@ hr {
   padding: 0px !important; }
 
 .disc-power {
-  text-align: center; }
+  text-align: left; }
 
 .details {
   display: none; }
@@ -10518,7 +10518,10 @@ hr {
     font-size: 16px; }
 
   .navbarSocial {
-    margin-left: auto; } }
+    margin-left: auto; }
+
+  .hideTablet {
+    display: none !important; } }
 @media screen and (max-width: 767px) {
   .boxLogos {
     display: flex;

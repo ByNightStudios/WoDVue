@@ -1,5 +1,5 @@
-import { put, takeLatest, call } from 'redux-saga/effects';
-import { orderBy, filter, sortBy, concat } from 'lodash';
+import { put, takeLatest } from 'redux-saga/effects';
+import { orderBy, filter } from 'lodash';
 import localforage, { clear } from 'localforage';
 import extractEntryDataFromResponse from 'utils/parsingText';
 
@@ -16,7 +16,6 @@ import meritMock from 'mockData/merit.json';
 // import apiScriptJson from 'scripts/api.json';
 
 import { GET_DATA, DISCIPLINES_DATA } from './constants';
-import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 
 // import { makeSelectApp } from './selectors';
 import {
@@ -45,14 +44,14 @@ localforage.config({
     'The official licensed publisher of new Mind`s Eye Theatre products for World of Darkness. Like us for product news and more. Night is rising.',
 });
 
-const saveState = (name, state) => {
-  try {
-    const serializedState = JSON.stringify(state);
-    localforage.setItem(`${name}`, serializedState);
-  } catch (err) {
-    // err while saving state
-  }
-};
+// const saveState = (name, state) => {
+//   try {
+//     const serializedState = JSON.stringify(state);
+//     localforage.setItem(`${name}`, serializedState);
+//   } catch (err) {
+//     // err while saving state
+//   }
+// };
 
 function getItems(item) {
   if (item.title) {
@@ -82,11 +81,6 @@ function* handleGetAppData() {
 
   try {
     const contentfulData = extractEntryDataFromResponse(mockAppData);
-
-    const RitualsDataMock1 = filter(contentfulData, 'thaumaturgy');
-    const RitualsDataMock2 = filter(contentfulData, 'necromancy');
-    const RitualsDataMock3 = filter(contentfulData, 'abyssal');
-
     yield put(getDataSuccess(contentfulData));
 
     const clanAppData = extractEntryDataFromResponse(clanMock);
@@ -117,7 +111,7 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    saveState('data', orderByData77);
+    // saveState('data', orderByData77);
     yield put(skillDataSuccess(orderByData77));
 
     const contentfulData1 = extractEntryDataFromResponse(attributeMock);
@@ -126,7 +120,7 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    saveState('attributes', orderByData6);
+    // saveState('attributes', orderByData6);
     yield put(attributeDataSuccess(orderByData6));
 
     const contentfulData7 = extractEntryDataFromResponse(backgroundMock);
@@ -135,7 +129,7 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    saveState('backgrounds', orderByData7);
+    // saveState('backgrounds', orderByData7);
     yield put(backgroundDataSuccess(orderByData7));
     const contentfulData777 = extractEntryDataFromResponse(ritualsMock);
     const orderByData777 = orderBy(
@@ -143,7 +137,7 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    saveState('techniques', orderByData777);
+    // saveState('techniques', orderByData777);
     yield put(techniquesDataSuccess(orderByData777));
 
     const contentfulData7771 = extractEntryDataFromResponse(techniqueMock);
@@ -152,7 +146,7 @@ function* handleGetAppData() {
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
-    saveState('rituals', orderByData7771);
+    // saveState('rituals', orderByData7771);
     yield put(ritualDataSuccess(orderByData7771));
   } catch (e) {
     //
