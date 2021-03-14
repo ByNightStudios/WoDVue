@@ -8,9 +8,6 @@ const client = contentful.createClient({
   accessToken: 'rIeZdr6VyNARtIfAETRuivhCs4gaQNF8NWdYyTstgjo',
 });
 
-// let skipCount1 = 0;
-// let hasMore = false;
-
 const storeData = (data, path) => {
   try {
     fs.writeFile(path, safeJsonStringify(data));
@@ -25,7 +22,6 @@ async function writeToFile(fileName, data) {
 
 const getDisciplinesFiles = () => {
   for (let skipCount = 0; skipCount <= 400; skipCount += 100) {
-    console.log('Api calling of Disciplines');
     client
       .getEntries({
         content_type: 'discipline',
@@ -51,6 +47,7 @@ const getRitualsFiles = () => {
       .then(entries => writeToFile(`rituals_${skipCount}.json`, entries));
     console.log('Create File Done of rituals');
   }
+  getTechniquesFiles();
 };
 
 const getTechniquesFiles = () => {
@@ -66,6 +63,30 @@ const getTechniquesFiles = () => {
       .then(entries => writeToFile(`techniques_${skipCount}.json`, entries));
     console.log('Create File Done of rituals');
   }
+  console.log('Api call of attributes');
+
+  client
+    .getEntries({
+      content_type: 'attributes',
+
+      skip: 0,
+      limit: 100,
+      select: 'fields,sys.id',
+    })
+    .then(entries => {
+      writeToFile('attributes.json', entries);
+      console.log('Create File Done of skills');
+
+      client
+        .getEntries({
+          content_type: 'backgrounds',
+          skip: 0,
+          limit: 100,
+          select: 'fields,sys.id',
+        })
+        .then(entries2 => writeToFile('backgrounds.json', entries2));
+      console.log('Create File Done of backgrounds');
+    });
 };
 
 const getMeritsFiles = () => {
@@ -81,6 +102,7 @@ const getMeritsFiles = () => {
       .then(entries => writeToFile(`merits_${skipCount}.json`, entries));
     console.log('Create File Done of merits');
   }
+  getFlawsFiles();
 };
 
 const getFlawsFiles = () => {
@@ -96,9 +118,10 @@ const getFlawsFiles = () => {
       .then(entries => writeToFile(`flaws_${skipCount}.json`, entries));
     console.log('Create File Done of flaws');
   }
+  getRitualsFiles();
 };
 
-console.log('Api calling of CLANS')
+console.log('Api calling of CLANS');
 client
   .getEntries({
     content_type: 'clans',
@@ -106,79 +129,23 @@ client
     limit: 100,
     select: 'fields,sys.id',
   })
-  .then(entries => writeToFile('clans.json', entries));
-console.log('Create File Done of clans');
+  .then(async entries => {
+    await writeToFile('clans.json', entries);
+    getDisciplinesFiles();
+  });
 
-setTimeout(() => {
-  getDisciplinesFiles();
-}, 2000);
-
-
-setTimeout(() => {
-  getRitualsFiles();
-}, 3000);
-
-
-setTimeout(() => {
-  getTechniquesFiles();
-}, 4000);
-
-
-setTimeout(() => {
-  client
+client
   .getEntries({
     content_type: 'skills',
     skip: 0,
     limit: 100,
     select: 'fields,sys.id',
   })
-  .then(entries => writeToFile('skills.json', entries));
-  console.log('Create File Done of skills');;
-}, 5000);
+  .then(entries => {
+    writeToFile('skills.json', entries);
+    getMeritsFiles();
+  });
 
-
-setTimeout(() => {
-  getMeritsFiles();
-}, 6000);
-
-setTimeout(() => {
-  getFlawsFiles();
-}, 7000);
-
-
-setTimeout(() => {
-  console.log('Api call of attributes');
-
-  client
-  .getEntries({
-    content_type: 'attributes',
-
-    skip: 0,
-    limit: 100,
-    select: 'fields,sys.id',
-  })
-  .then(entries => writeToFile('attributes.json', entries));
-  console.log('Create File Done of attributes');
-}, 8000);
-
-setTimeout(() => {
-  console.log('Api call of skills');
-
-console.log('Api call of backgrounds');
-client
-  .getEntries({
-    content_type: 'backgrounds',
-    skip: 0,
-    limit: 100,
-    select: 'fields,sys.id',
-  })
-  .then(entries => writeToFile('backgrounds.json', entries));
-console.log('Create File Done of backgrounds');
-
-console.log('complete all files');
-}, 9000);
-
-setTimeout(() => {
-  process.exit();
-}, 10000);
-
+// setTimeout(() => {
+//   process.exit();
+// });
