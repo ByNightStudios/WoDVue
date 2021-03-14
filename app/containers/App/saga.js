@@ -1,17 +1,38 @@
-import { put, takeLatest } from 'redux-saga/effects';
-import { orderBy, filter } from 'lodash';
-import localforage, { clear } from 'localforage';
+import { put, takeLatest, call } from 'redux-saga/effects';
+import { orderBy, filter, concat } from 'lodash';
 import extractEntryDataFromResponse from 'utils/parsingText';
 
-import mockAppData from 'mockData/app.json';
-import skillMock from 'mockData/skill.json';
-import attributeMock from 'mockData/attribute.json';
-import backgroundMock from 'mockData/background.json';
-import ritualsMock from 'mockData/ritual.json';
-import techniqueMock from 'mockData/technique.json';
-import clanMock from 'mockData/clan.json';
-import flawMock from 'mockData/flaw.json';
-import meritMock from 'mockData/merit.json';
+import clanMock from 'scripts/clans.json';
+import skillMock from 'scripts/skills.json';
+import attributeMock from 'scripts/attributes.json';
+import backgroundMock from 'scripts/backgrounds.json';
+
+import ritualsMock_1 from 'scripts/rituals_0.json';
+import ritualsMock_2 from 'scripts/rituals_100.json';
+import ritualsMock_3 from 'scripts/rituals_200.json';
+
+import techniqueMock_1 from 'scripts/techniques_0.json';
+import techniqueMock_2 from 'scripts/techniques_100.json';
+import techniqueMock_3 from 'scripts/techniques_200.json';
+
+import flaws_1 from 'scripts/flaws_0.json';
+import flaws_2 from 'scripts/flaws_100.json';
+import flaws_3 from 'scripts/flaws_200.json';
+
+import merits_1 from 'scripts/merits_0.json';
+import merits_2 from 'scripts/merits_100.json';
+import merits_3 from 'scripts/merits_200.json';
+import merits_4 from 'scripts/merits_300.json';
+import merits_5 from 'scripts/merits_400.json';
+
+import discipline_1 from 'scripts/discipline_0.json';
+import discipline_2 from 'scripts/discipline_100.json';
+import discipline_3 from 'scripts/discipline_200.json';
+import discipline_4 from 'scripts/discipline_300.json';
+import discipline_5 from 'scripts/discipline_400.json';
+
+
+// import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 
 // import apiScriptJson from 'scripts/api.json';
 
@@ -34,25 +55,6 @@ import {
 // const apiContentManager = new APIContentful();
 // Individual exports for testing
 
-localforage.config({
-  driver: localforage.INDEXEDDB, // Force WebSQL; same as using setDriver()
-  name: 'NightStudio',
-  version: 1.0,
-  size: 4980736, // Size of database, in bytes. WebSQL-only for now.
-  storeName: 'NightStudio', // Should be alphanumeric, with underscores.
-  description:
-    'The official licensed publisher of new Mind`s Eye Theatre products for World of Darkness. Like us for product news and more. Night is rising.',
-});
-
-// const saveState = (name, state) => {
-//   try {
-//     const serializedState = JSON.stringify(state);
-//     localforage.setItem(`${name}`, serializedState);
-//   } catch (err) {
-//     // err while saving state
-//   }
-// };
-
 function getItems(item) {
   if (item.title) {
     return item.title;
@@ -71,8 +73,6 @@ function getItems(item) {
 }
 
 function* handleGetAppData() {
-  clear('NightStudio');
-
   // const response111 = yield call(apiContentful, {
   //   query: 'rituals',
   //   select: 'fields,sys.id',
@@ -80,9 +80,6 @@ function* handleGetAppData() {
   // });
 
   try {
-    const contentfulData = extractEntryDataFromResponse(mockAppData);
-    yield put(getDataSuccess(contentfulData));
-
     const clanAppData = extractEntryDataFromResponse(clanMock);
     const orderByData2 = orderBy(
       clanAppData,
@@ -92,16 +89,25 @@ function* handleGetAppData() {
 
     yield put(clanDataSuccess(orderByData2));
 
-    const flawsAppData = extractEntryDataFromResponse(flawMock);
+
+    const contentful_flaws_1 = extractEntryDataFromResponse(flaws_1);
+    const contentful_flaws_2 = extractEntryDataFromResponse(flaws_2);
+    const contentful_flaws_3 = extractEntryDataFromResponse(flaws_2);
+
     const orderByData3 = orderBy(
-      flawsAppData,
+      concat(contentful_flaws_1, contentful_flaws_2, contentful_flaws_3),
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     yield put(flawsDataSuccess(orderByData3));
-    const meritAppData = extractEntryDataFromResponse(meritMock);
 
-    const meritByData4 = orderBy(meritAppData, 'merit', ['asc']);
+    const contentful_merits_1 = extractEntryDataFromResponse(merits_1);
+    const contentful_merits_2= extractEntryDataFromResponse(merits_2);
+    const contentful_merits_3 = extractEntryDataFromResponse(merits_3);
+    const contentful_merits_4 = extractEntryDataFromResponse(merits_4);
+    const contentful_merits_5 = extractEntryDataFromResponse(merits_5);
+
+    const meritByData4 = orderBy(concat(contentful_merits_1,contentful_merits_2,contentful_merits_3,contentful_merits_4, contentful_merits_5), 'merit', ['asc']);
 
     yield put(meritsDataSuccess(meritByData4));
 
@@ -131,40 +137,53 @@ function* handleGetAppData() {
     );
     // saveState('backgrounds', orderByData7);
     yield put(backgroundDataSuccess(orderByData7));
-    const contentfulData777 = extractEntryDataFromResponse(ritualsMock);
+
+    const contentful_techniqueMock_1 = extractEntryDataFromResponse(techniqueMock_1);
+    const contentful_techniqueMock_2 = extractEntryDataFromResponse(techniqueMock_2);
+    const contentful_techniqueMock_3 = extractEntryDataFromResponse(techniqueMock_3);
+
     const orderByData777 = orderBy(
-      contentfulData777,
+      concat(contentful_techniqueMock_1, contentful_techniqueMock_2, contentful_techniqueMock_3),
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     // saveState('techniques', orderByData777);
     yield put(techniquesDataSuccess(orderByData777));
 
-    const contentfulData7771 = extractEntryDataFromResponse(techniqueMock);
+    const contentful_RitualsMock_1 = extractEntryDataFromResponse(ritualsMock_1);
+    const contentful_RitualsMock_2 = extractEntryDataFromResponse(ritualsMock_2);
+    const contentful_RitualsMock_3 = extractEntryDataFromResponse(ritualsMock_3);
+
     const orderByData7771 = orderBy(
-      contentfulData7771,
+      concat(contentful_RitualsMock_1, contentful_RitualsMock_2, contentful_RitualsMock_3),
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     // saveState('rituals', orderByData7771);
     yield put(ritualDataSuccess(orderByData7771));
   } catch (e) {
+    console.log(e)
     //
   }
 }
 
 function* handleDisciplineData() {
-  try {
-    const contentfulData = extractEntryDataFromResponse(mockAppData);
-    const disciplineDataMock2 = filter(contentfulData, o => o.power);
 
+  const contentful_discipline_1 = extractEntryDataFromResponse(discipline_1);
+  const contentful_discipline_2 = extractEntryDataFromResponse(discipline_2);
+  const contentful_discipline_3 = extractEntryDataFromResponse(discipline_3);
+  const contentful_discipline_4 = extractEntryDataFromResponse(discipline_4);
+  const contentful_discipline_5 = extractEntryDataFromResponse(discipline_5);
+
+  try {
     const orderByData6 = orderBy(
-      disciplineDataMock2,
+      concat(contentful_discipline_1,contentful_discipline_2,contentful_discipline_3,contentful_discipline_4,contentful_discipline_5),
       [item => getItems(item).toLowerCase()],
       ['asc'],
     );
     yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
+    console.log(e);
     //
   }
 }

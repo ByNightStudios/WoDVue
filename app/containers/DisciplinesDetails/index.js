@@ -238,6 +238,7 @@ export function ClanPage(props) {
       </a>
     );
   }
+  
   return (
     <div className="clan-page">
       {renderHelment()}
@@ -251,25 +252,26 @@ export function ClanPage(props) {
             >
               <h1>
                 <div className="row">
-                    <h1>{get(selectedClan, 'power', '')}</h1>
-                    { get(selectedClan, 'power', '') ? <Paragraph
-                      copyable={{
-                        text: `${window.location.href}`,
-                      }}
-                      style={{ marginLeft: 10, color: '#fff' }}
-                    >
-                      {' '}
+                  <h1>{get(selectedClan, 'power', '')}</h1>
+                  { get(selectedClan, 'power', '') ? (<Paragraph
+                    copyable={{
+                      text: `${window.location.href}`,
+                    }}
+                    style={{ marginLeft: 10, color: '#fff' }}
+                  >
+                    {' '}
                       Share Link
-                    </Paragraph> : null}
-                  </div>
+                  </Paragraph>
+                  ) : null}
+                </div>
                 {!isEqual(
                   get(selectedClan, 'power', ''),
                   get(selectedClan, 'title', ''),
                 ) ? (
-                  <i>{get(selectedClan, 'title', '')} </i>
-                  ) : (
-                    <div />
-                  )}
+                    <i>{get(selectedClan, 'title', '')} </i>
+                ) : (
+                  <div />
+                )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
@@ -535,9 +537,14 @@ export function ClanPage(props) {
                                     </ul>
                                   </div>
                                   <h3>SUMMARY</h3>
-                                  {map(item.summary, d => (
-                                    <p>{d}</p>
-                                  ))}
+                                  <div
+                                    /* eslint-disable-next-line react/no-danger */
+                                    dangerouslySetInnerHTML={{
+                                      __html: documentToHtmlString(
+                                        item.summary_html,
+                                      ),
+                                    }}
+                                  />
                                   <div className="row">{renderLink(item)}</div>
                                 </div>
                               </div>
