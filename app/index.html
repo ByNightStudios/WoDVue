@@ -48,36 +48,6 @@
       crossorigin="anonymous"
     ></script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4XFK6E7DE4"></script>
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.css" />
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@algolia/algoliasearch-netlify-frontend@1/dist/algoliasearchNetlify.js"></script>
-    <!-- <script type="text/javascript">
-      algoliasearchNetlify({
-        appId: 'FLL6X8YRIN',
-        apiKey: 'c119ed5ee357491175144486cc23ab97',
-        siteId: '52c24889-e9da-4b12-b4e3-3efe0191edcb',
-        branch: 'master',
-        selector: 'div#search',
-
-        // Optional
-        analytics: true,                                // Enable search analytics
-        hitsPerPage: 5,                                 // Amount of results to display
-        poweredBy: true,                                // Controls displaying the logo (mandatory with our FREE plan)
-        placeholder: 'Search...',                       // Input placeholder
-        openOnFocus: true,                              // Open search panel with default search, when focusing input
-        detached: { mediaQuery: '(max-width: 500px)' }, // Determine when the search popup should open in detached mode (full screen, modal experience). Can be set to `true` or `false` to always/never go in detached mode.
-
-        // Theme
-        theme: {
-          mark: '#fff',                                 // Color of the matching content
-          background: '#23263b',                        // Background Color of the input and the panel
-          selected: '#111432',                          // Background Color of the selected item
-          text: '#d6d6e7',                              // Color of the title of the items
-          colorSourceIcon: '#d6d6e7'                    // Color of the icon on the left of results
-        }
-
-      });
-    </script> -->
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
@@ -91,7 +61,7 @@
  // replace with the CLEVERTAP_ACCOUNT_ID with the actual ACCOUNT ID value from your Dashboard -> Settings page
 clevertap.account.push({"id": "6KW-R9R-5Z6Z"});
 clevertap.privacy.push({optOut: false}); //set the flag to true, if the user of the device opts out of sharing their data
-clevertap.privacy.push({useIP: false}); //set the flag to true, if the user agrees to share their IP data
+clevertap.privacy.push({useIP: true}); //set the flag to true, if the user agrees to share their IP data
 (function () {
         var wzrk = document.createElement('script');
         wzrk.type = 'text/javascript';
