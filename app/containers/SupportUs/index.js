@@ -90,7 +90,7 @@ export function QuickStart({ getContentPage, quickStart }) {
                   alt="Donate with PayPal button"
                 />
                 <img
-                  alt=""
+                  alt="nightStudio"
                   border="0"
                   src="https://www.paypal.com/en_US/i/scr/pixel.gif"
                   width="1"

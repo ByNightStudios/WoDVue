@@ -135,7 +135,7 @@ export function ClanPage(props) {
               <div style={{ display: 'flex' }}>
                 <img
                   src={get(selectedClan, 'clanSymbol.file.url')}
-                  alt=""
+                  alt="nightStudio"
                   style={{
                     width: 45,
                   }}

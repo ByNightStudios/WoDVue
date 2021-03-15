@@ -27,7 +27,7 @@ function Header_1() {
         <div className="row">
           <div className="col-md-3 boxLogos">
             <a className="navbar-brand" href="/">
-              <img src={LogoWOD} />
+              <img src={LogoWOD} alt="nightStudio" />
             </a>
           </div>
           <div className="col-md-9">

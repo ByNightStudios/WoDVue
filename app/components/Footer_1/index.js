@@ -22,7 +22,7 @@ function Footer_1() {
           <div className="row">
             <div className="col-lg-4 col-md-12 widgetLogos text-center">
               <a className="navbar-brand" href="/">
-                <img src={FooterImage1} alt="" />
+                <img src={FooterImage1} alt="nightStudio" />
               </a>
               {/* <a className="navbar-brand brand-section" href="/">
                 <img src={VampireLogo} alt="" />

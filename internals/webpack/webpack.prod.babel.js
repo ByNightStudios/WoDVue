@@ -105,6 +105,7 @@ module.exports = require('./webpack.base.babel')({
       },
       version: new Date().getTime(),
       updateStrategy: 'changed',
+      navigationPreload: false,
     }),
 
     new CompressionPlugin({
