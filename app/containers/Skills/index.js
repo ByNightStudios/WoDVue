@@ -41,6 +41,7 @@ export function ClanPage(props) {
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
+
   const [selectedClan, setSelectedClan] = useState('');
 
   useEffect(() => {
@@ -103,14 +104,16 @@ export function ClanPage(props) {
             >
               <div className="row">
                 <h1>{get(selectedClan, 'title', '')}</h1>
-                { get(selectedClan, 'title', '') ? <Paragraph
-                  copyable={{
-                    text: `${window.location.href}`,
-                  }}
-                  style={{ marginLeft: 10, color: '#fff' }}
-                >
-                  Share Link
-                </Paragraph> : null}
+                {get(selectedClan, 'title', '') ? (
+                  <Paragraph
+                    copyable={{
+                      text: `${window.location.href}`,
+                    }}
+                    style={{ marginLeft: 10, color: '#fff' }}
+                  >
+                    Share Link
+                  </Paragraph>
+                ) : null}
               </div>
             </div>
             <div className="boxWhite">

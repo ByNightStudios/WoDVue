@@ -9,14 +9,15 @@
  */
 
 import React, { memo, useState, useEffect } from 'react';
+// eslint-disable-next-line no-unused-vars
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find, trim } from 'lodash';
-import { Typography } from 'antd';
+import { map, get, isEmpty, find, trim, without, uniq, filter } from 'lodash';
+import { Typography, Select, Row, Button } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -25,23 +26,24 @@ import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
 
-import { getData } from 'containers/App/actions';
 
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getDropDownItems } from './actions';
 import './style.css';
 
 const { Paragraph } = Typography;
+const { Option } = Select;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
+
   const [selectedClan, setSelectedClan] = useState('');
+  const [clanItemsList, setSelectedClanItemsList] = useState([]);
 
   const {
     app: {
@@ -51,6 +53,10 @@ export function ClanPage(props) {
   } = props;
 
   const filterClans = clanItems;
+
+  useEffect(() => {
+    setSelectedClanItemsList(clanItems);
+  }, []);
 
   useEffect(() => {
     const {
@@ -89,6 +95,21 @@ export function ClanPage(props) {
       return 'icon-DaughtersofCacophony';
     }
     return `icon-${item}`;
+  }
+
+  const sourceBook = map(clanItemsList, item =>
+    get(item, 'sourceBook_html.fields.bookTitle', ''),
+  );
+
+  const uniqSourceBook = without(uniq(sourceBook), "");
+
+  function handleChangeFilter(item) {
+    setSelectedClanItemsList(clanItemsList);
+    const filterClanItems = filter(
+      clanItemsList,
+      o => get(o, 'sourceBook_html.fields.bookTitle') === item,
+    );
+    setSelectedClanItemsList(filterClanItems);
   }
 
   return (
@@ -346,6 +367,20 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
+            <Row type="flex">
+                <Select
+                  style={{ width: '70%', marginBottom: 10, color: 'black' }}
+                  placeholder="filter by source book"
+                  onChange={handleChangeFilter}
+                >
+                  {map(uniqSourceBook, item => (
+                    <Option value={item}>{item}</Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
               <h3>FLAWS</h3>
               <ul className="nav flex-column nav-clans">
                 {map(filterClans, (items, index) => (
@@ -378,8 +413,6 @@ export function ClanPage(props) {
 
 ClanPage.propTypes = {
   ...ClanPage,
-  onRequestData: PropTypes.func,
-  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
