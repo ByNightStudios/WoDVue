@@ -49,9 +49,11 @@ export function ClanPage(props) {
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
+
   const [selectedClan, setSelectedClan] = useState('');
   const [powerOfClans, setPowerOfClans] = useState([]);
   const [direction, setDirection] = useState('asc');
+  const [clanItemsList, setSelectedClanItemsList] = useState([]);
 
   const { app } = props;
 
@@ -59,12 +61,16 @@ export function ClanPage(props) {
     disciplines: { data: clanItems },
   } = app;
 
+  useEffect(() => {
+    setSelectedClanItemsList(clanItems);
+  }, [props]);
+
   const filterClans = uniqBy(
-    sortBy(filter(clanItems, o => o.parent), 'title'),
+    sortBy(filter(clanItemsList, o => o.parent), 'title'),
     'title',
   );
 
-  // const powerOfAllClans = uniqBy(clanItems, 'title');
+  // const powerOfAllClans = uniqBy(clanItemsList, 'title');
 
   useEffect(() => {
     const {
@@ -72,7 +78,9 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
+
     clevertap.event.push(window.location.pathname);
+
     const findClanData = find(filterClans, o => o.power === trim(id));
     if (findClanData) {
       setSelectedClan(findClanData);
@@ -82,7 +90,7 @@ export function ClanPage(props) {
       setSelectedClan(findClanData3);
     }
     const powerOfClansData = filter(
-      clanItems,
+      clanItemsList,
       o => o.power === get(selectedClan, 'title'),
     );
 
@@ -95,7 +103,7 @@ export function ClanPage(props) {
       const value = e.target.getAttribute('value');
       const findClanData = find(filterClans, { power: value });
       setSelectedClan(findClanData);
-      const powerOfClansData = filter(clanItems, {
+      const powerOfClansData = filter(clanItemsList, {
         power: get(findClanData, 'title'),
       });
       setPowerOfClans(powerOfClansData);
@@ -163,8 +171,9 @@ export function ClanPage(props) {
             >
               <h1>
                 <div className="row">
-                    <h1>{get(selectedClan, 'power', '')}</h1>
-                    {get(selectedClan, 'power', '') ? <Paragraph
+                  <h1>{get(selectedClan, 'power', '')}</h1>
+                  {get(selectedClan, 'power', '') ? (
+                    <Paragraph
                       copyable={{
                         text: `${window.location.href}`,
                       }}
@@ -172,8 +181,9 @@ export function ClanPage(props) {
                     >
                       {' '}
                       Share Link
-                    </Paragraph> : null}
-                  </div>
+                    </Paragraph>
+                  ) : null}
+                </div>
                 {!isEqual(
                   get(selectedClan, 'power', 'demo'),
                   get(selectedClan, 'title', 'nano'),

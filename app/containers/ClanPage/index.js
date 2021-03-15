@@ -52,6 +52,7 @@ export function ClanPage(props) {
 
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
   const [selectedClan, setSelectedClan] = useState('');
+
   const { app } = props;
 
   const {
@@ -111,8 +112,6 @@ export function ClanPage(props) {
 
   const uniqSourceBook = uniq(sourceBook);
 
-  console.log(clanItems);
-
   return (
     <div className="clan-page">
       <Helmet>
@@ -151,7 +150,6 @@ export function ClanPage(props) {
                         }}
                         style={{ marginLeft: 10, color: '#fff' }}
                       >
-                        {' '}
                         Share Link
                       </Paragraph>
                     ) : null}
@@ -186,6 +184,7 @@ export function ClanPage(props) {
                 </div>
               </div>
               <br />
+
               {!isEmpty(get(selectedClan, 'quote')) ? (
                 <blockquote className="blockquote">
                   <p className="mb-0">{get(selectedClan, 'quote', [])}</p>
