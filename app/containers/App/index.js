@@ -86,10 +86,12 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/vampire/Rituals" component={RitualsListing} />
         <Route path="/vampire/Rituals/:id" component={Rituals} />
         <Route path="/vampire/Merits/:id" component={MeritsDetails} />
+        <Route exact path="/vampire/Attributes/:id" component={Attribute} />
         <Route exact path="/vampire/Attributes" component={Attribute} />
         <Route exact path="/vampire/Backgrounds/:id" component={Backgrounds} />
         <Route exact path="/vampire/Backgrounds" component={Backgrounds} />
         <Route exact path="/vampire/Skills" component={Skills} />
+        <Route exact path="/vampire/Skills/:id" component={Skills} />
         <Route exact path="/vampire/Techniques" component={Techniques} />
         <Route path="/vampire/Techniques/:id" component={TechniquesDetails} />
         <Route exact path="/vampire/clan/:id" component={ClanPage} />

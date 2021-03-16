@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find } from 'lodash';
+import { map, get, isEmpty, find, trim } from 'lodash';
 import { Typography } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -25,13 +25,10 @@ import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
 
-import { getData } from 'containers/App/actions';
-
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getDropDownItems } from './actions';
 import './style.css';
 
 const { Paragraph } = Typography;
@@ -45,9 +42,6 @@ export function ClanPage(props) {
 
   const { match } = props;
 
-  useEffect(() => {
-    clevertap.event.push(window.location.pathname);
-  }, [match]);
 
   const {
     app: {
@@ -56,6 +50,18 @@ export function ClanPage(props) {
   } = props;
 
   const filterClans = clanItems;
+
+
+  useEffect(() => {
+    const {
+      match: {
+        params: { id },
+      },
+    } = props;
+    clevertap.event.push(window.location.pathname);
+    const findClanData = find(clanItems, { attribute: trim(id) });
+    setSelectedClan(findClanData);
+  }, [match]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -287,7 +293,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to="/vampire/Attributes"
+                      to={`/vampire/Attributes/${items.attribute}`}
                       className={`nav-link ${getClassName(items.attribute)}`}
                       value={items.attribute}
                       onClick={() => {
