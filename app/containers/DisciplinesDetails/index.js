@@ -78,7 +78,7 @@ export function ClanPage(props) {
   }, []);
 
   const filterClans = uniqBy(
-    sortBy(filter(clanItemsList, o => o.parent), 'title'),
+    sortBy(filter(clanItems, o => o.parent), 'title'),
     'title',
   );
 
