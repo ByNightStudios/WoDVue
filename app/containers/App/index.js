@@ -87,6 +87,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route path="/vampire/Rituals/:id" component={Rituals} />
         <Route path="/vampire/Merits/:id" component={MeritsDetails} />
         <Route exact path="/vampire/Attributes" component={Attribute} />
+        <Route exact path="/vampire/Backgrounds/:id" component={Backgrounds} />
         <Route exact path="/vampire/Backgrounds" component={Backgrounds} />
         <Route exact path="/vampire/Skills" component={Skills} />
         <Route exact path="/vampire/Techniques" component={Techniques} />
@@ -97,7 +98,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/Backers" component={Backers} />
         <Route exact path="/Contributors" component={Contributors} />
         <Route exact path="/SupportUs" component={SupportUs} />
-        {/* <Route exact path="/Search" component={Search} /> */}
+        <Route exact path="/Search" component={Search} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

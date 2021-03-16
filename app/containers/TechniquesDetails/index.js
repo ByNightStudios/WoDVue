@@ -47,6 +47,7 @@ export function ClanPage(props) {
     app: {
       techniques: { data: clanItems },
     },
+    match,
   } = props;
 
   useEffect(() => {
@@ -59,10 +60,10 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    const findClanData = find(filterClans, { technique: id });
+    const findClanData = find(clanItems, { technique: id });
     setSelectedClan(findClanData);
     clevertap.event.push(window.location.pathname);
-  }, [props]);
+  }, [match]);
 
   const filterClans = clanItemsList;
 
@@ -98,7 +99,7 @@ export function ClanPage(props) {
     get(item, 'sourceBook_html.fields.bookTitle', ''),
   );
 
-  const uniqSourceBook = without(uniq(sourceBook), "");
+  const uniqSourceBook = without(uniq(sourceBook), '');
 
   function handleChangeFilter(item) {
     setSelectedClanItemsList(clanItemsList);
@@ -294,7 +295,7 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-            <Row type="flex">
+              <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"

@@ -166,16 +166,16 @@ export function Disciplines({ app }) {
                         <a
                           className="btn btn-primary collapsed"
                           data-toggle="collapse"
-                          href={`#discipline-${index + 1}`}
+                          href={`#discipline-${index}`}
                           role="button"
                           aria-expanded="false"
-                          aria-controls={`discipline-${index + 1}`}
+                          aria-controls={`discipline-${index}`}
                         >
                           <i className="fa" />
                         </a>
                       </div>
                     </div>
-                    <div className="collapse" id={`discipline-${index + 1}`}>
+                    <div className="collapse" id={`discipline-${index}`}>
                       <div className="box-summary">
                         <div className="details">
                           <ul>

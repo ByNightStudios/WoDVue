@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -27,13 +28,10 @@ import { makeSelectApp } from 'containers/App/selectors';
 
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-import { getData } from 'containers/App/actions';
-
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 
-import { getDropDownItems } from './actions';
 import './style.css';
 
 const { Paragraph } = Typography;
@@ -53,6 +51,13 @@ export function ClanPage(props) {
   } = props;
 
   useEffect(() => {
+    const {
+      match: {
+        params: { id },
+      },
+    } = props;
+    const findClanData = find(filterClans, { title: id });
+    setSelectedClan(findClanData);
     clevertap.event.push(window.location.pathname);
   }, [match]);
 
@@ -104,16 +109,17 @@ export function ClanPage(props) {
               )}`}
             >
               <h1>{get(selectedClan, 'title', '')}</h1>
-              {get(selectedClan, 'title', '') ?
-                    <Paragraph
-                      copyable={{
-                        text: `${window.location.href}`,
-                      }}
-                      style={{ marginLeft: 10, color: '#fff' }}
-                    >
-                      {' '}
-                      Share Link
-                    </Paragraph> : null}
+              {get(selectedClan, 'title', '') ? (
+                <Paragraph
+                  copyable={{
+                    text: `${window.location.href}`,
+                  }}
+                  style={{ marginLeft: 10, color: '#fff' }}
+                >
+                  {' '}
+                  Share Link
+                </Paragraph>
+              ) : null}
             </div>
             <div className="boxWhite">
               {!isEmpty(get(selectedClan, 'description')) ? (
@@ -289,7 +295,7 @@ export function ClanPage(props) {
                     key={index}
                   >
                     <Link
-                      to="/vampire/Backgrounds"
+                      to={`/vampire/Backgrounds/${items.title}`}
                       className={`nav-link ${getClassName(items.title)}`}
                       value={items.title}
                       onClick={() => {
