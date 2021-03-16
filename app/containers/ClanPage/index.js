@@ -70,7 +70,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    const findClanData = find(clanItemsList, { title: id });
+    const findClanData = find(clanItems, { title: id });
     setSelectedClan(findClanData);
   }, [props]);
 
