@@ -26,6 +26,7 @@ import Merits from 'containers/Merits/Loadable';
 import ClanPage from 'containers/ClanPage/Loadable';
 import Attribute from 'containers/Attributes/Loadable';
 import Backgrounds from 'containers/Backgrounds/Loadable';
+import Library from 'containers/Library/Loadable';
 import Skills from 'containers/Skills/Loadable';
 import Techniques from 'containers/Techniques/Loadable';
 import TechniquesDetails from 'containers/TechniquesDetails/Loadable';
@@ -90,6 +91,10 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/vampire/Attributes" component={Attribute} />
         <Route exact path="/vampire/Backgrounds/:id" component={Backgrounds} />
         <Route exact path="/vampire/Backgrounds" component={Backgrounds} />
+
+        <Route exact path="/vampire/Library/:id" component={Library} />
+        <Route exact path="/vampire/Library" component={Library} />
+
         <Route exact path="/vampire/Skills" component={Skills} />
         <Route exact path="/vampire/Skills/:id" component={Skills} />
         <Route exact path="/vampire/Techniques" component={Techniques} />

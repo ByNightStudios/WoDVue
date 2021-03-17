@@ -32,6 +32,8 @@ import discipline_3 from 'scripts/discipline_200.json';
 import discipline_4 from 'scripts/discipline_300.json';
 import discipline_5 from 'scripts/discipline_400.json';
 
+import contentPages_1 from 'scripts/contentPages_0.json';
+
 // import apiContentful from '../../utils/contentfulUtils/api/contentful/contentful';
 
 // import apiScriptJson from 'scripts/api.json';
@@ -49,6 +51,7 @@ import {
   skillDataSuccess,
   techniquesDataSuccess,
   ritualDataSuccess,
+  contentPagesSuccess,
 } from './actions';
 
 // const apiContentManager = new APIContentful();
@@ -189,6 +192,15 @@ function* handleGetAppData() {
     );
     // saveState('rituals', orderByData7771);
     yield put(ritualDataSuccess(orderByData7771));
+
+    const contentPagesData = extractEntryDataFromResponse(contentPages_1);
+    const orderByDataContentPagesData = orderBy(
+      contentPagesData,
+      [item => getItems(item).toLowerCase()],
+      ['asc'],
+    );
+    // saveState('backgrounds', orderByData7);
+    yield put(contentPagesSuccess(orderByDataContentPagesData));
   } catch (e) {
     console.log(e);
     //

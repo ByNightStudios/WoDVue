@@ -14,22 +14,27 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, map, orderBy, toLower } from 'lodash';
+import { get, isEmpty, map, orderBy, toLower, uniq, filter } from 'lodash';
 import { Helmet } from 'react-helmet';
-
+import { Row, Select, Button } from 'antd';
 import { makeSelectApp } from 'containers/App/selectors';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
+
 import makeSelectDisciplines from './selectors';
 import reducer from './reducer';
 import saga from './saga';
 import { getDisciplines } from './actions';
 
+const { Option } = Select;
 export function Disciplines({ app }) {
   useInjectReducer({ key: 'disciplines', reducer });
   useInjectSaga({ key: 'disciplines', saga });
+
   const [disciplineData, setDisciplineData] = useState([]);
   const [direction, setDirection] = useState('asc');
+
   const {
     techniques: { data },
   } = app;
@@ -104,6 +109,29 @@ export function Disciplines({ app }) {
     return array;
   }
 
+  const prerequisites1 = uniq(
+    map(disciplineData, item => item.prerequisites[0]),
+  );
+  const prerequisites2 = uniq(
+    map(disciplineData, item => item.prerequisites[1]),
+  );
+
+  const handleChangeFilter = value => {
+    const sortedByLevel = filter(
+      disciplineData,
+      o => get(o, 'prerequisites[0]') === value,
+    );
+    setDisciplineData(sortedByLevel);
+  };
+
+  const handleChangeFilter2 = value => {
+    const sortedByLevel = filter(
+      disciplineData,
+      o => get(o, 'prerequisites[1]') === value,
+    );
+    setDisciplineData(sortedByLevel);
+  };
+
   return (
     <div>
       <Helmet>
@@ -117,6 +145,29 @@ export function Disciplines({ app }) {
               TECHNIQUES
             </h1>
           </div>
+          <Row type="flex" justify="space-between" className="w-100">
+            <Select
+              placeholder="Filter for Discipline 1"
+              style={{ width: '40%' }}
+              onChange={handleChangeFilter}
+            >
+              {map(prerequisites1, item => (
+                <Option value={item}>{item}</Option>
+              ))}
+            </Select>
+            <Select
+              placeholder="Filter for Discipline 2"
+              style={{ width: '40%' }}
+              disabled={isEmpty(prerequisites2)}
+              onChange={handleChangeFilter2}
+            >
+              {map(prerequisites2, item => (
+                <Option value={item}>{item}</Option>
+              ))}
+            </Select>
+
+            <Button onClick={() => setDisciplineData(data)}>Reset</Button>
+          </Row>
           <div className="col-md-12">
             <div className="header-disciplines">
               <div className="discipline" onClick={() => handleSortingBy2()}>

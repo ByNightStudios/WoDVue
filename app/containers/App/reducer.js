@@ -18,6 +18,7 @@ import {
   TECHNIQUES_DATA_SUCCESS,
   RITUALS_DATA_SUCCESS,
   DATA_SUCCESS,
+  CONTENT_PAGES_SUCCESS,
 } from './constants';
 
 export const initialState = {
@@ -64,6 +65,9 @@ export const initialState = {
     data: [],
   },
   rituals: {
+    data: [],
+  },
+  contentPages: {
     data: [],
   },
 };
@@ -113,6 +117,9 @@ const appReducer = (state = initialState, action) =>
         break;
       case RITUALS_DATA_SUCCESS:
         draft.rituals.data = action.payload;
+        break;
+      case CONTENT_PAGES_SUCCESS:
+        draft.contentPages.data = action.payload;
         break;
     }
   });

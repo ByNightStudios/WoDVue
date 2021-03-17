@@ -199,6 +199,16 @@ function Header_1() {
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
+                      pathname === '/vampire/Library' ? 'active' : null
+                    }`}
+                    href="/vampire/Library"
+                  >
+                    Library
+                  </a>
+                </li>
+                {/* <li className="nav-item">
+                  <a
+                    className={`nav-link ${
                       pathname === '/vampire/Attributes' ? 'active' : null
                     }`}
                     href="/vampire/Attributes"
@@ -215,7 +225,7 @@ function Header_1() {
                   >
                     Backgrounds
                   </a>
-                </li>
+                </li> */}
               </ul>
             </div>
           </div>
