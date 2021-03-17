@@ -34,6 +34,20 @@ const getDisciplinesFiles = () => {
   }
 };
 
+const getContentPages = () => {
+  for (let skipCount = 0; skipCount <= 100; skipCount += 100) {
+    client
+      .getEntries({
+        content_type: 'contentPages',
+        skip: skipCount,
+        limit: 100,
+        select: 'fields,sys.id',
+      })
+      .then(entries => writeToFile(`contentPages_${skipCount}.json`, entries));
+    console.log('Create File Done of contentPages');
+  }
+};
+
 const getRitualsFiles = () => {
   for (let skipCount = 0; skipCount <= 200; skipCount += 100) {
     console.log('Api calling of rituals');
@@ -84,7 +98,10 @@ const getTechniquesFiles = () => {
           limit: 100,
           select: 'fields,sys.id',
         })
-        .then(entries2 => writeToFile('backgrounds.json', entries2));
+        .then(entries2 => {
+          writeToFile('backgrounds.json', entries2);
+          getContentPages();
+        });
       console.log('Create File Done of backgrounds');
     });
 };
@@ -145,7 +162,3 @@ client
     writeToFile('skills.json', entries);
     getMeritsFiles();
   });
-
-// setTimeout(() => {
-//   process.exit();
-// });
