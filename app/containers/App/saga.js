@@ -202,7 +202,6 @@ function* handleGetAppData() {
     // saveState('backgrounds', orderByData7);
     yield put(contentPagesSuccess(orderByDataContentPagesData));
   } catch (e) {
-    console.log(e);
     //
   }
 }
@@ -228,7 +227,6 @@ function* handleDisciplineData() {
     );
     yield put(disciplineDataSuccess(orderByData6));
   } catch (e) {
-    console.log(e);
     //
   }
 }

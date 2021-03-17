@@ -14,7 +14,16 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { get, isEmpty, map, orderBy, toLower, uniq, filter } from 'lodash';
+import {
+  get,
+  isEmpty,
+  map,
+  orderBy,
+  toLower,
+  uniq,
+  filter,
+  includes,
+} from 'lodash';
 import { Helmet } from 'react-helmet';
 import { Row, Select, Button } from 'antd';
 import { makeSelectApp } from 'containers/App/selectors';
@@ -110,24 +119,22 @@ export function Disciplines({ app }) {
   }
 
   const prerequisites1 = uniq(
-    map(disciplineData, item => item.prerequisites[0]),
+    map(disciplineData, item => item.disciplines[0].fields.power),
   );
   const prerequisites2 = uniq(
-    map(disciplineData, item => item.prerequisites[1]),
+    map(disciplineData, item => item.disciplines[1].fields.power),
   );
 
   const handleChangeFilter = value => {
-    const sortedByLevel = filter(
-      disciplineData,
-      o => get(o, 'prerequisites[0]') === value,
+    const sortedByLevel = filter(disciplineData, o =>
+      includes(get(o, 'prerequisites[0]'), value),
     );
     setDisciplineData(sortedByLevel);
   };
 
   const handleChangeFilter2 = value => {
-    const sortedByLevel = filter(
-      disciplineData,
-      o => get(o, 'prerequisites[1]') === value,
+    const sortedByLevel = filter(disciplineData, o =>
+      includes(get(o, 'prerequisites[1]'), value),
     );
     setDisciplineData(sortedByLevel);
   };

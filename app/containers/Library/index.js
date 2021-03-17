@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find } from 'lodash';
+import { map, get, isEmpty, find, filter } from 'lodash';
 import { Typography } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -50,7 +50,7 @@ export function ClanPage(props) {
     match,
   } = props;
 
-  const filterClans = clanItems;
+  const filterClans = filter(clanItems, o => !o.exclude);
 
   useEffect(() => {
     const {
