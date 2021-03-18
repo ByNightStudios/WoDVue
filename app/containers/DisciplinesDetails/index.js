@@ -103,7 +103,7 @@ export function ClanPage(props) {
     }
 
     const powerOfClansData = filter(
-      clanItemsList,
+      clanItems,
       o => o.power === trim(get(findClanData, 'title')),
     );
 

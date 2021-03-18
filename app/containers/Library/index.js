@@ -63,7 +63,6 @@ export function ClanPage(props) {
     clevertap.event.push(window.location.pathname);
   }, [match]);
 
-
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
@@ -200,13 +199,12 @@ export function ClanPage(props) {
 
               {isEmpty(selectedClan) ? (
                 <div>
-                  The following backgrounds are available to your character. In
-                  general, having multiple dots in a background allows for more
-                  effective or more frequent use of that background’s benefit.
-                  Some backgrounds change your character during character
-                  creation, while others affect the character only after she
-                  enters the game. Read each background carefully to determine
-                  which are appropriate for your character’s story.
+                  <i>
+                    “My childe, alway remember this most important lesson:
+                    sanguis pretium amissis ludum. Blood is the price of losing
+                    the game.”
+                  </i>
+                  <p>— Alain Martel, Luminary Elder, Clan Ventrue</p>
                 </div>
               ) : (
                 <div />
