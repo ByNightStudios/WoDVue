@@ -1,20 +1,28 @@
+/* eslint-disable react/prop-types */
 /**
  *
  * Search
  *
  */
 
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Card } from 'antd';
+import { Input, AutoComplete, Empty } from 'antd';
+
+import { map, uniqBy } from 'lodash';
+import get from 'lodash/get';
+
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import get from 'lodash/get';
-import algoliasearch from 'algoliasearch/lite';
-import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
+
+import algoliasearch from 'algoliasearch';
+import {
+  InstantSearch,
+  connectSearchBox,
+  connectStateResults,
+} from 'react-instantsearch-dom';
 
 import makeSelectSearch from './selectors';
 import reducer from './reducer';
@@ -27,26 +35,179 @@ export function Search() {
 
   const searchClient = algoliasearch(
     'FLL6X8YRIN',
-    'c119ed5ee357491175144486cc23ab97',
-    'prod',
+    '9bebb236761c88f11a4f7cd70907a90f',
   );
 
-  const AntdCard = ({ hit }) => {
-    return (
-      <Card title={hit.title}>
-        {' '}
-        <Card.Meta description={get(hit, 'summary[0]')} />
-      </Card>
+  // const results = connectStateResults();
+
+  // console.log(results);
+  useEffect(() => {
+    // const {
+    //   attributes: { data: attributesData },
+    //   backgrounds: { data: backgroundsData },
+    //   clans: { data: clansData },
+    //   contentPages: { data: contentPagesData },
+    //   disciplines: { data: disciplinesData },
+    //   flaws: { data: flawsData },
+    //   merits: { data: meritsData },
+    //   rituals: { data: ritualsData },
+    //   skills: { data: skillsData },
+    //   techniques: { data: techniquesData },
+    // } = search;
+    // const combineData = concat(
+    //   attributesData,
+    //   backgroundsData,
+    //   clansData,
+    //   contentPagesData,
+    //   disciplinesData,
+    //   flawsData,
+    //   meritsData,
+    //   ritualsData,
+    //   skillsData,
+    //   techniquesData,
+    // );
+    // dataIndex.saveObjects(attributesData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(backgroundsData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(clansData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(contentPagesData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(disciplinesData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(flawsData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(meritsData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(ritualsData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(skillsData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+    // dataIndex.saveObjects(techniquesData, {
+    //   autoGenerateObjectIDIfNotExist: true,
+    // });
+  }, []);
+
+  // const AntdCard = ({ hit }) => (
+  //   <Card title={hit.title}>
+  //     <Card.Meta description={get(hit, 'summary[0]')} />
+  //   </Card>
+  // );
+
+  // const searchResult = (data) => {
+  //   console.log(data);
+  //   return [];
+  //  new Array(5)
+  //     .join('.')
+  //     .split('.')
+  //     .map((_, idx) => {
+  //       const category = `${query}${idx}`;
+  //       return {
+  //         value: category,
+  //         label: (
+  //           <div
+  //             style={{
+  //               display: 'flex',
+  //               justifyContent: 'space-between',
+  //             }}
+  //           >
+  //             <span>
+  //               Found {query} on{' '}
+  //               <a
+  //                 href={`https://s.taobao.com/search?q=${query}`}
+  //                 target="_blank"
+  //                 rel="noopener noreferrer"
+  //               >
+  //                 {category}
+  //               </a>
+  //             </span>
+  //             <span>results</span>
+  //           </div>
+  //         ),
+  //       };
+  //     })
+  // }
+
+  function getItems(item) {
+    if (item.title) {
+      return item.title;
+    }
+    if (item.merit) {
+      return item.merit;
+    }
+    if (item.flaw) {
+      return item.flaw;
+    }
+
+    if (item.technique) {
+      return item.technique;
+    }
+    return item.attribute;
+  }
+
+  const searchResult = data => {
+    const myQueryData = uniqBy(
+      map(data, item => ({
+        value: getItems(item),
+        label: (
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+            }}
+          >
+            <span>{getItems(item)}</span>
+          </div>
+        ),
+      })),
+      'value',
     );
+    return myQueryData;
   };
+
+  const myAntdSearchBox = ({ refine, searchResults }) => (
+    <AutoComplete
+      allowClear
+      autoFocus
+      backfill
+      dropdownMatchSelectWidth={252}
+      style={{
+        width: 300,
+      }}
+      options={searchResult(get(searchResults, 'hits', []))}
+      onSelect={null}
+      onSearch={value => refine(value)}
+      notFoundContent={<Empty />}
+      // onChange={event => refine(event.currentTarget.value)}
+    >
+      <Input.Search
+        size="large"
+        placeholder="Search Here"
+        enterButton
+        className="btn btn-primary"
+      />
+    </AutoComplete>
+  );
+
+  const CustomSearchBox = connectSearchBox(
+    connectStateResults(myAntdSearchBox),
+  );
 
   return (
     <div className="ais-InstantSearch">
-      <h1>React InstantSearch e-commerce demo</h1>
-      <InstantSearch indexName="prod" searchClient={searchClient}>
+      <InstantSearch indexName="datajson" searchClient={searchClient}>
         <div className="right-panel">
-          <SearchBox />
-          <Hits hitComponent={AntdCard} />
+          <CustomSearchBox showLoadingIndicator />
         </div>
       </InstantSearch>
     </div>

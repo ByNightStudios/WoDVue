@@ -105,7 +105,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/Backers" component={Backers} />
         <Route exact path="/Contributors" component={Contributors} />
         <Route exact path="/SupportUs" component={SupportUs} />
-        <Route exact path="/Search" component={Search} />
+        {/* <Route exact path="/Search" component={Search} /> */}
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

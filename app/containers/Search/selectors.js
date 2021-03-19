@@ -5,7 +5,7 @@ import { initialState } from './reducer';
  * Direct selector to the search state domain
  */
 
-const selectSearchDomain = state => state.search || initialState;
+const selectSearchDomain = state => state.app || initialState;
 
 /**
  * Other specific selectors

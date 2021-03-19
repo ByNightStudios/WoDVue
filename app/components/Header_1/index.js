@@ -13,6 +13,7 @@ import React, { memo } from 'react';
 // import styled from 'styled-components';
 import { includes } from 'lodash';
 import history from 'utils/history';
+import Search from 'containers/Search';
 // import LogoWOD from 'images/LogoWOD.svg';
 import VampireLogo from 'images/VampireLogo.svg';
 import LogoWOD from '../../images/newLogo.png';
@@ -125,6 +126,9 @@ function Header_1() {
                 </li> */}
               </ul>
               <ul className="navbar-nav ml-auto">
+                <li>
+                  <Search />
+                </li>
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
