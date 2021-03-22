@@ -5,16 +5,17 @@
  *
  */
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Input, AutoComplete, Empty } from 'antd';
-
-import { map, uniqBy } from 'lodash';
+import Highlighter from 'react-highlight-words';
+import { map, uniqBy, find } from 'lodash';
 import get from 'lodash/get';
 
 import { useInjectSaga } from 'utils/injectSaga';
+import history from 'utils/history';
 import { useInjectReducer } from 'utils/injectReducer';
 
 import algoliasearch from 'algoliasearch';
@@ -155,7 +156,7 @@ export function Search() {
     return item.attribute;
   }
 
-  const searchResult = data => {
+  const searchResult = (data, searchState) => {
     const myQueryData = uniqBy(
       map(data, item => ({
         value: getItems(item),
@@ -166,7 +167,12 @@ export function Search() {
               justifyContent: 'space-between',
             }}
           >
-            <span>{getItems(item)}</span>
+            <Highlighter
+              highlightClassName="YourHighlightClass"
+              searchWords={[get(searchState, 'query')]}
+              autoEscape
+              textToHighlight={getItems(item)}
+            />
           </div>
         ),
       })),
@@ -175,7 +181,7 @@ export function Search() {
     return myQueryData;
   };
 
-  const myAntdSearchBox = ({ refine, searchResults }) => (
+  const myAntdSearchBox = ({ refine, searchResults, searchState }) => (
     <AutoComplete
       allowClear
       autoFocus
@@ -184,8 +190,14 @@ export function Search() {
       style={{
         width: 300,
       }}
-      options={searchResult(get(searchResults, 'hits', []))}
-      onSelect={null}
+      options={searchResult(get(searchResults, 'hits', []), searchState)}
+      onSelect={item => {
+        const filterItem = find(
+          get(searchResults, 'hits', []),
+          o => getItems(o) === item,
+        );
+        history.push(filterItem.url);
+      }}
       onSearch={value => refine(value)}
       notFoundContent={<Empty />}
       // onChange={event => refine(event.currentTarget.value)}
@@ -205,7 +217,7 @@ export function Search() {
 
   return (
     <div className="ais-InstantSearch">
-      <InstantSearch indexName="datajson" searchClient={searchClient}>
+      <InstantSearch indexName="search" searchClient={searchClient}>
         <div className="right-panel">
           <CustomSearchBox showLoadingIndicator />
         </div>

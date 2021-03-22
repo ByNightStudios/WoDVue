@@ -7,3 +7,8 @@
 .ant-btn-primary::hover {
   background-color: #821919;
 }
+
+.YourHighlightClass{
+  color: #fff;
+  background-color: #821919;
+}
