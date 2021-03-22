@@ -14,8 +14,8 @@ jobs:
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          aws-access-key-id: 'WuIPTGGFU3skeStKHcwBa6InRdmyUVz6hkIBcA6Z'
-          aws-secret-access-key: 'AKIAY5C7M3NCR4OTUBJN'
+          aws-access-key-id: 'AKIAY5C7M3NCR4OTUBJN'
+          aws-secret-access-key: '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'
           aws-region: 'eu-west-1'
       - name: Build React App
         run: npm install && npm run build
