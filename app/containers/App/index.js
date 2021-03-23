@@ -38,7 +38,7 @@ import QuickStart from 'containers/QuickStart/Loadable';
 import Backers from 'containers/Backers/Loadable';
 import Contributors from 'containers/Contributors/Loadable';
 import SupportUs from 'containers/SupportUs/Loadable';
-import Search from 'containers/Search/Loadable';
+import SearchPage from 'containers/SearchPage/Loadable';
 import Header from 'components/Header_1';
 import Footer from 'components/Footer_1';
 
@@ -105,7 +105,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/Backers" component={Backers} />
         <Route exact path="/Contributors" component={Contributors} />
         <Route exact path="/SupportUs" component={SupportUs} />
-        {/* <Route exact path="/Search" component={Search} /> */}
+        <Route exact path="/Search" component={SearchPage} />
         <Route component={NotFoundPage} />
       </Switch>
       <Footer />

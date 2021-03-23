@@ -1,0 +1,14 @@
+.ais-SearchBox { margin: 1em 0; }
+
+.ant-btn-primary {
+  background-color: #821919;
+}
+
+.ant-btn-primary::hover {
+  background-color: #821919;
+}
+
+.YourHighlightClass{
+  color: #fff;
+  background-color: #821919;
+}

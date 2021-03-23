@@ -201,15 +201,9 @@ export function Search() {
       onSearch={value => refine(value)}
       notFoundContent={<Empty />}
       onPressEnter={value => refine(value)}
+      placeholder="Search"
       // onChange={event => refine(event.currentTarget.value)}
-    >
-      <Input.Search
-        size="large"
-        placeholder="Search Here"
-        enterButton
-        className="btn btn-primary"
-      />
-    </AutoComplete>
+    />
   );
 
   const CustomSearchBox = connectSearchBox(
