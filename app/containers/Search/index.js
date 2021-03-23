@@ -200,6 +200,7 @@ export function Search() {
       }}
       onSearch={value => refine(value)}
       notFoundContent={<Empty />}
+      onPressEnter={value => refine(value)}
       // onChange={event => refine(event.currentTarget.value)}
     >
       <Input.Search

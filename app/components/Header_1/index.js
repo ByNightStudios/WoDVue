@@ -126,9 +126,9 @@ function Header_1() {
                 </li> */}
               </ul>
               <ul className="navbar-nav ml-auto">
-                {/* <li>
+                <li>
                   <Search />
-                </li> */}
+                </li>
                 <li className="nav-item">
                   <a
                     className={`nav-link ${
