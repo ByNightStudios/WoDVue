@@ -97,8 +97,9 @@ export function ClanPage(props) {
       setSelectedClan(findClanData);
     }
 
+
     if (!findClanData) {
-      const findClanData3 = find(filterClans, o => o.power === id);
+      const findClanData3 = find(clanItems, o => o.title === trim(id));
       setSelectedClan(findClanData3);
     }
 
@@ -483,7 +484,7 @@ export function ClanPage(props) {
               </p>
 
               <p>
-                {!isEmpty(selectedClan) ? (
+                {!isEmpty(powerOfClans) ? (
                   <div>
                     <div>
                       <h2>POWERS</h2>

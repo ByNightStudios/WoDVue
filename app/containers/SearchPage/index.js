@@ -48,10 +48,26 @@ export function Search() {
     return item.attribute;
   }
 
+  function getItemsDesc(item) {
+    if (item.summary) {
+      return item.summary[0];
+    }
+    if (item.meritDescription) {
+      return item.meritDescription[0];
+    }
+    if (item.flawDescription) {
+      return item.flawDescription[0];
+    }
+
+    if (item.description) {
+      return item.description[0];
+    }
+  }
+
   const AntdCard = ({ hit }) => (
     <Card title={getItems(hit)}>
       <Card.Meta
-        description={get(hit, 'summary[0]', get(hit, 'meritDescription[0]'))}
+        description={getItemsDesc(hit)}
       />
     </Card>
   );

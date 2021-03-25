@@ -212,7 +212,7 @@ export function Search() {
 
   return (
     <div className="ais-InstantSearch">
-      <InstantSearch indexName="search" searchClient={searchClient}>
+      <InstantSearch indexName="datajson" searchClient={searchClient}>
         <div className="right-panel">
           <CustomSearchBox showLoadingIndicator />
         </div>
