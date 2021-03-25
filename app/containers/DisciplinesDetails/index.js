@@ -97,12 +97,6 @@ export function ClanPage(props) {
       setSelectedClan(findClanData);
     }
 
-
-    if (!findClanData) {
-      const findClanData3 = find(clanItems, o => o.title === trim(id));
-      setSelectedClan(findClanData3);
-    }
-
     const powerOfClansData = filter(
       clanItems,
       o => o.power === trim(get(findClanData, 'title')),
@@ -111,8 +105,19 @@ export function ClanPage(props) {
     const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
 
     const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
-
     setPowerOfClans(sortedByLevel);
+    if (!findClanData) {
+      const findClanData3 = find(clanItems, o => o.title === trim(id));
+      setSelectedClan(findClanData3);
+      const powerOfClansData1 = filter(
+        clanItems,
+        o => o.power === trim(get(findClanData3, 'power')),
+      );
+      const uniqPowerOfClans1 = uniqBy(powerOfClansData1, 'title');
+
+      const sortedByLevel1 = orderBy(uniqPowerOfClans1, 'level', [direction]);
+      setPowerOfClans(sortedByLevel1);
+    }
     setPowenClanIndex(-1);
   }, [props]);
 
@@ -261,7 +266,7 @@ export function ClanPage(props) {
     get(item, 'sourceBook_html.fields.bookTitle', ''),
   );
 
-  const uniqSourceBook = without(uniq(sourceBook), "");
+  const uniqSourceBook = without(uniq(sourceBook), '');
 
   function handleChangeFilter(item) {
     setSelectedClanItemsList(clanItemsList);
@@ -271,6 +276,8 @@ export function ClanPage(props) {
     );
     setSelectedClanItemsList(filterClanItems);
   }
+
+  console.log(selectedClan);
 
   return (
     <div className="clan-page">
@@ -452,6 +459,26 @@ export function ClanPage(props) {
               )}
 
               <p>
+                {get(selectedClan, 'level') || get(selectedClan, 'level') === 0 ? (
+                  <div>
+                    <h2>LEVEL</h2>
+                    {get(selectedClan, 'level')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+              </p>
+
+              <p>
+                {!isEmpty(get(selectedClan, 'cost')) ? (
+                  <div>
+                    <h2>COST</h2>
+                    {get(selectedClan, 'cost')}
+                  </div>
+                ) : (
+                  <div />
+                )}
+
                 {!isEmpty(get(selectedClan, 'testPool')) ? (
                   <div>
                     <h2>TEST POOL</h2>
@@ -667,7 +694,7 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-            <Row type="flex">
+              <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
