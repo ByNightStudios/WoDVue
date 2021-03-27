@@ -121,7 +121,7 @@ export function ClanPage(props) {
                 </Paragraph>
               ) : null}
             </div>
-            <div className="boxWhite">
+            <div className="boxWhite content-page-wrap">
               {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>

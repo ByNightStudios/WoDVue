@@ -12,3 +12,8 @@
 .system p {
   white-space: break-spaces;
 }
+
+
+.content-page-wrap {
+  white-space: pre-wrap;
+}
