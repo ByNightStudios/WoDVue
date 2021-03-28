@@ -75,7 +75,7 @@ export function ClanPage(props) {
   }, [props]);
 
   useEffect(() => {
-    clevertap.event.push(window.location.pathname);
+
   }, [match]);
 
   function handleNavItemsClick(e) {
@@ -141,7 +141,7 @@ export function ClanPage(props) {
                   }}
                 />
                 <div className="col-md-8">
-                  <div className="row">
+                  <div className="row" style={{ fontSize: 18 }}>
                     <h1>{get(selectedClan, 'title', '')}</h1>
                     {get(selectedClan, 'title', '') ? (
                       <Paragraph
@@ -150,7 +150,7 @@ export function ClanPage(props) {
                         }}
                         style={{ marginLeft: 10, color: '#fff' }}
                       >
-                        Share Link
+                        <i>Share Link</i>
                       </Paragraph>
                     ) : null}
                   </div>

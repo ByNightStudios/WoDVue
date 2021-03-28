@@ -45,7 +45,7 @@ export function ClanPage(props) {
   const [selectedClan, setSelectedClan] = useState('');
 
   useEffect(() => {
-    clevertap.event.push(window.location.pathname);
+
   }, []);
 
 
@@ -64,7 +64,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    clevertap.event.push(window.location.pathname);
+
     const findClanData = find(clanItems, { title: trim(id) });
     setSelectedClan(findClanData);
   }, [match]);
@@ -115,7 +115,7 @@ export function ClanPage(props) {
                 get(selectedClan, 'title'),
               )}`}
             >
-              <div className="row">
+              <div className="row" style={{ fontSize: 18 }}>
                 <h1>{get(selectedClan, 'title', '')}</h1>
                 {get(selectedClan, 'title', '') ? (
                   <Paragraph
@@ -124,7 +124,7 @@ export function ClanPage(props) {
                     }}
                     style={{ marginLeft: 10, color: '#fff' }}
                   >
-                    Share Link
+                    <i>Share Link</i>
                   </Paragraph>
                 ) : null}
               </div>

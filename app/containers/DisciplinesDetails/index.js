@@ -89,7 +89,7 @@ export function ClanPage(props) {
       },
     } = props;
 
-    clevertap.event.push(window.location.pathname);
+
 
     const findClanData = find(filterClans, o => o.power === trim(id));
 
@@ -283,7 +283,7 @@ export function ClanPage(props) {
               )}`}
             >
               <h1>
-                <div className="row">
+                <div className="row" style={{ fontSize: 18 }}>
                   <h1>{get(selectedClan, 'power', '')}</h1>
                   {get(selectedClan, 'power', '') ? (
                     <Paragraph
@@ -293,7 +293,7 @@ export function ClanPage(props) {
                       style={{ marginLeft: 10, color: '#fff' }}
                     >
                       {' '}
-                      Share Link
+                      <i>Share Link</i>
                     </Paragraph>
                   ) : null}
                 </div>

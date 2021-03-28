@@ -32,7 +32,7 @@ export function QuickStart(props) {
   const { match, getContentPage, quickStart } = props;
 
   useEffect(() => {
-    clevertap.event.push(window.location.pathname);
+
   }, [match]);
 
   return (
