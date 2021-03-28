@@ -62,7 +62,7 @@ export function ClanPage(props) {
     } = props;
     const findClanData = find(clanItems, { technique: id });
     setSelectedClan(findClanData);
-    clevertap.event.push(window.location.pathname);
+
   }, [match]);
 
   const filterClans = clanItemsList;
@@ -127,7 +127,7 @@ export function ClanPage(props) {
                 get(selectedClan, 'technique'),
               )}`}
             >
-              <div className="row">
+              <div className="row" style={{ fontSize: 18 }}>
                 <h1>{get(selectedClan, 'technique', '')}</h1>
                 {get(selectedClan, 'technique', '') ? (
                   <Paragraph
@@ -136,7 +136,7 @@ export function ClanPage(props) {
                     }}
                     style={{ marginLeft: 10, color: '#fff' }}
                   >
-                    Share Link
+                    <i>Share Link</i>
                   </Paragraph>
                 ) : null}
               </div>

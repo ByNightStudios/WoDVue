@@ -66,7 +66,7 @@ export function ClanPage(props) {
         params: { id },
       },
     } = props;
-    clevertap.event.push(window.location.pathname);
+
     const findClanData = find(clanItems, { merit: trim(id) });
     setSelectedClan(findClanData);
   }, [match]);
@@ -132,8 +132,8 @@ export function ClanPage(props) {
                 get(selectedClan, 'merit'),
               )}`}
             >
-              <div className="row">
-                <h1>{get(selectedClan, 'merit', '')}</h1>
+              <div className="row" style={{ fontSize: 18 }}>
+                <h1 >{get(selectedClan, 'merit', '')}</h1>
                 { get(selectedClan, 'merit', '')? <Paragraph
                   copyable={{
                     text: `${window.location.href}`,
@@ -141,7 +141,7 @@ export function ClanPage(props) {
                   style={{ marginLeft: 10, color: '#fff' }}
                 >
                   {' '}
-                  Share Link
+                  <i>Share Link</i>
                 </Paragraph> : null}
               </div>
             </div>

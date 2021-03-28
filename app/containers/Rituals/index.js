@@ -126,7 +126,7 @@ export function ClanPage(props) {
               <div className="header-single">
                 <div className="row">
                   <div className="col-lg-7 col-md-12 order-lg-12">
-                    <div className="row">
+                    <div className="row" style={{ fontSize: 18 }}>
                       <h1>{get(selectedClan, 'title', '')}</h1>
                       {get(selectedClan, 'title', '') ? <Paragraph
                         copyable={{
@@ -135,7 +135,7 @@ export function ClanPage(props) {
                         style={{ marginLeft: 10, color: '#fff' }}
                       >
                         {' '}
-                        Share Link
+                        <i>Share Link</i>
                       </Paragraph> : null}
                     </div>
                   </div>

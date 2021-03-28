@@ -63,7 +63,7 @@ export function Monster({
         OnRequestDropDownItems(getQueryParams(clanName.toLocaleLowerCase()));
       }
     }
-    clevertap.event.push(window.location.pathname);
+
   }, [window.location.pathname]);
 
   function getItems(item) {
