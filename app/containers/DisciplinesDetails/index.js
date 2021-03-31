@@ -128,10 +128,6 @@ export function ClanPage(props) {
         o => o.title === trim(id),
       );
       setPowenClanIndex(findIndexOfPower);
-      window.scrollTo({
-        top: 2500,
-        behavior: 'smooth',
-      });
     }
   }, [props]);
 
@@ -290,8 +286,6 @@ export function ClanPage(props) {
     );
     setSelectedClanItemsList(filterClanItems);
   }
-
-  console.log(selectedClan);
 
   return (
     <div className="clan-page">
