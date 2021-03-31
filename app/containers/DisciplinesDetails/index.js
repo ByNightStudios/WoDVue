@@ -30,6 +30,7 @@ import {
   includes,
   uniq,
   without,
+  findIndex
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -104,19 +105,16 @@ export function ClanPage(props) {
 
     const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
+    setPowenClanIndex(-1);
     if (!findClanData) {
       const findClanData3 = find(clanItems, o => o.title === trim(id));
       setSelectedClan(findClanData3);
-      const powerOfClansData1 = filter(
+      const powerOfClansData1 = findIndex(
         clanItems,
         o => o.power === trim(get(findClanData3, 'power')),
       );
-      const uniqPowerOfClans1 = uniqBy(powerOfClansData1, 'title');
-
-      const sortedByLevel1 = orderBy(uniqPowerOfClans1, 'level', [direction]);
-      setPowerOfClans(sortedByLevel1);
+      setPowenClanIndex(powerOfClansData1);
     }
-    setPowenClanIndex(-1);
   }, [props]);
 
   function handleNavItemsClick(e) {
