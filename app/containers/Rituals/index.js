@@ -15,11 +15,11 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find } from 'lodash';
+import { map, get, isEmpty, find, filter, uniq, without } from 'lodash';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
-import { Typography } from 'antd';
+import { Typography, Select, Row, Button } from 'antd';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
@@ -42,6 +42,7 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
+  const [clanItemsList, setClanItemList] = useState([]);
 
   const {
     app: {
@@ -60,6 +61,7 @@ export function ClanPage(props) {
     } = props;
 
     const findClanData = find(clanItems, { title: id });
+    setClanItemList(clanItems);
     setSelectedClan(findClanData);
   }, [match]);
 
@@ -92,17 +94,56 @@ export function ClanPage(props) {
   }
 
   function getBooleanValue(item) {
-    const { thaumaturgy, abyssal, necromancy } = item;
-    if (thaumaturgy) {
-      return 'Thaumaturgy';
+    if (selectedClan) {
+      const { thaumaturgy, abyssal, necromancy } = item;
+      if (thaumaturgy) {
+        return 'Thaumaturgy';
+      }
+      if (abyssal) {
+        return 'Abyssal';
+      }
+      if (necromancy) {
+        return 'Necromancy';
+      }
     }
-    if (abyssal) {
-      return 'Abyssal';
-    }
-    if (necromancy) {
-      return 'Necromancy';
-    }
+
     return false;
+  }
+
+  const groupByData1 = filter(clanItemsList, o => o.abyssal);
+  const groupByData2 = filter(clanItemsList, o => o.necromancy);
+  const groupByData3 = filter(clanItemsList, o => o.thaumaturgy);
+  const filterClansByReduce = [
+    { listName: 'Abyssal', data: groupByData1 },
+    { listName: 'Necromancy', data: groupByData2 },
+    { listName: 'Thaumaturgy', data: groupByData3 },
+  ];
+
+  function handleSelectOnType(type) {
+    const groupByDataType = filter(clanItems, o => o[`${type}`]);
+    setClanItemList(groupByDataType);
+  }
+
+  const levelData = uniq(map(clanItems, o => o.level)).sort();
+
+  function handleSelectOnLevel(type) {
+    const groupByDataType = filter(clanItems, o => o.level === type);
+    setClanItemList(groupByDataType);
+  }
+
+  const sourceBook = map(clanItems, item =>
+    get(item, 'sourceBook_html[0].fields.bookTitle', ''),
+  );
+
+  const uniqSourceBook = without(uniq(sourceBook), '');
+
+  function handleChangeFilter(item) {
+    setClanItemList(clanItems);
+    const filterClanItems = filter(
+      clanItemsList,
+      o => get(o, 'sourceBook_html[0].fields.bookTitle') === item,
+    );
+    setClanItemList(filterClanItems);
   }
 
   return (
@@ -128,15 +169,17 @@ export function ClanPage(props) {
                   <div className="col-lg-7 col-md-12 order-lg-12">
                     <div className="row" style={{ fontSize: 18 }}>
                       <h1>{get(selectedClan, 'title', '')}</h1>
-                      {get(selectedClan, 'title', '') ? <Paragraph
-                        copyable={{
-                          text: `${window.location.href}`,
-                        }}
-                        style={{ marginLeft: 10, color: '#fff' }}
-                      >
-                        {' '}
-                        <i>Share Link</i>
-                      </Paragraph> : null}
+                      {get(selectedClan, 'title', '') ? (
+                        <Paragraph
+                          copyable={{
+                            text: `${window.location.href}`,
+                          }}
+                          style={{ marginLeft: 10, color: '#fff' }}
+                        >
+                          {' '}
+                          <i>Share Link</i>
+                        </Paragraph>
+                      ) : null}
                     </div>
                   </div>
                   <div className="col-lg-5 col-md-12 order-lg-12">
@@ -212,17 +255,23 @@ export function ClanPage(props) {
                 )}
               </p>
               <p>
-                {!isEmpty(get(selectedClan, 'focus')) ? (
+                {!isEmpty(get(selectedClan, 'sourceBook_html')) ? (
                   <p>
                     <h2>SOURCE BOOK</h2>
-                    {!isEmpty(get(selectedClan, 'sourceBook')) ? (
+                    {!isEmpty(get(selectedClan, 'sourceBook_html')) ? (
                       <div>
-                        {map(get(selectedClan, 'sourceBook'), item => (
-                          <p>
-                            <p>{get(item, 'fields.bookTitle')}</p>
-                            <p>{get(item, 'fields.system[0]')}</p>
-                          </p>
-                        ))}
+                        <p>
+                          {get(
+                            selectedClan,
+                            'sourceBook_html[0].fields.bookTitle',
+                          )}
+                        </p>
+                        <p>
+                          {get(
+                            selectedClan,
+                            'sourceBook_html[0].fields.system[0]',
+                          )}
+                        </p>
                       </div>
                     ) : (
                       <div> MET: VTM Source Book</div>
@@ -343,26 +392,116 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', paddingBottom: 20 }}
+                  showSearch
+                  placeholder="Filter by type"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                  onSelect={handleSelectOnType}
+                  className="meritFilter"
+                >
+                  <Select.Option value="abyssal">Abyssal</Select.Option>
+                  <Select.Option value="necromancy">Necromancy</Select.Option>
+                  <Select.Option value="thaumaturgy">Thaumaturgy</Select.Option>
+                </Select>
+                <Button onClick={() => setClanItemList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
+
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', paddingBottom: 20 }}
+                  showSearch
+                  placeholder="Filter By Level"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                  onSelect={handleSelectOnLevel}
+                  className="meritFilter"
+                >
+                  {map(levelData, item => (
+                    <Select.Option value={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setClanItemList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
+
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', paddingBottom: 20 }}
+                  showSearch
+                  placeholder="Filter by Source Book"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                  onSelect={handleChangeFilter}
+                  className="meritFilter"
+                >
+                  {map(uniqSourceBook, item => (
+                    <Select.Option value={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setClanItemList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
               <h3>RITUALS</h3>
               <ul className="nav flex-column nav-clans">
-                {map(filterClans, (items, index) => (
-                  <li
-                    className="nav-item"
-                    onClick={handleNavItemsClick}
-                    value={items.title}
-                    key={index}
-                  >
-                    <Link
-                      to={`/vampire/Rituals/${items.title}`}
-                      className={`nav-link ${getClassName(items.title)}`}
-                      value={items.title}
-                      onClick={() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    >
-                      {items.title}
-                    </Link>
-                  </li>
+                {map(filterClansByReduce, (itemData, index1) => (
+                  <ul key={index1}>
+                    <b style={{ marginTop: 20, fontSize: 20 }}>
+                      {itemData.listName}
+                    </b>
+                    {map(itemData.data, (items, index) => (
+                      <li
+                        className="nav-item"
+                        onClick={handleNavItemsClick}
+                        value={items.title}
+                        key={index}
+                      >
+                        <Link
+                          to={`/vampire/Rituals/${items.title}`}
+                          className={`nav-link ${getClassName(items.title)}`}
+                          value={items.title}
+                          onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          {items.title}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
                 ))}
               </ul>
             </div>

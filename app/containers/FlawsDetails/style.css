@@ -8,3 +8,11 @@
 .clan-page .header-single h1, h4 {
     color: #ffffff !important;
 }
+
+.flawFilter .ant-select-arrow {
+  transform: translateY(-10px);
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -o-transform: translateY(-10px);
+}

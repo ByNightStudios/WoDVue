@@ -81,10 +81,10 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
           component={DisciplinesDetails}
         />
         <Route path="/vampire/Disciplines/:id" component={DisciplinesDetails} />
-        <Route exact path="/vampire/Flaws" component={Flaw} />
+        <Route exact path="/vampire/Flaws" component={FlawsDetails} />
         <Route path="/vampire/Flaws/:id" component={FlawsDetails} />
         <Route exact path="/vampire/Merits" component={MeritsDetails} />
-        <Route exact path="/vampire/Rituals" component={RitualsListing} />
+        <Route exact path="/vampire/Rituals" component={Rituals} />
         <Route path="/vampire/Rituals/:id" component={Rituals} />
         <Route path="/vampire/Merits/:id" component={MeritsDetails} />
         <Route exact path="/vampire/Attributes/:id" component={Attribute} />
