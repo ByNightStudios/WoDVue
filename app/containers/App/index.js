@@ -97,7 +97,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
 
         <Route exact path="/vampire/Skills" component={Skills} />
         <Route exact path="/vampire/Skills/:id" component={Skills} />
-        <Route exact path="/vampire/Techniques" component={Techniques} />
+        <Route exact path="/vampire/Techniques" component={TechniquesDetails} />
         <Route path="/vampire/Techniques/:id" component={TechniquesDetails} />
         <Route exact path="/vampire/clan/:id" component={ClanPage} />
         <Route exact path="/vampire/clan/" component={ClanPage} />

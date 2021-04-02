@@ -15,8 +15,17 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find, filter, uniq, without } from 'lodash';
-
+import {
+  map,
+  get,
+  isEmpty,
+  find,
+  filter,
+  uniq,
+  without,
+  replace,
+} from 'lodash';
+import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Typography, Select, Row, Button } from 'antd';
@@ -53,12 +62,38 @@ export function ClanPage(props) {
 
   const filterClans = clanItems;
 
+  function getBooleanValue(item) {
+    const { thaumaturgy, abyssal, necromancy } = item;
+    if (thaumaturgy) {
+      return 'Thaumaturgy';
+    }
+    if (abyssal) {
+      return 'Abyssal';
+    }
+    if (necromancy) {
+      return 'Necromancy';
+    }
+    return false;
+  }
+
   useEffect(() => {
     const {
       match: {
         params: { id },
       },
     } = props;
+
+    const {
+      location: { hash },
+    } = history;
+    if (hash) {
+      const hashKey = replace(hash, '#', '');
+      const filterClans1 = filter(
+        filterClans,
+        o => getBooleanValue(o) === hashKey,
+      );
+      setSelectedClan(filterClans1);
+    }
 
     const findClanData = find(clanItems, { title: id });
     setClanItemList(clanItems);

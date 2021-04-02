@@ -15,7 +15,17 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find, split, without, uniq, filter } from 'lodash';
+import {
+  map,
+  get,
+  isEmpty,
+  find,
+  split,
+  without,
+  uniq,
+  filter,
+  includes,
+} from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -46,6 +56,7 @@ export function ClanPage(props) {
   const {
     app: {
       techniques: { data: clanItems },
+      disciplines: { data: disciplinesItems },
     },
     match,
   } = props;
@@ -62,7 +73,6 @@ export function ClanPage(props) {
     } = props;
     const findClanData = find(clanItems, { technique: id });
     setSelectedClan(findClanData);
-
   }, [match]);
 
   const filterClans = clanItemsList;
@@ -110,6 +120,16 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
+  const groupByData3 = without(uniq(
+    map(map(clanItems, o => o.prerequisites), item => item[0].split(' ')[0]),
+  ), "").sort();
+
+  function handleChangeDisc(type) {
+    const filterDisc = filter(clanItemsList, o =>
+      includes(o.prerequisites[0], type),
+    );
+    setSelectedClanItemsList(filterDisc);
+  }
   return (
     <div className="clan-page">
       <Helmet>
@@ -142,6 +162,39 @@ export function ClanPage(props) {
               </div>
             </div>
             <div className="boxWhite">
+              {isEmpty(selectedClan) ? (
+                <p>
+                  Attributes represent your character’s raw potential, but
+                  skills represent the experience and training she’s received
+                  throughout her life — both mortal and immortal. A character
+                  with high skills is well-educated or has a great deal of
+                  knowledge about the world. A character with low skills might
+                  be naive, sheltered, or uneducated. You can purchase up to 5
+                  dots of each skill. It’s not normally possible to buy more
+                  than 5 dots in a skill. Skills provide two kinds of bonuses to
+                  your character. First, they allow a character to perform
+                  certain actions that an untrained character simply cannot
+                  attempt. Second, they augment a character’s attributes, making
+                  certain actions easier because the character has experience or
+                  education with a related skill. For example, a character with
+                  a high Physical attribute rating who does not have the
+                  Athletics skill might find it difficult to scale a wall or to
+                  leap a series of hurdles. A character with a high Social
+                  attribute who does not have the Intimidate skill might find it
+                  difficult to bully her way past a security guard. You should
+                  select your character’s skills based on that character’s
+                  background, and then place (or purchase) more dots in the
+                  skills with which the character should be most profi cient.
+                  Skill levels range from novice to master, as follows: •
+                  Novice: You have learned the fundamentals of this field of
+                  knowledge. •• Practiced: You have mastered the basics of this
+                  area of study. ••• Competent: You are good enough to earn a
+                  professional living in this field. •••• Expert: You have
+                  surpassed the majority of your peers and are considered an
+                  expert. ••••• Master: You are world-class at this activity and
+                  considered to be amongst the best in the field.
+                </p>
+              ) : null}
               <p>
                 {!isEmpty(get(selectedClan, 'prerequisites')) ? (
                   <div>
@@ -295,6 +348,20 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', marginBottom: 10, color: 'black' }}
+                  placeholder="filter by source book"
+                  onChange={handleChangeDisc}
+                >
+                  {map(groupByData3, item => (
+                    <Option value={item}>{item}</Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
               <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
