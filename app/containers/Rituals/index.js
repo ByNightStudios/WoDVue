@@ -52,6 +52,9 @@ export function ClanPage(props) {
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setClanItemList] = useState([]);
+  const [disc, setDisc] = useState('filter by type');
+  const [costName, setCost] = useState('filter by Cost');
+  const [book, setBook] = useState('filter by Source Book');
 
   const {
     app: {
@@ -155,6 +158,7 @@ export function ClanPage(props) {
   ];
 
   function handleSelectOnType(type) {
+    setDisc(type);
     const groupByDataType = filter(clanItems, o => o[`${type}`]);
     setClanItemList(groupByDataType);
   }
@@ -162,6 +166,7 @@ export function ClanPage(props) {
   const levelData = uniq(map(clanItems, o => o.level)).sort();
 
   function handleSelectOnLevel(type) {
+    setCost(type);
     const groupByDataType = filter(clanItems, o => o.level === type);
     setClanItemList(groupByDataType);
   }
@@ -173,6 +178,7 @@ export function ClanPage(props) {
   const uniqSourceBook = without(uniq(sourceBook), '');
 
   function handleChangeFilter(item) {
+    setBook(item);
     setClanItemList(clanItems);
     const filterClanItems = filter(
       clanItemsList,
@@ -445,12 +451,18 @@ export function ClanPage(props) {
                   }
                   onSelect={handleSelectOnType}
                   className="meritFilter"
+                  value={disc}
                 >
                   <Select.Option value="abyssal">Abyssal</Select.Option>
                   <Select.Option value="necromancy">Necromancy</Select.Option>
                   <Select.Option value="thaumaturgy">Thaumaturgy</Select.Option>
                 </Select>
-                <Button onClick={() => setClanItemList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setDisc('filter by type');
+                    setClanItemList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
@@ -473,12 +485,18 @@ export function ClanPage(props) {
                   }
                   onSelect={handleSelectOnLevel}
                   className="meritFilter"
+                  value={costName}
                 >
                   {map(levelData, item => (
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
-                <Button onClick={() => setClanItemList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setCost('filter by cost');
+                    setClanItemList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
@@ -501,12 +519,18 @@ export function ClanPage(props) {
                   }
                   onSelect={handleChangeFilter}
                   className="meritFilter"
+                  value={book}
                 >
                   {map(uniqSourceBook, item => (
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
-                <Button onClick={() => setClanItemList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setBook('filter by Source Book');
+                    setClanItemList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
@@ -514,9 +538,13 @@ export function ClanPage(props) {
               <ul className="nav flex-column nav-clans">
                 {map(filterClansByReduce, (itemData, index1) => (
                   <ul key={index1}>
-                    <b style={{ marginTop: 20, fontSize: 20 }}>
-                      {itemData.listName}
-                    </b>
+                    {!isEmpty(itemData.data) ? (
+                      <b style={{ marginTop: 20, fontSize: 20 }}>
+                        {itemData.listName}
+                      </b>
+                    ) : (
+                      ''
+                    )}
                     {map(itemData.data, (items, index) => (
                       <li
                         className="nav-item"

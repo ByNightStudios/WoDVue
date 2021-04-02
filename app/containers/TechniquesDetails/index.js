@@ -52,6 +52,8 @@ export function ClanPage(props) {
 
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
+  const [disc, setDisc] = useState('filter by discipline');
+  const [book, setBook] = useState('filter by Source Book');
 
   const {
     app: {
@@ -112,6 +114,7 @@ export function ClanPage(props) {
   const uniqSourceBook = without(uniq(sourceBook), '');
 
   function handleChangeFilter(item) {
+    setBook(item);
     setSelectedClanItemsList(clanItemsList);
     const filterClanItems = filter(
       clanItems,
@@ -120,14 +123,20 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
-  const groupByData3 = without(uniq(
-    map(map(clanItems, o => o.prerequisites), item => item[0].split(' ')[0]),
-  ), "").sort();
+  const groupByData3 = without(
+    uniq(
+      map(map(clanItems, o => o.prerequisites), item => item[0].split(' ')[0]),
+    ),
+    '',
+  ).sort();
 
   function handleChangeDisc(type) {
-    const filterDisc = filter(clanItemsList, o =>
-      includes(o.prerequisites[0], type),
-    );
+    setDisc(type);
+    const filterDisc = filter(clanItems, o => {
+      if (includes(map(o.prerequisites, item => item.split(' ')[0]), type)) {
+        return o;
+      }
+    });
     setSelectedClanItemsList(filterDisc);
   }
   return (
@@ -351,14 +360,20 @@ export function ClanPage(props) {
               <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
-                  placeholder="filter by source book"
+                  value={disc}
+                  placeholder="filter by discipline"
                   onChange={handleChangeDisc}
                 >
                   {map(groupByData3, item => (
                     <Option value={item}>{item}</Option>
                   ))}
                 </Select>
-                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setDisc('filter by discipline');
+                    setSelectedClanItemsList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
@@ -367,12 +382,18 @@ export function ClanPage(props) {
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
                   onChange={handleChangeFilter}
+                  value={book}
                 >
                   {map(uniqSourceBook, item => (
                     <Option value={item}>{item}</Option>
                   ))}
                 </Select>
-                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setBook('filter by Source Book');
+                    setSelectedClanItemsList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>

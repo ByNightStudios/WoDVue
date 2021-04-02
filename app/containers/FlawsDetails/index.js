@@ -55,6 +55,10 @@ export function ClanPage(props) {
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
 
+  const [disc, setDisc] = useState('filter by Clan');
+  const [costName, setCost] = useState('filter by Cost');
+  const [book, setBook] = useState('filter by Source Book');
+
   const {
     app: {
       flaws: { data: clanItems },
@@ -108,7 +112,7 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  const sourceBook = map(clanItemsList, item =>
+  const sourceBook = map(clanItems, item =>
     get(item, 'sourceBook_html.fields.bookTitle', ''),
   );
 
@@ -128,7 +132,10 @@ export function ClanPage(props) {
   }
 
   const clanNames = uniq(
-    without(map(clanItems, o => get(o, 'flawType[0]')), undefined),
+    without(
+      without(map(clanItems, o => get(o, 'flawType[0]')), undefined),
+      'Clan',
+    ),
   );
 
   const meritClanNames = uniq(
@@ -145,10 +152,10 @@ export function ClanPage(props) {
 
   const clanItemsDataOfFlaws = [];
 
-  const filterList = concat(clanNames, meritClanNames);
-  filterList.sort();
+  const filterList = concat(clanNames.sort(), meritClanNames);
 
   function handleFilterType(type) {
+    setDisc(type);
     setSelectedClanItemsList(clanItems);
     if (
       includes(
@@ -175,6 +182,7 @@ export function ClanPage(props) {
   }
 
   function handleFilterCostType(item) {
+    setCost(item);
     setSelectedClanItemsList(clanItems);
     const filterClanItems = filter(
       clanItemsList,
@@ -458,12 +466,18 @@ export function ClanPage(props) {
                   }
                   onSelect={handleFilterType}
                   className="flawFilter"
+                  value={disc}
                 >
                   {map(uniq(filterList), item => (
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
-                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setDisc('filter by clan');
+                    setSelectedClanItemsList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
@@ -485,12 +499,19 @@ export function ClanPage(props) {
                   }
                   onSelect={handleFilterCostType}
                   className="flawFilter"
+                  value={costName}
                 >
                   {map(flawCost, item => (
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
-                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setCost('filter by Cost');
+                    setBook('filter by Source Book');
+                    setSelectedClanItemsList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
@@ -499,12 +520,18 @@ export function ClanPage(props) {
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
                   onChange={handleChangeFilter}
+                  value={book}
                 >
                   {map(uniqSourceBook, item => (
                     <Option value={item}>{item}</Option>
                   ))}
                 </Select>
-                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setBook('filter by Source Book');
+                    setSelectedClanItemsList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
               </Row>
