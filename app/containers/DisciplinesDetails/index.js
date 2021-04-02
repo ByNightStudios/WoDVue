@@ -433,7 +433,7 @@ export function ClanPage(props) {
                 <div>
                   <h2>Focus</h2>
                   <Row type="flex" justify="start">
-                    <u> {get(selectedClan, 'foci')}</u>
+                  <span style={{ borderBottom: '2px solid black', marginBottom: 10 }}> {get(selectedClan, 'foci')}</span>
                     <span>&nbsp;{' : '}&nbsp;</span>
                     <div
                       style={{ width: '85%' }}
@@ -561,7 +561,7 @@ export function ClanPage(props) {
                                   <span>{item.title}</span>
                                 </div>
                                 <div className="disc-cols3 hideMobile">
-                                  <span>{item.level}</span>
+                                  <span>{!isEqual(item.level, 0) ? item.level: ''}</span>
                                 </div>
                                 <div className="disc-cols3 hideMobile">
                                   <span>{item.cost}</span>
@@ -600,7 +600,7 @@ export function ClanPage(props) {
                                       {get(item, 'summary[0]', [])}
                                       <Paragraph
                                         copyable={{
-                                          text: `${window.location.href}`,
+                                          text: `${window.location.origin}/vampire/Disciplines/${item.power}`,
                                         }}
                                         style={{ marginLeft: 10 }}
                                       >
@@ -683,7 +683,7 @@ export function ClanPage(props) {
                                       <div>
                                         <h2>Focus</h2>
                                         <Row type="flex" justify="start">
-                                          <u> {get(item, 'foci')}</u>
+                                          <span style={{ borderBottom: '2px solid black', marginBottom: 10 }}> {get(item, 'foci')}</span>
                                           <span>&nbsp;{' : '}&nbsp;</span>
                                           <div
                                             style={{ width: '85%' }}
@@ -715,18 +715,6 @@ export function ClanPage(props) {
                                     ) : (
                                       <div />
                                     )}
-
-                                    <p>
-                                      {get(item, 'level') ||
-                                      get(item, 'level') === 0 ? (
-                                          <div>
-                                            <h2>LEVEL</h2>
-                                            {get(selectedClan, 'level')}
-                                          </div>
-                                        ) : (
-                                          <div />
-                                        )}
-                                    </p>
 
                                     <p>
                                       {!isEmpty(get(item, 'cost')) ? (
