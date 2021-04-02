@@ -15,19 +15,29 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find, trim, without, uniq, filter } from 'lodash';
+import {
+  map,
+  get,
+  isEmpty,
+  find,
+  trim,
+  without,
+  uniq,
+  filter,
+  concat,
+  includes,
+} from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
-import { Typography, Select, Button, Row  } from 'antd';
+import { Typography, Select, Button, Row } from 'antd';
 
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
-
 
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
@@ -74,7 +84,7 @@ export function ClanPage(props) {
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
-      const findClanData = find(filterClans, { merit: value });
+      const findClanData = find(clanItemsList, { merit: value });
       setSelectedClan(findClanData);
     }
   }
@@ -103,7 +113,11 @@ export function ClanPage(props) {
     get(item, 'sourceBook_html.fields.bookTitle', ''),
   );
 
-  const uniqSourceBook = without(uniq(sourceBook), "");
+  const uniqSourceBook = without(uniq(sourceBook), '');
+
+  const cost = map(clanItemsList, item => get(item, 'meritCost', ''));
+
+  const uniqCost = without(uniq(cost), '').sort();
 
   function handleChangeFilter(item) {
     setSelectedClanItemsList(clanItems);
@@ -112,6 +126,50 @@ export function ClanPage(props) {
       o => get(o, 'sourceBook_html.fields.bookTitle') === item,
     );
     setSelectedClanItemsList(filterClanItems);
+  }
+
+  function handleFilterCostType(item) {
+    setSelectedClanItemsList(clanItems);
+    const filterClanItems = filter(
+      clanItemsList,
+      o => get(o, 'meritCost') === item,
+    );
+    setSelectedClanItemsList(filterClanItems);
+  }
+
+  let clanNames = uniq(
+    without(map(clanItems, o => get(o, 'clanSpecific[0]')), undefined),
+  );
+
+  clanNames = concat(
+    ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+    clanNames,
+  ).sort();
+
+  function handleFilterType(type) {
+    setSelectedClanItemsList(clanItems);
+    if (
+      includes(
+        ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+        type,
+      )
+    ) {
+      const filterClans2 = filter(clanItems, o =>
+        includes(get(o, 'meritType[0]'), type),
+      );
+      setSelectedClanItemsList(filterClans2);
+    }
+    if (
+      !includes(
+        ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+        type,
+      )
+    ) {
+      const filterClans1 = filter(clanItems, o =>
+        includes(get(o, 'clanSpecific[0]'), type),
+      );
+      setSelectedClanItemsList(filterClans1);
+    }
   }
 
   return (
@@ -133,16 +191,18 @@ export function ClanPage(props) {
               )}`}
             >
               <div className="row" style={{ fontSize: 18 }}>
-                <h1 >{get(selectedClan, 'merit', '')}</h1>
-                { get(selectedClan, 'merit', '')? <Paragraph
-                  copyable={{
-                    text: `${window.location.href}`,
-                  }}
-                  style={{ marginLeft: 10, color: '#fff' }}
-                >
-                  {' '}
-                  <i>Share Link</i>
-                </Paragraph> : null}
+                <h1>{get(selectedClan, 'merit', '')}</h1>
+                {get(selectedClan, 'merit', '') ? (
+                  <Paragraph
+                    copyable={{
+                      text: `${window.location.href}`,
+                    }}
+                    style={{ marginLeft: 10, color: '#fff' }}
+                  >
+                    {' '}
+                    <i>Share Link</i>
+                  </Paragraph>
+                ) : null}
               </div>
             </div>
 
@@ -376,7 +436,61 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-            <Row type="flex">
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', paddingBottom: 20 }}
+                  showSearch
+                  placeholder="Filter"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                  onSelect={handleFilterType}
+                  className="meritFilter"
+                >
+                  {map(uniq(clanNames), item => (
+                    <Select.Option value={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
+              <Row type="flex">
+                <Select
+                  style={{ width: '70%', paddingBottom: 20 }}
+                  showSearch
+                  placeholder="Filter by cost"
+                  optionFilterProp="children"
+                  filterOption={(input, option) =>
+                    option.children
+                      .toLowerCase()
+                      .indexOf(input.toLowerCase()) >= 0
+                  }
+                  filterSort={(optionA, optionB) =>
+                    optionA.children
+                      .toLowerCase()
+                      .localeCompare(optionB.children.toLowerCase())
+                  }
+                  onSelect={handleFilterCostType}
+                  className="meritFilter"
+                >
+                  {map(uniq(uniqCost), item => (
+                    <Select.Option value={item}>{item}</Select.Option>
+                  ))}
+                </Select>
+                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                  Reset
+                </Button>
+              </Row>
+              <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
@@ -392,7 +506,7 @@ export function ClanPage(props) {
               </Row>
               <h3>MERITS</h3>
               <ul className="nav flex-column nav-clans">
-                {map(filterClans, (items, index) => (
+                {map(clanItemsList, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
