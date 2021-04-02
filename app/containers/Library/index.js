@@ -139,6 +139,21 @@ export function ClanPage(props) {
                 <div />
               )}
 
+        {!isEmpty(get(selectedClan, 'quote')) ? (
+                <div>
+                  <h2>QUOTE</h2>
+                  <div
+                    className="system"
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(selectedClan.quote_html),
+                    }}
+                  />
+                </div>
+              ) : (
+                <div />
+              )}
+
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
