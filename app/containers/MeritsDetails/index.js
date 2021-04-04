@@ -26,6 +26,7 @@ import {
   filter,
   concat,
   includes,
+  toLower,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
@@ -161,7 +162,7 @@ export function ClanPage(props) {
       )
     ) {
       const filterClans2 = filter(clanItems, o =>
-        includes(get(o, 'meritType[0]'), type),
+        includes(trim(toLower(get(o, 'meritType[0]'))), trim(toLower(type))),
       );
       setSelectedClanItemsList(filterClans2);
     }
@@ -172,7 +173,7 @@ export function ClanPage(props) {
       )
     ) {
       const filterClans1 = filter(clanItems, o =>
-        includes(get(o, 'clanSpecific[0]'), type),
+        includes(tirm(toLower(get(o, 'clanSpecific[0]'))), trim(toLower(type))),
       );
       setSelectedClanItemsList(filterClans1);
     }

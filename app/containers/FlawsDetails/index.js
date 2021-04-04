@@ -152,7 +152,10 @@ export function ClanPage(props) {
 
   const clanItemsDataOfFlaws = [];
 
-  const filterList = concat(clanNames.sort(), meritClanNames);
+  const filterList = concat(
+    ['General', 'Anarch', 'Camarilla', 'Sabbat', 'Morality'],
+    meritClanNames,
+  );
 
   function handleFilterType(type) {
     setDisc(type);
