@@ -317,61 +317,78 @@ export function ClanPage(props) {
               {isEmpty(selectedClan) ? (
                 <p>
                   <p>
-                    Attributes represent your character’s raw potential, but
-                    skills represent the experience and training she’s received
-                    throughout her life — both mortal and immortal. A character
-                    with high skills is well-educated or has a great deal of
-                    knowledge about the world. A character with low skills might
-                    be naive, sheltered, or uneducated.{' '}
+                    Flaws are disadvantages that pose challenges to a
+                    character’s nightly existence and provide a player a few
+                    extra experience points (XP) to spend elsewhere on her
+                    sheet. If you don’t see any that suit your character, you
+                    can create your character and play without adding any to
+                    your sheet. Flaws add up to 7 XP to your character, but also
+                    give that character a notable disadvantage in the game.
+                    Flaws are designed to be interesting, signifi cant, and to
+                    exemplify your character’s troubled past or personal
+                    prohibitions. You should try to roleplay your character’s
+                    flaws as much as possible, helping the Storyteller create a
+                    rich and detailed chronicle. Perfect people are no fun to
+                    roleplay, and characters with authentic-feeling traumas,
+                    biases, and failings bring life and vibrancy to the game.
                   </p>{' '}
                   <p>
-                    You can purchase up to 5 dots of each skill. It’s not
-                    normally possible to buy more than 5 dots in a skill.
+                    A Storyteller may choose to include or prohibit any merit or
+                    flaw that she feels is inappropriate for her chronicle.
+                    Merits can be removed from a character sheet or flaws may be
+                    added to that sheet (either temporarily or permanently) as
+                    the Storyteller sees fit, so long as a character never has
+                    more than 7 XP of merits and does not receive more than 7 XP
+                    from flaws at any time.
                   </p>
                   <p>
-                    Skills provide two kinds of bonuses to your character.
-                    First, they allow a character to perform certain actions
-                    that an untrained character simply cannot attempt. Second,
-                    they augment a character’s attributes, making certain
-                    actions easier because the character has experience or
-                    education with a related skill.{' '}
+                    To remove a flaw from your character sheet, you must spend
+                    XP equal to twice the original benefi t of the flaw. A
+                    3-point fl aw requires 6 XP to remove, and so forth. If you
+                    have any questions about whether a specific merit or flaw is
+                    appropriate to be removed during the play of your chronicle,
+                    speak to your Storyteller.
                   </p>{' '}
                   <p>
-                    For example, a character with a high Physical attribute
-                    rating who does not have the Athletics skill might find it
-                    difficult to scale a wall or to leap a series of hurdles. A
-                    character with a high Social attribute who does not have the
-                    Intimidate skill might find it difficult to bully her way
-                    past a security guard.
+                    <b>Inappropriate Flaws</b>
+                    <br />
+                    Players cannot purchase flaws that do not impact their
+                    characters. Such flaws include:
                   </p>{' '}
-                  <p>
-                    {' '}
-                    You should select your character’s skills based on that
-                    character’s background, and then place (or purchase) more
-                    dots in the skills with which the character should be most
-                    profi cient. Skill levels range from novice to master, as
-                    follows:
-                  </p>
-                  <p>
-                    • Novice: You have learned the fundamentals of this field of
-                    knowledge.
-                  </p>
-                  <p>
-                    •• Practiced: You have mastered the basics of this area of
-                    study.{' '}
-                  </p>{' '}
-                  <p>
-                    ••• Competent: You are good enough to earn a professional
-                    living in this field.
-                  </p>
-                  <p>
-                    •••• Expert: You have surpassed the majority of your peers
-                    and are considered an expert.
-                  </p>{' '}
-                  <p>
-                    ••••• Master: You are world-class at this activity and
-                    considered to be amongst the best in the field.
-                  </p>
+                  <ul>
+                    <li>
+                      Flaws that duplicate a clan’s innate weakness, such as
+                      purchasing the Bound to the Earth flaw on a Tzimisce
+                      character
+                    </li>
+                    <li>
+                      Flaws that are inappropriate to the character’s creature
+                      type, such as purchasing the Beast in the Mirror flaw on a
+                      character who is a ghoul Flaws that are negated by a power
+                      or merit the character possesses, such as purchasing both
+                      the Deep Sleeper flaw and the Blind the Sun technique
+                    </li>
+                    <li>
+                      Flaws that are made irrelevant by circumstances of plot or
+                      setting. You cannot have a flaw that requires you to fear
+                      all Ravnos, if there are no Ravnos allowed in your
+                      Storyteller’s setting.
+                    </li>
+                    <li>
+                      Merits and flaws that are diametrically opposed in story
+                      or in mechanics. A character cannot purchase Acute Sense:
+                      Hearing and also possess the Hard of Hearing flaw. If you
+                      gain a power or ability that negates the detriments of a
+                      flaw your character possesses or makes that fl aw
+                      insignificant, you must immediately buy off the flaw.
+                      Players who are forced to buy off a flaw in this manner
+                      may go into debt if they do not already possess enough
+                      earned XP to buy off the fl aw; if you go into debt for
+                      this reason, the next XP earned by this character must be
+                      entirely allocated to repaying that fl aw, until the
+                      experience debt is resolved.
+                    </li>
+                  </ul>
                 </p>
               ) : (
                 <div />

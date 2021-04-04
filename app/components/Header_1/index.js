@@ -9,19 +9,11 @@
  */
 
 import React, { memo } from 'react';
-// import PropTypes from 'prop-types';
-// import styled from 'styled-components';
-import { includes } from 'lodash';
-import history from 'utils/history';
+import { NavLink } from 'react-router-dom';
+
 import Search from 'containers/Search';
-// import LogoWOD from 'images/LogoWOD.svg';
-import VampireLogo from 'images/VampireLogo.svg';
 import LogoWOD from '../../images/newLogo.png';
 function Header_1() {
-  const {
-    location: { pathname },
-  } = history;
-
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top navbarHeader">
       <div className="container">
@@ -130,85 +122,77 @@ function Header_1() {
                   <Search />
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      includes([pathname], '/vampire/clan/') ? 'active' : null
-                    }`}
-                    href="/vampire/clan/"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/clan/"
+                    className="nav-link"
                   >
                     Clans
                     <span className="sr-only">(current)</span>
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Disciplines/' ? 'active' : null
-                    }`}
-                    href="/vampire/Disciplines/"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Disciplines/"
+                    className="nav-link"
                   >
                     Disciplines
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Rituals' ? 'active' : null
-                    }`}
-                    href="/vampire/Rituals"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Rituals"
+                    className="nav-link"
                   >
                     Rituals
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Techniques/' ? 'active' : null
-                    }`}
-                    href="/vampire/Techniques/"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Techniques/"
+                    className="nav-link"
                   >
                     Techniques
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Skills' ? 'active' : null
-                    }`}
-                    href="/vampire/Skills"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Skills"
+                    className="nav-link"
                   >
                     Skills
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Merits' ? 'active' : null
-                    }`}
-                    href="/vampire/Merits"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Merits"
+                    className="nav-link"
                   >
                     Merits
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Flaws' ? 'active' : null
-                    }`}
-                    href="/vampire/Flaws"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Flaws"
+                    className="nav-link"
                   >
                     Flaws
-                  </a>
+                  </NavLink>
                 </li>
                 <li className="nav-item">
-                  <a
-                    className={`nav-link ${
-                      pathname === '/vampire/Library' ? 'active' : null
-                    }`}
-                    href="/vampire/Library"
+                  <NavLink
+                    activeClassName="nav-link active"
+                    to="/vampire/Library"
+                    className="nav-link"
                   >
                     Library
-                  </a>
+                  </NavLink>
                 </li>
                 {/* <li className="nav-item">
                   <a

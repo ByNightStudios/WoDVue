@@ -72,7 +72,7 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
 
   return (
     <div>
-      <Header />
+      <Header pathname={window.location.pathname} />
       <Switch>
         <Route exact path="/" component={WoVueHomePage} />
         <Route
@@ -80,13 +80,17 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
           path="/vampire/Disciplines/"
           component={DisciplinesDetails}
         />
-        <Route path="/vampire/Disciplines/:id" component={DisciplinesDetails} />
+        <Route
+          exact
+          path="/vampire/Disciplines/:id"
+          component={DisciplinesDetails}
+        />
         <Route exact path="/vampire/Flaws" component={FlawsDetails} />
-        <Route path="/vampire/Flaws/:id" component={FlawsDetails} />
+        <Route exact path="/vampire/Flaws/:id" component={FlawsDetails} />
         <Route exact path="/vampire/Merits" component={MeritsDetails} />
         <Route exact path="/vampire/Rituals" component={Rituals} />
-        <Route path="/vampire/Rituals/:id" component={Rituals} />
-        <Route path="/vampire/Merits/:id" component={MeritsDetails} />
+        <Route exact path="/vampire/Rituals/:id" component={Rituals} />
+        <Route exact path="/vampire/Merits/:id" component={MeritsDetails} />
         <Route exact path="/vampire/Attributes/:id" component={Attribute} />
         <Route exact path="/vampire/Attributes" component={Attribute} />
         <Route exact path="/vampire/Backgrounds/:id" component={Backgrounds} />
@@ -98,7 +102,11 @@ export function App({ app, onRequestData, onRequestDisciplineData }) {
         <Route exact path="/vampire/Skills" component={Skills} />
         <Route exact path="/vampire/Skills/:id" component={Skills} />
         <Route exact path="/vampire/Techniques" component={TechniquesDetails} />
-        <Route path="/vampire/Techniques/:id" component={TechniquesDetails} />
+        <Route
+          exact
+          path="/vampire/Techniques/:id"
+          component={TechniquesDetails}
+        />
         <Route exact path="/vampire/clan/:id" component={ClanPage} />
         <Route exact path="/vampire/clan/" component={ClanPage} />
         <Route exact path="/QuickStart" component={QuickStart} />

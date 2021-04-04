@@ -53,7 +53,7 @@ export function ClanPage(props) {
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setClanItemList] = useState([]);
   const [disc, setDisc] = useState('filter by type');
-  const [costName, setCost] = useState('filter by Cost');
+  const [costName, setCost] = useState('filter by level');
   const [book, setBook] = useState('filter by source book');
 
   const {
@@ -167,7 +167,7 @@ export function ClanPage(props) {
 
   function handleSelectOnLevel(type) {
     setCost(type);
-    const groupByDataType = filter(clanItems, o => o.level === type);
+    const groupByDataType = filter(clanItemsList, o => o.level === type);
     setClanItemList(groupByDataType);
   }
 
@@ -325,35 +325,29 @@ export function ClanPage(props) {
 
               {isEmpty(selectedClan) ? (
                 <p>
-                  Attributes represent your character’s raw potential, but
-                  skills represent the experience and training she’s received
-                  throughout her life — both mortal and immortal. A character
-                  with high skills is well-educated or has a great deal of
-                  knowledge about the world. A character with low skills might
-                  be naive, sheltered, or uneducated. You can purchase up to 5
-                  dots of each skill. It’s not normally possible to buy more
-                  than 5 dots in a skill. Skills provide two kinds of bonuses to
-                  your character. First, they allow a character to perform
-                  certain actions that an untrained character simply cannot
-                  attempt. Second, they augment a character’s attributes, making
-                  certain actions easier because the character has experience or
-                  education with a related skill. For example, a character with
-                  a high Physical attribute rating who does not have the
-                  Athletics skill might find it difficult to scale a wall or to
-                  leap a series of hurdles. A character with a high Social
-                  attribute who does not have the Intimidate skill might find it
-                  difficult to bully her way past a security guard. You should
-                  select your character’s skills based on that character’s
-                  background, and then place (or purchase) more dots in the
-                  skills with which the character should be most profi cient.
-                  Skill levels range from novice to master, as follows: •
-                  Novice: You have learned the fundamentals of this field of
-                  knowledge. •• Practiced: You have mastered the basics of this
-                  area of study. ••• Competent: You are good enough to earn a
-                  professional living in this field. •••• Expert: You have
-                  surpassed the majority of your peers and are considered an
-                  expert. ••••• Master: You are world-class at this activity and
-                  considered to be amongst the best in the field.
+                  Necromancy, Thaumaturgy and Abyss Mysticism do not have elder
+                  powers or techniques. Instead, practitioners of these arts
+                  gain access to mystical rituals specific to their art. Rituals
+                  are formulaic and require a significant amount of time, as
+                  well as specialized implements and ingredients. You cannot buy
+                  a specific ritual until you have purchased the appropriate dot
+                  of Obtenebration/ Necromancy/ Thaumaturgy to support that
+                  ritual- for example, learning a level 4 Thaumaturgy ritual
+                  requires you already possess 4 dots in your primary
+                  Thaumaturgy path. The cost to purchase a ritual is equal to
+                  the ritual’s level times two. Therefore, a level 3 ritual
+                  costs 6 XP to purchase. A Thaumaturgist or Necromancer cannot
+                  learn more rituals than dots of Thaumaturgy/ Necromancy that
+                  she currently possesses. For example, Marianna Giovanni
+                  possesses 4 dots in the Sepulchre Path, her primary path, as
+                  well as 3 dots in the Bone Path, and 2 dots in the Ash Path.
+                  Thus, she can learn nine Necromancy rituals. Unlike
+                  Thaumaturgy and Necromancy, an Abyss Mystic is not limited in
+                  the number of rituals she may purchase, but must purchase one
+                  ritual of each level before she is able to purchase a ritual
+                  at the next-higher level. For example, in order to purchase a
+                  level 2 ritual, an Abyss Mystic must already possess at least
+                  one level 1 ritual.
                 </p>
               ) : (
                 <div />
@@ -493,7 +487,7 @@ export function ClanPage(props) {
                 </Select>
                 <Button
                   onClick={() => {
-                    setCost('filter by cost');
+                    setCost('filter by level');
                     setClanItemList(clanItems);
                   }}
                 >

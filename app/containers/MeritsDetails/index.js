@@ -309,61 +309,14 @@ export function ClanPage(props) {
               {isEmpty(selectedClan) ? (
                 <p>
                   <p>
-                    Attributes represent your character’s raw potential, but
-                    skills represent the experience and training she’s received
-                    throughout her life — both mortal and immortal. A character
-                    with high skills is well-educated or has a great deal of
-                    knowledge about the world. A character with low skills might
-                    be naive, sheltered, or uneducated.{' '}
+                  Merits are special advantages that help distinguish a character and show the effects of her history and ongoing story. If you don’t see any that suit your character, you can create your character and play without adding any to your sheet. You may purchase up to 7 points of merits. However, a character can never have more than 7 points of merits at any time. This rule encourages players to make significant choices about the qualities that make a character unique.
                   </p>{' '}
                   <p>
-                    You can purchase up to 5 dots of each skill. It’s not
-                    normally possible to buy more than 5 dots in a skill.
+                  A Storyteller may choose to include or prohibit any merit or flaw that she feels is inappropriate for her chronicle. Merits can be removed from a character sheet or flaws may be added to that sheet (either temporarily or permanently) as the Storyteller sees fit, so long as a character never has more than 7 XP of merits and does not receive more than 7 XP from flaws at any time. Any merit effect that requires the expenditure of Blood counts as a supernatural power. For the purpose of powers like Possession, clan-specific merits count as 1-dot in-clan powers; general merits are not considered in-clan. It is possible to lose access to part of a merit without losing access to the entire merit. For example, while using Possession, a Giovanni’s wraith Retainer will not disappear, but without the proper focus, the Giovanni may not be able to spend Blood to summon it. Merit effects that alter a character’s physical form (permanently or temporarily) are not available while that character is not in her real body. For example, while using Possession, a character loses access to merits such as Rugged, Unnatural Adaptation, and Shape of Beast’s Wrath.
                   </p>
                   <p>
-                    Skills provide two kinds of bonuses to your character.
-                    First, they allow a character to perform certain actions
-                    that an untrained character simply cannot attempt. Second,
-                    they augment a character’s attributes, making certain
-                    actions easier because the character has experience or
-                    education with a related skill.{' '}
+                  To purchase a merit during game, obtain your Storyteller’s permission, expend a downtime action and the necessary XP, and then add that merit to your character sheet. This purchase cannot cause the character’s total point value of merits to exceed 7. Benefi ts conveyed by a merit begin immediately upon the merit’s purchase. If you choose to replace a removed merit with a new one, you must pay for the new merit normally; a character cannot simply “swap merits.” For example, let’s assume a player has her Storyteller’s permission to remove the Calm Heart merit from her character sheet and add the Daredevil merit. The player must fi rst remove Calm Heart, receiving no refunded XP when that merit is removed. She must then spend 2 XP to place the Daredevil merit on her sheet. If you have any questions about whether a specifi c merit or fl aw is appropriate for purchase during the play of your chronicle, speak to your Storyteller.
                   </p>{' '}
-                  <p>
-                    For example, a character with a high Physical attribute
-                    rating who does not have the Athletics skill might find it
-                    difficult to scale a wall or to leap a series of hurdles. A
-                    character with a high Social attribute who does not have the
-                    Intimidate skill might find it difficult to bully her way
-                    past a security guard.
-                  </p>{' '}
-                  <p>
-                    {' '}
-                    You should select your character’s skills based on that
-                    character’s background, and then place (or purchase) more
-                    dots in the skills with which the character should be most
-                    profi cient. Skill levels range from novice to master, as
-                    follows:
-                  </p>
-                  <p>
-                    • Novice: You have learned the fundamentals of this field of
-                    knowledge.
-                  </p>
-                  <p>
-                    • Practiced: You have mastered the basics of this area of
-                    study.{' '}
-                  </p>{' '}
-                  <p>
-                    • Competent: You are good enough to earn a professional
-                    living in this field.
-                  </p>
-                  <p>
-                    • Expert: You have surpassed the majority of your peers and
-                    are considered an expert.
-                  </p>{' '}
-                  <p>
-                    • Master: You are world-class at this activity and
-                    considered to be amongst the best in the field.
-                  </p>
                 </p>
               ) : (
                 <div />
