@@ -58,7 +58,7 @@ export function ClanPage(props) {
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
   const [disc, setDisc] = useState('filter by Clan');
   const [costName, setCost] = useState('filter by Cost');
-  const [book, setBook] = useState('filter by Source Book');
+  const [book, setBook] = useState('filter by source book');
 
   const {
     app: {
@@ -549,7 +549,7 @@ export function ClanPage(props) {
                 </Select>
                 <Button
                   onClick={() => {
-                    setBook('filter by Source Book');
+                    setBook('filter by source book');
                     setSelectedClanItemsList(clanItems);
                   }}
                 >

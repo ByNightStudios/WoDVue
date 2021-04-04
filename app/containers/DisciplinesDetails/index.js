@@ -98,7 +98,7 @@ export function ClanPage(props) {
 
     const powerOfClansData = filter(
       clanItems,
-      o => o.power === trim(get(findClanData, 'title')),
+      o => o.power === trim(get(findClanData, 'title')) && !o.parent,
     );
 
     const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
@@ -116,7 +116,7 @@ export function ClanPage(props) {
       setSelectedClan(findClanData4);
       const powerOfClansData1 = filter(
         clanItems,
-        o => o.power === get(findClanData4, 'title'),
+        o => o.power === get(findClanData4, 'title') && !o.parent,
       );
 
       const uniqPowerOfClans1 = uniqBy(powerOfClansData1, 'title');
@@ -474,7 +474,7 @@ export function ClanPage(props) {
                 <div />
               )}
 
-              <p>
+              {/* <p>
                 {get(selectedClan, 'level') ||
                 get(selectedClan, 'level') === 0 ? (
                   <div>
@@ -484,7 +484,7 @@ export function ClanPage(props) {
                 ) : (
                   <div />
                 )}
-              </p>
+              </p> */}
 
               <p>
                 {!isEmpty(get(selectedClan, 'cost')) ? (
@@ -570,7 +570,7 @@ export function ClanPage(props) {
                                 </div>
                                 <div className="disc-cols3 hideMobile">
                                   <span>
-                                    {!isEqual(item.level, 0) ? item.level : ''}
+                                    {item.level}
                                   </span>
                                 </div>
                                 <div className="disc-cols3 hideMobile">

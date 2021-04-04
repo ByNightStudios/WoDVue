@@ -25,6 +25,7 @@ import {
   uniq,
   filter,
   includes,
+  concat,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -53,7 +54,7 @@ export function ClanPage(props) {
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
   const [disc, setDisc] = useState('filter by discipline');
-  const [book, setBook] = useState('filter by Source Book');
+  const [book, setBook] = useState('filter by source book');
 
   const {
     app: {
@@ -125,7 +126,7 @@ export function ClanPage(props) {
 
   const groupByData3 = without(
     uniq(
-      map(map(clanItems, o => o.prerequisites), item => item[0].split(' ')[0]),
+      concat('Necromancy', map(map(clanItems, o => o.prerequisites), item => item[0].split(' ')[0])),
     ),
     '',
   ).sort();
@@ -133,7 +134,7 @@ export function ClanPage(props) {
   function handleChangeDisc(type) {
     setDisc(type);
     const filterDisc = filter(clanItems, o => {
-      if (includes(map(o.prerequisites, item => item.split(' ')[0]), type)) {
+      if (includes(map(o.disciplines, item => item.fields.power), type)) {
         return o;
       }
     });
@@ -390,7 +391,7 @@ export function ClanPage(props) {
                 </Select>
                 <Button
                   onClick={() => {
-                    setBook('filter by Source Book');
+                    setBook('filter by source book');
                     setSelectedClanItemsList(clanItems);
                   }}
                 >
