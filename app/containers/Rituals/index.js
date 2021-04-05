@@ -169,7 +169,10 @@ export function ClanPage(props) {
 
   function handleSelectOnLevel(type) {
     setCost(type);
-    const groupByDataType = filter(clanItemsList, o => o.level === type);
+    const groupByDataType = filter(
+      clanItems,
+      o => o.level === type && o[`${disc}`],
+    );
     setClanItemList(groupByDataType);
   }
 

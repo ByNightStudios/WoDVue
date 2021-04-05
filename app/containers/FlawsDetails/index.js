@@ -32,6 +32,7 @@ import { Typography, Select, Row, Button } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
@@ -166,9 +167,15 @@ export function ClanPage(props) {
         type,
       )
     ) {
-      const filterClans2 = filter(clanItems, o =>
+      let filterClans2 = filter(clanItems, o =>
         includes(get(o, 'flawType[0]'), type),
       );
+      if (costName) {
+        filterClans2 = filter(
+          filterClans2,
+          o => get(o, 'flawCost') === costName,
+        );
+      }
       setSelectedClanItemsList(filterClans2);
     }
     if (
@@ -177,9 +184,15 @@ export function ClanPage(props) {
         type,
       )
     ) {
-      const filterClans1 = filter(clanItems, o =>
+      let filterClans1 = filter(clanItems, o =>
         includes(get(o, 'clanFlaw'), type),
       );
+      if (costName) {
+        filterClans1 = filter(
+          filterClans1,
+          o => get(o, 'flawCost') === costName,
+        );
+      }
       setSelectedClanItemsList(filterClans1);
     }
   }
@@ -261,11 +274,16 @@ export function ClanPage(props) {
                 )}
               </p>
               {!isEmpty(get(selectedClan, 'flawDescription')) ? (
-                <div>
+                <div style={{ whiteSpace: 'break-spaces' }}>
                   <h2>DESCRIPTION</h2>
-                  {map(get(selectedClan, 'flawDescription'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        get(selectedClan, 'flawDescription_html'),
+                      ),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
