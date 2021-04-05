@@ -287,6 +287,8 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
+  console.log(powerClanIndex);
+
   return (
     <div className="clan-page">
       {renderHelment()}
