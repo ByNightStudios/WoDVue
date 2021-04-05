@@ -497,7 +497,7 @@ export function ClanPage(props) {
                   onChange={handleChangeFilter}
                   value={book}
                 >
-                  {map(uniqSourceBook, item => (
+                  {map(uniqSourceBook.reverse(), item => (
                     <Option value={item}>{item}</Option>
                   ))}
                 </Select>

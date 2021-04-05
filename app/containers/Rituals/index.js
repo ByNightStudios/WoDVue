@@ -50,6 +50,7 @@ export function ClanPage(props) {
 
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
+
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setClanItemList] = useState([]);
   const [disc, setDisc] = useState('filter by type');
@@ -97,16 +98,17 @@ export function ClanPage(props) {
       );
       setSelectedClan(filterClans1);
     }
-
-    const findClanData = find(clanItems, { title: id });
-    setClanItemList(clanItems);
-    setSelectedClan(findClanData);
+    if (isEmpty(selectedClan)) {
+      const findClanData = find(clanItems, { title: id });
+      setClanItemList(clanItems);
+      setSelectedClan(findClanData);
+    }
   }, [match]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
       const value = e.target.getAttribute('value');
-      const findClanData = find(filterClans, { title: value });
+      const findClanData = find(clanItemsList, { title: value });
       setSelectedClan(findClanData);
     }
   }
@@ -238,10 +240,14 @@ export function ClanPage(props) {
             </div>
             <div className="boxWhite">
               <p>
-                <div>
-                  <h2>TYPE</h2>
-                  {getBooleanValue(selectedClan)}
-                </div>
+                {!isEmpty(get(selectedClan, 'summary')) ? (
+                  <div>
+                    <h2>TYPE</h2>
+                    {getBooleanValue(selectedClan)}
+                  </div>
+                ) : (
+                  <div />
+                )}
 
                 {!isEmpty(get(selectedClan, 'summary')) ? (
                   <div>
@@ -325,6 +331,7 @@ export function ClanPage(props) {
 
               {isEmpty(selectedClan) ? (
                 <p>
+                  <h2>RITUALS</h2>
                   Necromancy, Thaumaturgy and Abyss Mysticism do not have elder
                   powers or techniques. Instead, practitioners of these arts
                   gain access to mystical rituals specific to their art. Rituals
@@ -515,7 +522,7 @@ export function ClanPage(props) {
                   className="meritFilter"
                   value={book}
                 >
-                  {map(uniqSourceBook, item => (
+                  {map(uniqSourceBook.reverse(), item => (
                     <Select.Option value={item}>{item}</Select.Option>
                   ))}
                 </Select>
