@@ -161,9 +161,15 @@ export function ClanPage(props) {
         type,
       )
     ) {
-      const filterClans2 = filter(clanItems, o =>
+      let filterClans2 = filter(clanItems, o =>
         includes(trim(toLower(get(o, 'meritType[0]'))), trim(toLower(type))),
       );
+      if (costName) {
+        filterClans2 = filter(
+          filterClans2,
+          o => get(o, 'meritCost') === costName,
+        );
+      }
       setSelectedClanItemsList(filterClans2);
     }
     if (
@@ -172,9 +178,15 @@ export function ClanPage(props) {
         type,
       )
     ) {
-      const filterClans1 = filter(clanItems, o =>
-        includes(tirm(toLower(get(o, 'clanSpecific[0]'))), trim(toLower(type))),
+      let filterClans1 = filter(clanItems, o =>
+        includes(trim(toLower(get(o, 'clanSpecific[0]'))), trim(toLower(type))),
       );
+      if (costName) {
+        filterClans1 = filter(
+          filterClans1,
+          o => get(o, 'meritCost') === costName,
+        );
+      }
       setSelectedClanItemsList(filterClans1);
     }
   }
@@ -248,7 +260,7 @@ export function ClanPage(props) {
               </p>
 
               {!isEmpty(get(selectedClan, 'meritDescription')) ? (
-                <div>
+                <div style={{ whiteSpace: 'break-spaces' }}>
                   <h2>DESCRIPTION </h2>
                   <div
                     /* eslint-disable-next-line react/no-danger */
@@ -309,13 +321,56 @@ export function ClanPage(props) {
               {isEmpty(selectedClan) ? (
                 <p>
                   <p>
-                  Merits are special advantages that help distinguish a character and show the effects of her history and ongoing story. If you don’t see any that suit your character, you can create your character and play without adding any to your sheet. You may purchase up to 7 points of merits. However, a character can never have more than 7 points of merits at any time. This rule encourages players to make significant choices about the qualities that make a character unique.
+                    Merits are special advantages that help distinguish a
+                    character and show the effects of her history and ongoing
+                    story. If you don’t see any that suit your character, you
+                    can create your character and play without adding any to
+                    your sheet. You may purchase up to 7 points of merits.
+                    However, a character can never have more than 7 points of
+                    merits at any time. This rule encourages players to make
+                    significant choices about the qualities that make a
+                    character unique.
                   </p>{' '}
                   <p>
-                  A Storyteller may choose to include or prohibit any merit or flaw that she feels is inappropriate for her chronicle. Merits can be removed from a character sheet or flaws may be added to that sheet (either temporarily or permanently) as the Storyteller sees fit, so long as a character never has more than 7 XP of merits and does not receive more than 7 XP from flaws at any time. Any merit effect that requires the expenditure of Blood counts as a supernatural power. For the purpose of powers like Possession, clan-specific merits count as 1-dot in-clan powers; general merits are not considered in-clan. It is possible to lose access to part of a merit without losing access to the entire merit. For example, while using Possession, a Giovanni’s wraith Retainer will not disappear, but without the proper focus, the Giovanni may not be able to spend Blood to summon it. Merit effects that alter a character’s physical form (permanently or temporarily) are not available while that character is not in her real body. For example, while using Possession, a character loses access to merits such as Rugged, Unnatural Adaptation, and Shape of Beast’s Wrath.
+                    A Storyteller may choose to include or prohibit any merit or
+                    flaw that she feels is inappropriate for her chronicle.
+                    Merits can be removed from a character sheet or flaws may be
+                    added to that sheet (either temporarily or permanently) as
+                    the Storyteller sees fit, so long as a character never has
+                    more than 7 XP of merits and does not receive more than 7 XP
+                    from flaws at any time. Any merit effect that requires the
+                    expenditure of Blood counts as a supernatural power. For the
+                    purpose of powers like Possession, clan-specific merits
+                    count as 1-dot in-clan powers; general merits are not
+                    considered in-clan. It is possible to lose access to part of
+                    a merit without losing access to the entire merit. For
+                    example, while using Possession, a Giovanni’s wraith
+                    Retainer will not disappear, but without the proper focus,
+                    the Giovanni may not be able to spend Blood to summon it.
+                    Merit effects that alter a character’s physical form
+                    (permanently or temporarily) are not available while that
+                    character is not in her real body. For example, while using
+                    Possession, a character loses access to merits such as
+                    Rugged, Unnatural Adaptation, and Shape of Beast’s Wrath.
                   </p>
                   <p>
-                  To purchase a merit during game, obtain your Storyteller’s permission, expend a downtime action and the necessary XP, and then add that merit to your character sheet. This purchase cannot cause the character’s total point value of merits to exceed 7. Benefi ts conveyed by a merit begin immediately upon the merit’s purchase. If you choose to replace a removed merit with a new one, you must pay for the new merit normally; a character cannot simply “swap merits.” For example, let’s assume a player has her Storyteller’s permission to remove the Calm Heart merit from her character sheet and add the Daredevil merit. The player must fi rst remove Calm Heart, receiving no refunded XP when that merit is removed. She must then spend 2 XP to place the Daredevil merit on her sheet. If you have any questions about whether a specifi c merit or fl aw is appropriate for purchase during the play of your chronicle, speak to your Storyteller.
+                    To purchase a merit during game, obtain your Storyteller’s
+                    permission, expend a downtime action and the necessary XP,
+                    and then add that merit to your character sheet. This
+                    purchase cannot cause the character’s total point value of
+                    merits to exceed 7. Benefi ts conveyed by a merit begin
+                    immediately upon the merit’s purchase. If you choose to
+                    replace a removed merit with a new one, you must pay for the
+                    new merit normally; a character cannot simply “swap merits.”
+                    For example, let’s assume a player has her Storyteller’s
+                    permission to remove the Calm Heart merit from her character
+                    sheet and add the Daredevil merit. The player must fi rst
+                    remove Calm Heart, receiving no refunded XP when that merit
+                    is removed. She must then spend 2 XP to place the Daredevil
+                    merit on her sheet. If you have any questions about whether
+                    a specifi c merit or fl aw is appropriate for purchase
+                    during the play of your chronicle, speak to your
+                    Storyteller.
                   </p>{' '}
                 </p>
               ) : (

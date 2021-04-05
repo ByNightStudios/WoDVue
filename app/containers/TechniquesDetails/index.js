@@ -139,11 +139,17 @@ export function ClanPage(props) {
 
   function handleChangeDisc(type) {
     setDisc(type);
-    const filterDisc = filter(clanItems, o => {
+    let filterDisc = filter(clanItems, o => {
       if (includes(map(o.disciplines, item => item.fields.power), type)) {
         return o;
       }
     });
+    if (book) {
+      filterDisc = filter(
+        filterDisc,
+        o => get(o, 'sourceBook_html.fields.bookTitle') === book,
+      );
+    }
     setSelectedClanItemsList(filterDisc);
   }
   return (

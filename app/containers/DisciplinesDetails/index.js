@@ -287,8 +287,6 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
-  console.log(powerClanIndex);
-
   return (
     <div className="clan-page">
       {renderHelment()}
@@ -435,15 +433,14 @@ export function ClanPage(props) {
                 <div>
                   <h2>Focus</h2>
                   <Row type="flex" justify="start">
-                    <span
+                    <u
                       style={{
-                        borderBottom: '2px solid black',
                         marginBottom: 10,
                       }}
                     >
                       {' '}
                       {get(selectedClan, 'foci')}
-                    </span>
+                    </u>
                     <span>&nbsp;{' : '}&nbsp;</span>
                     <div
                       style={{ width: '85%' }}
@@ -571,16 +568,17 @@ export function ClanPage(props) {
                                   <span>{item.title}</span>
                                 </div>
                                 <div className="disc-cols3 hideMobile">
-                                  <span>
-                                    {item.level}
-                                  </span>
+                                  <span>{item.level}</span>
                                 </div>
                                 <div className="disc-cols3 hideMobile">
                                   <span>{item.cost}</span>
                                 </div>
                                 <div
                                   className="disc-indicator"
-                                  onClick={() => setPowenClanIndex(index)}
+                                  onClick={() => {
+                                    setPowenClanIndex(index);
+                                    setPowenClanIndex(index);
+                                  }}
                                 >
                                   <a
                                     className={`btn btn-primary ${
@@ -606,7 +604,10 @@ export function ClanPage(props) {
                                 }
                                 id={`discipline-${index}`}
                               >
-                                <div className="box-summary">
+                                <div
+                                  className="box-summary"
+                                  style={{ backgroundColor: '#fff' }}
+                                >
                                   <div>
                                     <p>
                                       {get(item, 'summary[0]', [])}
@@ -614,7 +615,7 @@ export function ClanPage(props) {
                                         copyable={{
                                           text: `${
                                             window.location.origin
-                                          }/vampire/Disciplines/${item.power}`,
+                                          }/vampire/Disciplines/${item.title}`,
                                         }}
                                         style={{ marginLeft: 10 }}
                                       >
@@ -697,15 +698,18 @@ export function ClanPage(props) {
                                       <div>
                                         <h2>Focus</h2>
                                         <Row type="flex" justify="start">
-                                          <span
+                                          <u
                                             style={{
-                                              borderBottom: '2px solid black',
+                                              textDecoration: 'underline',
+                                              textDecorationThickness: '2px',
+                                              textDecorationSkipInk: 'auto',
+                                              textUnderlineOffset: '3px',
                                               marginBottom: 10,
                                             }}
                                           >
                                             {' '}
                                             {get(item, 'foci')}
-                                          </span>
+                                          </u>
                                           <span>&nbsp;{' : '}&nbsp;</span>
                                           <div
                                             style={{ width: '85%' }}
