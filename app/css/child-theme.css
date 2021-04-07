@@ -10136,7 +10136,7 @@ hr {
   background-image: url(../images/flaws.png); }
 
 .attributes {
-  background-image: url(../images/attributes.png); }  
+  background-image: url(../images/attributes.png); }
   .quickStart { background-image: url(../images/QuickStart.png);}
 
   .rituals { background-image: url(../images/Rituals.png);}
@@ -10293,7 +10293,7 @@ hr {
   display: flex;
   justify-content: space-between;
   height: 76px;
-  background-color: #fff;
+  background-color: #f5f2f2;
   box-shadow: 0px 5px 10px 0px rgba(0, 0, 0, 0.3);
   margin-top: 30px;
   text-align: center; }

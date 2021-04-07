@@ -576,8 +576,11 @@ export function ClanPage(props) {
                                 <div
                                   className="disc-indicator"
                                   onClick={() => {
-                                    setPowenClanIndex(index);
-                                    setPowenClanIndex(index);
+                                    if (index === powerClanIndex) {
+                                      setPowenClanIndex(-1);
+                                    } else {
+                                      setPowenClanIndex(index);
+                                    }
                                   }}
                                 >
                                   <a
@@ -587,10 +590,10 @@ export function ClanPage(props) {
                                         : 'collapsed'
                                     }`}
                                     data-toggle="collapse"
-                                    href={`#discipline-${index}`}
+                                    href={`${item.title}`}
                                     role="button"
                                     aria-expanded="false"
-                                    aria-controls={`discipline-${index}`}
+                                    aria-controls={`${item.title}}`}
                                   >
                                     <i className="fa" />
                                   </a>
@@ -602,11 +605,14 @@ export function ClanPage(props) {
                                     ? 'collapse show'
                                     : 'collapse'
                                 }
-                                id={`discipline-${index}`}
+                                id={`${item.title}`}
                               >
                                 <div
                                   className="box-summary"
-                                  style={{ backgroundColor: '#fff' }}
+                                  style={{
+                                    backgroundColor: '#fff',
+                                    border: '1px solid grey',
+                                  }}
                                 >
                                   <div>
                                     <p>
