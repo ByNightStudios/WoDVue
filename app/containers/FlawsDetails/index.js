@@ -170,7 +170,7 @@ export function ClanPage(props) {
       let filterClans2 = filter(clanItems, o =>
         includes(get(o, 'flawType[0]'), type),
       );
-      if (costName) {
+      if (costName && costName !== 'filter by Cost') {
         filterClans2 = filter(
           filterClans2,
           o => get(o, 'flawCost') === costName,
@@ -187,7 +187,7 @@ export function ClanPage(props) {
       let filterClans1 = filter(clanItems, o =>
         includes(get(o, 'clanFlaw'), type),
       );
-      if (costName) {
+      if (costName && costName !== 'filter by Cost') {
         filterClans1 = filter(
           filterClans1,
           o => get(o, 'flawCost') === costName,

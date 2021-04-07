@@ -144,12 +144,14 @@ export function ClanPage(props) {
         return o;
       }
     });
-    if (book) {
+    console.log(book);
+    if (book && book !== 'filter by source book') {
       filterDisc = filter(
         filterDisc,
         o => get(o, 'sourceBook_html.fields.bookTitle') === book,
       );
     }
+    console.log(filterDisc);
     setSelectedClanItemsList(filterDisc);
   }
   return (
