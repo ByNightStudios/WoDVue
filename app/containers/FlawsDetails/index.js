@@ -124,6 +124,7 @@ export function ClanPage(props) {
   const flawCost = without(uniq(cost), '').sort();
 
   function handleChangeFilter(item) {
+    setBook(item);
     setSelectedClanItemsList(clanItemsList);
     const filterClanItems = filter(
       clanItemsList,
@@ -161,6 +162,9 @@ export function ClanPage(props) {
   function handleFilterType(type) {
     setDisc(type);
     setSelectedClanItemsList(clanItems);
+    // if (book && book !== 'filter by source book') {
+    //   setBook(book);
+    // }
     if (
       includes(
         ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
@@ -174,6 +178,13 @@ export function ClanPage(props) {
         filterClans2 = filter(
           filterClans2,
           o => get(o, 'flawCost') === costName,
+        );
+      }
+
+      if (book && book !== 'filter by source book') {
+        filterClans2 = filter(
+          filterClans2,
+          o => get(o, 'sourceBook_html.fields.bookTitle') === book,
         );
       }
       setSelectedClanItemsList(filterClans2);
@@ -191,6 +202,12 @@ export function ClanPage(props) {
         filterClans1 = filter(
           filterClans1,
           o => get(o, 'flawCost') === costName,
+        );
+      }
+      if (book && book !== 'filter by source book') {
+        filterClans1 = filter(
+          filterClans1,
+          o => get(o, 'sourceBook_html.fields.bookTitle') === book,
         );
       }
       setSelectedClanItemsList(filterClans1);
