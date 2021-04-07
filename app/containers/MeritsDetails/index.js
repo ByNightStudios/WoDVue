@@ -170,6 +170,12 @@ export function ClanPage(props) {
           o => get(o, 'meritCost') === costName,
         );
       }
+      if (book && book !== 'filter by source book') {
+        filterClans2 = filter(
+          filterClans2,
+          o => get(o, 'sourceBook_html.fields.bookTitle') === book,
+        );
+      }
       setSelectedClanItemsList(filterClans2);
     }
     if (
@@ -185,6 +191,12 @@ export function ClanPage(props) {
         filterClans1 = filter(
           filterClans1,
           o => get(o, 'meritCost') === costName,
+        );
+      }
+      if (book && book !== 'filter by source book') {
+        filterClans1 = filter(
+          filterClans1,
+          o => get(o, 'sourceBook_html.fields.bookTitle') === book,
         );
       }
       setSelectedClanItemsList(filterClans1);
