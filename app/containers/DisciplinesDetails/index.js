@@ -79,7 +79,7 @@ export function ClanPage(props) {
   }, []);
 
   const filterClans = uniqBy(
-    sortBy(filter(clanItems, o => o.parent), 'title'),
+    sortBy(filter(clanItemsList, o => o.parent), 'title'),
     'title',
   );
 
@@ -279,7 +279,6 @@ export function ClanPage(props) {
   const uniqSourceBook = without(uniq(sourceBook), '');
 
   function handleChangeFilter(item) {
-    setSelectedClanItemsList(clanItemsList);
     const filterClanItems = filter(
       clanItems,
       o => get(o, 'sourceBook_html.fields.bookTitle') === item,
@@ -563,7 +562,7 @@ export function ClanPage(props) {
                         <div className="listing">
                           {map(getFilterPower(powerOfClans), (item, index) => (
                             <p>
-                              <div className={`item discipline-${index}`}>
+                              <div className={`item discipline-${index}`} id={`discipline-${index}`}>
                                 <div className="disc-cols3">
                                   <span>{item.title}</span>
                                 </div>
@@ -580,6 +579,10 @@ export function ClanPage(props) {
                                       setPowenClanIndex(-1);
                                     } else {
                                       setPowenClanIndex(index);
+                                      const element = document.getElementById(
+                                        `discipline-${index}`,
+                                      );
+                                      element.scrollIntoView(true);
                                     }
                                   }}
                                 >
@@ -898,9 +901,9 @@ export function ClanPage(props) {
                   placeholder="filter by source book"
                   onChange={handleChangeFilter}
                 >
-                  {map(uniqSourceBook.reverse(), item => (
-                    <Option value={item}>{item}</Option>
-                  ))}
+                  <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
+                  <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
+                  <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option>
                 </Select>
                 <Button onClick={() => setSelectedClanItemsList(clanItems)}>
                   Reset

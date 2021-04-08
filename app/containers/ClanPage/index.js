@@ -497,9 +497,9 @@ export function ClanPage(props) {
                   placeholder="filter by source book"
                   onChange={handleChangeFilter}
                 >
-                  {map(uniqSourceBook.reverse(), item => (
-                    <Option value={item}>{item}</Option>
-                  ))}
+                   <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
+                  <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
+                  <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option>
                 </Select>
                 <Button onClick={() => setSelectedClanItemsList(clanItems)}>
                   Reset
