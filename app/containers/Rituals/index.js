@@ -161,7 +161,19 @@ export function ClanPage(props) {
 
   function handleSelectOnType(type) {
     setDisc(type);
-    const groupByDataType = filter(clanItems, o => o[`${type}`]);
+    let groupByDataType = filter(clanItems, o => o[`${type}`]);
+
+    if (book && book !== 'filter by source book') {
+      groupByDataType = filter(
+        groupByDataType,
+        o => get(o, 'sourceBook_html[0].fields.bookTitle') === book,
+      );
+    }
+
+    if (costName && costName !== 'filter by level') {
+      groupByDataType = filter(groupByDataType, o => o.level === costName);
+    }
+
     setClanItemList(groupByDataType);
   }
 
@@ -185,10 +197,17 @@ export function ClanPage(props) {
   function handleChangeFilter(item) {
     setBook(item);
     setClanItemList(clanItems);
-    const filterClanItems = filter(
-      clanItemsList,
+    let filterClanItems = filter(
+      clanItems,
       o => get(o, 'sourceBook_html[0].fields.bookTitle') === item,
     );
+
+    if (disc && disc !== 'filter by type') {
+      filterClanItems = filter(filterClanItems, o => o[`${disc}`]);
+    }
+    if (costName && costName !== 'filter by level') {
+      filterClanItems = filter(filterClanItems, o => o.level === costName);
+    }
     setClanItemList(filterClanItems);
   }
 
@@ -464,7 +483,8 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setDisc('filter by type');
-                    setClanItemList(clanItems);
+                    // handleChangeFilter(book);
+                    // handleSelectOnLevel(costName);
                   }}
                 >
                   Reset
@@ -498,7 +518,8 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by level');
-                    setClanItemList(clanItems);
+                    // handleChangeFilter(book);
+                    // handleSelectOnType(disc);
                   }}
                 >
                   Reset
@@ -532,7 +553,8 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setBook('filter by source book');
-                    setClanItemList(clanItems);
+                    // handleSelectOnLevel(costName);
+                    // handleSelectOnType(disc);
                   }}
                 >
                   Reset

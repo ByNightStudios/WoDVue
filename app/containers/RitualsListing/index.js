@@ -10,13 +10,11 @@
 import React, { memo, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { get, map, orderBy, toLower, filter, replace } from 'lodash';
 import { Select } from 'antd';
-import Loader from 'components/Loader';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import history from 'utils/history';
 import { makeSelectApp } from 'containers/App/selectors';
