@@ -125,21 +125,76 @@ export function ClanPage(props) {
 
   function handleChangeFilter(item) {
     setBook(item);
-    setSelectedClanItemsList(clanItems);
-    const filterClanItems = filter(
-      clanItemsList,
-      o => get(o, 'sourceBook_html.fields.bookTitle') === item,
+    let filterClanItems = filter(
+      clanItems,
+      o => trim(get(o, 'sourceBook_html.fields.bookTitle')) === trim(item),
     );
+    if (disc && disc !== 'filter by Clan') {
+      if (
+        includes(
+          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+          disc,
+        )
+      ) {
+        filterClanItems = filter(filterClanItems, o =>
+          includes(get(o, 'meritType[0]'), disc),
+        );
+      }
+      if (
+        !includes(
+          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+          disc,
+        )
+      ) {
+        filterClanItems = filter(filterClanItems, o =>
+          includes(get(o, 'clanSpecific[0]'), disc),
+        );
+      }
+    }
+    if (costName && costName !== 'filter by Cost') {
+      filterClanItems = filter(
+        filterClanItems,
+        o => get(o, 'meritCost') === costName,
+      );
+    }
     setSelectedClanItemsList(filterClanItems);
   }
 
   function handleFilterCostType(item) {
     setCost(item);
     setSelectedClanItemsList(clanItems);
-    const filterClanItems = filter(
+    let filterClanItems = filter(
       clanItemsList,
       o => get(o, 'meritCost') === item,
     );
+    if (disc && disc !== 'filter by Clan') {
+      if (
+        includes(
+          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+          disc,
+        )
+      ) {
+        filterClanItems = filter(filterClanItems, o =>
+          includes(get(o, 'meritType[0]'), disc),
+        );
+      }
+      if (
+        !includes(
+          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+          disc,
+        )
+      ) {
+        filterClanItems = filter(filterClanItems, o =>
+          includes(get(o, 'clanSpecific[0]'), disc),
+        );
+      }
+    }
+    if (book && book !== 'filter by source book') {
+      filterClanItems = filter(
+        filterClanItems,
+        o => get(o, 'sourceBook_html.fields.bookTitle') === book,
+      );
+    }
     setSelectedClanItemsList(filterClanItems);
   }
 
@@ -154,7 +209,6 @@ export function ClanPage(props) {
 
   function handleFilterType(type) {
     setDisc(type);
-    setSelectedClanItemsList(clanItems);
     if (
       includes(
         ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
@@ -518,7 +572,28 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setDisc('filter by Clan');
-                    setSelectedClanItemsList(clanItems);
+                    if (book && book !== 'filter by source book') {
+                      let filterClanItems = [];
+                      filterClanItems = filter(
+                        clanItemsList,
+                        o =>
+                          get(o, 'sourceBook_html.fields.bookTitle') === book,
+                      );
+                      setSelectedClanItemsList(filterClanItems);
+                    }
+                    if (costName && costName !== 'filter by Cost') {
+                      const filterClanItems = filter(
+                        clanItemsList,
+                        o => get(o, 'meritCost') === costName,
+                      );
+                      setSelectedClanItemsList(filterClanItems);
+                    }
+                    if (
+                      costName === 'filter by Cost' &&
+                      book === 'filter by source book'
+                    ) {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
@@ -551,7 +626,59 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by Cost');
-                    setSelectedClanItemsList(clanItems);
+                    if (disc && disc !== 'filter by Clan') {
+                      let filterClanItems = [];
+                      if (
+                        includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        filterClanItems = filter(clanItems, o =>
+                          includes(get(o, 'meritType[0]'), disc),
+                        );
+                      }
+                      if (
+                        !includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        filterClanItems = filter(clanItems, o =>
+                          includes(get(o, 'clanSpecific[0]'), disc),
+                        );
+                      }
+                      setSelectedClanItemsList(filterClanItems);
+                    }
+                    if (book && book !== 'filter by source book') {
+                      let filterClanItems = [];
+                      filterClanItems = filter(
+                        clanItemsList,
+                        o =>
+                          get(o, 'sourceBook_html.fields.bookTitle') === book,
+                      );
+                      setSelectedClanItemsList(filterClanItems);
+                    }
+                    if (
+                      disc === 'filter by Clan' &&
+                      book === 'filter by source book'
+                    ) {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
@@ -564,14 +691,70 @@ export function ClanPage(props) {
                   onChange={handleChangeFilter}
                   value={book}
                 >
-                   <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
-                  <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
-                  <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option>
+                  <Option value="MET - VTM - Core Book">
+                    MET - VTM - Core Book
+                  </Option>
+                  <Option value="MET - VTM - V2 Issue 1">
+                    MET - VTM - V2 Issue 1
+                  </Option>
+                  <Option value="MET - VTM - V2 (2021)">
+                    MET - VTM - V2 (2021)
+                  </Option>
                 </Select>
                 <Button
                   onClick={() => {
                     setBook('filter by source book');
-                    setSelectedClanItemsList(clanItems);
+                    if (disc && disc !== 'filter by Clan') {
+                      let filterClanItems = [];
+                      if (
+                        includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        filterClanItems = filter(clanItems, o =>
+                          includes(get(o, 'meritType[0]'), disc),
+                        );
+                      }
+                      if (
+                        !includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        filterClanItems = filter(clanItems, o =>
+                          includes(get(o, 'clanSpecific[0]'), disc),
+                        );
+                      }
+                      setSelectedClanItemsList(filterClanItems);
+                    }
+                    if (costName && costName !== 'filter by Cost') {
+                      const filterClanItems = filter(
+                        clanItemsList,
+                        o => get(o, 'meritCost') === costName,
+                      );
+                      setSelectedClanItemsList(filterClanItems);
+                    }
+                    if (
+                      disc === 'filter by Clan' &&
+                      costName === 'filter by Cost'
+                    ) {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
