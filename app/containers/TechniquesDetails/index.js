@@ -117,10 +117,18 @@ export function ClanPage(props) {
   function handleChangeFilter(item) {
     setBook(item);
     setSelectedClanItemsList(clanItemsList);
-    const filterClanItems = filter(
+    let filterClanItems = filter(
       clanItems,
       o => get(o, 'sourceBook_html.fields.bookTitle') === item,
     );
+    if (disc && disc !== 'filter by discipline') {
+      filterClanItems = filter(filterClanItems, o => {
+        if (includes(map(o.disciplines, item1 => item1.fields.power), disc)) {
+          return o;
+        }
+      });
+    }
+
     setSelectedClanItemsList(filterClanItems);
   }
 
@@ -144,14 +152,12 @@ export function ClanPage(props) {
         return o;
       }
     });
-    console.log(book);
     if (book && book !== 'filter by source book') {
       filterDisc = filter(
         filterDisc,
         o => get(o, 'sourceBook_html.fields.bookTitle') === book,
       );
     }
-    console.log(filterDisc);
     setSelectedClanItemsList(filterDisc);
   }
   return (
@@ -379,7 +385,16 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setDisc('filter by discipline');
-                    setSelectedClanItemsList(clanItems);
+                    if (book && book !== 'filter by source book') {
+                      const filterClanItems = filter(
+                        clanItems,
+                        o =>
+                          get(o, 'sourceBook_html.fields.bookTitle') === book,
+                      );
+                      setSelectedClanItemsList(filterClanItems);
+                    } else {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
@@ -392,14 +407,34 @@ export function ClanPage(props) {
                   onChange={handleChangeFilter}
                   value={book}
                 >
-                  <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
-                  <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
-                  <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option>
+                  <Option value="MET - VTM - Core Book">
+                    MET - VTM - Core Book
+                  </Option>
+                  <Option value="MET - VTM - V2 Issue 1">
+                    MET - VTM - V2 Issue 1
+                  </Option>
+                  <Option value="MET - VTM - V2 (2021)">
+                    MET - VTM - V2 (2021)
+                  </Option>
                 </Select>
                 <Button
                   onClick={() => {
                     setBook('filter by source book');
-                    setSelectedClanItemsList(clanItems);
+                    if (disc && disc !== 'filter by discipline') {
+                      const filterClanItems = filter(clanItems, o => {
+                        if (
+                          includes(
+                            map(o.disciplines, item1 => item1.fields.power),
+                            disc,
+                          )
+                        ) {
+                          return o;
+                        }
+                      });
+                      setSelectedClanItemsList(filterClanItems);
+                    } else {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
