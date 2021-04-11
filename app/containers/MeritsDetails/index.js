@@ -359,7 +359,7 @@ export function ClanPage(props) {
                 )}
               </p>
               <p>
-                {!isEmpty(get(selectedClan, 'focus')) ? (
+                {!isEmpty(get(selectedClan, 'sourceBook')) ? (
                   <p>
                     <h2>SOURCE BOOK</h2>
                     {!isEmpty(get(selectedClan, 'sourceBook')) ? (
@@ -621,8 +621,8 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by Cost');
+                    let filterClanItems = [];
                     if (disc && disc !== 'filter by Clan') {
-                      let filterClanItems = [];
                       if (
                         includes(
                           [
@@ -660,9 +660,8 @@ export function ClanPage(props) {
                       setSelectedClanItemsList(filterClanItems);
                     }
                     if (book && book !== 'filter by source book') {
-                      let filterClanItems = [];
                       filterClanItems = filter(
-                        clanItems,
+                        isEmpty(filterClanItems) ? clanItems : filterClanItems,
                         o =>
                           get(o, 'sourceBook_html.fields.bookTitle') === book,
                       );
