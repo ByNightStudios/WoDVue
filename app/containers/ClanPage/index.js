@@ -89,7 +89,7 @@ export function ClanPage(props) {
   function handleChangeFilter(item) {
     setSelectedClanItemsList(clanItems);
     const filterClanItems = filter(
-      clanItemsList,
+      clanItems,
       o => o.sourceBooks[0].fields.bookTitle === item,
     );
     setSelectedClanItemsList(filterClanItems);
@@ -498,7 +498,6 @@ export function ClanPage(props) {
                   onChange={handleChangeFilter}
                 >
                    <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
-                  <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
                   <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option>
                 </Select>
                 <Button onClick={() => setSelectedClanItemsList(clanItems)}>
