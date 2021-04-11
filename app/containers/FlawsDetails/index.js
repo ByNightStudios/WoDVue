@@ -241,7 +241,7 @@ export function ClanPage(props) {
           disc,
         )
       ) {
-        let filterClans1 = filter(clanItems, o =>
+        let filterClans1 = filter(filterClanItems, o =>
           includes(get(o, 'clanFlaw'), disc),
         );
         if (book && book !== 'filter by source book') {
