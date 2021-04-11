@@ -698,8 +698,8 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setBook('filter by source book');
+                    let filterClanItems = [];
                     if (disc && disc !== 'filter by Clan') {
-                      let filterClanItems = [];
                       if (
                         includes(
                           [
@@ -737,8 +737,8 @@ export function ClanPage(props) {
                       setSelectedClanItemsList(filterClanItems);
                     }
                     if (costName && costName !== 'filter by Cost') {
-                      const filterClanItems = filter(
-                        clanItemsList,
+                      filterClanItems = filter(
+                        isEmpty(filterClanItems) ? clanItemsList: filterClanItems,
                         o => get(o, 'meritCost') === costName,
                       );
                       setSelectedClanItemsList(filterClanItems);
