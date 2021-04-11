@@ -181,11 +181,17 @@ export function ClanPage(props) {
 
   function handleSelectOnLevel(type) {
     setCost(type);
-    const groupByDataType = filter(
-      clanItems,
-      o => o.level === type && o[`${disc}`],
-    );
-    setClanItemList(groupByDataType);
+    let filterClanItems = filter(clanItems, o => o.level === type);
+    if (book && book !== 'filter by source book')
+      filterClanItems = filter(
+        filterClanItems,
+        o => get(o, 'sourceBook_html[0].fields.bookTitle') === book,
+      );
+
+    if (disc && disc !== 'filter by type') {
+      filterClanItems = filter(filterClanItems, o => o[`${disc}`]);
+    }
+    setClanItemList(filterClanItems);
   }
 
   const sourceBook = map(clanItems, item =>
@@ -196,7 +202,6 @@ export function ClanPage(props) {
 
   function handleChangeFilter(item) {
     setBook(item);
-    setClanItemList(clanItems);
     let filterClanItems = filter(
       clanItems,
       o => get(o, 'sourceBook_html[0].fields.bookTitle') === item,
@@ -483,8 +488,31 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setDisc('filter by type');
-                    // handleChangeFilter(book);
-                    // handleSelectOnLevel(costName);
+                    let groupByDataType = [];
+
+                    if (book && book !== 'filter by source book') {
+                      groupByDataType = filter(
+                        clanItemsList,
+                        o =>
+                          get(o, 'sourceBook_html[0].fields.bookTitle') ===
+                          book,
+                      );
+                    }
+
+                    if (costName && costName !== 'filter by level') {
+                      groupByDataType = filter(
+                        clanItemsList,
+                        o => o.level === costName,
+                      );
+                    }
+
+                    setClanItemList(groupByDataType);
+                    if (
+                      costName === 'filter by level' &&
+                      book === 'filter by source book'
+                    ) {
+                      setClanItemList(clanItems);
+                    }
                   }}
                 >
                   Reset
@@ -503,6 +531,7 @@ export function ClanPage(props) {
                       .indexOf(input.toLowerCase()) >= 0
                   }
                   filterSort={(optionA, optionB) =>
+                    optionA &&
                     optionA.children
                       .toLowerCase()
                       .localeCompare(optionB.children.toLowerCase())
@@ -518,6 +547,29 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by level');
+
+                    let groupByDataType = [];
+
+                    if (disc && disc !== 'filter by type') {
+                      groupByDataType = filter(clanItems, o => o[`${disc}`]);
+                    }
+
+                    if (book && book !== 'filter by source book') {
+                      groupByDataType = filter(
+                        groupByDataType,
+                        o =>
+                          get(o, 'sourceBook_html[0].fields.bookTitle') ===
+                          book,
+                      );
+                    }
+
+                    setClanItemList(groupByDataType);
+                    if (
+                      disc === 'filter by type' &&
+                      book === 'filter by source book'
+                    ) {
+                      setClanItemList(clanItems);
+                    }
                     // handleChangeFilter(book);
                     // handleSelectOnType(disc);
                   }}
@@ -553,8 +605,24 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setBook('filter by source book');
-                    // handleSelectOnLevel(costName);
-                    // handleSelectOnType(disc);
+
+                    let groupByDataType = [];
+                    if (disc && disc !== 'filter by type') {
+                      groupByDataType = filter(clanItems, o => o[`${disc}`]);
+                    }
+                    if (costName && costName !== 'filter by level') {
+                      groupByDataType = filter(
+                        groupByDataType,
+                        o => o.level === costName,
+                      );
+                    }
+                    setClanItemList(groupByDataType);
+                    if (
+                      disc === 'filter by type' &&
+                      costName === 'filter by level'
+                    ) {
+                      setClanItemList(clanItems);
+                    }
                   }}
                 >
                   Reset
