@@ -581,7 +581,6 @@ export function ClanPage(props) {
                                     if (index === powerClanIndex) {
                                       setPowenClanIndex(-1);
                                     } else {
-                                      setPowenClanIndex(index);
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );
@@ -599,6 +598,7 @@ export function ClanPage(props) {
                                         top: offsetPosition,
                                         behavior: 'smooth',
                                       });
+                                      setPowenClanIndex(index);
                                     }
                                   }}
                                 >
