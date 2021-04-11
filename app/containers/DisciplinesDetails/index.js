@@ -580,7 +580,6 @@ export function ClanPage(props) {
                                   onClick={() => {
                                     if (index === powerClanIndex) {
                                       setPowenClanIndex(-1);
-                                    } else {
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );
@@ -598,6 +597,7 @@ export function ClanPage(props) {
                                         top: offsetPosition,
                                         behavior: 'smooth',
                                       });
+                                    } else {
                                       setPowenClanIndex(index);
                                     }
                                   }}

@@ -119,7 +119,7 @@ export function ClanPage(props) {
 
   const uniqSourceBook = without(uniq(sourceBook), '');
 
-  const cost = map(clanItemsList, item => get(item, 'meritCost', ''));
+  const cost = map(clanItems, item => get(item, 'meritCost', ''));
 
   const uniqCost = without(uniq(cost), '').sort();
 
@@ -162,11 +162,7 @@ export function ClanPage(props) {
 
   function handleFilterCostType(item) {
     setCost(item);
-    setSelectedClanItemsList(clanItems);
-    let filterClanItems = filter(
-      clanItemsList,
-      o => get(o, 'meritCost') === item,
-    );
+    let filterClanItems = filter(clanItems, o => get(o, 'meritCost') === item);
     if (disc && disc !== 'filter by Clan') {
       if (
         includes(
