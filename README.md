@@ -1,5 +1,9 @@
 # Built using [react-boilerplate](https://github.com/react-boilerplate/react-boilerplate)
 
+[![s3-deploy-staging](https://github.com/ByNightStudios/WoDVue/actions/workflows/develop.yml/badge.svg)](https://github.com/ByNightStudios/WoDVue/actions/workflows/develop.yml)
+
+[![s3-deploy-production](https://github.com/ByNightStudios/WoDVue/actions/workflows/master.yml/badge.svg)](https://github.com/ByNightStudios/WoDVue/actions/workflows/master.yml)
+
 ### To run
 `npm run start`
 
