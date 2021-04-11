@@ -573,7 +573,7 @@ export function ClanPage(props) {
                       filterClanItems = filter(
                         clanItems,
                         o =>
-                          get(o, 'sourceBook_html.fields.bookTitle') === book && get(o, 'meritCost') === costName,
+                          get(o, 'sourceBook_html.fields.bookTitle') === book,
                       );
                     }
                     if (costName && costName !== 'filter by Cost') {
