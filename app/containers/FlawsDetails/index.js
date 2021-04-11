@@ -216,11 +216,45 @@ export function ClanPage(props) {
 
   function handleFilterCostType(item) {
     setCost(item);
-    const filterClanItems = filter(
-      clanItemsList,
-      o => get(o, 'flawCost') === item,
-    );
-    setSelectedClanItemsList(filterClanItems);
+    const filterClanItems = filter(clanItems, o => get(o, 'flawCost') === item);
+    if (disc && disc !== 'filter by Clan') {
+      if (
+        includes(
+          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+          disc,
+        )
+      ) {
+        let filterClans2 = filter(filterClanItems, o =>
+          includes(get(o, 'flawType[0]'), disc),
+        );
+        if (book && book !== 'filter by source book') {
+          filterClans2 = filter(
+            filterClans2,
+            o => get(o, 'sourceBook_html.fields.bookTitle') === book,
+          );
+        }
+        setSelectedClanItemsList(filterClans2);
+      }
+      if (
+        !includes(
+          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
+          disc,
+        )
+      ) {
+        let filterClans1 = filter(clanItems, o =>
+          includes(get(o, 'clanFlaw'), disc),
+        );
+        if (book && book !== 'filter by source book') {
+          filterClans1 = filter(
+            filterClans1,
+            o => get(o, 'sourceBook_html.fields.bookTitle') === book,
+          );
+        }
+        setSelectedClanItemsList(filterClans1);
+      }
+    } else {
+      setSelectedClanItemsList(filterClanItems);
+    }
   }
 
   return (
@@ -532,6 +566,12 @@ export function ClanPage(props) {
 
                     let filterClans2 = [];
 
+                    if (costName && costName !== 'filter by Cost') {
+                      filterClans2 = filter(
+                        clanItems,
+                        o => get(o, 'flawCost') === costName,
+                      );
+                    }
                     if (book && book !== 'filter by source book') {
                       filterClans2 = filter(
                         filterClans2,
@@ -578,6 +618,7 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by Cost');
+                    console.log(disc);
                     if (disc && disc !== 'filter by Clan') {
                       if (
                         includes(
@@ -603,6 +644,7 @@ export function ClanPage(props) {
                               book,
                           );
                         }
+                        console.log('hello');
                         setSelectedClanItemsList(filterClans2);
                       }
                       if (

@@ -9898,8 +9898,8 @@ a.text-dark:hover, a.text-dark:focus {
   content: ""; }
 
 body {
-  background-image: url(../images/bgTop.jpg), url(../images/bgBottom.jpg);
-  background-position: top center, bottom 336px center;
+  background-image: url(../images/bgTop.jpg);
+  background-position: top center, bottom 200px center;
   /* this positions the second image */
   background-repeat: no-repeat;
   /* this applies to both images */ }
