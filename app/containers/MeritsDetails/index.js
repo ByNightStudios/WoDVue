@@ -568,22 +568,21 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setDisc('filter by Clan');
+                    let filterClanItems = [];
                     if (book && book !== 'filter by source book') {
-                      let filterClanItems = [];
                       filterClanItems = filter(
-                        clanItemsList,
+                        clanItems,
                         o =>
-                          get(o, 'sourceBook_html.fields.bookTitle') === book,
+                          get(o, 'sourceBook_html.fields.bookTitle') === book && get(o, 'meritCost') === costName,
                       );
-                      setSelectedClanItemsList(filterClanItems);
                     }
                     if (costName && costName !== 'filter by Cost') {
-                      const filterClanItems = filter(
-                        clanItemsList,
+                      filterClanItems = filter(
+                        isEmpty(filterClanItems) ? clanItems : filterClanItems,
                         o => get(o, 'meritCost') === costName,
                       );
-                      setSelectedClanItemsList(filterClanItems);
                     }
+                    setSelectedClanItemsList(filterClanItems);
                     if (
                       costName === 'filter by Cost' &&
                       book === 'filter by source book'
@@ -663,7 +662,7 @@ export function ClanPage(props) {
                     if (book && book !== 'filter by source book') {
                       let filterClanItems = [];
                       filterClanItems = filter(
-                        clanItemsList,
+                        clanItems,
                         o =>
                           get(o, 'sourceBook_html.fields.bookTitle') === book,
                       );

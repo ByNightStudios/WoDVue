@@ -125,12 +125,42 @@ export function ClanPage(props) {
 
   function handleChangeFilter(item) {
     setBook(item);
-    setSelectedClanItemsList(clanItemsList);
     const filterClanItems = filter(
-      clanItemsList,
+      clanItems,
       o => get(o, 'sourceBook_html.fields.bookTitle') === item,
     );
-    setSelectedClanItemsList(filterClanItems);
+    if (disc && disc !== 'filter by Clan') {
+      if (
+        includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], disc)
+      ) {
+        let filterClans2 = filter(filterClanItems, o =>
+          includes(get(o, 'flawType[0]'), disc),
+        );
+        if (costName && costName !== 'filter by Cost') {
+          filterClans2 = filter(
+            filterClans2,
+            o => get(o, 'flawCost') === costName,
+          );
+        }
+        setSelectedClanItemsList(filterClans2);
+      }
+      if (
+        !includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], disc)
+      ) {
+        let filterClans1 = filter(filterClanItems, o =>
+          includes(get(o, 'clanFlaw'), disc),
+        );
+        if (costName && costName !== 'filter by Cost') {
+          filterClans1 = filter(
+            filterClans1,
+            o => get(o, 'flawCost') === costName,
+          );
+        }
+        setSelectedClanItemsList(filterClans1);
+      }
+    } else {
+      setSelectedClanItemsList(filterClanItems);
+    }
   }
 
   const clanNames = uniq(
@@ -155,7 +185,7 @@ export function ClanPage(props) {
   const clanItemsDataOfFlaws = [];
 
   const filterList = concat(
-    ['General', 'Anarch', 'Camarilla', 'Sabbat', 'Morality'],
+    ['General', 'Anarch', 'Camarilla', 'Sabbat'],
     meritClanNames,
   );
 
@@ -165,12 +195,7 @@ export function ClanPage(props) {
     // if (book && book !== 'filter by source book') {
     //   setBook(book);
     // }
-    if (
-      includes(
-        ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
-        type,
-      )
-    ) {
+    if (includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
       let filterClans2 = filter(clanItems, o =>
         includes(get(o, 'flawType[0]'), type),
       );
@@ -189,12 +214,7 @@ export function ClanPage(props) {
       }
       setSelectedClanItemsList(filterClans2);
     }
-    if (
-      !includes(
-        ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
-        type,
-      )
-    ) {
+    if (!includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], type)) {
       let filterClans1 = filter(clanItems, o =>
         includes(get(o, 'clanFlaw'), type),
       );
@@ -219,10 +239,7 @@ export function ClanPage(props) {
     const filterClanItems = filter(clanItems, o => get(o, 'flawCost') === item);
     if (disc && disc !== 'filter by Clan') {
       if (
-        includes(
-          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
-          disc,
-        )
+        includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], disc)
       ) {
         let filterClans2 = filter(filterClanItems, o =>
           includes(get(o, 'flawType[0]'), disc),
@@ -236,10 +253,7 @@ export function ClanPage(props) {
         setSelectedClanItemsList(filterClans2);
       }
       if (
-        !includes(
-          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
-          disc,
-        )
+        !includes(['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'], disc)
       ) {
         let filterClans1 = filter(filterClanItems, o =>
           includes(get(o, 'clanFlaw'), disc),
@@ -574,7 +588,7 @@ export function ClanPage(props) {
                     }
                     if (book && book !== 'filter by source book') {
                       filterClans2 = filter(
-                        filterClans2,
+                        isEmpty(filterClans2) ? clanItems : filterClans,
                         o =>
                           get(o, 'sourceBook_html.fields.bookTitle') === book,
                       );
@@ -622,14 +636,7 @@ export function ClanPage(props) {
                     if (disc && disc !== 'filter by Clan') {
                       if (
                         includes(
-                          [
-                            'Anarch',
-                            'Camarilla',
-                            'Clan',
-                            'General',
-                            'Sabbat',
-                            'Morality',
-                          ],
+                          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'],
                           disc,
                         )
                       ) {
@@ -649,14 +656,7 @@ export function ClanPage(props) {
                       }
                       if (
                         !includes(
-                          [
-                            'Anarch',
-                            'Camarilla',
-                            'Clan',
-                            'General',
-                            'Sabbat',
-                            'Morality',
-                          ],
+                          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'],
                           disc,
                         )
                       ) {
@@ -695,9 +695,6 @@ export function ClanPage(props) {
                   <Option value="MET - VTM - Core Book">
                     MET - VTM - Core Book
                   </Option>
-                  <Option value="MET - VTM - V2 Issue 1">
-                    MET - VTM - V2 Issue 1
-                  </Option>
                   <Option value="MET - VTM - V2 (2021)">
                     MET - VTM - V2 (2021)
                   </Option>
@@ -708,14 +705,7 @@ export function ClanPage(props) {
                     if (disc && disc !== 'filter by Clan') {
                       if (
                         includes(
-                          [
-                            'Anarch',
-                            'Camarilla',
-                            'Clan',
-                            'General',
-                            'Sabbat',
-                            'Morality',
-                          ],
+                          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'],
                           disc,
                         )
                       ) {
@@ -732,14 +722,7 @@ export function ClanPage(props) {
                       }
                       if (
                         !includes(
-                          [
-                            'Anarch',
-                            'Camarilla',
-                            'Clan',
-                            'General',
-                            'Sabbat',
-                            'Morality',
-                          ],
+                          ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat'],
                           disc,
                         )
                       ) {
