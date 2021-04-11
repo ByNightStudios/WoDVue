@@ -588,7 +588,7 @@ export function ClanPage(props) {
                                       element.scrollIntoView({
                                         behavior: 'smooth',
                                         block: 'start',
-                                        inline: '',
+                                        inline: 'end',
                                       });
                                     }
                                   }}
