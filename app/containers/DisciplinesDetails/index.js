@@ -585,10 +585,19 @@ export function ClanPage(props) {
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );
-                                      element.scrollIntoView({
+                                      const offset = 25;
+                                      const bodyRect = document.body.getBoundingClientRect()
+                                        .top;
+                                      const elementRect = element.getBoundingClientRect()
+                                        .top;
+                                      const elementPosition =
+                                        elementRect - bodyRect;
+                                      const offsetPosition =
+                                        elementPosition - offset;
+
+                                      window.scrollTo({
+                                        top: offsetPosition,
                                         behavior: 'smooth',
-                                        block: 'start',
-                                        inline: 'end',
                                       });
                                     }
                                   }}
@@ -920,7 +929,9 @@ export function ClanPage(props) {
                 </Button>
               </Row>
               <ul className="nav flex-column nav-clans">
-                <Typography.Title level={3}>Disciplines</Typography.Title>
+                <Typography.Title level={3} style={{ marginBottom: '-30px' }}>
+                  Disciplines
+                </Typography.Title>
                 {map(filterClansByReduce, (items, index) => (
                   <ul key={index}>
                     <Typography.Title
