@@ -216,8 +216,10 @@ export function ClanPage(props) {
 
   function handleFilterCostType(item) {
     setCost(item);
-    setSelectedClanItemsList(clanItems);
-    const filterClanItems = filter(clanItems, o => get(o, 'flawCost') === item);
+    const filterClanItems = filter(
+      clanItemsList,
+      o => get(o, 'flawCost') === item,
+    );
     setSelectedClanItemsList(filterClanItems);
   }
 
@@ -526,7 +528,24 @@ export function ClanPage(props) {
                 </Select>
                 <Button
                   onClick={() => {
-                    setDisc('filter by clan');
+                    setDisc('filter by Clan');
+
+                    let filterClans2 = [];
+
+                    if (book && book !== 'filter by source book') {
+                      filterClans2 = filter(
+                        filterClans2,
+                        o =>
+                          get(o, 'sourceBook_html.fields.bookTitle') === book,
+                      );
+                    }
+                    setSelectedClanItemsList(filterClans2);
+                    if (
+                      costName === 'filter by Cost' &&
+                      book === 'filter by source book'
+                    ) {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
@@ -559,6 +578,66 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by Cost');
+                    if (disc && disc !== 'filter by Clan') {
+                      if (
+                        includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        let filterClans2 = filter(clanItems, o =>
+                          includes(get(o, 'flawType[0]'), disc),
+                        );
+                        if (book && book !== 'filter by source book') {
+                          filterClans2 = filter(
+                            filterClans2,
+                            o =>
+                              get(o, 'sourceBook_html.fields.bookTitle') ===
+                              book,
+                          );
+                        }
+                        setSelectedClanItemsList(filterClans2);
+                      }
+                      if (
+                        !includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        let filterClans1 = filter(clanItems, o =>
+                          includes(get(o, 'clanFlaw'), disc),
+                        );
+                        if (book && book !== 'filter by source book') {
+                          filterClans1 = filter(
+                            filterClans1,
+                            o =>
+                              get(o, 'sourceBook_html.fields.bookTitle') ===
+                              book,
+                          );
+                        }
+                        setSelectedClanItemsList(filterClans1);
+                      }
+                    }
+                    if (
+                      disc === 'filter by Clan' &&
+                      book === 'filter by source book'
+                    ) {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
@@ -584,6 +663,62 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setBook('filter by source book');
+                    if (disc && disc !== 'filter by Clan') {
+                      if (
+                        includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        let filterClans2 = filter(clanItems, o =>
+                          includes(get(o, 'flawType[0]'), disc),
+                        );
+                        if (costName && costName !== 'filter by Cost') {
+                          filterClans2 = filter(
+                            filterClans2,
+                            o => get(o, 'flawCost') === costName,
+                          );
+                        }
+                        setSelectedClanItemsList(filterClans2);
+                      }
+                      if (
+                        !includes(
+                          [
+                            'Anarch',
+                            'Camarilla',
+                            'Clan',
+                            'General',
+                            'Sabbat',
+                            'Morality',
+                          ],
+                          disc,
+                        )
+                      ) {
+                        let filterClans1 = filter(clanItems, o =>
+                          includes(get(o, 'clanFlaw'), disc),
+                        );
+                        if (costName && costName !== 'filter by Cost') {
+                          filterClans1 = filter(
+                            filterClans1,
+                            o => get(o, 'flawCost') === costName,
+                          );
+                        }
+                        setSelectedClanItemsList(filterClans1);
+                      }
+                    }
+                    if (
+                      disc === 'filter by Clan' &&
+                      costName === 'filter by Cost'
+                    ) {
+                      setSelectedClanItemsList(clanItems);
+                    }
                   }}
                 >
                   Reset
