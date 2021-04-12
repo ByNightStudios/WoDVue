@@ -492,7 +492,7 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-              {/* <Row type="flex">
+              <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
@@ -504,7 +504,7 @@ export function ClanPage(props) {
                 <Button onClick={() => setSelectedClanItemsList(clanItems)}>
                   Reset
                 </Button>
-              </Row> */}
+              </Row>
 
               <h3>CLANS & BLOODLINES</h3>
               <ul className="nav flex-column nav-clans">
