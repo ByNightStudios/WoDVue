@@ -26,6 +26,7 @@ import {
   replace,
 } from 'lodash';
 import history from 'utils/history';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 import { Typography, Select, Row, Button } from 'antd';
@@ -216,6 +217,7 @@ export function ClanPage(props) {
     setClanItemList(filterClanItems);
   }
 
+  console.log(selectedClan);
   return (
     <div className="clan-page">
       <Helmet>
@@ -279,9 +281,14 @@ export function ClanPage(props) {
                 {!isEmpty(get(selectedClan, 'summary')) ? (
                   <div>
                     <h2>SUMMARY</h2>
-                    {map(get(selectedClan, 'summary'), item => (
-                      <p>{item}</p>
-                    ))}
+                    <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        selectedClan.summary_html,
+                      ),
+                    }}
+                  />
                   </div>
                 ) : (
                   <div />
@@ -299,9 +306,14 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'description')) ? (
                 <div>
                   <h2>DESCRIPTION</h2>
-                  {map(get(selectedClan, 'description'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        selectedClan.description_html,
+                      ),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
@@ -310,9 +322,14 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'system')) ? (
                 <div>
                   <h2>SYSTEM</h2>
-                  {map(get(selectedClan, 'system'), item => (
-                    <p>{item}</p>
-                  ))}
+                  <div
+                    /* eslint-disable-next-line react/no-danger */
+                    dangerouslySetInnerHTML={{
+                      __html: documentToHtmlString(
+                        selectedClan.system_html,
+                      ),
+                    }}
+                  />
                 </div>
               ) : (
                 <div />
