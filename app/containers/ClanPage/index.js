@@ -52,6 +52,7 @@ export function ClanPage(props) {
 
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
   const [selectedClan, setSelectedClan] = useState('');
+  const [bookName, setBookName] = useState('filter by source book');
 
   const { app } = props;
 
@@ -74,9 +75,7 @@ export function ClanPage(props) {
     setSelectedClan(findClanData);
   }, [props]);
 
-  useEffect(() => {
-
-  }, [match]);
+  useEffect(() => {}, [match]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -87,7 +86,7 @@ export function ClanPage(props) {
   }
 
   function handleChangeFilter(item) {
-    setSelectedClanItemsList(clanItems);
+    setBookName(item);
     const filterClanItems = filter(
       clanItems,
       o => o.sourceBooks[0].fields.bookTitle === item,
@@ -492,19 +491,29 @@ export function ClanPage(props) {
               </ul>
             </div>
             <div className="boxWhite">
-              {/* <Row type="flex">
+              <Row type="flex">
                 <Select
                   style={{ width: '70%', marginBottom: 10, color: 'black' }}
                   placeholder="filter by source book"
                   onChange={handleChangeFilter}
+                  value={bookName}
                 >
-                   <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
-                  <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option>
+                  <Option value="MET - VTM - Core Book">
+                    MET - VTM - Core Book
+                  </Option>
+                  <Option value="MET - VTM - V2 (2021)">
+                    MET - VTM - V2 (2021)
+                  </Option>
                 </Select>
-                <Button onClick={() => setSelectedClanItemsList(clanItems)}>
+                <Button
+                  onClick={() => {
+                    setBookName('filter by source book');
+                    setSelectedClanItemsList(clanItems);
+                  }}
+                >
                   Reset
                 </Button>
-              </Row> */}
+              </Row>
 
               <h3>CLANS & BLOODLINES</h3>
               <ul className="nav flex-column nav-clans">
