@@ -112,7 +112,6 @@ export function ClanPage(props) {
 
   const uniqSourceBook = uniq(sourceBook);
 
-  console.log(clanItems);
   return (
     <div className="clan-page">
       <Helmet>

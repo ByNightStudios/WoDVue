@@ -217,7 +217,6 @@ export function ClanPage(props) {
     setClanItemList(filterClanItems);
   }
 
-  console.log(selectedClan);
   return (
     <div className="clan-page">
       <Helmet>
@@ -282,13 +281,11 @@ export function ClanPage(props) {
                   <div>
                     <h2>SUMMARY</h2>
                     <div
-                    /* eslint-disable-next-line react/no-danger */
-                    dangerouslySetInnerHTML={{
-                      __html: documentToHtmlString(
-                        selectedClan.summary_html,
-                      ),
-                    }}
-                  />
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(selectedClan.summary_html),
+                      }}
+                    />
                   </div>
                 ) : (
                   <div />
@@ -325,9 +322,7 @@ export function ClanPage(props) {
                   <div
                     /* eslint-disable-next-line react/no-danger */
                     dangerouslySetInnerHTML={{
-                      __html: documentToHtmlString(
-                        selectedClan.system_html,
-                      ),
+                      __html: documentToHtmlString(selectedClan.system_html),
                     }}
                   />
                 </div>

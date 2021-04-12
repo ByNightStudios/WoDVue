@@ -632,7 +632,7 @@ export function ClanPage(props) {
                 <Button
                   onClick={() => {
                     setCost('filter by Cost');
-                    console.log(disc);
+
                     if (disc && disc !== 'filter by Clan') {
                       if (
                         includes(
@@ -651,7 +651,6 @@ export function ClanPage(props) {
                               book,
                           );
                         }
-                        console.log('hello');
                         setSelectedClanItemsList(filterClans2);
                       }
                       if (

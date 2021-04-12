@@ -738,7 +738,9 @@ export function ClanPage(props) {
                     }
                     if (costName && costName !== 'filter by Cost') {
                       filterClanItems = filter(
-                        isEmpty(filterClanItems) ? clanItemsList: filterClanItems,
+                        isEmpty(filterClanItems)
+                          ? clanItemsList
+                          : filterClanItems,
                         o => get(o, 'meritCost') === costName,
                       );
                       setSelectedClanItemsList(filterClanItems);

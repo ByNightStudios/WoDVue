@@ -36,6 +36,7 @@ export function Disciplines(props) {
     rituals: { data },
   } = app;
 
+
   useEffect(() => {
     setDisciplineData(data);
   }, [data]);
