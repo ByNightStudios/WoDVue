@@ -54,6 +54,7 @@ export function ClanPage(props) {
 
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setClanItemList] = useState([]);
+  
   const [disc, setDisc] = useState('filter by type');
   const [costName, setCost] = useState('filter by level');
   const [book, setBook] = useState('filter by source book');
@@ -222,7 +223,7 @@ export function ClanPage(props) {
       <Helmet>
         <title>
           {`
-          World of Darkness - MET - Vampire - Rituals -{' '}
+          World of Darkness - MET - Vampire - Rituals -
           ${get(selectedClan, 'title', '')}`}
         </title>
         <meta name="description" content="Description of Merits" />
