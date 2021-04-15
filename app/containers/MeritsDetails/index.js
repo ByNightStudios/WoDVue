@@ -535,12 +535,13 @@ export function ClanPage(props) {
                 >
                   <Select.Option value="General">General</Select.Option>
                   <Select.Option value="Anarch">Anarch</Select.Option>
-                  <Select.Option value="Brujah">Brujah</Select.Option>
+                 
                   <Select.Option value="Camarilla">Camarilla</Select.Option>
                   <Select.Option value="Sabbat">Sabbat</Select.Option>
                   <Select.Option value="Morality">Morality</Select.Option>
                   <Select.Option value="Assamite">Assamite</Select.Option>
                   <Select.Option value="Baali">Baali</Select.Option>
+                  <Select.Option value="Brujah">Brujah</Select.Option>
                   <Select.Option value="Caitiff">Caitiff</Select.Option>
                   <Select.Option value="Cappadocians">
                     Cappadocians
