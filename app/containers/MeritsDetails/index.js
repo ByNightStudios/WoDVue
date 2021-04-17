@@ -535,7 +535,7 @@ export function ClanPage(props) {
                 >
                   <Select.Option value="General">General</Select.Option>
                   <Select.Option value="Anarch">Anarch</Select.Option>
-                 
+
                   <Select.Option value="Camarilla">Camarilla</Select.Option>
                   <Select.Option value="Sabbat">Sabbat</Select.Option>
                   <Select.Option value="Morality">Morality</Select.Option>
@@ -759,7 +759,7 @@ export function ClanPage(props) {
                 </Button>
               </Row>
               <h3>MERITS</h3>
-              <ul className="nav flex-column nav-clans">
+              <ul className="flex-column nav-clans">
                 {map(clanItemsList, (items, index) => (
                   <li
                     className="nav-item"

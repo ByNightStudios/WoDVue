@@ -95,10 +95,24 @@ export function ClanPage(props) {
   }
 
   function getSummaryHtml(html) {
+
     if (html) {
       const mappedHtml = {
         ...html,
-        content: slice(html.content, 1, html.content.length),
+        content: slice(html.content[0].content, 1, html.content[0].content.length),
+      };
+      return mappedHtml;
+    }
+    return false;
+  }
+
+
+  function getSummaryHtml_1(html) {
+
+    if (html) {
+      const mappedHtml = {
+        ...html,
+        content: slice(html.content[0].content, 0, 1),
       };
       return mappedHtml;
     }
@@ -111,6 +125,7 @@ export function ClanPage(props) {
 
   const uniqSourceBook = uniq(sourceBook);
 
+  console.log(selectedClan);
   return (
     <div className="clan-page">
       <Helmet>
@@ -174,11 +189,15 @@ export function ClanPage(props) {
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
                   <p>
-                    {get(
-                      selectedClan,
-                      'description[0]',
-                      'Legend says that the first few generations of vampires did not suffer the divisions of clan, and that they were capable of performing miracle-like feats. As progenitors passed the Embrace down to their childer, and from there, to more childer, the powers inherent in vampiric vitae grew weaker.',
-                    )}
+                  <div
+                  style={{ whiteSpace:'break-spaces'}}
+                  /* eslint-disable-next-line react/no-danger */
+                  dangerouslySetInnerHTML={{
+                    __html: documentToHtmlString(
+                      getSummaryHtml_1(get(selectedClan, 'description_html', '')),
+                    ),
+                  }}
+                />
                   </p>
                 </div>
               </div>
@@ -515,7 +534,7 @@ export function ClanPage(props) {
               </Row>
 
               <h3>CLANS & BLOODLINES</h3>
-              <ul className="nav flex-column nav-clans">
+              <ul className="flex-column nav-clans">
                 {map(clanItemsList, (items, index) => (
                   <li
                     className="nav-item"
