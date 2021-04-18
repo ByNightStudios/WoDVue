@@ -95,24 +95,21 @@ export function ClanPage(props) {
   }
 
   function getSummaryHtml(html) {
-
     if (html) {
       const mappedHtml = {
         ...html,
-        content: slice(html.content[0].content, 1, html.content[0].content.length),
+        content: slice(html.content, 1, html.content.length),
       };
       return mappedHtml;
     }
     return false;
   }
 
-
   function getSummaryHtml_1(html) {
-
     if (html) {
       const mappedHtml = {
         ...html,
-        content: slice(html.content[0].content, 0, 1),
+        content: slice(html.content, 0, 1),
       };
       return mappedHtml;
     }
@@ -189,15 +186,17 @@ export function ClanPage(props) {
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
                   <p>
-                  <div
-                  style={{ whiteSpace:'break-spaces'}}
-                  /* eslint-disable-next-line react/no-danger */
-                  dangerouslySetInnerHTML={{
-                    __html: documentToHtmlString(
-                      getSummaryHtml_1(get(selectedClan, 'description_html', '')),
-                    ),
-                  }}
-                />
+                    <div
+                      style={{ whiteSpace: 'break-spaces' }}
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(
+                          getSummaryHtml_1(
+                            get(selectedClan, 'description_html', ''),
+                          ),
+                        ),
+                      }}
+                    />
                   </p>
                 </div>
               </div>
@@ -211,6 +210,7 @@ export function ClanPage(props) {
 
               <p>
                 <div
+                 style={{ whiteSpace: 'break-spaces' }}
                   /* eslint-disable-next-line react/no-danger */
                   dangerouslySetInnerHTML={{
                     __html: documentToHtmlString(
