@@ -19,7 +19,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Typography, Select, Button } from 'antd';
 
-import { map, find, get, isEmpty, slice, uniq, filter } from 'lodash';
+import { map, find, get, isEmpty, slice, uniq, filter, orderBy } from 'lodash';
 
 import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -105,12 +105,30 @@ export function ClanPage(props) {
     return false;
   }
 
+  function getSummaryHtml_1(html) {
+    if (html) {
+      const mappedHtml = {
+        ...html,
+        content: slice(html.content, 0, 1),
+      };
+      return mappedHtml;
+    }
+    return false;
+  }
+
   const sourceBook = map(clanItems, item =>
     get(item, 'sourceBooks[0].fields.bookTitle', ''),
   );
 
   const uniqSourceBook = uniq(sourceBook);
 
+  function getSortedList(list) {
+    return orderBy(list, ['fields.meritCost'], ['asc']);
+  }
+
+  function getSortedFlawList(list) {
+    return orderBy(list, ['fields.flawCost'], ['asc']);
+  }
   return (
     <div className="clan-page">
       <Helmet>
@@ -174,11 +192,17 @@ export function ClanPage(props) {
                 </div>
                 <div className="col-lg-6 col-md-12 order-lg-1">
                   <p>
-                    {get(
-                      selectedClan,
-                      'description[0]',
-                      'Legend says that the first few generations of vampires did not suffer the divisions of clan, and that they were capable of performing miracle-like feats. As progenitors passed the Embrace down to their childer, and from there, to more childer, the powers inherent in vampiric vitae grew weaker.',
-                    )}
+                    <div
+                      style={{ whiteSpace: 'break-spaces' }}
+                      /* eslint-disable-next-line react/no-danger */
+                      dangerouslySetInnerHTML={{
+                        __html: documentToHtmlString(
+                          getSummaryHtml_1(
+                            get(selectedClan, 'description_html', ''),
+                          ),
+                        ),
+                      }}
+                    />
                   </p>
                 </div>
               </div>
@@ -192,6 +216,7 @@ export function ClanPage(props) {
 
               <p>
                 <div
+                  style={{ whiteSpace: 'break-spaces' }}
                   /* eslint-disable-next-line react/no-danger */
                   dangerouslySetInnerHTML={{
                     __html: documentToHtmlString(
@@ -282,20 +307,25 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'inClanMerits')) ? (
                 <p>
                   <h2>IN CLAN MERITS</h2>
-                  <Row>
-                    {map(get(selectedClan, 'inClanMerits', []), item => (
-                      <Link
-                        to={`/vampire/Merits/${item.fields.merit}`}
-                        className="anchorTag"
-                        style={{ marginRight: 10 }}
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                      >
-                        {item.fields.merit}
-                      </Link>
-                    ))}
-                  </Row>
+                  <ul>
+                    {map(
+                      getSortedList(get(selectedClan, 'inClanMerits', [])),
+                      item => (
+                        <li>
+                          <Link
+                            to={`/vampire/Merits/${item.fields.merit}`}
+                            className="anchorTag"
+                            style={{ marginRight: 10 }}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {item.fields.merit}&nbsp;({item.fields.meritCost})
+                          </Link>
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </p>
               ) : (
                 <div />
@@ -304,20 +334,25 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'flaws')) ? (
                 <p>
                   <h2>IN CLAN FLAWS</h2>
-                  <Row>
-                    {map(get(selectedClan, 'flaws', []), item => (
-                      <Link
-                        to={`/vampire/Flaws/${item.fields.flaw}`}
-                        className="anchorTag"
-                        style={{ marginRight: 10 }}
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                      >
-                        {item.fields.flaw}
-                      </Link>
-                    ))}
-                  </Row>
+                  <ul>
+                    {map(
+                      getSortedFlawList(get(selectedClan, 'flaws', [])),
+                      item => (
+                        <li>
+                          <Link
+                            to={`/vampire/Flaws/${item.fields.flaw}`}
+                            className="anchorTag"
+                            style={{ marginRight: 10 }}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {item.fields.flaw}&nbsp;({item.fields.flawCost})
+                          </Link>
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </p>
               ) : (
                 <div />

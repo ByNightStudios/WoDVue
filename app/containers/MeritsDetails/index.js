@@ -27,6 +27,7 @@ import {
   concat,
   includes,
   toLower,
+  split,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
@@ -123,6 +124,44 @@ export function ClanPage(props) {
 
   const uniqCost = without(uniq(cost), '').sort();
 
+  const bloodlinesList = map(clanItems, item => {
+    if (includes(item.merit, 'Bloodline')) {
+      return `${trim(split(item.merit, 'Bloodline:')[1])}-B`;
+    }
+  });
+
+  const withoutBloodlineList = without(bloodlinesList, undefined);
+
+  const clanItemsOfMap = [
+    'Assamite',
+    'Baali',
+    'Brujah',
+    'Caitiff',
+    'Cappadocians',
+    'Daughters of Cacophony',
+    'Followers of Set',
+    'Gangrel',
+    'Gargoyle',
+    'Giovanni',
+    'Lasombra',
+    'Lhiannan',
+    'Malkavian',
+    'Nagaraja',
+    'Nosferatu',
+    'Ravnos',
+    'Salubri',
+    'Toreador',
+    'Tremere',
+    'Tzimisce',
+    'Ventrue',
+  ];
+
+  const concatedListOfClanAndBloodLine = concat(
+    clanItemsOfMap,
+    withoutBloodlineList,
+  );
+  const sortedListOfClanAndBloodLine = concatedListOfClanAndBloodLine.sort();
+
   function handleChangeFilter(item) {
     setBook(item);
     let filterClanItems = filter(
@@ -146,9 +185,21 @@ export function ClanPage(props) {
           disc,
         )
       ) {
-        filterClanItems = filter(filterClanItems, o =>
-          includes(get(o, 'clanSpecific[0]'), disc),
-        );
+        if (includes(disc, '-B')) {
+          filterClanItems = filter(clanItems, o =>
+            includes(
+              trim(toLower(get(o, 'merit'))),
+              trim(toLower(renderClanName(disc))),
+            ),
+          );
+        } else {
+          filterClanItems = filter(clanItems, o =>
+            includes(
+              trim(toLower(get(o, 'clanSpecific[0]'))),
+              trim(toLower(disc)),
+            ),
+          );
+        }
       }
     }
     if (costName && costName !== 'filter by Cost') {
@@ -180,9 +231,21 @@ export function ClanPage(props) {
           disc,
         )
       ) {
-        filterClanItems = filter(filterClanItems, o =>
-          includes(get(o, 'clanSpecific[0]'), disc),
-        );
+        if (includes(disc, '-B')) {
+          filterClanItems = filter(clanItems, o =>
+            includes(
+              trim(toLower(get(o, 'merit'))),
+              trim(toLower(renderClanName(disc))),
+            ),
+          );
+        } else {
+          filterClanItems = filter(clanItems, o =>
+            includes(
+              trim(toLower(get(o, 'clanSpecific[0]'))),
+              trim(toLower(disc)),
+            ),
+          );
+        }
       }
     }
     if (book && book !== 'filter by source book') {
@@ -234,9 +297,23 @@ export function ClanPage(props) {
         type,
       )
     ) {
-      let filterClans1 = filter(clanItems, o =>
-        includes(trim(toLower(get(o, 'clanSpecific[0]'))), trim(toLower(type))),
-      );
+      let filterClans1 = [];
+      if (includes(type, '-B')) {
+        filterClans1 = filter(clanItems, o =>
+          includes(
+            trim(toLower(get(o, 'merit'))),
+            trim(toLower(renderClanName(type))),
+          ),
+        );
+      } else {
+        filterClans1 = filter(clanItems, o =>
+          includes(
+            trim(toLower(get(o, 'clanSpecific[0]'))),
+            trim(toLower(type)),
+          ),
+        );
+      }
+
       if (costName && costName !== 'filter by Cost') {
         filterClans1 = filter(
           filterClans1,
@@ -251,6 +328,13 @@ export function ClanPage(props) {
       }
       setSelectedClanItemsList(filterClans1);
     }
+  }
+
+  function renderClanName(item) {
+    if (includes(item, '-B')) {
+      return split(item, '-')[0];
+    }
+    return item;
   }
 
   return (
@@ -535,37 +619,12 @@ export function ClanPage(props) {
                 >
                   <Select.Option value="General">General</Select.Option>
                   <Select.Option value="Anarch">Anarch</Select.Option>
-                 
                   <Select.Option value="Camarilla">Camarilla</Select.Option>
                   <Select.Option value="Sabbat">Sabbat</Select.Option>
                   <Select.Option value="Morality">Morality</Select.Option>
-                  <Select.Option value="Assamite">Assamite</Select.Option>
-                  <Select.Option value="Baali">Baali</Select.Option>
-                  <Select.Option value="Brujah">Brujah</Select.Option>
-                  <Select.Option value="Caitiff">Caitiff</Select.Option>
-                  <Select.Option value="Cappadocians">
-                    Cappadocians
-                  </Select.Option>
-                  <Select.Option value="Daughters of Cacophony">
-                    Daughters of Cacophony
-                  </Select.Option>
-                  <Select.Option value="Followers of Set">
-                    Followers of Set
-                  </Select.Option>
-                  <Select.Option value="Gangrel">Gangrel</Select.Option>
-                  <Select.Option value="Gargoyle">Gargoyle</Select.Option>
-                  <Select.Option value="Giovanni">Giovanni</Select.Option>
-                  <Select.Option value="Lasombra">Lasombra</Select.Option>
-                  <Select.Option value="Lhiannan">Lhiannan</Select.Option>
-                  <Select.Option value="Malkavian">Malkavian</Select.Option>
-                  <Select.Option value="Nagaraja">Nagaraja</Select.Option>
-                  <Select.Option value="Nosferatu">Nosferatu</Select.Option>
-                  <Select.Option value="Ravnos">Ravnos</Select.Option>
-                  <Select.Option value="Salubri">Salubri</Select.Option>
-                  <Select.Option value="Toreador">Toreador</Select.Option>
-                  <Select.Option value="Tremere">Tremere</Select.Option>
-                  <Select.Option value="Tzimisce">Tzimisce</Select.Option>
-                  <Select.Option value="Ventrue">Ventrue</Select.Option>
+                  {map(sortedListOfClanAndBloodLine, item => (
+                    <Option value={item}>{renderClanName(item)}</Option>
+                  ))}
                 </Select>
                 <Button
                   onClick={() => {
@@ -655,9 +714,21 @@ export function ClanPage(props) {
                           disc,
                         )
                       ) {
-                        filterClanItems = filter(clanItems, o =>
-                          includes(get(o, 'clanSpecific[0]'), disc),
-                        );
+                        if (includes(disc, '-B')) {
+                          filterClanItems = filter(clanItems, o =>
+                            includes(
+                              trim(toLower(get(o, 'merit'))),
+                              trim(toLower(renderClanName(disc))),
+                            ),
+                          );
+                        } else {
+                          filterClanItems = filter(clanItems, o =>
+                            includes(
+                              trim(toLower(get(o, 'clanSpecific[0]'))),
+                              trim(toLower(disc)),
+                            ),
+                          );
+                        }
                       }
                       setSelectedClanItemsList(filterClanItems);
                     }
@@ -732,9 +803,21 @@ export function ClanPage(props) {
                           disc,
                         )
                       ) {
-                        filterClanItems = filter(clanItems, o =>
-                          includes(get(o, 'clanSpecific[0]'), disc),
-                        );
+                        if (includes(disc, '-B')) {
+                          filterClanItems = filter(clanItems, o =>
+                            includes(
+                              trim(toLower(get(o, 'merit'))),
+                              trim(toLower(renderClanName(disc))),
+                            ),
+                          );
+                        } else {
+                          filterClanItems = filter(clanItems, o =>
+                            includes(
+                              trim(toLower(get(o, 'clanSpecific[0]'))),
+                              trim(toLower(disc)),
+                            ),
+                          );
+                        }
                       }
                       setSelectedClanItemsList(filterClanItems);
                     }
