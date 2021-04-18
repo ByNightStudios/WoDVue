@@ -320,7 +320,7 @@ export function ClanPage(props) {
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >
-                            {item.fields.merit}({item.fields.meritCost})
+                            {item.fields.merit}&nbsp;({item.fields.meritCost})
                           </Link>
                         </li>
                       ),
@@ -347,7 +347,7 @@ export function ClanPage(props) {
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >
-                            {item.fields.flaw}({item.fields.flawCost})
+                            {item.fields.flaw}&nbsp;({item.fields.flawCost})
                           </Link>
                         </li>
                       ),
