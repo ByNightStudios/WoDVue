@@ -749,7 +749,7 @@ export function ClanPage(props) {
                 </Button>
               </Row>
               <h3>FLAWS</h3>
-              <ul className="flex-column nav-clans">
+              <ul className="nav flex-column nav-clans">
                 {map(clanItemsList, (items, index) => (
                   <li
                     className="nav-item"

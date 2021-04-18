@@ -19,7 +19,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Row, Typography, Select, Button } from 'antd';
 
-import { map, find, get, isEmpty, slice, uniq, filter } from 'lodash';
+import { map, find, get, isEmpty, slice, uniq, filter, orderBy } from 'lodash';
 
 import history from 'utils/history';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -122,7 +122,13 @@ export function ClanPage(props) {
 
   const uniqSourceBook = uniq(sourceBook);
 
-  console.log(selectedClan);
+  function getSortedList(list) {
+    return orderBy(list, ['fields.meritCost'], ['asc']);
+  }
+
+  function getSortedFlawList(list) {
+    return orderBy(list, ['fields.flawCost'], ['asc']);
+  }
   return (
     <div className="clan-page">
       <Helmet>
@@ -210,7 +216,7 @@ export function ClanPage(props) {
 
               <p>
                 <div
-                 style={{ whiteSpace: 'break-spaces' }}
+                  style={{ whiteSpace: 'break-spaces' }}
                   /* eslint-disable-next-line react/no-danger */
                   dangerouslySetInnerHTML={{
                     __html: documentToHtmlString(
@@ -301,20 +307,25 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'inClanMerits')) ? (
                 <p>
                   <h2>IN CLAN MERITS</h2>
-                  <Row>
-                    {map(get(selectedClan, 'inClanMerits', []), item => (
-                      <Link
-                        to={`/vampire/Merits/${item.fields.merit}`}
-                        className="anchorTag"
-                        style={{ marginRight: 10 }}
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                      >
-                        {item.fields.merit}
-                      </Link>
-                    ))}
-                  </Row>
+                  <ul>
+                    {map(
+                      getSortedList(get(selectedClan, 'inClanMerits', [])),
+                      item => (
+                        <li>
+                          <Link
+                            to={`/vampire/Merits/${item.fields.merit}`}
+                            className="anchorTag"
+                            style={{ marginRight: 10 }}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {item.fields.merit}({item.fields.meritCost})
+                          </Link>
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </p>
               ) : (
                 <div />
@@ -323,20 +334,25 @@ export function ClanPage(props) {
               {!isEmpty(get(selectedClan, 'flaws')) ? (
                 <p>
                   <h2>IN CLAN FLAWS</h2>
-                  <Row>
-                    {map(get(selectedClan, 'flaws', []), item => (
-                      <Link
-                        to={`/vampire/Flaws/${item.fields.flaw}`}
-                        className="anchorTag"
-                        style={{ marginRight: 10 }}
-                        onClick={() => {
-                          window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                      >
-                        {item.fields.flaw}
-                      </Link>
-                    ))}
-                  </Row>
+                  <ul>
+                    {map(
+                      getSortedFlawList(get(selectedClan, 'flaws', [])),
+                      item => (
+                        <li>
+                          <Link
+                            to={`/vampire/Flaws/${item.fields.flaw}`}
+                            className="anchorTag"
+                            style={{ marginRight: 10 }}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {item.fields.flaw}({item.fields.flawCost})
+                          </Link>
+                        </li>
+                      ),
+                    )}
+                  </ul>
                 </p>
               ) : (
                 <div />
@@ -534,7 +550,7 @@ export function ClanPage(props) {
               </Row>
 
               <h3>CLANS & BLOODLINES</h3>
-              <ul className="flex-column nav-clans">
+              <ul className="nav flex-column nav-clans">
                 {map(clanItemsList, (items, index) => (
                   <li
                     className="nav-item"
