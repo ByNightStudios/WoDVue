@@ -567,6 +567,7 @@ export function ClanPage(props) {
                                   <Collapse
                                     collapsible="header"
                                     style={{ marginTop: 20 }}
+                                    defaultActiveKey={[powerClanIndex]}
                                     expandIconPosition="right"
                                     onChange={() => {
                                       const element = document.getElementById(
