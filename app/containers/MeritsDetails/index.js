@@ -30,6 +30,7 @@ import {
   split,
   intersectionWith,
   isEqual,
+  sortBy
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
@@ -166,7 +167,7 @@ export function ClanPage(props) {
     clanItemsOfMap,
     withoutBloodlineList,
   );
-  const sortedListOfClanAndBloodLine = concatedListOfClanAndBloodLine.sort();
+  const sortedListOfClanAndBloodLine = sortBy(concatedListOfClanAndBloodLine, o => o.clan ? o.clan : o );
 
   function handleChangeFilter(item) {
     setBook(item);
