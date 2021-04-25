@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row, Typography, Select, Button } from 'antd';
+import { Row, Typography, Select, Button, Collapse, Space } from 'antd';
 import {
   map,
   filter,
@@ -54,7 +54,7 @@ import './style.css';
 
 const { Paragraph } = Typography;
 const { Option } = Select;
-
+const { Panel } = Collapse;
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -316,10 +316,10 @@ export function ClanPage(props) {
                   get(selectedClan, 'power', ''),
                   get(selectedClan, 'title', ''),
                 ) ? (
-                  <i>{get(selectedClan, 'title', '')} </i>
-                ) : (
-                    <div />
-                  )}
+                    <i>{get(selectedClan, 'title', '')} </i>
+                  ) : (
+                  <div />
+                )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
@@ -557,33 +557,22 @@ export function ClanPage(props) {
                         </div>
                         <div className="indicator" />
                       </div>
-
                       <div className="listing-body">
-                        <div className="listing">
-                          {map(getFilterPower(powerOfClans), (item, index) => (
-                            <p>
-                              <div
-                                className={`item discipline-${index}`}
-                                id={`discipline-${index}`}
-                              >
-                                <div className="disc-cols3">
-                                  <span>{item.title}</span>
-                                </div>
-                                <div className="disc-cols3 hideMobile">
-                                  <span>{item.level}</span>
-                                </div>
-                                <div className="disc-cols3 hideMobile">
-                                  <span>{item.cost}</span>
-                                </div>
-                                <div
-                                  className="disc-indicator"
-                                  onClick={() => {
-                                    if (index === powerClanIndex) {
-                                      setPowenClanIndex(-1);
+                        <Space direction="vertical" style={{ width: '100%' }}>
+                          <div className="listing">
+                            {map(
+                              getFilterPower(powerOfClans),
+                              (item, index) => (
+                                <div id={`discipline-${index}`}>
+                                  <Collapse
+                                    collapsible="header"
+                                    style={{ marginTop: 20 }}
+                                    expandIconPosition="right"
+                                    onChange={() => {
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );
-                                      const offset = 25;
+                                      const offset = 0;
                                       const bodyRect = document.body.getBoundingClientRect()
                                         .top;
                                       const elementRect = element.getBoundingClientRect()
@@ -597,244 +586,252 @@ export function ClanPage(props) {
                                         top: offsetPosition,
                                         behavior: 'smooth',
                                       });
-                                    } else {
-                                      setPowenClanIndex(index);
-                                    }
-                                  }}
-                                >
-                                  <a
-                                    className={`btn btn-primary ${
-                                      index === powerClanIndex
-                                        ? 'collaps'
-                                        : 'collapsed'
-                                    }`}
-                                    data-toggle="collapse"
-                                    href={`${item.title}`}
-                                    role="button"
-                                    aria-expanded="false"
-                                    aria-controls={`${item.title}}`}
+                                    }}
                                   >
-                                    <i className="fa" />
-                                  </a>
-                                </div>
-                              </div>
-                              <div
-                                className={
-                                  index === powerClanIndex
-                                    ? 'collapse show'
-                                    : 'collapse'
-                                }
-                                id={`${item.title}`}
-                              >
-                                <div
-                                  className="box-summary"
-                                  style={{
-                                    backgroundColor: '#fff',
-                                    border: '1px solid grey',
-                                  }}
-                                >
-                                  <div>
-                                    <p>
-                                      {get(item, 'summary[0]', [])}
-                                      <Paragraph
-                                        copyable={{
-                                          text: `${
-                                            window.location.origin
-                                          }/vampire/Disciplines/${item.title}`,
-                                        }}
-                                        style={{ marginLeft: 10 }}
-                                      >
-                                        {' '}
-                                        <i>Share Link</i>
-                                      </Paragraph>
-                                    </p>
-
-                                    {!isEmpty(get(item, 'quote')) ? (
-                                      <blockquote className="blockquote">
-                                        <div
-                                          /* eslint-disable-next-line react/no-danger */
-                                          dangerouslySetInnerHTML={{
-                                            __html: documentToHtmlString(
-                                              item.quote_html,
-                                            ),
-                                          }}
-                                        />
-                                      </blockquote>
-                                    ) : null}
-                                    <p>
-                                      <div
-                                        /* eslint-disable-next-line react/no-danger */
-                                        dangerouslySetInnerHTML={{
-                                          __html: documentToHtmlString(
-                                            getSummaryHtml(
-                                              get(item, 'summary_html', ''),
-                                            ),
-                                          ),
-                                        }}
-                                      />
-                                    </p>
-
-                                    {!isEmpty(get(item, 'system')) ? (
-                                      <div>
-                                        <h2>SYSTEM</h2>
-                                        <div
-                                          /* eslint-disable-next-line react/no-danger */
-                                          dangerouslySetInnerHTML={{
-                                            __html: documentToHtmlString(
-                                              item.system_html,
-                                            ),
-                                          }}
-                                        />
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'exceptional')) ? (
-                                      <div>
-                                        <h2>Exceptional Success</h2>
-                                        <Row gutter={[8, 8]}>
-                                          {get(item, 'exceptional')}
+                                    <Panel
+                                      key={index}
+                                      className="site-collapse-custom-panel"
+                                      header={
+                                        <Row type="flex">
+                                          <div className="disc-cols3">
+                                            <span>{item.title}</span>
+                                          </div>
+                                          <div className="disc-cols3 hideMobile">
+                                            <span>{item.level}</span>
+                                          </div>
+                                          <div className="disc-cols3 hideMobile">
+                                            <span>{item.cost}</span>
+                                          </div>
                                         </Row>
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'exceptionalLong')) ? (
+                                      }
+                                    >
                                       <div>
-                                        <h2>Exceptional Success</h2>
-                                        <Row gutter={[8, 8]}>
-                                          <div
-                                            /* eslint-disable-next-line react/no-danger */
-                                            dangerouslySetInnerHTML={{
-                                              __html: documentToHtmlString(
-                                                item.exceptionalLong_html,
-                                              ),
-                                            }}
-                                          />
-                                        </Row>
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'focusDescriptor')) ? (
-                                      <div>
-                                        <h2>Focus</h2>
-                                        <Row type="flex" justify="start">
-                                          <u
-                                            style={{
-                                              textDecoration: 'underline',
-                                              textDecorationThickness: '2px',
-                                              textDecorationSkipInk: 'auto',
-                                              textUnderlineOffset: '3px',
-                                              marginBottom: 10,
-                                            }}
-                                          >
-                                            {' '}
-                                            {get(item, 'foci')}
-                                          </u>
-                                          <span>&nbsp;{' : '}&nbsp;</span>
-                                          <div
-                                            style={{ width: '85%' }}
-                                            /* eslint-disable-next-line react/no-danger */
-                                            dangerouslySetInnerHTML={{
-                                              __html: documentToHtmlString(
-                                                item.focusDescriptor_html,
-                                              ),
-                                            }}
-                                          />
-                                        </Row>
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'interactions')) ? (
-                                      <div>
-                                        <h2>INTERACTIONS</h2>
-                                        <div
-                                          /* eslint-disable-next-line react/no-danger */
-                                          dangerouslySetInnerHTML={{
-                                            __html: documentToHtmlString(
-                                              item.interactions_html,
-                                            ),
-                                          }}
-                                        />
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    <p>
-                                      {!isEmpty(get(item, 'cost')) ? (
                                         <div>
-                                          <h2>COST</h2>
-                                          {get(item, 'cost')}
-                                        </div>
-                                      ) : (
-                                        <div />
-                                      )}
+                                          <p>
+                                            {get(item, 'summary[0]', [])}
+                                            <Paragraph
+                                              copyable={{
+                                                text: `${
+                                                  window.location.origin
+                                                }/vampire/Disciplines/${
+                                                  item.title
+                                                }`,
+                                              }}
+                                              style={{ marginLeft: 10 }}
+                                            >
+                                              {' '}
+                                              <i>Share Link</i>
+                                            </Paragraph>
+                                          </p>
 
-                                      {!isEmpty(get(item, 'testPool')) ? (
-                                        <div>
-                                          <h2>TEST POOL</h2>
-                                          {get(item, 'testPool')}
-                                        </div>
-                                      ) : (
-                                        <div />
-                                      )}
-                                    </p>
-                                    <p>
-                                      {!isEmpty(get(item, 'sourceBook')) ? (
-                                        <p>
-                                          <h2>SOURCE BOOK</h2>
-                                          {!isEmpty(get(item, 'sourceBook')) ? (
-                                            <div>
-                                              {map(
-                                                get(item, 'sourceBook'),
-                                                item => (
-                                                  <p>
-                                                    <p>
-                                                      {get(
-                                                        item,
-                                                        'fields.bookTitle',
-                                                      )}
-                                                    </p>
-                                                    <p>
-                                                      {get(
-                                                        item,
-                                                        'fields.system[0]',
-                                                      )}
-                                                    </p>
-                                                  </p>
+                                          {!isEmpty(get(item, 'quote')) ? (
+                                            <blockquote className="blockquote">
+                                              <div
+                                                /* eslint-disable-next-line react/no-danger */
+                                                dangerouslySetInnerHTML={{
+                                                  __html: documentToHtmlString(
+                                                    item.quote_html,
+                                                  ),
+                                                }}
+                                              />
+                                            </blockquote>
+                                          ) : null}
+                                          <p>
+                                            <div
+                                              /* eslint-disable-next-line react/no-danger */
+                                              dangerouslySetInnerHTML={{
+                                                __html: documentToHtmlString(
+                                                  getSummaryHtml(
+                                                    get(
+                                                      item,
+                                                      'summary_html',
+                                                      '',
+                                                    ),
+                                                  ),
                                                 ),
-                                              )}
+                                              }}
+                                            />
+                                          </p>
+
+                                          {!isEmpty(get(item, 'system')) ? (
+                                            <div>
+                                              <h2>SYSTEM</h2>
+                                              <div
+                                                /* eslint-disable-next-line react/no-danger */
+                                                dangerouslySetInnerHTML={{
+                                                  __html: documentToHtmlString(
+                                                    item.system_html,
+                                                  ),
+                                                }}
+                                              />
                                             </div>
                                           ) : (
-                                            <div> MET: VTM Source Book</div>
+                                            <div />
                                           )}
-                                        </p>
-                                      ) : (
-                                        <div />
-                                      )}
-                                    </p>
-                                    {/* <div className="row">
-                                      {renderLink(item)}
-                                    </div> */}
-                                  </div>
+
+                                          {!isEmpty(
+                                            get(item, 'exceptional'),
+                                          ) ? (
+                                            <div>
+                                              <h2>Exceptional Success</h2>
+                                              <Row gutter={[8, 8]}>
+                                                {get(item, 'exceptional')}
+                                              </Row>
+                                            </div>
+                                          ) : (
+                                            <div />
+                                          )}
+
+                                          {!isEmpty(
+                                            get(item, 'exceptionalLong'),
+                                          ) ? (
+                                            <div>
+                                              <h2>Exceptional Success</h2>
+                                              <Row gutter={[8, 8]}>
+                                                <div
+                                                  /* eslint-disable-next-line react/no-danger */
+                                                  dangerouslySetInnerHTML={{
+                                                    __html: documentToHtmlString(
+                                                      item.exceptionalLong_html,
+                                                    ),
+                                                  }}
+                                                />
+                                              </Row>
+                                            </div>
+                                          ) : (
+                                            <div />
+                                          )}
+
+                                          {!isEmpty(
+                                            get(item, 'focusDescriptor'),
+                                          ) ? (
+                                            <div>
+                                              <h2>Focus</h2>
+                                              <Row type="flex" justify="start">
+                                                <u
+                                                  style={{
+                                                    textDecoration: 'underline',
+                                                    textDecorationThickness:
+                                                      '2px',
+                                                    textDecorationSkipInk:
+                                                      'auto',
+                                                    textUnderlineOffset: '3px',
+                                                    marginBottom: 10,
+                                                  }}
+                                                >
+                                                  {' '}
+                                                  {get(item, 'foci')}
+                                                </u>
+                                                <span>&nbsp;{' : '}&nbsp;</span>
+                                                <div
+                                                  style={{ width: '85%' }}
+                                                  /* eslint-disable-next-line react/no-danger */
+                                                  dangerouslySetInnerHTML={{
+                                                    __html: documentToHtmlString(
+                                                      item.focusDescriptor_html,
+                                                    ),
+                                                  }}
+                                                />
+                                              </Row>
+                                            </div>
+                                          ) : (
+                                            <div />
+                                          )}
+
+                                          {!isEmpty(
+                                            get(item, 'interactions'),
+                                          ) ? (
+                                            <div>
+                                              <h2>INTERACTIONS</h2>
+                                              <div
+                                                /* eslint-disable-next-line react/no-danger */
+                                                dangerouslySetInnerHTML={{
+                                                  __html: documentToHtmlString(
+                                                    item.interactions_html,
+                                                  ),
+                                                }}
+                                              />
+                                            </div>
+                                          ) : (
+                                            <div />
+                                          )}
+
+                                          <p>
+                                            {!isEmpty(get(item, 'cost')) ? (
+                                              <div>
+                                                <h2>COST</h2>
+                                                {get(item, 'cost')}
+                                              </div>
+                                            ) : (
+                                              <div />
+                                            )}
+
+                                            {!isEmpty(get(item, 'testPool')) ? (
+                                              <div>
+                                                <h2>TEST POOL</h2>
+                                                {get(item, 'testPool')}
+                                              </div>
+                                            ) : (
+                                              <div />
+                                            )}
+                                          </p>
+                                          <p>
+                                            {!isEmpty(
+                                              get(item, 'sourceBook'),
+                                            ) ? (
+                                              <p>
+                                                <h2>SOURCE BOOK</h2>
+                                                {!isEmpty(
+                                                  get(item, 'sourceBook'),
+                                                ) ? (
+                                                  <div>
+                                                    {map(
+                                                      get(item, 'sourceBook'),
+                                                      item => (
+                                                        <p>
+                                                          <p>
+                                                            {get(
+                                                              item,
+                                                              'fields.bookTitle',
+                                                            )}
+                                                          </p>
+                                                          <p>
+                                                            {get(
+                                                              item,
+                                                              'fields.system[0]',
+                                                            )}
+                                                          </p>
+                                                        </p>
+                                                      ),
+                                                    )}
+                                                  </div>
+                                                ) : (
+                                                  <div>
+                                                    {' '}
+                                                    MET: VTM Source Book
+                                                      </div>
+                                                )}
+                                              </p>
+                                            ) : (
+                                              <div />
+                                            )}
+                                          </p>
+                                          {/* <div className="row">
+                        {renderLink(item)}
+                      </div> */}
+                                        </div>
+                                      </div>
+                                    </Panel>
+                                  </Collapse>
                                 </div>
-                              </div>
-                            </p>
-                          ))}
-                        </div>
+                              ),
+                            )}
+                          </div>
+                        </Space>
                       </div>
                     </div>
                   </div>
-                ) : (
-                  <div />
-                )}
+                ) : null}
               </p>
             </div>
           </div>
