@@ -28,6 +28,7 @@ import {
   includes,
   toLower,
   split,
+  isEqual,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
@@ -65,6 +66,7 @@ export function ClanPage(props) {
   const {
     app: {
       merits: { data: clanItems },
+      clans: { data: clansData },
     },
     match,
   } = props;
@@ -126,7 +128,10 @@ export function ClanPage(props) {
 
   const bloodlinesList = map(clanItems, item => {
     if (includes(item.merit, 'Bloodline')) {
-      return `${trim(split(item.merit, 'Bloodline:')[1])}-B`;
+      return {
+        clan: item.clanSpecific[0],
+        item: `${trim(split(item.merit, 'Bloodline:')[1])}-B-`,
+      };
     }
   });
 
@@ -298,21 +303,11 @@ export function ClanPage(props) {
       )
     ) {
       let filterClans1 = [];
-      if (includes(type, '-B')) {
-        filterClans1 = filter(clanItems, o =>
-          includes(
-            trim(toLower(get(o, 'merit'))),
-            trim(toLower(renderClanName(type))),
-          ),
-        );
-      } else {
-        filterClans1 = filter(clanItems, o =>
-          includes(
-            trim(toLower(get(o, 'clanSpecific[0]'))),
-            trim(toLower(type)),
-          ),
-        );
-      }
+      filterClans1 = filter(clanItems, o => {
+        const brand = toLower(get(o, 'clanSpecific[0]'));
+        const updatedKey = toLower(type);
+        return brand.indexOf(updatedKey) > -1;
+      });
 
       if (costName && costName !== 'filter by Cost') {
         filterClans1 = filter(
@@ -333,6 +328,13 @@ export function ClanPage(props) {
   function renderClanName(item) {
     if (includes(item, '-B')) {
       return split(item, '-')[0];
+    }
+    return item;
+  }
+
+  function renderClanValue(item) {
+    if (item.item) {
+      return `${item.clan}:${` `}${renderClanName(item.item)}`;
     }
     return item;
   }
@@ -602,17 +604,17 @@ export function ClanPage(props) {
                   style={{ width: '70%', paddingBottom: 20 }}
                   showSearch
                   placeholder="Filter"
-                  optionFilterProp="children"
-                  filterOption={(input, option) =>
-                    option.children
-                      .toLowerCase()
-                      .indexOf(input.toLowerCase()) >= 0
-                  }
-                  filterSort={(optionA, optionB) =>
-                    optionA.children
-                      .toLowerCase()
-                      .localeCompare(optionB.children.toLowerCase())
-                  }
+                  // optionFilterProp="children"
+                  // filterOption={(input, option) =>
+                  //   option.children
+                  //     .toLowerCase()
+                  //     .indexOf(input.toLowerCase()) >= 0
+                  // }
+                  // filterSort={(optionA, optionB) =>
+                  //   optionA.children
+                  //     .toLowerCase()
+                  //     .localeCompare(optionB.children.toLowerCase())
+                  // }
                   onSelect={handleFilterType}
                   className="meritFilter"
                   value={disc}
@@ -623,7 +625,14 @@ export function ClanPage(props) {
                   <Select.Option value="Sabbat">Sabbat</Select.Option>
                   <Select.Option value="Morality">Morality</Select.Option>
                   {map(sortedListOfClanAndBloodLine, item => (
-                    <Option value={item}>{renderClanName(item)}</Option>
+                    <Option value={renderClanValue(item)}>
+                      <b>
+                        {get(item, 'clan')
+                          ? `${get(item, 'clan')}${` - `}`
+                          : null}
+                      </b>
+                      {renderClanName(get(item, 'item', item))}
+                    </Option>
                   ))}
                 </Select>
                 <Button
