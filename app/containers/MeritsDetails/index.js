@@ -9,7 +9,7 @@
  */
 
 import React, { memo, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -28,6 +28,7 @@ import {
   includes,
   toLower,
   split,
+  intersectionWith,
   isEqual,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
@@ -66,7 +67,7 @@ export function ClanPage(props) {
   const {
     app: {
       merits: { data: clanItems },
-      clans: { data: clansData },
+      clans: { data: clansDataWithMerits },
     },
     match,
   } = props;
@@ -198,11 +199,24 @@ export function ClanPage(props) {
             ),
           );
         } else {
-          filterClanItems = filter(clanItems, o => {
-            const brand = toLower(get(o, 'clanSpecific[0]'));
-            const updatedKey = toLower(disc);
-            return brand.indexOf(updatedKey) > -1;
-          });
+          const filterItems = find(
+            clansDataWithMerits,
+            o => o.title === getClanType(disc),
+          );
+
+          if (!isEmpty(filterItems)) {
+            filterClanItems = intersectionWith(
+              clanItems,
+              filterItems.inClanMerits,
+              compareFunc,
+            );
+          } else {
+            filterClanItems = filter(clanItems, o => {
+              const brand = toLower(get(o, 'clanSpecific[0]'));
+              const updatedKey = toLower(disc);
+              return brand.indexOf(updatedKey) > -1;
+            });
+          }
         }
       }
     }
@@ -243,12 +257,24 @@ export function ClanPage(props) {
             ),
           );
         } else {
-          filterClanItems = filter(clanItems, o => {
-            const brand = toLower(get(o, 'clanSpecific[0]'));
-            const updatedKey = toLower(disc);
-            return brand.indexOf(updatedKey) > -1;
-          }
+          const filterItems = find(
+            clansDataWithMerits,
+            o => o.title === getClanType(disc),
           );
+
+          if (!isEmpty(filterItems)) {
+            filterClanItems = intersectionWith(
+              clanItems,
+              filterItems.inClanMerits,
+              compareFunc,
+            );
+          } else {
+            filterClanItems = filter(clanItems, o => {
+              const brand = toLower(get(o, 'clanSpecific[0]'));
+              const updatedKey = toLower(disc);
+              return brand.indexOf(updatedKey) > -1;
+            });
+          }
         }
       }
     }
@@ -269,6 +295,35 @@ export function ClanPage(props) {
     ['Anarch', 'Camarilla', 'Clan', 'General', 'Sabbat', 'Morality'],
     clanNames,
   ).sort();
+
+  function compareFunc(a, b) {
+    if (isEqual(get(a, 'merit'), get(b, 'fields.merit'))) {
+      return b;
+    }
+    return false;
+  }
+
+  function getClanType(type) {
+    if (type === 'Tzimisce - Carpathian') {
+      return 'Tzimisce - Carpathians';
+    }
+    if (type === 'Ventrue - Crusader') {
+      return 'Ventrue - Crusaders';
+    }
+    if (type === 'Cappadocian - Lamia') {
+      return 'Cappadocians - Lamia';
+    }
+    if (type === 'Cappadocian - Samedi') {
+      return 'Cappadocians - Samedi';
+    }
+    if (type === 'Assamite - Sorcerer') {
+      return 'Assamite Sorcerer';
+    }
+    if (type === 'Assamite - Vizier') {
+      return 'Assamite Vizier';
+    }
+    return type;
+  }
 
   function handleFilterType(type) {
     setDisc(type);
@@ -302,11 +357,37 @@ export function ClanPage(props) {
       )
     ) {
       let filterClans1 = [];
-      filterClans1 = filter(clanItems, o => {
-        const brand = toLower(get(o, 'clanSpecific[0]'));
-        const updatedKey = toLower(type);
-        return brand.indexOf(updatedKey) > -1;
-      });
+      const filterItems = find(
+        clansDataWithMerits,
+        o => o.title === getClanType(type),
+      );
+
+      if (!isEmpty(filterItems)) {
+        filterClans1 = intersectionWith(
+          clanItems,
+          filterItems.inClanMerits,
+          compareFunc,
+        );
+      } else {
+        const filterItems1 = find(
+          clansDataWithMerits,
+          o => o.title === getClanType(disc),
+        );
+
+        if (!isEmpty(filterItems1)) {
+          filterClans1 = intersectionWith(
+            clanItems,
+            filterItems.inClanMerits,
+            compareFunc,
+          );
+        } else {
+          filterClans1 = filter(clanItems, o => {
+            const brand = toLower(get(o, 'clanSpecific[0]'));
+            const updatedKey = toLower(disc);
+            return brand.indexOf(updatedKey) > -1;
+          });
+        }
+      }
 
       if (costName && costName !== 'filter by Cost') {
         filterClans1 = filter(
@@ -333,7 +414,7 @@ export function ClanPage(props) {
 
   function renderClanValue(item) {
     if (item.item) {
-      return `${item.clan}:${` `}${renderClanName(item.item)}`;
+      return `${item.clan}${` - `}${renderClanName(item.item)}`;
     }
     return item;
   }
@@ -625,11 +706,9 @@ export function ClanPage(props) {
                   <Select.Option value="Morality">Morality</Select.Option>
                   {map(sortedListOfClanAndBloodLine, item => (
                     <Option value={renderClanValue(item)}>
-                      <b>
-                        {get(item, 'clan')
-                          ? `${get(item, 'clan')}${` - `}`
-                          : null}
-                      </b>
+                      {get(item, 'clan')
+                        ? `${get(item, 'clan')}${` - `}`
+                        : null}
                       {renderClanName(get(item, 'item', item))}
                     </Option>
                   ))}
@@ -730,11 +809,24 @@ export function ClanPage(props) {
                             ),
                           );
                         } else {
-                          filterClanItems = filter(clanItems, o => {
-                            const brand = toLower(get(o, 'clanSpecific[0]'));
-                            const updatedKey = toLower(disc);
-                            return brand.indexOf(updatedKey) > -1;
-                          });
+                          const filterItems = find(
+                            clansDataWithMerits,
+                            o => o.title === getClanType(disc),
+                          );
+
+                          if (!isEmpty(filterItems)) {
+                            filterClanItems = intersectionWith(
+                              clanItems,
+                              filterItems.inClanMerits,
+                              compareFunc,
+                            );
+                          } else {
+                            filterClanItems = filter(clanItems, o => {
+                              const brand = toLower(get(o, 'clanSpecific[0]'));
+                              const updatedKey = toLower(disc);
+                              return brand.indexOf(updatedKey) > -1;
+                            });
+                          }
                         }
                       }
                       setSelectedClanItemsList(filterClanItems);
@@ -818,12 +910,24 @@ export function ClanPage(props) {
                             ),
                           );
                         } else {
-                          filterClanItems = filter(clanItems, o => {
-                            const brand = toLower(get(o, 'clanSpecific[0]'));
-                            const updatedKey = toLower(disc);
-                            return brand.indexOf(updatedKey) > -1;
-                          }
+                          const filterItems = find(
+                            clansDataWithMerits,
+                            o => o.title === getClanType(disc),
                           );
+
+                          if (!isEmpty(filterItems)) {
+                            filterClanItems = intersectionWith(
+                              clanItems,
+                              filterItems.inClanMerits,
+                              compareFunc,
+                            );
+                          } else {
+                            filterClanItems = filter(clanItems, o => {
+                              const brand = toLower(get(o, 'clanSpecific[0]'));
+                              const updatedKey = toLower(disc);
+                              return brand.indexOf(updatedKey) > -1;
+                            });
+                          }
                         }
                       }
                       setSelectedClanItemsList(filterClanItems);
