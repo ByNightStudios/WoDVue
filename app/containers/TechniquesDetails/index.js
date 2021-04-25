@@ -26,6 +26,7 @@ import {
   filter,
   includes,
   concat,
+  trim,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -163,7 +164,7 @@ export function ClanPage(props) {
   function handleChangeDisc(type) {
     setDisc(type);
     let filterDisc = filter(clanItems, o => {
-      if (includes(map(o.disciplines, item => item.fields.power), type)) {
+      if (includes(map(o.disciplines, item => trim(item.fields.power)), type)) {
         return o;
       }
     });
