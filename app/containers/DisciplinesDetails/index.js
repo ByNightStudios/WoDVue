@@ -564,13 +564,23 @@ export function ClanPage(props) {
                             {map(
                               getFilterPower(powerOfClans),
                               (item, index) => (
-                                <div id={`discipline-${index}`} className={`discipline-${index}`}>
+                                <div
+                                  id={`discipline-${index}`}
+                                  className={`discipline-${index}`}
+                                >
                                   <Collapse
+                                    accordion
                                     collapsible="header"
                                     style={{ marginTop: 20 }}
-                                    defaultActiveKey={[powerClanIndex]}
+                                    activeKey={[powerClanIndex]}
+                                    // defaultActiveKey={[powerClanIndex]}
                                     expandIconPosition="right"
-                                    onChange={() => {
+                                    onChange={(value) => {
+                                      if(powerClanIndex !== value){
+                                        setPowenClanIndex(value)
+                                      } else {
+                                        setPowenClanIndex(-1);
+                                      }
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );
@@ -967,6 +977,7 @@ export function ClanPage(props) {
                             className={`nav-link ${getClassName(items1.power)}`}
                             value={items1.power}
                             onClick={() => {
+                              setPowenClanIndex(-1);
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >
