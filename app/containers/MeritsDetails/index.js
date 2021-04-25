@@ -198,12 +198,11 @@ export function ClanPage(props) {
             ),
           );
         } else {
-          filterClanItems = filter(clanItems, o =>
-            includes(
-              trim(toLower(get(o, 'clanSpecific[0]'))),
-              trim(toLower(disc)),
-            ),
-          );
+          filterClanItems = filter(clanItems, o => {
+            const brand = toLower(get(o, 'clanSpecific[0]'));
+            const updatedKey = toLower(disc);
+            return brand.indexOf(updatedKey) > -1;
+          });
         }
       }
     }
@@ -244,11 +243,11 @@ export function ClanPage(props) {
             ),
           );
         } else {
-          filterClanItems = filter(clanItems, o =>
-            includes(
-              trim(toLower(get(o, 'clanSpecific[0]'))),
-              trim(toLower(disc)),
-            ),
+          filterClanItems = filter(clanItems, o => {
+            const brand = toLower(get(o, 'clanSpecific[0]'));
+            const updatedKey = toLower(disc);
+            return brand.indexOf(updatedKey) > -1;
+          }
           );
         }
       }
@@ -731,12 +730,11 @@ export function ClanPage(props) {
                             ),
                           );
                         } else {
-                          filterClanItems = filter(clanItems, o =>
-                            includes(
-                              trim(toLower(get(o, 'clanSpecific[0]'))),
-                              trim(toLower(disc)),
-                            ),
-                          );
+                          filterClanItems = filter(clanItems, o => {
+                            const brand = toLower(get(o, 'clanSpecific[0]'));
+                            const updatedKey = toLower(disc);
+                            return brand.indexOf(updatedKey) > -1;
+                          });
                         }
                       }
                       setSelectedClanItemsList(filterClanItems);
@@ -820,11 +818,11 @@ export function ClanPage(props) {
                             ),
                           );
                         } else {
-                          filterClanItems = filter(clanItems, o =>
-                            includes(
-                              trim(toLower(get(o, 'clanSpecific[0]'))),
-                              trim(toLower(disc)),
-                            ),
+                          filterClanItems = filter(clanItems, o => {
+                            const brand = toLower(get(o, 'clanSpecific[0]'));
+                            const updatedKey = toLower(disc);
+                            return brand.indexOf(updatedKey) > -1;
+                          }
                           );
                         }
                       }
