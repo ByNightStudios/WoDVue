@@ -128,6 +128,7 @@ export function ClanPage(props) {
         o => o.title === trim(id),
       );
       setPowenClanIndex(findIndexOfPower);
+      location.href = `#discipline-${findIndexOfPower}`;
     }
   }, [props]);
 
@@ -563,7 +564,7 @@ export function ClanPage(props) {
                             {map(
                               getFilterPower(powerOfClans),
                               (item, index) => (
-                                <div id={`discipline-${index}`}>
+                                <div id={`discipline-${index}`} className={`discipline-${index}`}>
                                   <Collapse
                                     collapsible="header"
                                     style={{ marginTop: 20 }}
@@ -593,15 +594,24 @@ export function ClanPage(props) {
                                       key={index}
                                       className="site-collapse-custom-panel"
                                       header={
-                                        <Row type="flex">
+                                        <Row
+                                          type="flex"
+                                          style={{ fontFamily: 400 }}
+                                        >
                                           <div className="disc-cols3">
-                                            <span>{item.title}</span>
+                                            <span>
+                                              <b>{item.title}</b>
+                                            </span>
                                           </div>
                                           <div className="disc-cols3 hideMobile">
-                                            <span>{item.level}</span>
+                                            <span>
+                                              <b>{item.level}</b>
+                                            </span>
                                           </div>
                                           <div className="disc-cols3 hideMobile">
-                                            <span>{item.cost}</span>
+                                            <span>
+                                              <b>{item.cost}</b>
+                                            </span>
                                           </div>
                                         </Row>
                                       }
