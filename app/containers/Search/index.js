@@ -35,8 +35,8 @@ export function Search() {
   useInjectSaga({ key: 'search', saga });
 
   const searchClient = algoliasearch(
-    'FLL6X8YRIN',
-    '9bebb236761c88f11a4f7cd70907a90f',
+    '0YOI37FZAB',
+    '5dd9d020035b8948cca3cdbbccca2359',
   );
 
   // const results = connectStateResults();
@@ -184,7 +184,6 @@ export function Search() {
   const myAntdSearchBox = ({ refine, searchResults, searchState }) => (
     <AutoComplete
       allowClear
-      autoFocus
       backfill
       dropdownMatchSelectWidth={252}
       style={{
@@ -196,7 +195,7 @@ export function Search() {
           get(searchResults, 'hits', []),
           o => getItems(o) === item,
         );
-        history.push(filterItem.url);
+        history.push(`/${filterItem.url}`);
       }}
       onSearch={value => refine(value)}
       notFoundContent={<Empty />}
@@ -212,7 +211,7 @@ export function Search() {
 
   return (
     <div className="ais-InstantSearch">
-      <InstantSearch indexName="datajson" searchClient={searchClient}>
+      <InstantSearch indexName="search" searchClient={searchClient}>
         <div className="right-panel">
           <CustomSearchBox showLoadingIndicator />
         </div>

@@ -54,7 +54,7 @@ export function ClanPage(props) {
 
   const [selectedClan, setSelectedClan] = useState('');
   const [clanItemsList, setClanItemList] = useState([]);
-  
+
   const [disc, setDisc] = useState('filter by type');
   const [costName, setCost] = useState('filter by level');
   const [book, setBook] = useState('filter by source book');
