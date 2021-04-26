@@ -572,15 +572,15 @@ export function ClanPage(props) {
                                     accordion
                                     collapsible="header"
                                     style={{ marginTop: 20 }}
-                                    activeKey={[powerClanIndex]}
-                                    // defaultActiveKey={[powerClanIndex]}
+                                    // activeKey={[powerClanIndex]}
+                                    defaultActiveKey={[powerClanIndex]}
                                     expandIconPosition="right"
                                     onChange={(value) => {
-                                      if(powerClanIndex !== value){
-                                        setPowenClanIndex(value)
-                                      } else {
-                                        setPowenClanIndex(-1);
-                                      }
+                                      // if(powerClanIndex !== value){
+                                      //   setPowenClanIndex(value)
+                                      // } else {
+                                      //   setPowenClanIndex(-1);
+                                      // }
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );

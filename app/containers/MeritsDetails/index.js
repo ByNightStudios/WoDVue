@@ -287,7 +287,7 @@ export function ClanPage(props) {
         if (includes(disc, '-')) {
           const filterItems1 = find(
             clansDataWithMerits,
-            o => o.title === getClanType(disc),
+            o => o.title === getClanType(disc) && get(o, 'meritCost') === item,
           );
 
           if (!isEmpty(filterItems1)) {
