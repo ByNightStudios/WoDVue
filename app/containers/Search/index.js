@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Input, AutoComplete, Empty } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { map, uniqBy, find } from 'lodash';
+import { map, uniqBy, find, isEmpty } from 'lodash';
 import get from 'lodash/get';
 
 import { useInjectSaga } from 'utils/injectSaga';
@@ -197,9 +197,9 @@ export function Search() {
         );
         history.push(`/${filterItem.url}`);
       }}
-      onSearch={value => refine(value)}
+      onSearch={value => !isEmpty(value) ? refine(value) : null}
       notFoundContent={<Empty />}
-      onPressEnter={value => refine(value)}
+      onPressEnter={value =>  !isEmpty(value) ? refine(value) : null}
       placeholder="Search"
       // onChange={event => refine(event.currentTarget.value)}
     />
