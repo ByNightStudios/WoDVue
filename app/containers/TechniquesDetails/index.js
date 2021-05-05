@@ -132,18 +132,33 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
-  const groupByData3 = without(
+  const groupData3a = without(
     uniq(
       concat(
         'Necromancy',
         map(
           map(clanItems, o => o.prerequisites),
-          item => item[0].split(' ')[0],
+          item => item[0].split(' ')[0]
         ),
       ),
     ),
     '',
-  ).sort();
+  );
+
+  const groupData3b = without(
+    uniq(
+      concat(
+        'Necromancy',
+        map(
+          map(clanItems, o => o.prerequisites),
+          item => item[1].split(' ')[0]
+        ),
+      ),
+    ),
+    '',
+  );
+
+  const groupByData3 = uniq(concat(groupData3a, groupData3b)).sort();
 
   function handleChangeDisc(type) {
     setDisc(type);
