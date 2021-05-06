@@ -31,6 +31,7 @@ import {
   uniq,
   without,
   findIndex,
+  last
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -105,7 +106,7 @@ export function ClanPage(props) {
 
     const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
-    setPowenClanIndex(-1);
+    setPowenClanIndex([-1]);
     if (!findClanData) {
       const findClanData3 = find(clanItems, o => o.title === trim(id));
       const findClanData4 = find(clanItems, o => {
@@ -127,7 +128,7 @@ export function ClanPage(props) {
         sortedByLevel1,
         o => o.title === trim(id),
       );
-      setPowenClanIndex(findIndexOfPower);
+      setPowenClanIndex([findIndexOfPower]);
       location.href = `#discipline-${findIndexOfPower}`;
     }
   }, [props]);
@@ -265,7 +266,7 @@ export function ClanPage(props) {
             behavior: 'smooth',
           });
           setSelectedClan(item);
-          setPowenClanIndex(-1);
+          setPowenClanIndex([-1]);
         }}
       >
         <span style={{ color: '#fff' }}>Details</span>
@@ -287,6 +288,7 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
+  console.log(powerClanIndex);
   return (
     <div className="clan-page">
       {renderHelment()}
@@ -569,18 +571,18 @@ export function ClanPage(props) {
                                   className={`discipline-${index}`}
                                 >
                                   <Collapse
-                                    accordion
+                                    // accordion
                                     collapsible="header"
                                     style={{ marginTop: 20 }}
                                     // activeKey={[powerClanIndex]}
-                                    defaultActiveKey={[powerClanIndex]}
+                                    activeKey={[`${last(powerClanIndex)}`]}
                                     expandIconPosition="right"
-                                    onChange={(value) => {
-                                      // if(powerClanIndex !== value){
-                                      //   setPowenClanIndex(value)
-                                      // } else {
-                                      //   setPowenClanIndex(-1);
-                                      // }
+                                    onChange={value => {
+                                      if (powerClanIndex !== value) {
+                                        setPowenClanIndex(value);
+                                      } else {
+                                        setPowenClanIndex([-1]);
+                                      }
                                       const element = document.getElementById(
                                         `discipline-${index}`,
                                       );
@@ -601,7 +603,7 @@ export function ClanPage(props) {
                                     }}
                                   >
                                     <Panel
-                                      key={index}
+                                      key={`${index}`}
                                       className="site-collapse-custom-panel"
                                       header={
                                         <Row
@@ -977,7 +979,7 @@ export function ClanPage(props) {
                             className={`nav-link ${getClassName(items1.power)}`}
                             value={items1.power}
                             onClick={() => {
-                              setPowenClanIndex(-1);
+                              setPowenClanIndex([-1]);
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >

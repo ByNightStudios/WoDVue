@@ -139,7 +139,7 @@ export function ClanPage(props) {
         'Necromancy',
         map(
           map(clanItems, o => o.prerequisites),
-          item => item[0].split(' ')[0]
+          item => item[0].split(' ')[0],
         ),
       ),
     ),
@@ -152,7 +152,7 @@ export function ClanPage(props) {
         'Necromancy',
         map(
           map(clanItems, o => o.prerequisites),
-          item => item[1].split(' ')[0]
+          item => item[1].split(' ')[0],
         ),
       ),
     ),
