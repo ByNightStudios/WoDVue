@@ -31,7 +31,7 @@ import {
   uniq,
   without,
   findIndex,
-  last
+  last,
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -129,7 +129,18 @@ export function ClanPage(props) {
         o => o.title === trim(id),
       );
       setPowenClanIndex([findIndexOfPower]);
-      location.href = `#discipline-${findIndexOfPower}`;
+      const element = document.getElementById(`discipline-${findIndexOfPower}`);
+      const offset = 0;
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth',
+      });
+      // location.href = `#discipline-${findIndexOfPower}`;
     }
   }, [props]);
 
@@ -580,26 +591,26 @@ export function ClanPage(props) {
                                     onChange={value => {
                                       if (powerClanIndex !== value) {
                                         setPowenClanIndex(value);
+                                        const element = document.getElementById(
+                                          `discipline-${index}`,
+                                        );
+                                        const offset = 0;
+                                        const bodyRect = document.body.getBoundingClientRect()
+                                          .top;
+                                        const elementRect = element.getBoundingClientRect()
+                                          .top;
+                                        const elementPosition =
+                                          elementRect - bodyRect;
+                                        const offsetPosition =
+                                          elementPosition - offset;
+
+                                        window.scrollTo({
+                                          top: offsetPosition,
+                                          behavior: 'smooth',
+                                        });
                                       } else {
                                         setPowenClanIndex([-1]);
                                       }
-                                      const element = document.getElementById(
-                                        `discipline-${index}`,
-                                      );
-                                      const offset = 0;
-                                      const bodyRect = document.body.getBoundingClientRect()
-                                        .top;
-                                      const elementRect = element.getBoundingClientRect()
-                                        .top;
-                                      const elementPosition =
-                                        elementRect - bodyRect;
-                                      const offsetPosition =
-                                        elementPosition - offset;
-
-                                      window.scrollTo({
-                                        top: offsetPosition,
-                                        behavior: 'smooth',
-                                      });
                                     }}
                                   >
                                     <Panel
