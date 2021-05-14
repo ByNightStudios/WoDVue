@@ -218,7 +218,7 @@ export function ClanPage(props) {
       >
         <title>
           {`
-          World of Darkness - MET - Vampire - Disciplines`}
+           World of Darkness - MET - Vampire - Disciplines`}
         </title>
         <meta
           name={`${get(selectedClan, 'power', '')}`}
@@ -473,16 +473,16 @@ export function ClanPage(props) {
               )}
 
               {/* <p>
-                {get(selectedClan, 'level') ||
-                get(selectedClan, 'level') === 0 ? (
-                  <div>
-                    <h2>LEVEL</h2>
-                    {get(selectedClan, 'level')}
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </p> */}
+                 {get(selectedClan, 'level') ||
+                 get(selectedClan, 'level') === 0 ? (
+                   <div>
+                     <h2>LEVEL</h2>
+                     {get(selectedClan, 'level')}
+                   </div>
+                 ) : (
+                   <div />
+                 )}
+               </p> */}
 
               <p>
                 {!isEmpty(get(selectedClan, 'cost')) ? (
@@ -821,8 +821,8 @@ export function ClanPage(props) {
                                       )}
                                     </p>
                                     {/* <div className="row">
-                                      {renderLink(item)}
-                                    </div> */}
+                                       {renderLink(item)}
+                                     </div> */}
                                   </div>
                                 </div>
                               </div>
@@ -921,8 +921,8 @@ export function ClanPage(props) {
                     <Option value={item}>{item}</Option>
                   ))}
                   {/* <Option value="MET - VTM - Core Book">MET - VTM - Core Book</Option>
-                  <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
-                  <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option> */}
+                   <Option value="MET - VTM - V2 Issue 1">MET - VTM - V2 Issue 1</Option>
+                   <Option value="MET - VTM - V2 (2021)">MET - VTM - V2 (2021)</Option> */}
                 </Select>
                 <Button onClick={() => setSelectedClanItemsList(clanItems)}>
                   Reset
