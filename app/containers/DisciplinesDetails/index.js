@@ -32,6 +32,8 @@ import {
   without,
   findIndex,
   last,
+  isNull,
+  toNumber,
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -129,7 +131,27 @@ export function ClanPage(props) {
         o => o.title === trim(id),
       );
       setPowenClanIndex([findIndexOfPower]);
-      const element = document.getElementById(`discipline-${findIndexOfPower}`);
+      if (findIndexOfPower !== -1) {
+        const element = document.getElementById(`power-pannel`);
+        const offset = 0;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const element = document.getElementById(
+      `discipline-${toNumber(last(powerClanIndex))}`,
+    );
+    if (!isNull(element)) {
       const offset = 0;
       const bodyRect = document.body.getBoundingClientRect().top;
       const elementRect = element.getBoundingClientRect().top;
@@ -140,9 +162,8 @@ export function ClanPage(props) {
         top: offsetPosition,
         behavior: 'smooth',
       });
-      // location.href = `#discipline-${findIndexOfPower}`;
     }
-  }, [props]);
+  }, [powerClanIndex]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -539,7 +560,7 @@ export function ClanPage(props) {
                 )}
               </p>
 
-              <p>
+              <p id="power-pannel">
                 {!isEmpty(powerOfClans) ? (
                   <div>
                     <div>
