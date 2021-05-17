@@ -632,6 +632,7 @@ export function ClanPage(props) {
                                       } else {
                                         setPowenClanIndex([-1]);
                                       }
+
                                     }}
                                   >
                                     <Panel
