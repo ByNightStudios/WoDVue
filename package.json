@@ -68,6 +68,8 @@
     "@babel/polyfill": "7.4.3",
     "@contentful/rich-text-from-markdown": "^14.1.2",
     "@contentful/rich-text-html-renderer": "^14.1.2",
+    "@material-ui/core": "^4.11.4",
+    "@material-ui/icons": "^4.11.2",
     "algoliasearch": "4.8.5",
     "antd": "4.6.6",
     "axios": "^0.21.1",

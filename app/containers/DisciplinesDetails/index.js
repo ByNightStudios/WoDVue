@@ -16,7 +16,7 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row, Typography, Select, Button, Collapse, Space } from 'antd';
+import { Row, Typography, Select, Button, Space } from 'antd';
 import {
   map,
   filter,
@@ -48,8 +48,14 @@ import homePageReducer from 'containers/HomePage/reducer';
 import homePageSaga from 'containers/HomePage/saga';
 import makeSelectHomePage from 'containers/HomePage/selectors';
 
+import { makeStyles } from '@material-ui/core/styles';
+import Accordion from '@material-ui/core/Accordion';
+import AccordionDetails from '@material-ui/core/AccordionDetails';
+import AccordionSummary from '@material-ui/core/AccordionSummary';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { Events, scrollSpy } from 'react-scroll';
+import { Events } from 'react-scroll';
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -58,11 +64,28 @@ import './style.css';
 
 const { Paragraph } = Typography;
 const { Option } = Select;
-const { Panel } = Collapse;
 
 const Scroll = require('react-scroll');
 const { Element } = Scroll;
 const { scroller } = Scroll;
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    width: '100%',
+    marginBottom: 10,
+  },
+  heading: {
+    fontSize: theme.typography.pxToRem(15),
+    flexBasis: '33.33%',
+    flexShrink: 0,
+    backgroundColor: '#f5f5f5',
+  },
+  secondaryHeading: {
+    fontSize: theme.typography.pxToRem(15),
+    color: theme.palette.text.secondary,
+  },
+}));
+
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -75,6 +98,19 @@ export function ClanPage(props) {
   const [direction, setDirection] = useState('asc');
   const [powerClanIndex, setPowenClanIndex] = useState(-1);
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
+
+  const classes = useStyles();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = panel => (event, isExpanded) => {
+    if (panel !== powerClanIndex) {
+      setPowenClanIndex([panel]);
+    } else {
+      setPowenClanIndex([-1]);
+setExpanded(-1);
+    }
+    setExpanded(isExpanded ? panel : false);
+  };
 
   const { app } = props;
 
@@ -114,6 +150,7 @@ export function ClanPage(props) {
     const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
     setPowenClanIndex([-1]);
+setExpanded(-1);
     if (!findClanData) {
       const findClanData3 = find(clanItems, o => o.title === trim(id));
       const findClanData4 = find(clanItems, o => {
@@ -135,6 +172,7 @@ export function ClanPage(props) {
         sortedByLevel1,
         o => o.title === trim(id),
       );
+      setExpanded(findIndexOfPower);
       setPowenClanIndex([findIndexOfPower]);
       if (findIndexOfPower !== -1) {
         const element = document.getElementById(`power-pannel`);
@@ -156,35 +194,8 @@ export function ClanPage(props) {
     const element = document.getElementById(
       `discipline-${toNumber(last(powerClanIndex))}`,
     );
-
-    const jElement = $(element);
-    console.log(jElement);
-
     if (!isNull(element)) {
-      const goToContainer = new Promise((resolve, reject) => {
-        Events.scrollEvent.register('end', () => {
-          resolve();
-          Events.scrollEvent.remove('end');
-        });
-
-        scroller.scrollTo(`discipline-${toNumber(last(powerClanIndex))}`, {
-          duration: 800,
-          delay: 0,
-          smooth: 'easeInOutQuart',
-        });
-      });
-
-      goToContainer.then(() =>
-        scroller.scrollTo('scroll-container-second-element', {
-          duration: 800,
-          delay: 0,
-          smooth: 'easeInOutQuart',
-          containerId: `discipline-${toNumber(last(powerClanIndex))}`,
-        }),
-      );
-      goToContainer.catch(e => {
-        console.log(e);
-      });
+      element.scrollIntoView();
     }
   }, [powerClanIndex]);
 
@@ -244,7 +255,11 @@ export function ClanPage(props) {
   }
 
   function getFilterPower(data) {
-    return data;
+    const uniqPowerOfClans = uniqBy(data, 'title');
+
+    const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
+
+    return sortedByLevel;
   }
 
   const groupByData1 = filter(filterClans, o => o.thaumaturgy);
@@ -322,6 +337,7 @@ export function ClanPage(props) {
           });
           setSelectedClan(item);
           setPowenClanIndex([-1]);
+setExpanded(-1);
         }}
       >
         <span style={{ color: '#fff' }}>Details</span>
@@ -342,6 +358,8 @@ export function ClanPage(props) {
     );
     setSelectedClanItemsList(filterClanItems);
   }
+
+  console.log(powerClanIndex);
 
   return (
     <div className="clan-page">
@@ -632,28 +650,23 @@ export function ClanPage(props) {
                                     name={`discipline-${index}`}
                                     id={`discipline-${index}`}
                                   >
-                                    <Collapse
-                                      // accordion
-                                      collapsible="header"
-                                      style={{ marginTop: 20 }}
-                                      // activeKey={[powerClanIndex]}
-                                      activeKey={[`${last(powerClanIndex)}`]}
-                                      expandIconPosition="right"
-                                      onChange={value => {
-                                        if (powerClanIndex !== value) {
-                                          setPowenClanIndex(value);
-                                        } else {
-                                          setPowenClanIndex([-1]);
-                                        }
-                                      }}
-                                    >
-                                      <Panel
-                                        key={`${index}`}
-                                        className="site-collapse-custom-panel"
-                                        header={
+                                    <div className={classes.root}>
+                                      <Accordion
+                                        expanded={expanded === index}
+                                        onChange={handleChange(index)}
+                                      >
+                                        <AccordionSummary
+                                          expandIcon={<ExpandMoreIcon />}
+                                          aria-controls="panel2bh-content"
+                                          id="panel2bh-header"
+                                          className={classes.heading}
+                                        >
                                           <Row
                                             type="flex"
-                                            style={{ fontFamily: 400 }}
+                                            style={{
+                                              fontFamily: 400,
+                                              width: '100%',
+                                            }}
                                           >
                                             <div className="disc-cols3">
                                               <span>
@@ -671,9 +684,8 @@ export function ClanPage(props) {
                                               </span>
                                             </div>
                                           </Row>
-                                        }
-                                      >
-                                        <div>
+                                        </AccordionSummary>
+                                        <AccordionDetails>
                                           <div>
                                             <p>
                                               {get(item, 'summary[0]', [])}
@@ -897,9 +909,9 @@ export function ClanPage(props) {
                         {renderLink(item)}
                       </div> */}
                                           </div>
-                                        </div>
-                                      </Panel>
-                                    </Collapse>
+                                        </AccordionDetails>
+                                      </Accordion>
+                                    </div>
                                   </Element>
                                 </div>
                               ),
@@ -1035,6 +1047,7 @@ export function ClanPage(props) {
                             value={items1.power}
                             onClick={() => {
                               setPowenClanIndex([-1]);
+setExpanded(-1);
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >
