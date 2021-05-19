@@ -10,7 +10,7 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import jQuery from 'jquery';
+import $ from 'jquery';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -153,11 +153,16 @@ export function ClanPage(props) {
       `discipline-${toNumber(last(powerClanIndex))}`,
     );
 
-    jQuery(`${element}:visible`)
-      .first()
-      .focus();
+    const jElement = $(element);
+    console.log(jElement);
 
     if (!isNull(element)) {
+      jElement.animate(
+        {
+          scrollTop: $('.navbarHeader').offset().top,
+        },
+        2000,
+      );
       // jQuery(element).animate(
       //   { scrollTop: jQuery(`${element}`).offset().top },
       //   1000,
@@ -609,6 +614,25 @@ export function ClanPage(props) {
                                     activeKey={[`${last(powerClanIndex)}`]}
                                     expandIconPosition="right"
                                     onChange={value => {
+                                      const element = document.getElementById(
+                                        `discipline-${index}`,
+                                      );
+
+                                      const jElement = $(element);
+                                      console.log(jElement);
+
+                                      if (!isNull(element)) {
+                                        jElement.animate(
+                                          {
+                                            scrollTop: $('.navbarHeader').offset().top,
+                                          },
+                                          2000,
+                                        );
+                                        // jQuery(element).animate(
+                                        //   { scrollTop: jQuery(`${element}`).offset().top },
+                                        //   1000,
+                                        // );
+                                      }
                                       if (powerClanIndex !== value) {
                                         setPowenClanIndex(value);
                                       } else {

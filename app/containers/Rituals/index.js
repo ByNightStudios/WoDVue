@@ -372,29 +372,35 @@ export function ClanPage(props) {
               {isEmpty(selectedClan) ? (
                 <p>
                   <h2>RITUALS</h2>
-                  Necromancy, Thaumaturgy and Abyss Mysticism do not have elder
-                  powers or techniques. Instead, practitioners of these arts
-                  gain access to mystical rituals specific to their art. Rituals
-                  are formulaic and require a significant amount of time, as
-                  well as specialized implements and ingredients. You cannot buy
-                  a specific ritual until you have purchased the appropriate dot
-                  of Obtenebration/ Necromancy/ Thaumaturgy to support that
-                  ritual- for example, learning a level 4 Thaumaturgy ritual
-                  requires you already possess 4 dots in your primary
-                  Thaumaturgy path. The cost to purchase a ritual is equal to
-                  the ritual’s level times two. Therefore, a level 3 ritual
-                  costs 6 XP to purchase. A Thaumaturgist or Necromancer cannot
-                  learn more rituals than dots of Thaumaturgy/ Necromancy that
-                  she currently possesses. For example, Marianna Giovanni
-                  possesses 4 dots in the Sepulchre Path, her primary path, as
-                  well as 3 dots in the Bone Path, and 2 dots in the Ash Path.
-                  Thus, she can learn nine Necromancy rituals. Unlike
-                  Thaumaturgy and Necromancy, an Abyss Mystic is not limited in
-                  the number of rituals she may purchase, but must purchase one
-                  ritual of each level before she is able to purchase a ritual
-                  at the next-higher level. For example, in order to purchase a
-                  level 2 ritual, an Abyss Mystic must already possess at least
-                  one level 1 ritual.
+                  <p>
+                   <p> Necromancy, Thaumaturgy and Abyss Mysticism do not have
+                    elder powers or techniques. Instead, practitioners of these
+                    arts gain access to mystical rituals specific to their art.
+                    Rituals are formulaic and require a significant amount of
+                    time, as well as specialized implements and ingredients. You
+                    cannot buy a specific ritual until you have purchased the
+                    appropriate dot of Obtenebration/ Necromancy/ Thaumaturgy to
+                    support that ritual- for example, learning a level 4
+                    Thaumaturgy ritual requires you already possess 4 dots in
+                    your primary Thaumaturgy path. In addition, you must
+                    purchase one ritual of each level before you are able to
+                    purchase a ritual at the next-higher level. For example, in
+                    order to purchase a level 2 ritual, an Abyss Mystic must
+                    already possess at least one level 1 ritual.
+                    </p>
+                    <p>
+                      The cost to purchase a ritual is equal to the ritual's
+                      level times two. Therefore, a level 3 ritual costs 6 XP to
+                      purchase. A Thaumaturgist or Necromancer cannot learn more
+                      rituals than dots of Thaumaturgy/ Necromancy that she
+                      currently possesses. For example, Marianna Giovanni
+                      possesses 4 dots in the Sepulchre Path, her primary path,
+                      as well as 3 dots in the Bone Path, and 2 dots in the Ash
+                      Path. Thus, she can learn nine Necromancy rituals. An
+                      Abyss Mystic is not limited in the number of rituals she
+                      may purchase.
+                    </p>
+                  </p>
                 </p>
               ) : (
                 <div />
