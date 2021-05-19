@@ -10,6 +10,7 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
+import jQuery from 'jquery';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -151,17 +152,16 @@ export function ClanPage(props) {
     const element = document.getElementById(
       `discipline-${toNumber(last(powerClanIndex))}`,
     );
-    if (!isNull(element)) {
-      const offset = 0;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
-      });
+    jQuery(`${element}:visible`)
+      .first()
+      .focus();
+
+    if (!isNull(element)) {
+      // jQuery(element).animate(
+      //   { scrollTop: jQuery(`${element}`).offset().top },
+      //   1000,
+      // );
     }
   }, [powerClanIndex]);
 
@@ -320,7 +320,6 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
-  console.log(powerClanIndex);
   return (
     <div className="clan-page">
       {renderHelment()}

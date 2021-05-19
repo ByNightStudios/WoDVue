@@ -39,9 +39,6 @@ export function Search() {
     '5dd9d020035b8948cca3cdbbccca2359',
   );
 
-  // const results = connectStateResults();
-
-  // console.log(results);
   useEffect(() => {
     // const {
     //   attributes: { data: attributesData },
