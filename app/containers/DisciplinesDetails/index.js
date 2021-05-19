@@ -195,7 +195,31 @@ setExpanded(-1);
       `discipline-${toNumber(last(powerClanIndex))}`,
     );
     if (!isNull(element)) {
-      element.scrollIntoView();
+      // element.scrollIntoView();
+      const goToContainer = new Promise((resolve, reject) => {
+        Events.scrollEvent.register('end', () => {
+          resolve();
+          Events.scrollEvent.remove('end');
+        });
+
+        scroller.scrollTo(`discipline-${toNumber(last(powerClanIndex))}`, {
+          duration: 800,
+          delay: 0,
+          smooth: 'easeInOutQuart',
+        });
+      });
+
+      goToContainer.then(() =>
+        scroller.scrollTo('scroll-container-second-element', {
+          duration: 800,
+          delay: 0,
+          smooth: 'easeInOutQuart',
+          containerId: `discipline-${toNumber(last(powerClanIndex))}`,
+        }),
+      );
+      goToContainer.catch(e => {
+        console.log(e);
+      });
     }
   }, [powerClanIndex]);
 
