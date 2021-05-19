@@ -7,6 +7,7 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Element } from 'react-scroll';
 import { Menu, Dropdown, Button, Checkbox, Tooltip } from 'antd';
 import { map, find, isEmpty, includes, compact, filter } from 'lodash';
 import history from 'utils/history';
@@ -207,28 +208,33 @@ function NavBar({
   }
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
-      <nav className="navbar navbar-expand-lg" id="monsterContentTypesNav">
-        {map(navItems(), ({ text, contentTypeId }, index) => (
-          <Dropdown
-            overlay={handleOverlayMenu}
-            placement="bottomCenter"
-            arrow
-            className="antd-drop-down"
-            key={index}
-            opened
-          >
-            <Button
-              onMouseEnter={() => {
-                history.push(`/vampire/${getText(text)}`);
-                handleOnMouseUp(contentTypeId);
-              }}
-              onMouseLeave={handleOnMouseLeave}
+      <Element
+        name="scroll-container-second-element"
+        id="scroll-container-second-element"
+      >
+        <nav className="navbar navbar-expand-lg" id="monsterContentTypesNav">
+          {map(navItems(), ({ text, contentTypeId }, index) => (
+            <Dropdown
+              overlay={handleOverlayMenu}
+              placement="bottomCenter"
+              arrow
+              className="antd-drop-down"
+              key={index}
+              opened
             >
-              {text}
-            </Button>
-          </Dropdown>
-        ))}
-      </nav>
+              <Button
+                onMouseEnter={() => {
+                  history.push(`/vampire/${getText(text)}`);
+                  handleOnMouseUp(contentTypeId);
+                }}
+                onMouseLeave={handleOnMouseLeave}
+              >
+                {text}
+              </Button>
+            </Dropdown>
+          ))}
+        </nav>
+      </Element>
       <div
         style={{
           display: 'flex',
