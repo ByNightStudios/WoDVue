@@ -11,7 +11,7 @@ import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { Input, AutoComplete, Empty } from 'antd';
 import Highlighter from 'react-highlight-words';
-import { map, uniqBy, find } from 'lodash';
+import { map, uniqBy, find, isEmpty } from 'lodash';
 import get from 'lodash/get';
 
 import { useInjectSaga } from 'utils/injectSaga';
@@ -35,13 +35,10 @@ export function Search() {
   useInjectSaga({ key: 'search', saga });
 
   const searchClient = algoliasearch(
-    'FLL6X8YRIN',
-    '9bebb236761c88f11a4f7cd70907a90f',
+    '0YOI37FZAB',
+    '5dd9d020035b8948cca3cdbbccca2359',
   );
 
-  // const results = connectStateResults();
-
-  // console.log(results);
   useEffect(() => {
     // const {
     //   attributes: { data: attributesData },
@@ -184,7 +181,6 @@ export function Search() {
   const myAntdSearchBox = ({ refine, searchResults, searchState }) => (
     <AutoComplete
       allowClear
-      autoFocus
       backfill
       dropdownMatchSelectWidth={252}
       style={{
@@ -196,11 +192,11 @@ export function Search() {
           get(searchResults, 'hits', []),
           o => getItems(o) === item,
         );
-        history.push(filterItem.url);
+        history.push(`/${filterItem.url}`);
       }}
-      onSearch={value => refine(value)}
+      onSearch={value => !isEmpty(value) ? refine(value) : null}
       notFoundContent={<Empty />}
-      onPressEnter={value => refine(value)}
+      onPressEnter={value =>  !isEmpty(value) ? refine(value) : null}
       placeholder="Search"
       // onChange={event => refine(event.currentTarget.value)}
     />
@@ -212,7 +208,7 @@ export function Search() {
 
   return (
     <div className="ais-InstantSearch">
-      <InstantSearch indexName="datajson" searchClient={searchClient}>
+      <InstantSearch indexName="search" searchClient={searchClient}>
         <div className="right-panel">
           <CustomSearchBox showLoadingIndicator />
         </div>

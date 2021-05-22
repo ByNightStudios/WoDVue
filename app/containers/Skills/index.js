@@ -56,6 +56,8 @@ export function ClanPage(props) {
     match,
   } = props;
 
+
+
   const filterClans = clanItems;
 
   useEffect(() => {
