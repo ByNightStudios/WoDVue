@@ -165,6 +165,7 @@ export function ClanPage(props) {
         behavior: 'smooth',
       });
     }
+    jQuery('ant-collapse-item-active').removeClass();
   }, [powerClanIndex]);
 
   function handleNavItemsClick(e) {
@@ -354,10 +355,10 @@ export function ClanPage(props) {
                   get(selectedClan, 'power', ''),
                   get(selectedClan, 'title', ''),
                 ) ? (
-                    <i>{get(selectedClan, 'title', '')} </i>
-                ) : (
-                    <div />
-                )}
+                  <i>{get(selectedClan, 'title', '')} </i>
+                  ) : (
+                  <div />
+                  )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
             </div>
@@ -603,16 +604,16 @@ export function ClanPage(props) {
                               (item, index) => (
                                 <div
                                   id={`discipline-${index}`}
-                                  className={`discipline-${index}`}
+                                  className={`power-discipline discipline-${index}`}
                                 >
                                   <Collapse
                                     accordion
-                                    collapsible="header"
                                     style={{ marginTop: 20 }}
                                     // activeKey={[powerClanIndex]}
                                     defaultActiveKey={[
                                       `${last(powerClanIndex)}`,
                                     ]}
+                                    destroyInactivePanel
                                     expandIconPosition="right"
                                     onChange={value => {
                                       if (powerClanIndex !== value) {
@@ -630,11 +631,12 @@ export function ClanPage(props) {
                                           type="flex"
                                           style={{ fontFamily: 400 }}
                                         >
-                                          <div className="disc-cols3">
-                                            <span>
-                                              <b>{item.title}</b>
-                                            </span>
-                                          </div>
+                                          {powerClanIndex === index ? (
+                                            <div className="disc-cols3">
+                                              <span>
+                                                <b>{item.title}</b>
+                                              </span>
+                                            </div>) : null}
                                           <div className="disc-cols3 hideMobile">
                                             <span>
                                               <b>{item.level}</b>
@@ -715,30 +717,10 @@ export function ClanPage(props) {
                                           {!isEmpty(
                                             get(item, 'exceptional'),
                                           ) ? (
-                                              <div>
-                                              <h2>Exceptional Success</h2>
-                                                <Row gutter={[8, 8]}>
-                                                {get(item, 'exceptional')}
-                                                </Row>
-                                            </div>
-                                            ) : (
-                                            <div />
-                                            )}
-
-                                          {!isEmpty(
-                                            get(item, 'exceptionalLong'),
-                                          ) ? (
-                                              <div>
-                                              <h2>Exceptional Success</h2>
-                                                <Row gutter={[8, 8]}>
-                                                <div
-                                                  /* eslint-disable-next-line react/no-danger */
-                                                  dangerouslySetInnerHTML={{
-                                                      __html: documentToHtmlString(
-                                                      item.exceptionalLong_html,
-                                                      ),
-                                                  }}
-                                                  />
+                                            <div>
+                                                <h2>Exceptional Success</h2>
+                                              <Row gutter={[8, 8]}>
+                                                  {get(item, 'exceptional')}
                                               </Row>
                                               </div>
                                           ) : (
@@ -746,32 +728,16 @@ export function ClanPage(props) {
                                           )}
 
                                           {!isEmpty(
-                                            get(item, 'focusDescriptor'),
+                                            get(item, 'exceptionalLong'),
                                           ) ? (
                                             <div>
-                                                <h2>Focus</h2>
-                                              <Row type="flex" justify="start">
-                                                  <u
-                                                  style={{
-                                                      textDecoration: 'underline',
-                                                    textDecorationThickness:
-                                                      '2px',
-                                                    textDecorationSkipInk:
-                                                      'auto',
-                                                    textUnderlineOffset: '3px',
-                                                      marginBottom: 10,
-                                                  }}
-                                                  >
-                                                  {' '}
-                                                    {get(item, 'foci')}
-                                                </u>
-                                                  <span>&nbsp;{' : '}&nbsp;</span>
-                                                <div
-                                                    style={{ width: '85%' }}
+                                                <h2>Exceptional Success</h2>
+                                              <Row gutter={[8, 8]}>
+                                                  <div
                                                   /* eslint-disable-next-line react/no-danger */
                                                     dangerouslySetInnerHTML={{
                                                     __html: documentToHtmlString(
-                                                        item.focusDescriptor_html,
+                                                        item.exceptionalLong_html,
                                                     ),
                                                     }}
                                                 />
@@ -782,22 +748,58 @@ export function ClanPage(props) {
                                             )}
 
                                           {!isEmpty(
-                                            get(item, 'interactions'),
+                                            get(item, 'focusDescriptor'),
                                           ) ? (
                                               <div>
-                                                <h2>INTERACTIONS</h2>
-                                              <div
+                                              <h2>Focus</h2>
+                                                <Row type="flex" justify="start">
+                                                <u
+                                                    style={{
+                                                    textDecoration: 'underline',
+                                                      textDecorationThickness:
+                                                      '2px',
+                                                      textDecorationSkipInk:
+                                                      'auto',
+                                                      textUnderlineOffset: '3px',
+                                                    marginBottom: 10,
+                                                    }}
+                                                >
+                                                    {' '}
+                                                  {get(item, 'foci')}
+                                                  </u>
+                                                <span>&nbsp;{' : '}&nbsp;</span>
+                                                  <div
+                                                  style={{ width: '85%' }}
+                                                    /* eslint-disable-next-line react/no-danger */
+                                                  dangerouslySetInnerHTML={{
+                                                      __html: documentToHtmlString(
+                                                      item.focusDescriptor_html,
+                                                      ),
+                                                  }}
+                                                  />
+                                              </Row>
+                                              </div>
+                                          ) : (
+                                              <div />
+                                          )}
+
+                                          {!isEmpty(
+                                            get(item, 'interactions'),
+                                          ) ? (
+                                            <div>
+                                              <h2>INTERACTIONS</h2>
+                                                <div
                                                 /* eslint-disable-next-line react/no-danger */
-                                                dangerouslySetInnerHTML={{
-                                                    __html: documentToHtmlString(
-                                                    item.interactions_html,
-                                                    ),
-                                                }}
-                                                />
-                                            </div>
-                                            ) : (
-                                            <div />
-                                            )}
+                                                  dangerouslySetInnerHTML={{
+                                                  __html: documentToHtmlString(
+                                                      item.interactions_html,
+                                                  ),
+                                                  }}
+                                              />
+                                              </div>
+                                          ) : (
+                                              <div />
+                                          )}
 
                                           <p>
                                             {!isEmpty(get(item, 'cost')) ? (
@@ -822,42 +824,42 @@ export function ClanPage(props) {
                                             {!isEmpty(
                                               get(item, 'sourceBook'),
                                             ) ? (
-                                              <p>
-                                                  <h2>SOURCE BOOK</h2>
-                                                {!isEmpty(
-                                                    get(item, 'sourceBook'),
-                                                ) ? (
-                                                      <div>
-                                                    {map(
-                                                          get(item, 'sourceBook'),
-                                                      item => (
-                                                            <p>
-                                                          <p>
-                                                                {get(
-                                                              item,
-                                                                  'fields.bookTitle',
-                                                            )}
-                                                              </p>
-                                                          <p>
-                                                                {get(
-                                                              item,
-                                                                  'fields.system[0]',
-                                                            )}
-                                                              </p>
-                                                        </p>
-                                                          ),
-                                                    )}
-                                                      </div>
-                                                ) : (
-                                                      <div>
-                                                        {' '}
+                                                <p>
+                                                <h2>SOURCE BOOK</h2>
+                                                  {!isEmpty(
+                                                  get(item, 'sourceBook'),
+                                                  ) ? (
+                                                  <div>
+                                                        {map(
+                                                      get(item, 'sourceBook'),
+                                                          item => (
+                                                        <p>
+                                                              <p>
+                                                            {get(
+                                                                  item,
+                                                              'fields.bookTitle',
+                                                                )}
+                                                          </p>
+                                                              <p>
+                                                            {get(
+                                                                  item,
+                                                              'fields.system[0]',
+                                                                )}
+                                                          </p>
+                                                            </p>
+                                                      ),
+                                                        )}
+                                                  </div>
+                                                    ) : (
+                                                  <div>
+                                                    {' '}
                                                     MET: VTM Source Book
-                                                      </div>
-                                                    )}
-                                              </p>
-                                              ) : (
-                                              <div />
-                                              )}
+                                                  </div>
+                                                )}
+                                                </p>
+                                            ) : (
+                                                <div />
+                                            )}
                                           </p>
                                           {/* <div className="row">
                          {renderLink(item)}
