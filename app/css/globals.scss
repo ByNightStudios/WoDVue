@@ -58,7 +58,7 @@ a:hover{
 }
 
 .navbar{
-	
+
 	background-color: $bgNav;
 	padding: 0;
 	display: flex;
@@ -122,10 +122,10 @@ a:hover{
 	height: 50px;
 	border-top: 1px solid $line;
 	border-bottom: 1px solid $line;
-	
+
 
 	.nav-link{
-		
+
 		line-height: 50px;
 		padding: 0 1rem;
 
@@ -164,7 +164,7 @@ a:hover{
 			}
 		}
 	}
-  	
+
 
   	ul ul{
   		padding:0 40px 0;
@@ -301,3 +301,4 @@ a:hover{
 		}
 	}
 }
+

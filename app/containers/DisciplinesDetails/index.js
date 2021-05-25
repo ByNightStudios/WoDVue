@@ -10,7 +10,8 @@
  */
 
 import React, { memo, useEffect, useState } from 'react';
-import jQuery from 'jquery';
+import $ from 'jquery';
+import { Events } from 'react-scroll';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
@@ -59,6 +60,10 @@ import './style.css';
 const { Paragraph } = Typography;
 const { Option } = Select;
 const { Panel } = Collapse;
+const Scroll = require('react-scroll');
+const { Element } = Scroll;
+const { scroller } = Scroll;
+
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -153,30 +158,51 @@ export function ClanPage(props) {
       `discipline-${toNumber(last(powerClanIndex))}`,
     );
 
+    console.log(element);
     if (!isNull(element)) {
-      const offset = 0;
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = element.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+      const goToContainer = new Promise((resolve, reject) => {
+        Events.scrollEvent.register('end', () => {
+          resolve();
+          Events.scrollEvent.remove('end');
+        });
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth',
+        scroller.scrollTo(`discipline-${toNumber(last(powerClanIndex))}`, {
+          duration: 800,
+          delay: 0,
+          smooth: 'easeInOutQuart',
+        });
       });
+
+      goToContainer.then(() =>
+        scroller.scrollTo('scroll-container-second-element', {
+          duration: 100,
+          delay: 0,
+          smooth: 'easeInOutQuart',
+          containerId: `discipline-${toNumber(last(powerClanIndex))}`,
+        }),
+      );
     }
-    jQuery('ant-collapse-item-active').removeClass();
   }, [powerClanIndex]);
 
   function handleNavItemsClick(e) {
+    $('.site-collapse-custom-panel')
+    .removeClass('ant-collapse-item-active')
+    .addClass('ant-collapse-item site-collapse-custom-panel');
+
+  $('.ant-collapse-content-active').empty();
     if (e.target) {
       const value = e.target.getAttribute('value');
       const findClanData = find(filterClans, { power: value });
       setSelectedClan(findClanData);
-      const powerOfClansData = filter(clanItemsList, {
-        power: get(findClanData, 'title'),
-      });
-      setPowerOfClans(powerOfClansData);
+      const powerOfClansData = filter(
+        clanItems,
+        o => o.power === trim(get(findClanData, 'title')) && !o.parent,
+      );
+
+      const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
+
+      const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
+      setPowerOfClans(sortedByLevel);
     }
   }
 
@@ -325,9 +351,15 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
+  console.log(powerOfClans);
+
   return (
     <div className="clan-page">
       {renderHelment()}
+      <Element
+        name="scroll-container-second-element"
+        id="scroll-container-second-element"
+      />
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -631,12 +663,11 @@ export function ClanPage(props) {
                                           type="flex"
                                           style={{ fontFamily: 400 }}
                                         >
-                                          {powerClanIndex === index ? (
-                                            <div className="disc-cols3">
-                                              <span>
-                                                <b>{item.title}</b>
-                                              </span>
-                                            </div>) : null}
+                                          <div className="disc-cols3">
+                                            <span>
+                                              <b>{item.title}</b>
+                                            </span>
+                                          </div>
                                           <div className="disc-cols3 hideMobile">
                                             <span>
                                               <b>{item.level}</b>
