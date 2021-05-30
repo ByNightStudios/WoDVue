@@ -798,6 +798,7 @@ export function ClanPage(props) {
                   onClick={() => {
                     setCost('filter by Cost');
                     let filterClanItems = [];
+                    console.log(disc, book);
                     if (disc && disc !== 'filter by Clan') {
                       if (
                         includes(
