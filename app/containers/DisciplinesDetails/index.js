@@ -114,7 +114,7 @@ export function ClanPage(props) {
 
     const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
     setPowerOfClans(sortedByLevel);
-    setPowenClanIndex([-1]);
+    setPowenClanIndex(-1);
     if (!findClanData) {
       const findClanData3 = find(clanItems, o => o.title === trim(id));
       const findClanData4 = find(clanItems, o => {
@@ -155,10 +155,9 @@ export function ClanPage(props) {
 
   useEffect(() => {
     const element = document.getElementById(
-      `discipline-${toNumber(last(powerClanIndex))}`,
+      `discipline-${powerClanIndex}-power`,
     );
 
-    console.log(element);
     if (!isNull(element)) {
       const goToContainer = new Promise((resolve, reject) => {
         Events.scrollEvent.register('end', () => {
@@ -166,7 +165,7 @@ export function ClanPage(props) {
           Events.scrollEvent.remove('end');
         });
 
-        scroller.scrollTo(`discipline-${toNumber(last(powerClanIndex))}`, {
+        scroller.scrollTo(`discipline-${powerClanIndex}-power`, {
           duration: 800,
           delay: 0,
           smooth: 'easeInOutQuart',
@@ -178,7 +177,7 @@ export function ClanPage(props) {
           duration: 100,
           delay: 0,
           smooth: 'easeInOutQuart',
-          containerId: `discipline-${toNumber(last(powerClanIndex))}`,
+          containerId: `discipline-${powerClanIndex}-power`,
         }),
       );
     }
@@ -186,10 +185,10 @@ export function ClanPage(props) {
 
   function handleNavItemsClick(e) {
     $('.site-collapse-custom-panel')
-    .removeClass('ant-collapse-item-active')
-    .addClass('ant-collapse-item site-collapse-custom-panel');
+      .removeClass('ant-collapse-item-active')
+      .addClass('ant-collapse-item site-collapse-custom-panel');
 
-  $('.ant-collapse-content-active').empty();
+    $('.ant-collapse-content-active').empty();
     if (e.target) {
       const value = e.target.getAttribute('value');
       const findClanData = find(filterClans, { power: value });
@@ -329,7 +328,7 @@ export function ClanPage(props) {
             behavior: 'smooth',
           });
           setSelectedClan(item);
-          setPowenClanIndex([-1]);
+          setPowenClanIndex(-1);
         }}
       >
         <span style={{ color: '#fff' }}>Details</span>
@@ -635,8 +634,8 @@ export function ClanPage(props) {
                               getFilterPower(powerOfClans),
                               (item, index) => (
                                 <div
-                                  id={`discipline-${index}`}
-                                  className={`power-discipline discipline-${index}`}
+                                  id={`discipline-${index}-power`}
+                                  className={`power-discipline discipline-${index}-power`}
                                 >
                                   <Collapse
                                     accordion
@@ -651,7 +650,7 @@ export function ClanPage(props) {
                                       if (powerClanIndex !== value) {
                                         setPowenClanIndex(value);
                                       } else {
-                                        setPowenClanIndex([-1]);
+                                        setPowenClanIndex(-1);
                                       }
                                     }}
                                   >
@@ -1032,7 +1031,7 @@ export function ClanPage(props) {
                             className={`nav-link ${getClassName(items1.power)}`}
                             value={items1.power}
                             onClick={() => {
-                              setPowenClanIndex([-1]);
+                              setPowenClanIndex(-1);
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >
