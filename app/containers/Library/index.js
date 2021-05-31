@@ -17,7 +17,7 @@ import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
 import { map, get, isEmpty, find, filter } from 'lodash';
-import { Typography } from 'antd';
+import { Typography, Divider } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -46,6 +46,8 @@ export function ClanPage(props) {
   const {
     app: {
       contentPages: { data: clanItems },
+      attributes: { data: clanItems_1 },
+      backgrounds: { data: clanItems_2 },
     },
     match,
   } = props;
@@ -60,7 +62,6 @@ export function ClanPage(props) {
     } = props;
     const findClanData = find(clanItems, { title: id });
     setSelectedClan(findClanData);
-
   }, [match]);
 
   function handleNavItemsClick(e) {
@@ -90,6 +91,9 @@ export function ClanPage(props) {
     }
     return `icon-${item}`;
   }
+
+  console.log(clanItems_1);
+  console.log(clanItems_2);
 
   return (
     <div className="clan-page">
@@ -139,7 +143,7 @@ export function ClanPage(props) {
                 <div />
               )}
 
-        {!isEmpty(get(selectedClan, 'quote')) ? (
+              {!isEmpty(get(selectedClan, 'quote')) ? (
                 <div>
                   <h2>QUOTE</h2>
                   <div
@@ -321,6 +325,42 @@ export function ClanPage(props) {
                     </Link>
                   </li>
                 ))}
+ <Divider  />
+                {map(clanItems_1, (items, index) => (
+                  <li className="nav-item" value={items.attributes} key={index}>
+                    <Link
+                      to={`/vampire/Attributes/${items.attribute}`}
+                      className={`nav-link ${getClassName(items.attribute)}`}
+                      value={items.attribute}
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
+                      {items.attribute}
+                    </Link>
+                  </li>
+                ))}
+  <Divider  />
+        {map(clanItems_2, (items, index) => (
+                  <li
+                    className="nav-item"
+                    onClick={handleNavItemsClick}
+                    value={items.title}
+                    key={index}
+                  >
+                    <Link
+                      to={`/vampire/Backgrounds/${items.title}`}
+                      className={`nav-link ${getClassName(items.title)}`}
+                      value={items.title}
+                      onClick={() => {
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
+                      }}
+                    >
+                      {items.title}
+                    </Link>
+                  </li>
+                ))}
+
               </ul>
             </div>
           </div>
