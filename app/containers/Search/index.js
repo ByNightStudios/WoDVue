@@ -192,7 +192,7 @@ export function Search() {
           get(searchResults, 'hits', []),
           o => getItems(o) === item,
         );
-        history.push(`/${filterItem.url}`);
+        history.push(`${filterItem.url}`);
       }}
       onSearch={value => !isEmpty(value) ? refine(value) : null}
       notFoundContent={<Empty />}
