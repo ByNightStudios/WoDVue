@@ -447,6 +447,7 @@ export function ClanPage(props) {
     return item;
   }
 
+
   return (
     <div className="clan-page">
       <Helmet>
@@ -470,7 +471,7 @@ export function ClanPage(props) {
                 {get(selectedClan, 'merit', '') ? (
                   <Paragraph
                     copyable={{
-                      text: `${window.location.href}`,
+                      text: `${decodeURI(window.location.href)}`,
                     }}
                     style={{ marginLeft: 10, color: '#fff' }}
                   >

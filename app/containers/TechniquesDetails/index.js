@@ -198,7 +198,7 @@ export function ClanPage(props) {
                 {get(selectedClan, 'technique', '') ? (
                   <Paragraph
                     copyable={{
-                      text: `${window.location.href}`,
+                      text: `${decodeURI(window.location.href)}`,
                     }}
                     style={{ marginLeft: 10, color: '#fff' }}
                   >

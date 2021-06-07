@@ -244,7 +244,7 @@ export function ClanPage(props) {
                       {get(selectedClan, 'title', '') ? (
                         <Paragraph
                           copyable={{
-                            text: `${window.location.href}`,
+                            text: `${decodeURI(window.location.href)}`,
                           }}
                           style={{ marginLeft: 10, color: '#fff' }}
                         >
