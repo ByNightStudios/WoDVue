@@ -325,7 +325,7 @@ export function ClanPage(props) {
                     </Link>
                   </li>
                 ))}
- <Divider  />
+                <Divider />
                 {map(clanItems_1, (items, index) => (
                   <li className="nav-item" value={items.attributes} key={index}>
                     <Link
@@ -340,8 +340,8 @@ export function ClanPage(props) {
                     </Link>
                   </li>
                 ))}
-  <Divider  />
-        {map(clanItems_2, (items, index) => (
+                <Divider />
+                {map(clanItems_2, (items, index) => (
                   <li
                     className="nav-item"
                     onClick={handleNavItemsClick}
@@ -360,7 +360,6 @@ export function ClanPage(props) {
                     </Link>
                   </li>
                 ))}
-
               </ul>
             </div>
           </div>
