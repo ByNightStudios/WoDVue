@@ -49,6 +49,7 @@ import reducer from './reducer';
 import saga from './saga';
 
 import './style.css';
+import { UpdateOutlined } from '@material-ui/icons';
 
 const { Paragraph } = Typography;
 const { Option } = Select;
@@ -226,33 +227,6 @@ export function ClanPage(props) {
             });
           }
         }
-        // if (includes(disc, '-B')) {
-        //   filterClanItems = filter(clanItems, o =>
-        //     includes(
-        //       trim(toLower(get(o, 'merit'))),
-        //       trim(toLower(renderClanName(disc))),
-        //     ),
-        //   );
-        // } else {
-        //   const filterItems = find(
-        //     clansDataWithMerits,
-        //     o => o.title === getClanType(disc),
-        //   );
-
-        //   if (!isEmpty(filterItems)) {
-        //     filterClanItems = intersectionWith(
-        //       clanItems,
-        //       filterItems.inClanMerits,
-        //       compareFunc,
-        //     );
-        //   } else {
-        //     filterClanItems = filter(clanItems, o => {
-        //       const brand = toLower(get(o, 'clanSpecific[0]'));
-        //       const updatedKey = toLower(disc);
-        //       return brand.indexOf(updatedKey) > -1;
-        //     });
-        //   }
-        // }
       }
     }
     if (costName && costName !== 'filter by Cost') {
@@ -289,12 +263,19 @@ export function ClanPage(props) {
             clansDataWithMerits,
             o => o.title === getClanType(disc) && get(o, 'meritCost') === item,
           );
-
           if (!isEmpty(filterItems1)) {
             filterClanItems = intersectionWith(
               filterClanItems,
               filterItems1.inClanMerits,
               compareFunc,
+            );
+          } else {
+            const discName = split(disc, '-');
+            filterClanItems = filter(
+              filterClanItems,
+              o =>
+                trim(toLower(get(o, 'clanSpecific[0]'))) ===
+                trim(toLower(discName[0])),
             );
           }
         } else {
