@@ -447,9 +447,8 @@ export function ClanPage(props) {
                                   copyable={{
                                     text: `${
                                       window.location.origin
-                                    }/vampire/Disciplines/${item.title.replace(
-                                      ' ',
-                                      '%20',
+                                    }/vampire/Disciplines/${encodeURIComponent(
+                                      item.title,
                                     )}`,
                                   }}
                                   style={{ marginLeft: 10 }}
