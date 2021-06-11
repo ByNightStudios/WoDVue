@@ -303,7 +303,7 @@
                    {get(selectedClan, 'power', '') ? (
                      <Paragraph
                        copyable={{
-                         text: `${decodeURI(window.location.href)}`,
+                         text: `${window.location.href}`,
                        }}
                        style={{ marginLeft: 10, color: '#fff' }}
                      >

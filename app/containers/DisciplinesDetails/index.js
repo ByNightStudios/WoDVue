@@ -138,7 +138,7 @@ export function ClanPage(props) {
         sortedByLevel1,
         o => o.title === trim(id),
       );
-      setPowenClanIndex([findIndexOfPower]);
+      setPowenClanIndex(findIndexOfPower);
       if (findIndexOfPower !== -1) {
         const element = document.getElementById(`power-pannel`);
         const offset = 0;
@@ -657,7 +657,7 @@ export function ClanPage(props) {
                   {get(selectedClan, 'power', '') ? (
                     <Paragraph
                       copyable={{
-                        text: `${decodeURI(window.location.href)}`,
+                        text: `${window.location.href}`,
                       }}
                       style={{ marginLeft: 10, color: '#fff' }}
                     >
