@@ -447,7 +447,10 @@ export function ClanPage(props) {
                                   copyable={{
                                     text: `${
                                       window.location.origin
-                                    }/vampire/Disciplines/${item.title}`,
+                                    }/vampire/Disciplines/${item.title.replace(
+                                      ' ',
+                                      '%20',
+                                    )}`,
                                   }}
                                   style={{ marginLeft: 10 }}
                                 >
