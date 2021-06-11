@@ -272,10 +272,11 @@ export function ClanPage(props) {
               compareFunc,
             );
           } else {
+            const discNames = split(disc, "-");
             filterClanItems = filter(filterClanItems, o =>
               includes(
                 trim(toLower(get(o, 'clanSpecific'))),
-                trim(toLower(disc.replace(" - "," "))),
+                trim(toLower(discNames[0])),
               ),
             );
           }
