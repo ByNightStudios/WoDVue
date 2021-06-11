@@ -240,7 +240,9 @@ export function ClanPage(props) {
 
   function handleFilterCostType(item) {
     setCost(item);
+
     let filterClanItems = filter(clanItems, o => get(o, 'meritCost') === item);
+
     if (disc && disc !== 'filter by Clan') {
       if (
         includes(
@@ -270,12 +272,11 @@ export function ClanPage(props) {
               compareFunc,
             );
           } else {
-            const discName = split(disc, '-');
-            filterClanItems = filter(
-              filterClanItems,
-              o =>
-                trim(toLower(get(o, 'clanSpecific[0]'))) ===
-                trim(toLower(discName[0])),
+            filterClanItems = filter(filterClanItems, o =>
+              includes(
+                trim(toLower(get(o, 'clanSpecific'))),
+                trim(toLower(disc.replace(" - "," "))),
+              ),
             );
           }
         } else {
@@ -427,7 +428,6 @@ export function ClanPage(props) {
     }
     return item;
   }
-
 
   return (
     <div className="clan-page">
