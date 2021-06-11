@@ -74,10 +74,13 @@ export function ClanPage(props) {
     match,
   } = props;
 
-  const filterClans = clanItems;
+  const clanItems1 = map(clanItems, item => ({
+    ...item,
+    clanSpecific: [get(item, 'clanSpecific[0]', '').replace(':', '')],
+  }));
 
   useEffect(() => {
-    setSelectedClanItemsList(clanItems);
+    setSelectedClanItemsList(clanItems1);
   }, []);
 
   useEffect(() => {
@@ -87,7 +90,7 @@ export function ClanPage(props) {
       },
     } = props;
 
-    const findClanData = find(clanItems, { merit: trim(id) });
+    const findClanData = find(clanItems1, { merit: trim(id) });
     setSelectedClan(findClanData);
   }, [match]);
 
@@ -125,11 +128,11 @@ export function ClanPage(props) {
 
   const uniqSourceBook = without(uniq(sourceBook), '');
 
-  const cost = map(clanItems, item => get(item, 'meritCost', ''));
+  const cost = map(clanItems1, item => get(item, 'meritCost', ''));
 
   const uniqCost = without(uniq(cost), '').sort();
 
-  const bloodlinesList = map(clanItems, item => {
+  const bloodlinesList = map(clanItems1, item => {
     if (includes(item.merit, 'Bloodline')) {
       return {
         clan: item.clanSpecific[0],
@@ -140,6 +143,7 @@ export function ClanPage(props) {
 
   const withoutBloodlineList = without(bloodlinesList, undefined);
 
+  console.log(withoutBloodlineList);
   const clanItemsOfMap = [
     'Assamite',
     'Baali',
@@ -176,7 +180,7 @@ export function ClanPage(props) {
   function handleChangeFilter(item) {
     setBook(item);
     let filterClanItems = filter(
-      clanItems,
+      clanItems1,
       o => trim(get(o, 'sourceBook_html.fields.bookTitle')) === trim(item),
     );
     if (disc && disc !== 'filter by Clan') {
@@ -241,7 +245,7 @@ export function ClanPage(props) {
   function handleFilterCostType(item) {
     setCost(item);
 
-    let filterClanItems = filter(clanItems, o => get(o, 'meritCost') === item);
+    let filterClanItems = filter(clanItems1, o => get(o, 'meritCost') === item);
 
     if (disc && disc !== 'filter by Clan') {
       if (
@@ -272,11 +276,11 @@ export function ClanPage(props) {
               compareFunc,
             );
           } else {
-            const discNames = split(disc, "-");
+            const discNames = disc.replace(' - ', ' ');
             filterClanItems = filter(filterClanItems, o =>
               includes(
                 trim(toLower(get(o, 'clanSpecific'))),
-                trim(toLower(discNames[0])),
+                trim(toLower(discNames)),
               ),
             );
           }
@@ -299,7 +303,7 @@ export function ClanPage(props) {
   }
 
   let clanNames = uniq(
-    without(map(clanItems, o => get(o, 'clanSpecific[0]')), undefined),
+    without(map(clanItems1, o => get(o, 'clanSpecific[0]')), undefined),
   );
 
   clanNames = concat(
@@ -337,6 +341,7 @@ export function ClanPage(props) {
   }
 
   function handleFilterType(type) {
+    console.log(type);
     setDisc(type);
     if (
       includes(
@@ -344,7 +349,7 @@ export function ClanPage(props) {
         type,
       )
     ) {
-      let filterClans2 = filter(clanItems, o =>
+      let filterClans2 = filter(clanItems1, o =>
         includes(trim(toLower(get(o, 'meritType[0]'))), trim(toLower(type))),
       );
       if (costName && costName !== 'filter by Cost') {
@@ -374,10 +379,12 @@ export function ClanPage(props) {
       );
 
       if (!isEmpty(filterItems)) {
-        filterClans1 = intersectionWith(
-          clanItems,
-          filterItems.inClanMerits,
-          compareFunc,
+        const discNames = type.replace(' - ', ' ');
+        filterClans1 = filter(clanItems1, o =>
+          includes(
+            trim(toLower(get(o, 'clanSpecific'))),
+            trim(toLower(discNames)),
+          ),
         );
       } else {
         const filterItems1 = find(
@@ -386,13 +393,15 @@ export function ClanPage(props) {
         );
 
         if (!isEmpty(filterItems1)) {
-          filterClans1 = intersectionWith(
-            clanItems,
-            filterItems.inClanMerits,
-            compareFunc,
+          const discNames = disc.replace(' - ', ' ');
+          filterClans1 = filter(clanItems1, o =>
+            includes(
+              trim(toLower(get(o, 'clanSpecific'))),
+              trim(toLower(discNames)),
+            ),
           );
         } else {
-          filterClans1 = filter(clanItems, o => {
+          filterClans1 = filter(clanItems1, o => {
             const brand = toLower(get(o, 'clanSpecific[0]'));
             const updatedKey = toLower(disc);
             return brand.indexOf(updatedKey) > -1;
@@ -430,6 +439,7 @@ export function ClanPage(props) {
     return item;
   }
 
+  console.log(clanItemsList);
   return (
     <div className="clan-page">
       <Helmet>
@@ -730,14 +740,14 @@ export function ClanPage(props) {
                     let filterClanItems = [];
                     if (book && book !== 'filter by source book') {
                       filterClanItems = filter(
-                        clanItems,
+                        clanItems1,
                         o =>
                           get(o, 'sourceBook_html.fields.bookTitle') === book,
                       );
                     }
                     if (costName && costName !== 'filter by Cost') {
                       filterClanItems = filter(
-                        isEmpty(filterClanItems) ? clanItems : filterClanItems,
+                        isEmpty(filterClanItems) ? clanItems1 : filterClanItems,
                         o => get(o, 'meritCost') === costName,
                       );
                     }
@@ -746,7 +756,7 @@ export function ClanPage(props) {
                       costName === 'filter by Cost' &&
                       book === 'filter by source book'
                     ) {
-                      setSelectedClanItemsList(clanItems);
+                      setSelectedClanItemsList(clanItems1);
                     }
                   }}
                 >
@@ -795,7 +805,7 @@ export function ClanPage(props) {
                           disc,
                         )
                       ) {
-                        filterClanItems = filter(clanItems, o =>
+                        filterClanItems = filter(clanItems1, o =>
                           includes(get(o, 'meritType[0]'), disc),
                         );
                       }
@@ -820,13 +830,13 @@ export function ClanPage(props) {
 
                           if (!isEmpty(filterItems1)) {
                             filterClanItems = intersectionWith(
-                              clanItems,
+                              clanItems1,
                               filterItems1.inClanMerits,
                               compareFunc,
                             );
                           }
                         } else {
-                          filterClanItems = filter(clanItems, o => {
+                          filterClanItems = filter(clanItems1, o => {
                             const brand = toLower(get(o, 'clanSpecific[0]'));
                             const updatedKey = toLower(disc);
                             return brand.indexOf(updatedKey) > -1;
@@ -837,7 +847,7 @@ export function ClanPage(props) {
                     }
                     if (book && book !== 'filter by source book') {
                       filterClanItems = filter(
-                        isEmpty(filterClanItems) ? clanItems : filterClanItems,
+                        isEmpty(filterClanItems) ? clanItems1 : filterClanItems,
                         o =>
                           get(o, 'sourceBook_html.fields.bookTitle') === book,
                       );
@@ -847,7 +857,7 @@ export function ClanPage(props) {
                       disc === 'filter by Clan' &&
                       book === 'filter by source book'
                     ) {
-                      setSelectedClanItemsList(clanItems);
+                      setSelectedClanItemsList(clanItems1);
                     }
                   }}
                 >
@@ -889,7 +899,7 @@ export function ClanPage(props) {
                           disc,
                         )
                       ) {
-                        filterClanItems = filter(clanItems, o =>
+                        filterClanItems = filter(clanItems1, o =>
                           includes(get(o, 'meritType[0]'), disc),
                         );
                       }
@@ -914,13 +924,13 @@ export function ClanPage(props) {
 
                           if (!isEmpty(filterItems1)) {
                             filterClanItems = intersectionWith(
-                              clanItems,
+                              clanItems1,
                               filterItems1.inClanMerits,
                               compareFunc,
                             );
                           }
                         } else {
-                          filterClanItems = filter(clanItems, o => {
+                          filterClanItems = filter(clanItems1, o => {
                             const brand = toLower(get(o, 'clanSpecific[0]'));
                             const updatedKey = toLower(disc);
                             return brand.indexOf(updatedKey) > -1;
@@ -942,7 +952,7 @@ export function ClanPage(props) {
                       disc === 'filter by Clan' &&
                       costName === 'filter by Cost'
                     ) {
-                      setSelectedClanItemsList(clanItems);
+                      setSelectedClanItemsList(clanItems1);
                     }
                   }}
                 >
