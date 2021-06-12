@@ -83,7 +83,7 @@ const handleClanFilter = (disc, filterClanItems, clansDataWithMerits) => {
           }
 
           const updatedKey = toLower(discName);
-          return brandName.indexOf(updatedKey) > -1;
+          return brandName === updatedKey;
         });
       } else {
         const filterItems1 = find(
@@ -92,14 +92,12 @@ const handleClanFilter = (disc, filterClanItems, clansDataWithMerits) => {
         );
 
         if (!isEmpty(filterItems1)) {
-          console.log('===========2');
           clanItems = intersectionWith(
             filterClanItems,
             filterItems.inClanMerits,
             compareFunc,
           );
         } else {
-          console.log('===========3');
           clanItems = filter(filterClanItems, o => {
             const brand = toLower(get(o, 'clanSpecific[0]'));
             const updatedKey = toLower(disc);
