@@ -83,7 +83,7 @@ const handleClanFilter = (disc, filterClanItems, clansDataWithMerits) => {
           }
 
           const updatedKey = toLower(discName);
-          return brandName === updatedKey;
+          return brandName.indexOf(updatedKey) > -1;
         });
       } else {
         const filterItems1 = find(
