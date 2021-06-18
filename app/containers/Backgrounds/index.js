@@ -52,6 +52,14 @@ export function ClanPage(props) {
 
   const filterClans = clanItems;
 
+  console.log(map(clanItems, item => {
+    return {
+      url: `/vampire/Backgrounds/${item.title}`,
+      title: item.title,
+      description: item.description[0]
+    }
+  }))
+
   useEffect(() => {
     const {
       match: {

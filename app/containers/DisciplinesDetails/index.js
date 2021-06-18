@@ -9,13 +9,15 @@
  *
  */
 
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo, useEffect, useState, useRef } from 'react';
+import $ from 'jquery';
+import { Events } from 'react-scroll';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { Row, Typography, Select, Button } from 'antd';
+import { Row, Typography, Select, Button, Collapse, Space } from 'antd';
 import {
   map,
   filter,
@@ -31,6 +33,9 @@ import {
   uniq,
   without,
   findIndex,
+  last,
+  isNull,
+  toNumber,
 } from 'lodash';
 
 import { find } from 'underscore';
@@ -54,6 +59,10 @@ import './style.css';
 
 const { Paragraph } = Typography;
 const { Option } = Select;
+const { Panel } = Collapse;
+const Scroll = require('react-scroll');
+const { Element } = Scroll;
+const { scroller } = Scroll;
 
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
@@ -67,6 +76,8 @@ export function ClanPage(props) {
   const [direction, setDirection] = useState('asc');
   const [powerClanIndex, setPowenClanIndex] = useState(-1);
   const [clanItemsList, setSelectedClanItemsList] = useState([]);
+
+  const collapseRef = null;
 
   const { app } = props;
 
@@ -128,18 +139,72 @@ export function ClanPage(props) {
         o => o.title === trim(id),
       );
       setPowenClanIndex(findIndexOfPower);
+      if (findIndexOfPower !== -1) {
+        const element = document.getElementById(`power-pannel`);
+        const offset = 0;
+        const bodyRect = document.body.getBoundingClientRect().top;
+        const elementRect = element.getBoundingClientRect().top;
+        const elementPosition = elementRect - bodyRect;
+        const offsetPosition = elementPosition - offset;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
     }
-  }, [props]);
+  }, []);
+
+  useEffect(() => {
+    const element = document.getElementById(
+      `discipline-${powerClanIndex}-power`,
+    );
+
+    if (!isNull(element)) {
+      const goToContainer = new Promise((resolve, reject) => {
+        Events.scrollEvent.register('end', () => {
+          resolve();
+          Events.scrollEvent.remove('end');
+        });
+
+        scroller.scrollTo(`discipline-${powerClanIndex}-power`, {
+          duration: 800,
+          delay: 0,
+          smooth: 'easeInOutQuart',
+        });
+      });
+
+      goToContainer.then(() =>
+        scroller.scrollTo('scroll-container-second-element', {
+          duration: 100,
+          delay: 0,
+          smooth: 'easeInOutQuart',
+          containerId: `discipline-${powerClanIndex}-power`,
+        }),
+      );
+    }
+  }, [powerClanIndex]);
 
   function handleNavItemsClick(e) {
+    // $('.site-collapse-custom-panel')
+    //   .removeClass('ant-collapse-item-active')
+    //   .addClass('ant-collapse-item site-collapse-custom-panel');
+    // $('.ant-collapse-header').attr('aria-expanded', false);
+    // $('.ant-collapse-content').addClass('ant-collapse-content-hidden');
+    renderPowerClans();
     if (e.target) {
       const value = e.target.getAttribute('value');
       const findClanData = find(filterClans, { power: value });
       setSelectedClan(findClanData);
-      const powerOfClansData = filter(clanItemsList, {
-        power: get(findClanData, 'title'),
-      });
-      setPowerOfClans(powerOfClansData);
+      const powerOfClansData = filter(
+        clanItems,
+        o => o.power === trim(get(findClanData, 'title')) && !o.parent,
+      );
+
+      const uniqPowerOfClans = uniqBy(powerOfClansData, 'title');
+
+      const sortedByLevel = orderBy(uniqPowerOfClans, 'level', [direction]);
+      setPowerOfClans(sortedByLevel);
     }
   }
 
@@ -187,7 +252,9 @@ export function ClanPage(props) {
   }
 
   function getFilterPower(data) {
-    return data;
+    const uniqPowerOfClans1 = uniqBy(data, 'title');
+    const sortedByLevel1 = orderBy(uniqPowerOfClans1, 'level', [direction]);
+    return sortedByLevel1;
   }
 
   const groupByData1 = filter(filterClans, o => o.thaumaturgy);
@@ -286,9 +353,298 @@ export function ClanPage(props) {
     setSelectedClanItemsList(filterClanItems);
   }
 
+  console.log(powerOfClans);
+  console.log(collapseRef);
+
+  function renderPowerClans() {
+    return (
+      <p id="power-pannel">
+        {!isEmpty(powerOfClans) ? (
+          <div>
+            <div>
+              <h2>POWERS</h2>
+              <div className="header-disciplines">
+                <div className="disc-cols3 sort-up" style={{ color: 'black' }}>
+                  <span onClick={() => handleClanPower('title')}>NAME</span>
+                </div>
+                <div
+                  className="disc-cols3 hideMobile"
+                  style={{ color: 'black' }}
+                >
+                  <span onClick={() => handleClanPower('level')}>Level</span>
+                </div>
+                <div
+                  className="disc-cols3 hideMobile"
+                  style={{ color: 'black' }}
+                >
+                  <span onClick={() => handleClanPower('cost')}>Cost</span>
+                </div>
+                <div className="indicator" />
+              </div>
+              <div className="listing-body">
+                <Space direction="vertical" style={{ width: '100%' }}>
+                  <div className="listing">
+                    {map(getFilterPower(powerOfClans), (item, index) => (
+                      <p>
+                        <div
+                          id={`discipline-${index}-power`}
+                          className={`item power-discipline discipline-${index}-power`}
+                        >
+                          <div className="disc-cols3">
+                            <span>{item.title}</span>
+                          </div>
+                          <div className="disc-cols3 hideMobile">
+                            <span>{item.level}</span>
+                          </div>
+                          <div className="disc-cols3 hideMobile">
+                            <span>{item.cost}</span>
+                          </div>
+                          <div
+                            className="disc-indicator"
+                            onClick={() => {
+                              if (index === powerClanIndex) {
+                                setPowenClanIndex(-1);
+                              } else {
+                                setPowenClanIndex(index);
+                              }
+                            }}
+                          >
+                            <a
+                              className={`btn btn-primary ${
+                                index === powerClanIndex
+                                  ? 'collaps'
+                                  : 'collapsed'
+                              }`}
+                              data-toggle="collapse"
+                              href={`${item.title}`}
+                              role="button"
+                              aria-expanded="false"
+                              aria-controls={`${item.title}}`}
+                            >
+                              <i className="fa" />
+                            </a>
+                          </div>
+                        </div>
+                        <div
+                          className={
+                            index === powerClanIndex
+                              ? 'collapse show'
+                              : 'collapse'
+                          }
+                          id={`${item.title}`}
+                        >
+                          <div
+                            className="box-summary"
+                            style={{
+                              backgroundColor: '#fff',
+                              border: '1px solid grey',
+                            }}
+                          >
+                            <div>
+                              <p>
+                                {get(item, 'summary[0]', [])}
+                                <Paragraph
+                                  copyable={{
+                                    text: `${
+                                      window.location.origin
+                                    }/vampire/Disciplines/${encodeURIComponent(
+                                      item.title,
+                                    )}`,
+                                  }}
+                                  style={{ marginLeft: 10 }}
+                                >
+                                  {' '}
+                                  <i>Share Link</i>
+                                </Paragraph>
+                              </p>
+
+                              {!isEmpty(get(item, 'quote')) ? (
+                                <blockquote className="blockquote">
+                                  <div
+                                    /* eslint-disable-next-line react/no-danger */
+                                    dangerouslySetInnerHTML={{
+                                      __html: documentToHtmlString(
+                                        item.quote_html,
+                                      ),
+                                    }}
+                                  />
+                                </blockquote>
+                              ) : null}
+                              <p>
+                                <div
+                                  /* eslint-disable-next-line react/no-danger */
+                                  dangerouslySetInnerHTML={{
+                                    __html: documentToHtmlString(
+                                      getSummaryHtml(
+                                        get(item, 'summary_html', ''),
+                                      ),
+                                    ),
+                                  }}
+                                />
+                              </p>
+
+                              {!isEmpty(get(item, 'system')) ? (
+                                <div>
+                                  <h2>SYSTEM</h2>
+                                  <div
+                                    /* eslint-disable-next-line react/no-danger */
+                                    dangerouslySetInnerHTML={{
+                                      __html: documentToHtmlString(
+                                        item.system_html,
+                                      ),
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div />
+                              )}
+
+                              {!isEmpty(get(item, 'exceptional')) ? (
+                                <div>
+                                  <h2>Exceptional Success</h2>
+                                  <Row gutter={[8, 8]}>
+                                    {get(item, 'exceptional')}
+                                  </Row>
+                                </div>
+                              ) : (
+                                <div />
+                              )}
+
+                              {!isEmpty(get(item, 'exceptionalLong')) ? (
+                                <div>
+                                  <h2>Exceptional Success</h2>
+                                  <Row gutter={[8, 8]}>
+                                    <div
+                                      /* eslint-disable-next-line react/no-danger */
+                                      dangerouslySetInnerHTML={{
+                                        __html: documentToHtmlString(
+                                          item.exceptionalLong_html,
+                                        ),
+                                      }}
+                                    />
+                                  </Row>
+                                </div>
+                              ) : (
+                                <div />
+                              )}
+
+                              {!isEmpty(get(item, 'focusDescriptor')) ? (
+                                <div>
+                                  <h2>Focus</h2>
+                                  <Row type="flex" justify="start">
+                                    <u
+                                      style={{
+                                        textDecoration: 'underline',
+                                        textDecorationThickness: '2px',
+                                        textDecorationSkipInk: 'auto',
+                                        textUnderlineOffset: '3px',
+                                        marginBottom: 10,
+                                      }}
+                                    >
+                                      {' '}
+                                      {get(item, 'foci')}
+                                    </u>
+                                    <span>&nbsp;{' : '}&nbsp;</span>
+                                    <div
+                                      style={{ width: '85%' }}
+                                      /* eslint-disable-next-line react/no-danger */
+                                      dangerouslySetInnerHTML={{
+                                        __html: documentToHtmlString(
+                                          item.focusDescriptor_html,
+                                        ),
+                                      }}
+                                    />
+                                  </Row>
+                                </div>
+                              ) : (
+                                <div />
+                              )}
+
+                              {!isEmpty(get(item, 'interactions')) ? (
+                                <div>
+                                  <h2>INTERACTIONS</h2>
+                                  <div
+                                    /* eslint-disable-next-line react/no-danger */
+                                    dangerouslySetInnerHTML={{
+                                      __html: documentToHtmlString(
+                                        item.interactions_html,
+                                      ),
+                                    }}
+                                  />
+                                </div>
+                              ) : (
+                                <div />
+                              )}
+
+                              <p>
+                                {!isEmpty(get(item, 'cost')) ? (
+                                  <div>
+                                    <h2>COST</h2>
+                                    {get(item, 'cost')}
+                                  </div>
+                                ) : (
+                                  <div />
+                                )}
+
+                                {!isEmpty(get(item, 'testPool')) ? (
+                                  <div>
+                                    <h2>TEST POOL</h2>
+                                    {get(item, 'testPool')}
+                                  </div>
+                                ) : (
+                                  <div />
+                                )}
+                              </p>
+                              <p>
+                                {!isEmpty(get(item, 'sourceBook')) ? (
+                                  <p>
+                                    <h2>SOURCE BOOK</h2>
+                                    {!isEmpty(get(item, 'sourceBook')) ? (
+                                      <div>
+                                        {map(get(item, 'sourceBook'), item => (
+                                          <p>
+                                            <p>
+                                              {get(item, 'fields.bookTitle')}
+                                            </p>
+                                            <p>
+                                              {get(item, 'fields.system[0]')}
+                                            </p>
+                                          </p>
+                                        ))}
+                                      </div>
+                                    ) : (
+                                      <div> MET: VTM Source Book</div>
+                                    )}
+                                  </p>
+                                ) : (
+                                  <div />
+                                )}
+                              </p>
+                              {/* <div className="row">
+                                       {renderLink(item)}
+                                     </div> */}
+                            </div>
+                          </div>
+                        </div>
+                      </p>
+                    ))}
+                  </div>
+                </Space>
+              </div>
+            </div>
+          </div>
+        ) : null}
+      </p>
+    );
+  }
+
   return (
     <div className="clan-page">
       {renderHelment()}
+      <Element
+        name="scroll-container-second-element"
+        id="scroll-container-second-element"
+      />
       <div className="container main-content">
         <div className="row">
           <div className="col-md-8 order-md-12">
@@ -317,8 +673,8 @@ export function ClanPage(props) {
                   get(selectedClan, 'title', ''),
                 ) ? (
                   <i>{get(selectedClan, 'title', '')} </i>
-                ) : (
-                    <div />
+                  ) : (
+                  <div />
                   )}
               </h1>
               <h4>{get(selectedClan, 'nickname', '')}</h4>
@@ -525,317 +881,7 @@ export function ClanPage(props) {
                 )}
               </p>
 
-              <p>
-                {!isEmpty(powerOfClans) ? (
-                  <div>
-                    <div>
-                      <h2>POWERS</h2>
-                      <div className="header-disciplines">
-                        <div
-                          className="disc-cols3 sort-up"
-                          style={{ color: 'black' }}
-                        >
-                          <span onClick={() => handleClanPower('title')}>
-                            NAME
-                          </span>
-                        </div>
-                        <div
-                          className="disc-cols3 hideMobile"
-                          style={{ color: 'black' }}
-                        >
-                          <span onClick={() => handleClanPower('level')}>
-                            Level
-                          </span>
-                        </div>
-                        <div
-                          className="disc-cols3 hideMobile"
-                          style={{ color: 'black' }}
-                        >
-                          <span onClick={() => handleClanPower('cost')}>
-                            Cost
-                          </span>
-                        </div>
-                        <div className="indicator" />
-                      </div>
-
-                      <div className="listing-body">
-                        <div className="listing">
-                          {map(getFilterPower(powerOfClans), (item, index) => (
-                            <p>
-                              <div
-                                className={`item discipline-${index}`}
-                                id={`discipline-${index}`}
-                              >
-                                <div className="disc-cols3">
-                                  <span>{item.title}</span>
-                                </div>
-                                <div className="disc-cols3 hideMobile">
-                                  <span>{item.level}</span>
-                                </div>
-                                <div className="disc-cols3 hideMobile">
-                                  <span>{item.cost}</span>
-                                </div>
-                                <div
-                                  className="disc-indicator"
-                                  onClick={() => {
-                                    if (index === powerClanIndex) {
-                                      setPowenClanIndex(-1);
-                                      const element = document.getElementById(
-                                        `discipline-${index}`,
-                                      );
-                                      const offset = 25;
-                                      const bodyRect = document.body.getBoundingClientRect()
-                                        .top;
-                                      const elementRect = element.getBoundingClientRect()
-                                        .top;
-                                      const elementPosition =
-                                        elementRect - bodyRect;
-                                      const offsetPosition =
-                                        elementPosition - offset;
-
-                                      window.scrollTo({
-                                        top: offsetPosition,
-                                        behavior: 'smooth',
-                                      });
-                                    } else {
-                                      setPowenClanIndex(index);
-                                    }
-                                  }}
-                                >
-                                  <a
-                                    className={`btn btn-primary ${
-                                      index === powerClanIndex
-                                        ? 'collaps'
-                                        : 'collapsed'
-                                    }`}
-                                    data-toggle="collapse"
-                                    href={`${item.title}`}
-                                    role="button"
-                                    aria-expanded="false"
-                                    aria-controls={`${item.title}}`}
-                                  >
-                                    <i className="fa" />
-                                  </a>
-                                </div>
-                              </div>
-                              <div
-                                className={
-                                  index === powerClanIndex
-                                    ? 'collapse show'
-                                    : 'collapse'
-                                }
-                                id={`${item.title}`}
-                              >
-                                <div
-                                  className="box-summary"
-                                  style={{
-                                    backgroundColor: '#fff',
-                                    border: '1px solid grey',
-                                  }}
-                                >
-                                  <div>
-                                    <p>
-                                      {get(item, 'summary[0]', [])}
-                                      <Paragraph
-                                        copyable={{
-                                          text: `${
-                                            window.location.origin
-                                          }/vampire/Disciplines/${item.title}`,
-                                        }}
-                                        style={{ marginLeft: 10 }}
-                                      >
-                                        {' '}
-                                        <i>Share Link</i>
-                                      </Paragraph>
-                                    </p>
-
-                                    {!isEmpty(get(item, 'quote')) ? (
-                                      <blockquote className="blockquote">
-                                        <div
-                                          /* eslint-disable-next-line react/no-danger */
-                                          dangerouslySetInnerHTML={{
-                                            __html: documentToHtmlString(
-                                              item.quote_html,
-                                            ),
-                                          }}
-                                        />
-                                      </blockquote>
-                                    ) : null}
-                                    <p>
-                                      <div
-                                        /* eslint-disable-next-line react/no-danger */
-                                        dangerouslySetInnerHTML={{
-                                          __html: documentToHtmlString(
-                                            getSummaryHtml(
-                                              get(item, 'summary_html', ''),
-                                            ),
-                                          ),
-                                        }}
-                                      />
-                                    </p>
-
-                                    {!isEmpty(get(item, 'system')) ? (
-                                      <div>
-                                        <h2>SYSTEM</h2>
-                                        <div
-                                          /* eslint-disable-next-line react/no-danger */
-                                          dangerouslySetInnerHTML={{
-                                            __html: documentToHtmlString(
-                                              item.system_html,
-                                            ),
-                                          }}
-                                        />
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'exceptional')) ? (
-                                      <div>
-                                        <h2>Exceptional Success</h2>
-                                        <Row gutter={[8, 8]}>
-                                          {get(item, 'exceptional')}
-                                        </Row>
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'exceptionalLong')) ? (
-                                      <div>
-                                        <h2>Exceptional Success</h2>
-                                        <Row gutter={[8, 8]}>
-                                          <div
-                                            /* eslint-disable-next-line react/no-danger */
-                                            dangerouslySetInnerHTML={{
-                                              __html: documentToHtmlString(
-                                                item.exceptionalLong_html,
-                                              ),
-                                            }}
-                                          />
-                                        </Row>
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'focusDescriptor')) ? (
-                                      <div>
-                                        <h2>Focus</h2>
-                                        <Row type="flex" justify="start">
-                                          <u
-                                            style={{
-                                              textDecoration: 'underline',
-                                              textDecorationThickness: '2px',
-                                              textDecorationSkipInk: 'auto',
-                                              textUnderlineOffset: '3px',
-                                              marginBottom: 10,
-                                            }}
-                                          >
-                                            {' '}
-                                            {get(item, 'foci')}
-                                          </u>
-                                          <span>&nbsp;{' : '}&nbsp;</span>
-                                          <div
-                                            style={{ width: '85%' }}
-                                            /* eslint-disable-next-line react/no-danger */
-                                            dangerouslySetInnerHTML={{
-                                              __html: documentToHtmlString(
-                                                item.focusDescriptor_html,
-                                              ),
-                                            }}
-                                          />
-                                        </Row>
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    {!isEmpty(get(item, 'interactions')) ? (
-                                      <div>
-                                        <h2>INTERACTIONS</h2>
-                                        <div
-                                          /* eslint-disable-next-line react/no-danger */
-                                          dangerouslySetInnerHTML={{
-                                            __html: documentToHtmlString(
-                                              item.interactions_html,
-                                            ),
-                                          }}
-                                        />
-                                      </div>
-                                    ) : (
-                                      <div />
-                                    )}
-
-                                    <p>
-                                      {!isEmpty(get(item, 'cost')) ? (
-                                        <div>
-                                          <h2>COST</h2>
-                                          {get(item, 'cost')}
-                                        </div>
-                                      ) : (
-                                        <div />
-                                      )}
-
-                                      {!isEmpty(get(item, 'testPool')) ? (
-                                        <div>
-                                          <h2>TEST POOL</h2>
-                                          {get(item, 'testPool')}
-                                        </div>
-                                      ) : (
-                                        <div />
-                                      )}
-                                    </p>
-                                    <p>
-                                      {!isEmpty(get(item, 'sourceBook')) ? (
-                                        <p>
-                                          <h2>SOURCE BOOK</h2>
-                                          {!isEmpty(get(item, 'sourceBook')) ? (
-                                            <div>
-                                              {map(
-                                                get(item, 'sourceBook'),
-                                                item => (
-                                                  <p>
-                                                    <p>
-                                                      {get(
-                                                        item,
-                                                        'fields.bookTitle',
-                                                      )}
-                                                    </p>
-                                                    <p>
-                                                      {get(
-                                                        item,
-                                                        'fields.system[0]',
-                                                      )}
-                                                    </p>
-                                                  </p>
-                                                ),
-                                              )}
-                                            </div>
-                                          ) : (
-                                            <div> MET: VTM Source Book</div>
-                                          )}
-                                        </p>
-                                      ) : (
-                                        <div />
-                                      )}
-                                    </p>
-                                    {/* <div className="row">
-                                       {renderLink(item)}
-                                     </div> */}
-                                  </div>
-                                </div>
-                              </div>
-                            </p>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ) : (
-                  <div />
-                )}
-              </p>
+              {renderPowerClans()}
             </div>
           </div>
           <div className="col-md-4 order-md-1">
@@ -959,6 +1005,7 @@ export function ClanPage(props) {
                             className={`nav-link ${getClassName(items1.power)}`}
                             value={items1.power}
                             onClick={() => {
+                              setPowenClanIndex(-1);
                               window.scrollTo({ top: 0, behavior: 'smooth' });
                             }}
                           >

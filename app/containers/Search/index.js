@@ -39,9 +39,6 @@ export function Search() {
     '5dd9d020035b8948cca3cdbbccca2359',
   );
 
-  // const results = connectStateResults();
-
-  // console.log(results);
   useEffect(() => {
     // const {
     //   attributes: { data: attributesData },
@@ -195,7 +192,7 @@ export function Search() {
           get(searchResults, 'hits', []),
           o => getItems(o) === item,
         );
-        history.push(`/${filterItem.url}`);
+        history.push(`${filterItem.url}`);
       }}
       onSearch={value => !isEmpty(value) ? refine(value) : null}
       notFoundContent={<Empty />}
