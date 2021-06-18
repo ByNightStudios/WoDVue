@@ -63,28 +63,11 @@ const handleClanFilter = (disc, filterClanItems, clansDataWithMerits) => {
       );
 
       if (!isEmpty(filterItems)) {
-        clanItems = filter(filterClanItems, o => {
-          let discName = disc;
-          if (disc.includes(':')) {
-            discName = disc.replace(' : ', ' ');
-          }
-          if (disc.includes('-')) {
-            discName = disc.replace(' - ', ' ');
-          }
-
-          const brand = toLower(get(o, 'clanSpecific[0]'));
-
-          let brandName = brand;
-          if (brand.includes(':')) {
-            brandName = brand.replace(': ', ' ');
-          }
-          if (brand.includes('-')) {
-            brandName = brand.replace(' - ', ' ');
-          }
-
-          const updatedKey = toLower(discName);
-          return brandName.indexOf(updatedKey) > -1;
-        });
+        clanItems = intersectionWith(
+          filterClanItems,
+          filterItems.inClanMerits,
+          compareFunc,
+        );
       } else {
         const filterItems1 = find(
           filterClanItems,
