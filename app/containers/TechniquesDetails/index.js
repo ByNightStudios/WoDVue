@@ -27,6 +27,7 @@ import {
   includes,
   concat,
   trim,
+  remove,
 } from 'lodash';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -394,7 +395,7 @@ export function ClanPage(props) {
                   placeholder="filter by discipline"
                   onChange={handleChangeDisc}
                 >
-                  {map(groupByData3, item => (
+                  {map(remove(groupByData3, n => n !== 'Obfusctae'), item => (
                     <Option value={item}>{item}</Option>
                   ))}
                 </Select>

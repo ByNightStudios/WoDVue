@@ -1,3 +1,5 @@
+/* eslint-disable camelcase */
+/* eslint-disable guard-for-in */
 /* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -10,14 +12,13 @@
  */
 
 import React, { memo, useState, useEffect } from 'react';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find, filter } from 'lodash';
-import { Typography, Divider } from 'antd';
+import { map, get, isEmpty, find, filter, groupBy, sortBy } from 'lodash';
+import { Typography, Menu } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
 
@@ -35,6 +36,8 @@ import saga from './saga';
 import './style.css';
 
 const { Paragraph } = Typography;
+const { SubMenu } = Menu;
+
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -42,6 +45,7 @@ export function ClanPage(props) {
   useInjectReducer({ key: 'homePage', reducer: homePageReducer });
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
+  const [libMenu, setLibMenu] = useState([]);
 
   const {
     app: {
@@ -63,6 +67,23 @@ export function ClanPage(props) {
     const findClanData = find(clanItems, { title: id });
     setSelectedClan(findClanData);
   }, [match]);
+
+  useEffect(() => {
+    const isLibraryEntryClanItems = filter(clanItems, { isLibraryEntry: true });
+    const groupedItems = groupBy(
+      isLibraryEntryClanItems,
+      'directLibraryParent_html.fields.title',
+    );
+
+    const groupedItemsArray = [];
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in groupedItems) {
+      groupedItemsArray.push({ menu: key, menuItem: groupedItems[key] });
+    }
+
+    const sortedGroupItemsArray = sortBy(groupedItemsArray, ['menu'], 'asc');
+    setLibMenu(sortedGroupItemsArray);
+  }, [clanItems]);
 
   function handleNavItemsClick(e) {
     if (e.target) {
@@ -91,9 +112,6 @@ export function ClanPage(props) {
     }
     return `icon-${item}`;
   }
-
-  console.log(clanItems_1);
-  console.log(clanItems_2);
 
   return (
     <div className="clan-page">
@@ -306,60 +324,63 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>LIBRARY</h3>
               <ul className="nav flex-column nav-clans">
-                {map(filterClans, (items, index) => (
-                  <li
-                    className="nav-item"
-                    onClick={handleNavItemsClick}
-                    value={items.title}
-                    key={index}
-                  >
-                    <Link
-                      to={`/vampire/Library/${items.title}`}
-                      className={`nav-link ${getClassName(items.title)}`}
-                      value={items.title}
-                      onClick={() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    >
-                      {items.title}
-                    </Link>
-                  </li>
-                ))}
-                <Divider />
-                {map(clanItems_1, (items, index) => (
-                  <li className="nav-item" value={items.attributes} key={index}>
-                    <Link
-                      to={`/vampire/Attributes/${items.attribute}`}
-                      className={`nav-link ${getClassName(items.attribute)}`}
-                      value={items.attribute}
-                      onClick={() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    >
-                      {items.attribute}
-                    </Link>
-                  </li>
-                ))}
-                <Divider />
-                {map(clanItems_2, (items, index) => (
-                  <li
-                    className="nav-item"
-                    onClick={handleNavItemsClick}
-                    value={items.title}
-                    key={index}
-                  >
-                    <Link
-                      to={`/vampire/Backgrounds/${items.title}`}
-                      className={`nav-link ${getClassName(items.title)}`}
-                      value={items.title}
-                      onClick={() => {
-                        window.scrollTo({ top: 0, behavior: 'smooth' });
-                      }}
-                    >
-                      {items.title}
-                    </Link>
-                  </li>
-                ))}
+                <Menu
+                  onClick={() => console.log('clicked')}
+                  defaultSelectedKeys={['1']}
+                  defaultOpenKeys={['sub1']}
+                  mode="inline"
+                >
+                  {map(libMenu, (items, index) => (
+                    <SubMenu key={items.menu + index} title={items.menu}>
+                      {map(items.menuItem, (item, indexItem) => (
+                        <Menu.Item key={indexItem + item}>
+                          <Link
+                            to={`/vampire/Library/${item.title}`}
+                            className={`nav-link ${getClassName(item.title)}`}
+                            value={item.title}
+                            onClick={() => {
+                              window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                          >
+                            {item.title}
+                          </Link>
+                        </Menu.Item>
+                      ))}
+                    </SubMenu>
+                  ))}
+                  <SubMenu key="Attribute" title="Attribute">
+                    {map(clanItems_1, (item, indexItem) => (
+                      <Menu.Item key={indexItem + item}>
+                        <Link
+                          to={`/vampire/Attributes/${item.attribute}`}
+                          className={`nav-link ${getClassName(item.attribute)}`}
+                          value={item.attribute}
+                          onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          {item.attribute}
+                        </Link>
+                      </Menu.Item>
+                    ))}
+                  </SubMenu>
+                  <SubMenu key="Backgrounds" title="Backgrounds">
+                    {map(clanItems_2, (item, indexItem) => (
+                      <Menu.Item key={indexItem + item}>
+                        <Link
+                          to={`/vampire/Backgrounds/${item.title}`}
+                          className={`nav-link ${getClassName(item.title)}`}
+                          value={item.title}
+                          onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          {item.title}
+                        </Link>
+                      </Menu.Item>
+                    ))}
+                  </SubMenu>
+                </Menu>
               </ul>
             </div>
           </div>
@@ -371,8 +392,6 @@ export function ClanPage(props) {
 
 ClanPage.propTypes = {
   ...ClanPage,
-  onRequestData: PropTypes.func,
-  homePage: PropTypes.object,
 };
 
 const mapStateToProps = createStructuredSelector({
