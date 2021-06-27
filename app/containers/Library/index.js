@@ -165,7 +165,7 @@ export function ClanPage(props) {
                 }}
               >
                 <u>
-                  {index + 1} &nbsb;{item.title}
+                  {index + 1}{' '}{item.title}
                 </u>
               </Link>
             }
