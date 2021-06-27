@@ -152,7 +152,7 @@ export function ClanPage(props) {
     );
     return (
       <Menu.ItemGroup key={title1}>
-        {map(itemsOfSubMenu, item => (
+        {map(itemsOfSubMenu, (item, index) => (
           <SubMenu
             style={{ paddingLeft: 0 }}
             key={item.title}
@@ -164,7 +164,9 @@ export function ClanPage(props) {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                {item.title}
+                <u>
+                  {index + 1} &nbsb;{item.title}
+                </u>
               </Link>
             }
           >
@@ -403,7 +405,7 @@ export function ClanPage(props) {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                           }}
                         >
-                          {item.title}
+                          <b>{item.title}</b>
                         </Link>
                       }
                     >
