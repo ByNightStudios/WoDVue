@@ -17,3 +17,11 @@
 .content-page-wrap {
   white-space: pre-wrap;
 }
+
+.ant-menu-submenu-title {
+  padding-left: 0px !important;
+}
+
+.ant-menu-item {
+  padding-left: 25px !important;
+}

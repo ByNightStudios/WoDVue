@@ -17,7 +17,16 @@ import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
 import { compose } from 'redux';
-import { map, get, isEmpty, find, filter, groupBy, sortBy } from 'lodash';
+import {
+  map,
+  get,
+  isEmpty,
+  find,
+  filter,
+  groupBy,
+  sortBy,
+  concat,
+} from 'lodash';
 import { Typography, Menu } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
 import { useInjectReducer } from 'utils/injectReducer';
@@ -46,6 +55,8 @@ export function ClanPage(props) {
   useInjectSaga({ key: 'homePage', saga: homePageSaga });
   const [selectedClan, setSelectedClan] = useState('');
   const [libMenu, setLibMenu] = useState([]);
+  const [subItemsList, setSubItemsList] = useState([]);
+  const [subItemsList1, setSubItemsList1] = useState([]);
 
   const {
     app: {
@@ -70,16 +81,13 @@ export function ClanPage(props) {
 
   useEffect(() => {
     const isLibraryEntryClanItems = filter(clanItems, { isLibraryEntry: true });
-    const groupedItems = groupBy(
-      isLibraryEntryClanItems,
-      'directLibraryParent_html.fields.title',
-    );
+    const groupedItems = groupBy(isLibraryEntryClanItems, 'libraryTreeLevel');
+    const groupedItemsArray = groupedItems[1];
 
-    const groupedItemsArray = [];
-    // eslint-disable-next-line no-restricted-syntax
-    for (const key in groupedItems) {
-      groupedItemsArray.push({ menu: key, menuItem: groupedItems[key] });
-    }
+    const subItems = concat(groupedItems[2]);
+    setSubItemsList(subItems);
+    setSubItemsList1(groupedItems[3]);
+    // // eslint-disable-next-line no-restricted-syntax
 
     const sortedGroupItemsArray = sortBy(groupedItemsArray, ['menu'], 'asc');
     setLibMenu(sortedGroupItemsArray);
@@ -111,6 +119,60 @@ export function ClanPage(props) {
       return 'icon-DaughtersofCacophony';
     }
     return `icon-${item}`;
+  }
+
+  function getRenderSubItems2(title1) {
+    const itemsOfSubMenu = filter(
+      subItemsList1,
+      item => item.directLibraryParent_html.fields.title === title1,
+    );
+    return (
+      <Menu.ItemGroup key={title1}>
+        {map(itemsOfSubMenu, item => (
+          <Menu.Item key={item.title}>
+            <Link
+              to={`/vampire/Library/${item.title}`}
+              value={item.title}
+              onClick={() => {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            >
+              {item.title}
+            </Link>
+          </Menu.Item>
+        ))}
+      </Menu.ItemGroup>
+    );
+  }
+
+  function getRenderSubItems(title1) {
+    const itemsOfSubMenu = filter(
+      subItemsList,
+      item => item.directLibraryParent_html.fields.title === title1,
+    );
+    return (
+      <Menu.ItemGroup key={title1}>
+        {map(itemsOfSubMenu, item => (
+          <SubMenu
+            style={{ paddingLeft: 0 }}
+            key={item.title}
+            title={
+              <Link
+                to={`/vampire/Library/${item.title}`}
+                value={item.title}
+                onClick={() => {
+                  window.scrollTo({ top: 0, behavior: 'smooth' });
+                }}
+              >
+                {item.title}
+              </Link>
+            }
+          >
+            {getRenderSubItems2(item.title)}
+          </SubMenu>
+        ))}
+      </Menu.ItemGroup>
+    );
   }
 
   return (
@@ -330,22 +392,22 @@ export function ClanPage(props) {
                   defaultOpenKeys={['sub1']}
                   mode="inline"
                 >
-                  {map(libMenu, (items, index) => (
-                    <SubMenu key={items.menu + index} title={items.menu}>
-                      {map(items.menuItem, (item, indexItem) => (
-                        <Menu.Item key={indexItem + item}>
-                          <Link
-                            to={`/vampire/Library/${item.title}`}
-                            className={`nav-link ${getClassName(item.title)}`}
-                            value={item.title}
-                            onClick={() => {
-                              window.scrollTo({ top: 0, behavior: 'smooth' });
-                            }}
-                          >
-                            {item.title}
-                          </Link>
-                        </Menu.Item>
-                      ))}
+                  {map(libMenu, (item, index) => (
+                    <SubMenu
+                      key={item.title + index}
+                      title={
+                        <Link
+                          to={`/vampire/Library/${item.title}`}
+                          value={item.title}
+                          onClick={() => {
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                          }}
+                        >
+                          {item.title}
+                        </Link>
+                      }
+                    >
+                      {getRenderSubItems(item.title)}
                     </SubMenu>
                   ))}
                   <SubMenu key="Attribute" title="Attribute">
