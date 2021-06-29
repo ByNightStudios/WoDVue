@@ -115,9 +115,11 @@
     "redux-persist-immutable": "^4.3.1",
     "redux-saga": "1.0.2",
     "reselect": "4.0.0",
+    "robotjs": "^0.6.0",
     "safe-json-stringify": "^1.2.0",
     "sanitize.css": "8.0.0",
     "styled-components": "4.2.0",
+    "txtgen": "^2.2.8",
     "underscore": "^1.12.0",
     "write-json-file": "^4.3.0"
   },

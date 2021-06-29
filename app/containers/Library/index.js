@@ -129,13 +129,14 @@ export function ClanPage(props) {
     return (
       <Menu.ItemGroup key={title1}>
         {map(itemsOfSubMenu, item => (
-          <Menu.Item key={item.title}>
+          <Menu.Item key={item.title} expandIcon={null}>
             <Link
               to={`/vampire/Library/${item.title}`}
               value={item.title}
               onClick={() => {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
+              style={{ color: '#1890ff' }}
             >
               {item.title}
             </Link>
@@ -156,6 +157,7 @@ export function ClanPage(props) {
           <SubMenu
             style={{ paddingLeft: 0 }}
             key={item.title}
+            expandIcon={null}
             title={
               <Link
                 to={`/vampire/Library/${item.title}`}
@@ -164,9 +166,7 @@ export function ClanPage(props) {
                   window.scrollTo({ top: 0, behavior: 'smooth' });
                 }}
               >
-                <u>
-                  {index + 1}{' '}{item.title}
-                </u>
+                {item.title}
               </Link>
             }
           >
@@ -397,6 +397,7 @@ export function ClanPage(props) {
                   {map(libMenu, (item, index) => (
                     <SubMenu
                       key={item.title + index}
+                      itemIcon={null}
                       title={
                         <Link
                           to={`/vampire/Library/${item.title}`}
@@ -405,7 +406,7 @@ export function ClanPage(props) {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
                           }}
                         >
-                          <b>{item.title}</b>
+                          {item.title}
                         </Link>
                       }
                     >
