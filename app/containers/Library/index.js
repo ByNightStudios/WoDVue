@@ -26,6 +26,7 @@ import {
   groupBy,
   sortBy,
   concat,
+  includes,
 } from 'lodash';
 import { Typography, Menu } from 'antd';
 import { useInjectSaga } from 'utils/injectSaga';
@@ -37,7 +38,7 @@ import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
 
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-
+import { DownOutlined } from '@ant-design/icons';
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -69,6 +70,19 @@ export function ClanPage(props) {
 
   const filterClans = filter(clanItems, o => !o.exclude);
 
+  const hasSubMenu = (item1, item2) => {
+    const parentClans = map(
+      item2,
+      data2 => data2.directLibraryParent_html.fields.title,
+    );
+    const mappedItems = map(item1, data => ({
+      ...data,
+      hasSubMenu: includes(parentClans, data.title),
+    }));
+
+    return mappedItems;
+  };
+
   useEffect(() => {
     const {
       match: {
@@ -82,13 +96,12 @@ export function ClanPage(props) {
   useEffect(() => {
     const isLibraryEntryClanItems = filter(clanItems, { isLibraryEntry: true });
     const groupedItems = groupBy(isLibraryEntryClanItems, 'libraryTreeLevel');
-    const groupedItemsArray = groupedItems[1];
 
     const subItems = concat(groupedItems[2]);
     setSubItemsList(subItems);
     setSubItemsList1(groupedItems[3]);
     // // eslint-disable-next-line no-restricted-syntax
-
+    const groupedItemsArray = hasSubMenu(groupedItems[1], subItems);
     const sortedGroupItemsArray = sortBy(groupedItemsArray, ['menu'], 'asc');
     setLibMenu(sortedGroupItemsArray);
   }, [clanItems]);
@@ -128,8 +141,17 @@ export function ClanPage(props) {
     );
     return (
       <Menu.ItemGroup key={title1}>
-        {map(itemsOfSubMenu, item => (
-          <Menu.Item key={item.title} expandIcon={null}>
+        {map(hasSubMenu(itemsOfSubMenu, subItemsList1), item => (
+          <Menu.Item
+            key={item.title}
+            expandIcon={
+              item.hasSubMenu ? (
+                <i className="ant-menu-submenu-arrow" />
+              ) : (
+                <span />
+              )
+            }
+          >
             <Link
               to={`/vampire/Library/${item.title}`}
               value={item.title}
@@ -151,13 +173,20 @@ export function ClanPage(props) {
       subItemsList,
       item => item.directLibraryParent_html.fields.title === title1,
     );
+
     return (
       <Menu.ItemGroup key={title1}>
-        {map(itemsOfSubMenu, (item, index) => (
+        {map(hasSubMenu(itemsOfSubMenu, subItemsList1), item => (
           <SubMenu
             style={{ paddingLeft: 0 }}
             key={item.title}
-            expandIcon={null}
+            expandIcon={
+              item.hasSubMenu ? (
+                <i className="ant-menu-submenu-arrow" />
+              ) : (
+                <span />
+              )
+            }
             title={
               <Link
                 to={`/vampire/Library/${item.title}`}
@@ -397,7 +426,13 @@ export function ClanPage(props) {
                   {map(libMenu, (item, index) => (
                     <SubMenu
                       key={item.title + index}
-                      itemIcon={null}
+                      expandIcon={
+                        item.hasSubMenu ? (
+                          <i className="ant-menu-submenu-arrow" />
+                        ) : (
+                          <span />
+                        )
+                      }
                       title={
                         <Link
                           to={`/vampire/Library/${item.title}`}
