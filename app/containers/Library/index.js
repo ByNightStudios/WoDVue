@@ -38,7 +38,6 @@ import makeSelectHomePage from 'containers/HomePage/selectors';
 import { makeSelectApp } from 'containers/App/selectors';
 
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
-import { DownOutlined } from '@ant-design/icons';
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
@@ -58,6 +57,7 @@ export function ClanPage(props) {
   const [libMenu, setLibMenu] = useState([]);
   const [subItemsList, setSubItemsList] = useState([]);
   const [subItemsList1, setSubItemsList1] = useState([]);
+  const [openMenu, setOpenMenu] = useState([]);
 
   const {
     app: {
@@ -90,6 +90,11 @@ export function ClanPage(props) {
       },
     } = props;
     const findClanData = find(clanItems, { title: id });
+    const openedItem = get(
+      findClanData,
+      'directLibraryParent_html.fields.title',
+    );
+    setOpenMenu(openedItem);
     setSelectedClan(findClanData);
   }, [match]);
 
@@ -206,6 +211,7 @@ export function ClanPage(props) {
     );
   }
 
+  console.log(openMenu)
   return (
     <div className="clan-page">
       <Helmet>
@@ -417,7 +423,7 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>LIBRARY</h3>
               <ul className="nav flex-column nav-clans">
-                <Menu mode="inline">
+                <Menu mode="inline" defaultSelectedKeys={[openMenu]}>
                   {map(libMenu, item => (
                     <SubMenu
                       key={item.title}
@@ -434,6 +440,7 @@ export function ClanPage(props) {
                           value={item.title}
                           onClick={() => {
                             window.scrollTo({ top: 0, behavior: 'smooth' });
+                            setOpenMenu(item.title);
                           }}
                         >
                           {item.title}
