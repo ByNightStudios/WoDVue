@@ -417,15 +417,10 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>LIBRARY</h3>
               <ul className="nav flex-column nav-clans">
-                <Menu
-                  onClick={() => console.log('clicked')}
-                  defaultSelectedKeys={['1']}
-                  defaultOpenKeys={['sub1']}
-                  mode="inline"
-                >
-                  {map(libMenu, (item, index) => (
+                <Menu mode="inline">
+                  {map(libMenu, item => (
                     <SubMenu
-                      key={item.title + index}
+                      key={item.title}
                       expandIcon={
                         item.hasSubMenu ? (
                           <i className="ant-menu-submenu-arrow" />
