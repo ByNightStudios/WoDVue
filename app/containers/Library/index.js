@@ -41,12 +41,11 @@ import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import makeSelectClanPage from './selectors';
 import reducer from './reducer';
 import saga from './saga';
-
+import renderMenu from './menu';
 import './style.css';
 
 const { Paragraph } = Typography;
 const { SubMenu } = Menu;
-
 export function ClanPage(props) {
   useInjectReducer({ key: 'clanPage', reducer });
   useInjectSaga({ key: 'clanPage', saga });
@@ -68,8 +67,6 @@ export function ClanPage(props) {
     match,
   } = props;
 
-  const filterClans = filter(clanItems, o => !o.exclude);
-
   const hasSubMenu = (item1, item2) => {
     const parentClans = map(
       item2,
@@ -83,6 +80,8 @@ export function ClanPage(props) {
     return mappedItems;
   };
 
+  const filterClans = filter(clanItems, o => !o.exclude);
+
   useEffect(() => {
     const {
       match: {
@@ -94,7 +93,12 @@ export function ClanPage(props) {
       findClanData,
       'directLibraryParent_html.fields.title',
     );
-    setOpenMenu(openedItem);
+    if (openedItem) {
+      setOpenMenu(openedItem);
+    } else {
+      setOpenMenu(id);
+    }
+
     setSelectedClan(findClanData);
   }, [match]);
 
@@ -139,79 +143,6 @@ export function ClanPage(props) {
     return `icon-${item}`;
   }
 
-  function getRenderSubItems2(title1) {
-    const itemsOfSubMenu = filter(
-      subItemsList1,
-      item => item.directLibraryParent_html.fields.title === title1,
-    );
-    return (
-      <Menu.ItemGroup key={title1}>
-        {map(hasSubMenu(itemsOfSubMenu, subItemsList1), item => (
-          <Menu.Item
-            key={item.title}
-            expandIcon={
-              item.hasSubMenu ? (
-                <i className="ant-menu-submenu-arrow" />
-              ) : (
-                <span />
-              )
-            }
-          >
-            <Link
-              to={`/vampire/Library/${item.title}`}
-              value={item.title}
-              onClick={() => {
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              style={{ color: '#1890ff' }}
-            >
-              {item.title}
-            </Link>
-          </Menu.Item>
-        ))}
-      </Menu.ItemGroup>
-    );
-  }
-
-  function getRenderSubItems(title1) {
-    const itemsOfSubMenu = filter(
-      subItemsList,
-      item => item.directLibraryParent_html.fields.title === title1,
-    );
-
-    return (
-      <Menu.ItemGroup key={title1}>
-        {map(hasSubMenu(itemsOfSubMenu, subItemsList1), item => (
-          <SubMenu
-            style={{ paddingLeft: 0 }}
-            key={item.title}
-            expandIcon={
-              item.hasSubMenu ? (
-                <i className="ant-menu-submenu-arrow" />
-              ) : (
-                <span />
-              )
-            }
-            title={
-              <Link
-                to={`/vampire/Library/${item.title}`}
-                value={item.title}
-                onClick={() => {
-                  window.scrollTo({ top: 0, behavior: 'smooth' });
-                }}
-              >
-                {item.title}
-              </Link>
-            }
-          >
-            {getRenderSubItems2(item.title)}
-          </SubMenu>
-        ))}
-      </Menu.ItemGroup>
-    );
-  }
-
-  console.log(openMenu)
   return (
     <div className="clan-page">
       <Helmet>
@@ -423,33 +354,14 @@ export function ClanPage(props) {
             <div className="boxWhite">
               <h3>LIBRARY</h3>
               <ul className="nav flex-column nav-clans">
-                <Menu mode="inline" defaultSelectedKeys={[openMenu]}>
-                  {map(libMenu, item => (
-                    <SubMenu
-                      key={item.title}
-                      expandIcon={
-                        item.hasSubMenu ? (
-                          <i className="ant-menu-submenu-arrow" />
-                        ) : (
-                          <span />
-                        )
-                      }
-                      title={
-                        <Link
-                          to={`/vampire/Library/${item.title}`}
-                          value={item.title}
-                          onClick={() => {
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                            setOpenMenu(item.title);
-                          }}
-                        >
-                          {item.title}
-                        </Link>
-                      }
-                    >
-                      {getRenderSubItems(item.title)}
-                    </SubMenu>
-                  ))}
+                {renderMenu(
+                  libMenu,
+                  subItemsList,
+                  subItemsList1,
+                  openMenu,
+                  setOpenMenu,
+                )}
+                <Menu mode="inline">
                   <SubMenu key="Attribute" title="Attribute">
                     {map(clanItems_1, (item, indexItem) => (
                       <Menu.Item key={indexItem + item}>
