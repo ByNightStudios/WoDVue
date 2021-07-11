@@ -4,7 +4,13 @@ import { map, filter, includes, trim } from 'lodash';
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
 
-function renderMenu(libMenu, subItemsList, subItemsList1, openMenu, setOpenMenu) {
+function renderMenu(
+  libMenu,
+  subItemsList,
+  subItemsList1,
+  openMenu,
+  setOpenMenu,
+) {
   console.log(openMenu);
   const hasSubMenu = (item1, item2) => {
     const parentClans = map(
@@ -25,9 +31,9 @@ function renderMenu(libMenu, subItemsList, subItemsList1, openMenu, setOpenMenu)
       item => item.directLibraryParent_html.fields.title === title1,
     );
     return (
-      <Menu.ItemGroup key={title1}>
+      <Menu key={title1} openKeys={['The Auctoritas Ritae (Sabbat)']}>
         {map(hasSubMenu(itemsOfSubMenu, subItemsList1), item => (
-          <Menu.Item
+          <SubMenu
             key={item.title}
             expandIcon={
               item.hasSubMenu ? (
@@ -47,9 +53,9 @@ function renderMenu(libMenu, subItemsList, subItemsList1, openMenu, setOpenMenu)
             >
               {item.title}
             </Link>
-          </Menu.Item>
+          </SubMenu>
         ))}
-      </Menu.ItemGroup>
+      </Menu>
     );
   }
 
@@ -60,7 +66,7 @@ function renderMenu(libMenu, subItemsList, subItemsList1, openMenu, setOpenMenu)
     );
 
     return (
-      <Menu.ItemGroup key={title1}>
+      <Menu key={title1}>
         {map(hasSubMenu(itemsOfSubMenu, subItemsList1), item => (
           <SubMenu
             style={{ paddingLeft: 0 }}
@@ -87,12 +93,16 @@ function renderMenu(libMenu, subItemsList, subItemsList1, openMenu, setOpenMenu)
             {getRenderSubItems2(item.title)}
           </SubMenu>
         ))}
-      </Menu.ItemGroup>
+      </Menu>
     );
   }
 
   return (
-    <Menu mode="inline" openKeys={[trim(openMenu)]}>
+    <Menu
+      mode="inline"
+      openKeys={['The Auctoritas Ritae (Sabbat)', 'Sabbat']}
+      multiple
+    >
       {map(libMenu, item => (
         <SubMenu
           key={item.title}
